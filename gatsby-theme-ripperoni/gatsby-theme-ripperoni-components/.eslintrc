@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "@packdigital/eslint-config-ripperoni"
+  ]
+}

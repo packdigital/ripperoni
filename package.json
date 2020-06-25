@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "workspaces": [
+    "ripperoni-starter",
+    "ripperoni-utilities",
+    "ripperoni-account",
+    "ripperoni-shareable-configs/*",
+    "gatsby-theme-ripperoni/*"
+  ]
+}
