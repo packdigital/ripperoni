@@ -16,6 +16,7 @@ const recoverPassword = async ({ email }) => {
   return {
     accessToken: null,
     customer: {},
+    loggedIn: false,
   };
 };
 
