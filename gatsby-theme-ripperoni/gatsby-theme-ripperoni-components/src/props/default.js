@@ -6,6 +6,7 @@ export const sxProps = [
   'display',
   'height',
   'width',
+  'flexBasis',
   'maxWidth',
   'position',
   'zIndex',

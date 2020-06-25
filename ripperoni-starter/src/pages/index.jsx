@@ -27,7 +27,6 @@ const IndexPage = props => {
         around
         wrap
       >
-        {console.log('theme', theme)}
         <Heading>Homepage</Heading>
         <Text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Text>
         <div>bye!</div>

@@ -7,7 +7,7 @@ import { CustomerContext } from '../../context/CustomerContext';
 
 
 export const SignUpForm = props => {
-  const { customer, create } = useContext(CustomerContext);
+  const { state, create } = useContext(CustomerContext);
 
   const EmailInput = props => (
     <Input
@@ -66,7 +66,7 @@ export const SignUpForm = props => {
         as={PasswordInput}
       />
 
-      <Loader.Hoc loading={customer.loading?.['customer-create']}>
+      <Loader.Hoc loading={state.loading?.['customer-create']}>
         <Button>
           Sign Up
         </Button>

@@ -11,6 +11,7 @@ import { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import  { jsx } from 'theme-ui';
 import { useInView } from 'react-intersection-observer';
+
 import { isBrowser } from '@packdigital/ripperoni-utilities';
 
 import { InViewChildrenRendered } from './InViewChildrenRendered';

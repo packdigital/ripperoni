@@ -1,6 +1,7 @@
-import { merge } from 'theme-ui';
+import deepmerge from 'deepmerge';
 
 import AccountTheme from '@packdigital/gatsby-theme-ripperoni-account/src/gatsby-plugin-theme-ui';
+import ComponentsTheme from '@packdigital/gatsby-theme-ripperoni-components/src/gatsby-plugin-theme-ui';
 
 
 import { fontWeights } from '../theme/fontWeights';
@@ -36,7 +37,7 @@ const theme = {
   components,
   fonts,
   fontSizes,
-  // forms,
+  forms,
   letterSpacings,
   lineHeights,
   opacities,
@@ -48,9 +49,10 @@ const theme = {
   zIndices,
 };
 
-const mergedThemes = merge(
+const mergedThemes = deepmerge.all([
   AccountTheme,
+  ComponentsTheme,
   theme
-);
+]);
 
 export default mergedThemes;

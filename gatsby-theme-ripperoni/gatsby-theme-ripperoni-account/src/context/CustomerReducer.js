@@ -3,6 +3,7 @@ export const initialState = {
   accessToken: null,
   customer: null,
   errors: {},
+  loggedIn: null,
 };
 
 const requestAccount = async ({ request: action, data = {}}, accessToken, signal) => {
@@ -32,6 +33,7 @@ export const reducer = (state, action) => {
     case 'LOGOUT':
       return {
         ...initialState,
+        loggedIn: false,
         customer: {},
         errors: action.errors,
       };

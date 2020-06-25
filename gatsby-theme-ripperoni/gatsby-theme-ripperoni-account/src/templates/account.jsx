@@ -19,9 +19,9 @@ const AccountPage = props => {
 };
 
 const AccountRouter = props => {
-  const { customer } = useContext(CustomerContext);
+  const { state } = useContext(CustomerContext);
 
-  if (customer.customer === null || customer.loading?.['customer-get']) {
+  if (state.customer === null || state.loading?.['customer-get']) {
     return (
       // make sure this flex takes up as much height as possible
       <Flex
@@ -34,7 +34,7 @@ const AccountRouter = props => {
     );
   }
 
-  const hasCustomer = Object.keys(customer.customer).length > 0;
+  const hasCustomer = state.customer !== null;
 
   return (
     <Router basepath='/account'>
@@ -79,10 +79,13 @@ const AccountRouter = props => {
         {...props}
         path='/activate/:customerId/:activateToken'
       />
-
-      <Pages.Logout
+{console.log('sup')}
+      <PrivateRoute
         {...props}
         path='/logout'
+        condition={hasCustomer}
+        public={Pages.Logout.Public}
+        private={Pages.Logout.Private}
       />
     </Router>
   );

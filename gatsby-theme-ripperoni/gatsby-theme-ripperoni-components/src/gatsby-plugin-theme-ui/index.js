@@ -1,6 +1,8 @@
 import { sizes } from '../theme/sizes';
 
 
-export default {
+const theme = {
   sizes,
 };
+
+export default theme;

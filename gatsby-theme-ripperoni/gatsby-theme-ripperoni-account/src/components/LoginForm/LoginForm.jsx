@@ -10,7 +10,7 @@ export const LoginForm = ({
   recoverPasswordToggle,
   ...props
 }) => {
-  const { customer, login } = useContext(CustomerContext);
+  const { state, login } = useContext(CustomerContext);
 
   const EmailInput = props => (
     <Input
@@ -51,7 +51,7 @@ export const LoginForm = ({
         as={PasswordInput}
       />
 
-      <Loader.Hoc loading={customer.loading?.['customer-login']}>
+      <Loader.Hoc loading={state.loading?.['customer-login']}>
         <Button.Link
           onClick={event => {
             event.preventDefault();

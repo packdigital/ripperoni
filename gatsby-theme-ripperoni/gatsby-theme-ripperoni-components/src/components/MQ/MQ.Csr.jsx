@@ -2,6 +2,7 @@
 import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 import { useResponsiveValue } from '@theme-ui/match-media';
+
 import { isBrowser } from '@packdigital/ripperoni-utilities';
 
 import { useResponsiveProp } from '../../hooks/useResponsiveProp';

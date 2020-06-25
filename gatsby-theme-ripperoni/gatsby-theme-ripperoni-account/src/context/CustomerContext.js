@@ -1,9 +1,10 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { useReducerAsync } from 'use-reducer-async';
+
 import { isBrowser } from '@packdigital/ripperoni-utilities';
 
 import { createActions } from './CustomerActions';
-import { initialState, reducer, asyncActionHandlers } from './CustomerReducer';
+import { asyncActionHandlers, initialState, reducer } from './CustomerReducer';
 
 
 export const CustomerContext = createContext();
@@ -42,7 +43,7 @@ export const CustomerContextProvider = ({ children, ...props }) => {
   }, [state.customer]);
 
   const value = {
-    customer: state,
+    state,
     ...actions,
   };
 

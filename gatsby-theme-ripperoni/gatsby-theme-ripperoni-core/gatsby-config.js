@@ -9,6 +9,7 @@
 require('./gatsby/config/log-environments');
 
 const path = require('path');
+
 const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
 
 
@@ -23,9 +24,17 @@ module.exports = ({
     ...aliasOptions
   } = {},
 }) => {
-  console.log('path.join(root, node_modules/@packdigital/gatsby-theme-ripperoni-components/src)', path.join(root, 'node_modules/@packdigital/gatsby-theme-ripperoni-components/src'));
   const plugins = [
-    'gatsby-plugin-eslint',
+    {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        exclude: /(node_modules|.cache|public|ripperoni-utilities)/,
+        options: {
+          emitWarning: true,
+          failOnError: false
+        }
+      }
+    },
     ...conditionallyIncludePlugin({
       resolve: 'gatsby-plugin-root-import',
       options: aliasOptions,

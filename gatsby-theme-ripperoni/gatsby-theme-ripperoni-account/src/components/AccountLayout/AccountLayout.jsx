@@ -11,25 +11,25 @@ export const AccountLayout = ({
   children,
   ...props
 }) => {
-  const { customer } = useContext(CustomerContext);
+  const { state } = useContext(CustomerContext);
 
   return (
-    <Flex.Col>
-      <Box>
-        <Heading>Hey {customer.firstName}</Heading>
-        <Link href={`mailto:${customer.email}`}>{customer.email}</Link>
+    <Flex.Col variant='layout.account'>
+      <Box className='account-layout-user-meta'>
+        <Heading>Hey {state.customer.firstName}</Heading>
+        <Link href={`mailto:${state.customer.email}`}>{state.customer.email}</Link>
       </Box>
 
-      <Box>
+      <Box className='account-layout-navigation'>
         <AccountNavigation path={path} />
       </Box>
 
-      <Box>
+      <Box className='account-layout-contact'>
         <Text>Need Help?</Text>
         <Link href='mailto:help@domain.com'>help@domain.com</Link>
       </Box>
 
-      <Box>
+      <Box className='account-layout-content'>
         {children}
       </Box>
     </Flex.Col>

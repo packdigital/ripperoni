@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@packdigital/ripperoni-starter",
   "version": "1.1.7",
   "description": "",
@@ -33,7 +32,7 @@
     "@packdigital/ripperoni-account": "^0.0.6",
     "@packdigital/ripperoni-utilities": "^2.0.30",
     "dotenv": "^8.2.0",
-    "gatsby": "^2.21.22",
+    "gatsby": "^2.23.11",
     "gatsby-plugin-netlify": "^2.3.2",
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-root-import": "^2.0.5",

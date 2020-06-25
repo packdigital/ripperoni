@@ -59,7 +59,9 @@ export const useSxProps = (incomingProps, possibleProps = []) => {
       };
     }, sxProps);
 
-  delete props.sx;
+  if (props?.sx) {
+    delete props.sx;
+  }
 
   return { sxObject, props };
 };
