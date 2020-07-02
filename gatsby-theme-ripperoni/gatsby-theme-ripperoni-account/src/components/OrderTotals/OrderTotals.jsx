@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex, Price, Text } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Flex, Price, Text } from '@ripperoni/components';
 
 
 export const Totals = ({

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Date, Flex, Link, Price } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Date, Flex, Link, Price } from '@ripperoni/components';
 
 import { OrderTableCell as Cell } from './OrderTableCell';
 

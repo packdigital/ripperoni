@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, Grid } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Container, Grid } from '@ripperoni/components';
 
 import { UserMeta } from  '../../components/UserMeta';
 import { AccountNavigation } from  '../../components/AccountNavigation';

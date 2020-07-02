@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Container } from '@ripperoni/components';
 
 
 export const LoggedOut = ({ children }) => {

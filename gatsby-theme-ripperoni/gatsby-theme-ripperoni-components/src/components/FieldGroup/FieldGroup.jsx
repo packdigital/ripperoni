@@ -13,21 +13,23 @@ export const FieldGroup = forwardRef(({
   label,
   name,
   defaultValue,
+  variant,
   ...incomingProps
 }, ref) => {
   const { sxObject, props } = useSxProps(incomingProps);
 
   return (
     <Box
-      ref={ref}
       sx={sxObject}
-      {...props}
+      variant={variant}
     >
       <FieldUI
+        ref={ref}
         as={as}
         label={label}
         name={name}
         defaultValue={defaultValue}
+        {...props}
       />
     </Box>
   );

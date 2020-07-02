@@ -2258,6 +2258,21 @@
     isomorphic-fetch "^2.2.1"
     prettyjson "^1.2.1"
 
+"@packdigital/ripperoni-account@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@packdigital/ripperoni-account/-/ripperoni-account-0.0.7.tgz#4ebfe88841172afa3daec00f1012a5cb17cc855c"
+  integrity sha512-1s/ZnXqh6IrzsGT9115JN6ileZriFt7bNQNUcLFlgA1kn1fAGqiNTLe52a49uLrV7NdfGowWRpkSpT7fTUylUg==
+  dependencies:
+    "@packdigital/ripperoni-utilities" "^2.0.21"
+    apollo-cache-inmemory "^1.6.6"
+    apollo-client "^2.6.10"
+    apollo-link "^1.2.14"
+    apollo-link-error "^1.1.13"
+    apollo-link-http "^1.5.17"
+    dotenv "^8.2.0"
+    graphql-tag "^2.10.3"
+    isomorphic-fetch "^2.2.1"
+
 "@pieh/friendly-errors-webpack-plugin@1.7.0-chalk-2":
   version "1.7.0-chalk-2"
   resolved "https://registry.yarnpkg.com/@pieh/friendly-errors-webpack-plugin/-/friendly-errors-webpack-plugin-1.7.0-chalk-2.tgz#2e9da9d3ade9d18d013333eb408c457d04eabac0"
@@ -3460,6 +3475,15 @@
     "@theme-ui/preset-system" "^0.3.0"
     "@theme-ui/preset-tailwind" "^0.3.0"
     "@theme-ui/preset-tosh" "^0.3.0"
+
+"@theme-ui/style-guide@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@theme-ui/style-guide/-/style-guide-0.3.0.tgz#7811e82daf0a59d54aebcdc5712253a432c8d2c2"
+  integrity sha512-Jx2cD9fiUMVMprlOFdsUTuEoug7AwxMnP3efR7P0yxQRNbuDtMa5IufJUfTYtvQ2S+pJvKAHFnS73feB/CKCGA==
+  dependencies:
+    "@theme-ui/presets" "^0.3.0"
+    color "^3.1.2"
+    lodash.get "^4.4.2"
 
 "@theme-ui/theme-provider@^0.3.1":
   version "0.3.1"
@@ -10714,6 +10738,14 @@ gatsby-telemetry@^1.3.14:
     stack-utils "1.0.2"
     uuid "3.4.0"
 
+gatsby-theme-style-guide@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/gatsby-theme-style-guide/-/gatsby-theme-style-guide-0.3.1.tgz#b799cb6f509119123e28714a3459f1b4d1b043ed"
+  integrity sha512-lmfxIuPporT+MrCMpC+0partm6NBkzz9DcwowfvaFQ3MyWABOegSLv7h17EQ0c72bmkuKmbohwV7fB3W7RxIcw==
+  dependencies:
+    "@theme-ui/style-guide" "^0.3.0"
+    theme-ui "^0.3.1"
+
 gatsby-transformer-sharp@^2.3.17, gatsby-transformer-sharp@^2.5.5:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/gatsby-transformer-sharp/-/gatsby-transformer-sharp-2.5.7.tgz#21f4fabbf165dbd857fdbd0f8432b6690f18d46f"
@@ -13997,7 +14029,7 @@ lodash.foreach@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.foreach/-/lodash.foreach-4.5.0.tgz#1a6a35eace401280c7f06dddec35165ab27e3e53"
   integrity sha1-Gmo16s5AEoDH8G3d7DUWWrJ+PlM=
 
-lodash.get@^4.0:
+lodash.get@^4.0, lodash.get@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
   integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=

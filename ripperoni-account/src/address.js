@@ -4,8 +4,30 @@ const client = require('./client');
 const queries = require('./queries');
 const Customer = require('./customer');
 
+const _setDefaultAddress = async ({ accessToken, id }) => {
+  const mutation = queries.address.default;
+  const variables = { accessToken: accessToken.token, id };
+  const { customer } = await Customer.get({ accessToken });
+  const response = await client.mutate({ mutation, variables });
+  const errors = response.data.default.errors || [];
 
-const createAddress = async ({ accessToken, address }) => {
+  if (errors.length) {
+    throw errors;
+  }
+
+  const defaultAddress = response.data.default.customer.defaultAddress;
+
+  return {
+    accessToken,
+    customer: {
+      ...customer,
+      defaultAddress
+    }
+  };
+};
+
+const createAddress = async ({ accessToken, address, default = false }) => {
+  console.log('default', default);
   const mutation = queries.address.create;
   const variables = { accessToken: accessToken.token, address };
   const { customer } = await Customer.get({ accessToken });
@@ -17,6 +39,10 @@ const createAddress = async ({ accessToken, address }) => {
   }
 
   const newAddresses = [ ...customer.addresses, response.data.create.address ];
+
+  if (default) {
+    return await _setDefaultAddress({ accessToken, id: response.data.create.address.id });
+  }
 
   return {
     accessToken,
@@ -51,7 +77,8 @@ const deleteAddress = async ({ accessToken, id }) => {
   };
 };
 
-const updateAddress = async ({ accessToken, address, id }) => {
+const updateAddress = async ({ accessToken, address, id, default = false }) => {
+  console.log('default', default);
   const mutation = queries.address.update;
   const variables = { accessToken: accessToken.token, address, id };
   const { customer } = await Customer.get({ accessToken });
@@ -67,6 +94,10 @@ const updateAddress = async ({ accessToken, address, id }) => {
   const newAddresses = customer.addresses
     .map(address => getLegacyShopifyId(address.id) === newAddressId ? newAddress : address);
 
+  if (default) {
+    return await _setDefaultAddress({ accessToken, id: newAddress.id });
+  }
+
   return {
     accessToken,
     customer: {
@@ -76,31 +107,8 @@ const updateAddress = async ({ accessToken, address, id }) => {
   };
 };
 
-const setDefaultAddress = async ({ accessToken, id }) => {
-  const mutation = queries.address.default;
-  const variables = { accessToken: accessToken.token, id };
-  const { customer } = await Customer.get({ accessToken });
-  const response = await client.mutate({ mutation, variables });
-  const errors = response.data.default.errors || [];
-
-  if (errors.length) {
-    throw errors;
-  }
-
-  const defaultAddress = response.data.default.customer.defaultAddress;
-
-  return {
-    accessToken,
-    customer: {
-      ...customer,
-      defaultAddress
-    }
-  };
-};
-
 module.exports = {
   create: createAddress,
   delete: deleteAddress,
   update: updateAddress,
-  default: setDefaultAddress,
 };

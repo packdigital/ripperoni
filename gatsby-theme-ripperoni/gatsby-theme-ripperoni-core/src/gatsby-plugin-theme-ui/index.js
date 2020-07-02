@@ -3,6 +3,7 @@ import { breakpoints } from '../theme/breakpoints';
 import { buttons } from '../theme/buttons';
 import { colors } from '../theme/colors';
 import { fonts } from '../theme/fonts';
+import { links } from '../theme/links';
 import { forms } from '../theme/forms';
 import { fontSizes } from '../theme/fontSizes';
 import { fontWeights } from '../theme/fontWeights';
@@ -16,6 +17,7 @@ export default {
   buttons,
   colors,
   fonts,
+  links,
   forms,
   fontSizes,
   fontWeights,

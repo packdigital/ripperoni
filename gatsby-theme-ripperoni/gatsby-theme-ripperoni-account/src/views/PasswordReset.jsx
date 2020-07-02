@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Flex } from '@ripperoni/components';
 
 import { AccountLayout } from '../layout/AccountLayout';
 

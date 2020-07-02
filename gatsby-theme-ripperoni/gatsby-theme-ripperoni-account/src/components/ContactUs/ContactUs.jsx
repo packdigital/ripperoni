@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Heading, Link } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Box, Heading, Link } from '@ripperoni/components';
 
 
 export const ContactUs = props => {

@@ -3,16 +3,15 @@ const LOGOUT = 'LOGOUT';
 const ACCOUNT_REQUEST = 'ACCOUNT_REQUEST';
 
 // Request Types
-const GET = 'customer-get';
-const LOGIN = 'customer-login';
-const CREATE = 'customer-create';
-const RECOVER = 'password-recover';
-const RESET = 'password-reset';
-const CREATE_ADDRESS = 'address-create';
-const DELETE_ADDRESS = 'address-delete';
-const UPDATE_ADDRESS = 'address-update';
-const DEFAULT_ADDRESS = 'address-default';
-const LOGIN_OR_CREATE = 'customer-login-or-create';
+const GET = 'customerGet';
+const LOGIN = 'customerLogin';
+const CREATE = 'customerCreate';
+const RECOVER = 'passwordRecover';
+const RESET = 'passwordReset';
+const CREATE_ADDRESS = 'addressCreate';
+const DELETE_ADDRESS = 'addressDelete';
+const UPDATE_ADDRESS = 'addressUpdate';
+const LOGIN_OR_CREATE = 'customerLoginOrCreate';
 
 export const createActions = dispatch => {
   return {
@@ -42,9 +41,6 @@ export const createActions = dispatch => {
     },
     updateAddress: data => {
       dispatch({ type: ACCOUNT_REQUEST, request: UPDATE_ADDRESS, data });
-    },
-    defaultAddress: data => {
-      dispatch({ type: ACCOUNT_REQUEST, request: DEFAULT_ADDRESS, data });
     },
     loginOrCreate: data => {
       dispatch({ type: ACCOUNT_REQUEST, request: LOGIN_OR_CREATE, data });

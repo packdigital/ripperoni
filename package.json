@@ -1,6 +1,7 @@
 {
   "private": true,
   "workspaces": [
+    "public-rec",
     "ripperoni-starter",
     "ripperoni-utilities",
     "ripperoni-account",

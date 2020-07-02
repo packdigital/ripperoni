@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Box } from '@ripperoni/components';
 
 import { AccountLayout } from '../layout/AccountLayout';
 import { LoggedInPageHeader } from '../components/LoggedInPageHeader';

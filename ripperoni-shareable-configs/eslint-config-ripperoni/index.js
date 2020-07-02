@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 module.exports = {
   'parser': 'babel-eslint',
   'env': {
@@ -64,33 +65,21 @@ module.exports = {
         'builtin',
         'external',
         'internal',
-        'parent',
-        'sibling',
-        'index'
+        ['parent', 'sibling', 'index']
       ],
       'pathGroups': [
         // 1. externals
-        // 2. internal utilities
-        // 3. theme components
-        // 4. theme catch-all (except for hooks)
-        // 5. theme hooks
+        // 2. ripperoni-themes and modules - @ripperoni
+        // 3. project layouts - @layouts
+        // 4. project components - @components
+        // 5. project resources - @assets, @images, @static
         // 6. layout components
         // 7. components
         // 8. assets and static files
         {
-          'pattern': '@{utils,theme/utility/**}',
+          'pattern': '@ripperoni/**',
           'group': 'external',
           'position': 'after'
-        },
-        {
-          'pattern': '@theme2/**',
-          'group': 'internal',
-          'position': 'before'
-        },
-        {
-          'pattern': '@theme/**',
-          'group': 'internal',
-          'position': 'before'
         },
         {
           'pattern': '@layouts/**',
@@ -103,7 +92,7 @@ module.exports = {
           'position': 'before'
         },
         {
-          'pattern': '@{assets,static}/**',
+          'pattern': '@{assets,images,static}/**',
           'group': 'index',
           'position': 'after'
         }
@@ -148,8 +137,16 @@ module.exports = {
           '@images': './src/assets/images',
           '@layouts': './src/layouts',
           '@static': './static',
-          '@theme': 'node_modules/@packdigital/gatsby-theme-ripperoni-components/src',
-          '@utils': 'node_modules/@packdigital/ripperoni-utilities'
+          '@ripperoni/account': 'node_modules/@packdigital/gatsby-theme-ripperoni-account/src',
+          '@ripperoni/cart': 'node_modules/@packdigital/gatsby-theme-ripperoni-cart/src',
+          '@ripperoni/components': 'node_modules/@packdigital/gatsby-theme-ripperoni-components/src/components',
+          '@ripperoni/hooks': 'node_modules/@packdigital/gatsby-theme-ripperoni-components/src/hooks',
+          '@ripperoni/core': 'node_modules/@packdigital/gatsby-theme-ripperoni-core/src',
+          '@ripperoni/debug': 'node_modules/@packdigital/gatsby-theme-ripperoni-debug/src',
+          '@ripperoni/marketing': 'node_modules/@packdigital/gatsby-theme-ripperoni-marketing/src',
+          '@ripperoni/search': 'node_modules/@packdigital/gatsby-theme-ripperoni-search/src',
+          '@ripperoni/store': 'node_modules/@packdigital/gatsby-theme-ripperoni-store/src',
+          '@ripperoni/utilities': 'node_modules/@packdigital/ripperoni-utilities',
         },
         'extensions': [
           '.js',

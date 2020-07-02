@@ -1,73 +1,36 @@
-/* eslint-disable max-lines */
-import React from 'react';
-import { Checkbox, Input, Label, Select } from 'theme-ui';
-import { Countries } from 'country-and-province';
+import React, { useContext, useEffect, useState } from 'react';
+import { Input } from 'theme-ui';
 
-import { Box, Button, FieldGroup, Flex, Heading, Loader } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Box, Button, FieldGroup, Flex, Heading, Loader } from '@ripperoni/components';
+
+import { CustomerContext } from '../../context/CustomerContext';
+import { DefaultAddressCheckbox } from './AddressFormDefaultAddressCheckbox';
+import { CountrySelect } from './AddressFormCountrySelect';
+import { ProvinceSelect } from './AddressFormProvinceSelect';
+import { ZipInput } from './AddressFormZipInput';
 
 
 export const AddressForm = ({
   title,
-  isDefault,
-  address: {
-    firstName,
-    lastName,
-    address1,
-    address2,
-    city,
-    province,
-    country = 'united states',
-    zip,
-  } = {},
+  address = {},
   cancelToggle,
+  action,
   ...props
 }) => {
-  const provinceValues = Countries.byName(country)?.provinces?.data
-    .map(({ name, code }) => [name, code]);
+  const { state } = useContext(CustomerContext);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const DefaultAddressCheckbox = ({
-    defaultValue,
-    ...props
-  }) => (
-    <Box {...props}>
-      <Label>
-        <Checkbox
-          name='default'
-          defaultValue={defaultValue}
-          {...props}
-        />
-        Make Default
-      </Label>
-    </Box>
-  );
+  useEffect(() => {
+    if (!state.loading) {
+      setIsLoading(false);
+    }
+  }, [state.loading]);
 
-  const ProvinceSelect = props => (
-    <Select {...props}>
-      {provinceValues.map(([label, value]) => (
-        <option
-          key={value}
-          value={value}
-        >
-          {label}
-        </option>
-      ))}
-    </Select>
-  );
+  const { id, firstName, lastName, address1, address2, city, province, zip, country = 'united states' } = address;
+  const isDefault = state.customer.defaultAddress.id === id;
 
-  const CountrySelect = props => (
-    <Select {...props}>
-      <option value='US'>United States</option>
-    </Select>
-  );
-
-  const ZipInput = props => (
-    <Input
-      pattern='\d{5}'
-      maxlength='5'
-      size='5'
-      {...props}
-    />
-  );
+  console.log(`opened address: ${id?.slice(-5)}`);
+  console.log(`default address: ${state.customer.defaultAddress.id.slice(-5)}`);
 
   return (
     <Box variant='pages.account.addressBook.form'>
@@ -78,6 +41,20 @@ export const AddressForm = ({
         wrap={['nowrap', 'wrap']}
         onSubmit={event => {
           event.preventDefault();
+          setIsLoading(true);
+
+          const data = {
+            firstName: event.target.firstName.value,
+            lastName: event.target.lastName.value,
+            address1: event.target.address1.value,
+            address2: event.target.address2.value,
+            city: event.target.city.value,
+            province: event.target.province.value,
+            country: event.target.country.value,
+            zip: event.target.zip.value,
+          };
+
+          action({ address: data, id: address.id, default: event.target.default.checked });
         }}
         {...props}
       >
@@ -90,7 +67,7 @@ export const AddressForm = ({
             {title}
           </Heading>
 
-          <DefaultAddressCheckbox defaultValue={isDefault} />
+          <DefaultAddressCheckbox defaultChecked={isDefault} />
         </Flex>
 
         <FieldGroup
@@ -144,6 +121,7 @@ export const AddressForm = ({
           defaultValue={province}
           label='State'
           name='province'
+          country={country}
           as={ProvinceSelect}
         />
 
@@ -171,7 +149,7 @@ export const AddressForm = ({
           width='100%'
           variant='pages.account.addressBook.formControls'
         >
-          <Loader.Hoc>
+          <Loader.Hoc loading={isLoading}>
             <Button>
               Save
             </Button>

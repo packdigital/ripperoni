@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Input } from 'theme-ui';
 
-import { Button, FieldGroup, Flex, Loader } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
 import { CustomerContext } from '../../context/CustomerContext';
 
@@ -70,7 +70,7 @@ export const SignUpForm = props => {
         as={PasswordInput}
       />
 
-      <Loader.Hoc loading={state.loading?.['customer-create']}>
+      <Loader.Hoc loading={state.loading?.customerCreate}>
         <Button>
           Sign Up
         </Button>

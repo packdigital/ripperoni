@@ -1,24 +1,28 @@
 import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 
-import { Box, Flex, Image, Link, Price, Text } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Box, Flex, Image, Link, Price, Text } from '@ripperoni/components';
 
 
 export const LineItems = ({
+  statusUrl,
   lineItems,
   ...props
 }) => {
-  console.log('lineItems', lineItems);
   const { fallbackImage } = useStaticQuery(staticQuery);
 
-  return lineItems.map(({ variant, title, fallbackPrice }, index) => (
+  return lineItems.map(({ variant, title, fallbackPrice, fallbackCompareAtPrice }, index) => (
     <Flex
       variant='pages.account.order.lineItem'
       middle
       key={index}
       {...props}
     >
-      <Link>
+      <Link
+        href={variant?.product?.url || statusUrl}
+        newWindow={true}
+        sx={{ variant: 'links.plain' }}
+      >
         <Image
           width='80px'
           src={variant?.image?.src || fallbackImage.src}
@@ -26,24 +30,30 @@ export const LineItems = ({
         />
       </Link>
 
-      <Box variant='pages.account.order.lineItem.meta'>
-        <Text variant='text.account.order.lineItem.variant'>
-          {variant?.title}
-        </Text>
+      <Link
+        href={variant?.product?.url || statusUrl}
+        newWindow={true}
+        sx={{ variant: 'links.plain' }}
+      >
+        <Box variant='pages.account.order.lineItem.meta'>
+          <Text variant='text.account.order.lineItem.variant'>
+            {variant?.title}
+          </Text>
 
-        <Text variant='text.account.order.lineItem.title'>
-          {title}
-        </Text>
-      </Box>
+          <Text variant='text.account.order.lineItem.title'>
+            {title}
+          </Text>
+        </Box>
+      </Link>
 
       <Box variant='pages.account.order.lineItem.price'>
         <Price variant='text.account.order.lineItem.price'>
           {variant?.price?.amount || fallbackPrice?.amount}
         </Price>
 
-        {variant?.compareAtPrice?.amount && (
+        {variant?.compareAtPrice?.amount || fallbackPrice < fallbackCompareAtPrice && (
           <Price variant='text.account.order.lineItem.compareAtPrice'>
-            {variant.compareAtPrice.amount}
+            {variant?.compareAtPrice?.amount || fallbackCompareAtPrice?.amount}
           </Price>
         )}
       </Box>

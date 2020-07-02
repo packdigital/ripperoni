@@ -1,19 +1,15 @@
 # NOTES
 
+## Todo
+
+- Cart Theme
+- Default options for configs
+
 ## Contentful Plugin
 
 - links to github repo and grabs theme config to pull in values
 - looks into directory for templates that can be used in a page container
 - looks into directory for components that can be used in a page container
-
-## Shared Vocabulary
-
-- for props on components, use style object keys?
-- wrap vs wrapped, contain vs contained?
-
-## Questions
-
-- windowRequestTimeouAndtInterval() in gatsby-browser.js?
 
 ## 🎒 Backpack
 
@@ -92,8 +88,3 @@
 
 - remove dead/unused packages
 - straighten out peer/dev/dependencies
-  - theme-ui
-  - gatsby-plugin-theme-ui
-
-
-link to product, redirect back to us

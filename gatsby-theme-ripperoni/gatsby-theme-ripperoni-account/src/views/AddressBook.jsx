@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Flex } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Flex } from '@ripperoni/components';
 
 import { AccountLayout } from '../layout/AccountLayout';
 import { LoggedInPageHeader } from '../components/LoggedInPageHeader';
@@ -10,14 +10,13 @@ import { AddressBookRow } from '../components/AddressBookRow';
 
 
 export const AddressBook = props => {
-  const { state } = useContext(CustomerContext);
+  const { state, createAddress } = useContext(CustomerContext);
 
   return (
     <AccountLayout
       loggedIn={true}
       {...props}
     >
-
       <LoggedInPageHeader heading='Address Book' />
 
       <Flex.Col>
@@ -28,7 +27,10 @@ export const AddressBook = props => {
           />
         ))}
 
-        <AddressForm title='Add A New Address' />
+        <AddressForm
+          title='Add A New Address'
+          action={createAddress}
+        />
       </Flex.Col>
     </AccountLayout>
   );

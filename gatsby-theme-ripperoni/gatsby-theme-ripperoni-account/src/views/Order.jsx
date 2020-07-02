@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Date, Flex, Heading, Link, Svg } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Date, Flex, Heading, Link, Svg } from '@ripperoni/components';
 
 import { AccountLayout } from '../layout/AccountLayout';
 import { LoggedInPageHeader } from '../components/LoggedInPageHeader';
@@ -17,7 +17,6 @@ export const Order = ({
 }) => {
   const { state } = useContext(CustomerContext);
   const order = location.state?.order || state.customer.orders.find(order => order.id == props.id);
-  console.log('order', order);
 
   return (
     <AccountLayout
@@ -57,7 +56,10 @@ export const Order = ({
           fulfillment={order.fulfillments[0]}
         />
 
-        <LineItems lineItems={order.lineItems} />
+        <LineItems
+          statusUrl={order.statusUrl}
+          lineItems={order.lineItems}
+        />
 
         <Totals
           alignSelf='flex-end'

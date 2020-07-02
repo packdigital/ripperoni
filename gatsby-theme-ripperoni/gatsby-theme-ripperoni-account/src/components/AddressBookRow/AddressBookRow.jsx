@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
-import { Box, Button, Flex, Text } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Box, Button, Flex, Text } from '@ripperoni/components';
 
+import { CustomerContext } from '../../context/CustomerContext';
 import { Address } from '../Address';
 import { AddressForm } from '../AddressForm';
 
@@ -10,6 +11,7 @@ export const AddressBookRow = ({
   address,
   ...props
 }) => {
+  const { updateAddress } = useContext(CustomerContext);
   const [formActive, setFormActive] = useState(false);
 
   if (formActive) {
@@ -18,6 +20,7 @@ export const AddressBookRow = ({
         title='Edit Address'
         address={address}
         cancelToggle={() => setFormActive(false)}
+        action={updateAddress}
       />
     );
   }

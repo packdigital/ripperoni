@@ -42,16 +42,6 @@ const CUSTOMER_FRAGMENT = gql`
                 allocationMethod
                 targetSelection
                 targetType
-                # value {
-                #   ... on MoneyV2 {
-                #     __typename
-                #     amount
-                #   }
-                #   ... on PricingPercentageValue {
-                #     __typename
-                #     percentage
-                #   }
-                # }
               }
             }
           }

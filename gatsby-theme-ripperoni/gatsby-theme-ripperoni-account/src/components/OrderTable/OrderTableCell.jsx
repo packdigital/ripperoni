@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Text } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Box, Text } from '@ripperoni/components';
 
 
 export const OrderTableCell = props => {

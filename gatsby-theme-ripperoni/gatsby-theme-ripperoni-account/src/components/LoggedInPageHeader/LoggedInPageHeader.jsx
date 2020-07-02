@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Flex, Heading } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Flex, Heading } from '@ripperoni/components';
 
 
 export const LoggedInPageHeader = ({
@@ -32,8 +32,5 @@ LoggedInPageHeader.displayName = 'Logged In Page Header';
 
 LoggedInPageHeader.propTypes = {
   heading: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element
-  ]),
+  children: PropTypes.any
 };

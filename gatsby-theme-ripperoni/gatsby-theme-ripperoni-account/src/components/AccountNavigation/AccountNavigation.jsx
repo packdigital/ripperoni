@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { Select, jsx } from 'theme-ui';
 import { navigate } from 'gatsby';
 
-import { Box, Button, Flex, MQ } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Box, Button, Flex, MQ } from '@ripperoni/components';
 
 import { CustomerContext } from '../../context/CustomerContext';
 

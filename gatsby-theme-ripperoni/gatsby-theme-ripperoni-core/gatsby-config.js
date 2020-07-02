@@ -50,6 +50,7 @@ module.exports = ({
 
   const plugins = [
     'gatsby-plugin-theme-ui',
+    'gatsby-theme-style-guide',
     {
       resolve: 'gatsby-plugin-eslint',
       options: {
@@ -70,8 +71,16 @@ module.exports = ({
         '@images': path.join(root, 'src/assets/images'),
         '@layouts': path.join(root, 'src/layouts'),
         '@static': path.join(root, 'static'),
-        '@theme': path.join(root, 'node_modules/@packdigital/gatsby-theme-ripperoni-components/src'),
-        '@utils': path.join(root, 'node_modules/@packdigital/ripperoni-utilities'),
+        '@ripperoni/account': '@packdigital/gatsby-theme-ripperoni-account/src',
+        '@ripperoni/cart': '@packdigital/gatsby-theme-ripperoni-cart/src',
+        '@ripperoni/components': '@packdigital/gatsby-theme-ripperoni-components/src/components',
+        '@ripperoni/hooks': '@packdigital/gatsby-theme-ripperoni-components/src/hooks',
+        '@ripperoni/core': '@packdigital/gatsby-theme-ripperoni-core/src',
+        '@ripperoni/debug': '@packdigital/gatsby-theme-ripperoni-debug/src',
+        '@ripperoni/marketing': '@packdigital/gatsby-theme-ripperoni-marketing/src',
+        '@ripperoni/search': '@packdigital/gatsby-theme-ripperoni-search/src',
+        '@ripperoni/store': '@packdigital/gatsby-theme-ripperoni-store/src',
+        '@ripperoni/utilities': '@packdigital/ripperoni-utilities',
       },
     }),
     {

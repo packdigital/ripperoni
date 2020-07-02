@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Input } from 'theme-ui';
 
-import { Button, FieldGroup, Flex, Loader } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
 import { CustomerContext } from '../../context/CustomerContext';
 
@@ -39,7 +39,7 @@ export const RecoverPasswordForm = ({
         name='email'
       />
 
-      <Loader.Hoc loading={state.loading?.['password-recover']}>
+      <Loader.Hoc loading={state.loading?.passwordRecover}>
         <Button.Link
           sx={{ alignSelf: 'center' }}
           onClick={event => {

@@ -3,7 +3,7 @@
 import React, { useContext } from 'react';
 import { Router } from '@reach/router';
 
-import { Flex, Loader } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Flex, Loader } from '@ripperoni/components';
 
 import { PrivateRoute } from '../components/PrivateRoute';
 import { CustomerContext } from '../context/CustomerContext';
@@ -13,7 +13,7 @@ import * as Views from '../views';
 export const AccountPage = React.memo(props => {
   const { state } = useContext(CustomerContext);
 
-  if (state.loggedIn === null || state.loading?.['customer-get']) {
+  if (state.loggedIn === null || state.loading?.customerGet) {
     return (
       // make sure this flex takes up as much height as possible
       <Flex>

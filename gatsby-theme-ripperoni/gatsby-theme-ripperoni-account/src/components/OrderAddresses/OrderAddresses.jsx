@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Flex, Heading, Link, Text } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Box, Flex, Heading, Link, Text } from '@ripperoni/components';
 
 import { Address } from '../Address';
 

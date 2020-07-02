@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 
-import { Flex, Link, Svg, Text } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Flex, Link, Svg, Text } from '@ripperoni/components';
 
 import Arrow from '../../assets/images/arrow.svg';
 

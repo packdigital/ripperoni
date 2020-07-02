@@ -6,16 +6,15 @@ const Password = require('./password');
 
 
 const actions = {
-  'customer-get': Customer.get,
-  'customer-login': Customer.get,
-  'customer-create': Customer.create,
-  'password-recover': Password.recover,
-  'password-reset': Password.reset,
-  'address-create': Address.create,
-  'address-delete': Address.delete,
-  'address-update': Address.update,
-  'address-default': Address.default,
-  'customer-login-or-create': Customer.loginOrCreate,
+  'customerGet': Customer.get,
+  'customerLogin': Customer.get,
+  'customerCreate': Customer.create,
+  'passwordRecover': Password.recover,
+  'passwordReset': Password.reset,
+  'addressCreate': Address.create,
+  'addressDelete': Address.delete,
+  'addressUpdate': Address.update,
+  'customerLoginOrCreate': Customer.loginOrCreate,
 };
 
 const errorMessages = {

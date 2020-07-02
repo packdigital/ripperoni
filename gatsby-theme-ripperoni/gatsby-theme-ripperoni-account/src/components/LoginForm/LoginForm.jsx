@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Input } from 'theme-ui';
 
-import { Button, FieldGroup, Flex, Loader } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
 import { CustomerContext } from '../../context/CustomerContext';
 
@@ -53,7 +53,7 @@ export const LoginForm = ({
         as={PasswordInput}
       />
 
-      <Loader.Hoc loading={state.loading?.['customer-login']}>
+      <Loader.Hoc loading={state.loading?.customerLogin}>
         <Button.Link
           sx={{ alignSelf: 'center' }}
           onClick={event => {

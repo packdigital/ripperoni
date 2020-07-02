@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { jsx } from 'theme-ui';
 
-import { Box, Button, Flex, Heading } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Box, Button, Flex, Heading } from '@ripperoni/components';
 
 import { AccountLayout } from '../layout/AccountLayout';
 import { LoginForm } from '../components/LoginForm';

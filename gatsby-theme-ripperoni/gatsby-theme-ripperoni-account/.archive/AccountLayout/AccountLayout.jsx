@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Box, Button, Container, Flex, Heading, Link, Text } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Box, Button, Container, Flex, Heading, Link, Text } from '@ripperoni/components';
 
 import { CustomerContext } from '../../context/CustomerContext';
 import { AccountNavigation } from  '../AccountNavigation';
