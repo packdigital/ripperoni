@@ -14,17 +14,42 @@ const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities
 
 
 module.exports = ({
-  siteMetadata = {},
   manifest: {
     enabled: manifestEnabled = true,
+    title = '',
+    description = '',
+    color = '#252525',
+    backgroundColor = '#00f7bb',
     ...manifestOptions
   } = {},
   alias: {
-    root,
+    root = process.cwd(),
     ...aliasOptions
   } = {},
+  format: {
+    money: {
+      string: moneyString = '${price}',
+      trimTralingZeros = false,
+    },
+    date: {
+      string: dateString = 'mm-dd-yyyy',
+    },
+  }
 }) => {
+  const siteMetadata = {
+    format: {
+      money: {
+        string: moneyString,
+        trimTralingZeros,
+      },
+      date: {
+        string: dateString
+      },
+    }
+  };
+
   const plugins = [
+    'gatsby-plugin-theme-ui',
     {
       resolve: 'gatsby-plugin-eslint',
       options: {
@@ -75,11 +100,11 @@ module.exports = ({
       defaultOptions: {
         start_url: '/',
         display: 'minimal-ui',
-        name: siteMetadata.title || '',
-        short_name: siteMetadata.title || '',
-        description: siteMetadata.description,
-        background_color: siteMetadata.color || '#252525',
-        theme_color: siteMetadata.backgroundColor || '#00f7bb',
+        name: title,
+        short_name: title,
+        description: description,
+        background_color: color,
+        theme_color: backgroundColor,
         icon: 'src/assets/images/logo.png',  // [1]
       },
       requiredOptions: ['icon']
@@ -87,6 +112,7 @@ module.exports = ({
   ];
 
   return {
+    siteMetadata,
     plugins,
   };
 };

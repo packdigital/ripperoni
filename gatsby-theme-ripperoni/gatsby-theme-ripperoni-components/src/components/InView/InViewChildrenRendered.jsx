@@ -28,10 +28,8 @@ export const InViewChildrenRendered = ({
 
   const onMutation = useCallback((mutations) => {
     for (let mutation of mutations) {
-      // console.log(seqIndex, 'mutation', mutation);
       if (mutation.addedNodes && mutation.addedNodes.length > 0) {
         const childHeight = mutation.addedNodes[0].offsetHeight;
-        // console.log(seqIndex, 'addedNodes[0] height', childHeight);
 
         // if the child wrapper has a height we use that straight away
         if (childHeight > 0) {
@@ -41,7 +39,6 @@ export const InViewChildrenRendered = ({
             function resetTimer() {
               setMilliseconds(0);
             }
-            // console.log('mutation received. resetting timer.')
             resetTimer();
           }
         }
@@ -57,7 +54,6 @@ export const InViewChildrenRendered = ({
     let interval = null;
     if (isActive) {
       interval = window.requestInterval(() => {
-        // console.log(seqIndex, '100 elapsed', milliseconds)
         if (milliseconds < renderedThreshold) {
           setMilliseconds(milliseconds => milliseconds + TIMER_INTERVAL);
         } else {
@@ -105,7 +101,6 @@ export const InViewChildrenRendered = ({
         ob.observe(target, options);
         return ob;
       }
-      // console.log(seqIndex, 'not rendered. connecting observer for wrapperRef', wrapperRef.current);
       startTimer();
       observer.current = initMutObs(wrapperRef.current, onMutation);
     }

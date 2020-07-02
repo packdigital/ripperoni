@@ -22,8 +22,8 @@ export const PrivateRoute = ({
   }
 
   navigate('/account');
-};
 
-export default PrivateRoute;
+  return null;
+};
 
 PrivateRoute.displayName = 'Private Route';

@@ -1,21 +1,29 @@
 import React, { createContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useReducerAsync } from 'use-reducer-async';
 
 import { isBrowser } from '@packdigital/ripperoni-utilities';
 
 import { createActions } from './CustomerActions';
-import { asyncActionHandlers, initialState, reducer } from './CustomerReducer';
+import { asyncActionHandlers, reducer } from './CustomerReducer';
 
 
 export const CustomerContext = createContext();
 
-export const CustomerContextProvider = ({ children, ...props }) => {
-  const [state, dispatch] = useReducerAsync(reducer, initialState, asyncActionHandlers);
+const initialState = {
+  accessToken: null,
+  customer: null,
+  errors: {},
+  loading: false,
+  loggedIn: null,
+};
 
+export const CustomerContextProvider = React.memo(({ children, ...props }) => {
+  const [state, dispatch] = useReducerAsync(reducer, initialState, asyncActionHandlers);
   const actions = createActions(dispatch);
 
   useEffect(() => {
-    if (!isBrowser) return;
+    if (!isBrowser || state.loggedIn !== null) return;
 
     const customerFromStorage = JSON.parse(localStorage.getItem('customer'));
     const accessToken = customerFromStorage?.accessToken;
@@ -29,18 +37,11 @@ export const CustomerContextProvider = ({ children, ...props }) => {
 
   useEffect(() => {
     if (!state.accessToken) {
-      window.ShopifyCustomer = undefined;
       window.localStorage.removeItem('customer');
     } else {
-      const newAccessToken = JSON.stringify({ accessToken: state.accessToken });
-
-      window.localStorage.setItem('customer', newAccessToken);
+      window.localStorage.setItem('customer', JSON.stringify({ accessToken: state.accessToken }));
     }
   }, [state.accessToken]);
-
-  useEffect(() => {
-    window.ShopifyCustomer = state.customer;
-  }, [state.customer]);
 
   const value = {
     state,
@@ -52,4 +53,10 @@ export const CustomerContextProvider = ({ children, ...props }) => {
       {children}
     </CustomerContext.Provider>
   );
+});
+
+CustomerContextProvider.displayName = 'Customer Context';
+
+CustomerContextProvider.propTypes = {
+  children: PropTypes.any
 };

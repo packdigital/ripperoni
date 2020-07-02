@@ -1,11 +1,3 @@
-export const initialState = {
-  loading: false,
-  accessToken: null,
-  customer: null,
-  errors: {},
-  loggedIn: null,
-};
-
 const requestAccount = async ({ request: action, data = {}}, accessToken, signal) => {
   const url = '/api/account';
 
@@ -29,12 +21,14 @@ const requestAccount = async ({ request: action, data = {}}, accessToken, signal
 };
 
 export const reducer = (state, action) => {
+  console.log('action', action);
   switch (action.type) {
     case 'LOGOUT':
       return {
-        ...initialState,
+        ...state,
+        accessToken: null,
+        customer: null,
         loggedIn: false,
-        customer: {},
         errors: action.errors,
       };
     case 'START_ACCOUNT_REQUEST':
@@ -70,11 +64,12 @@ export const asyncActionHandlers = {
       try {
         const accessToken = getState().accessToken;
         const { data, errors } = await requestAccount(action, accessToken, signal);
+        const loggedIn = data?.customer ? true : false;
 
         if (errors) {
           dispatch({ type: 'ERROR_ACCOUNT_REQUEST', errors: { [action.request]: errors }});
         } else {
-          dispatch({ type: 'FINISH_ACCOUNT_REQUEST', data });
+          dispatch({ type: 'FINISH_ACCOUNT_REQUEST', data: { ...data, loggedIn }});
         }
       } catch (error) {
         dispatch({ type: 'LOGOUT', errors: { logout: error }});

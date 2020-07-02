@@ -4,17 +4,23 @@ const siteMetadata = require('./gatsby/config/site-metadata');
 
 
 const plugins = [
-  'gatsby-plugin-theme-ui',
   {
     resolve: '@packdigital/gatsby-theme-ripperoni-core',
     options: {
-      siteMetadata,
       manifest: {},
-      alias: {
-        root: __dirname
+      alias: {},
+      format: {
+        money: {
+          string: '${price}',
+          trimTralingZeros: false,
+        },
+        date: {
+          string: 'mm.dd.yy',
+        },
       }
     },
   },
+  'gatsby-plugin-theme-ui',
   // {
   //   resolve: '@packdigital/gatsby-theme-ripperoni-netlify',
   //   options: {

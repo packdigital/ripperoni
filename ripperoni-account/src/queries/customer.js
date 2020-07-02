@@ -24,6 +24,7 @@ const CUSTOMER_FRAGMENT = gql`
         node {
           id: orderNumber
           statusUrl
+          currencyCode
           date: processedAt
           status: financialStatus
           totalTax: totalTaxV2 { amount }
@@ -58,7 +59,8 @@ const CUSTOMER_FRAGMENT = gql`
             edges {
               node {
                 title
-                fallbackPrice: originalTotalPrice { amount }
+                fallbackCompareAtPrice: originalTotalPrice { amount }
+                fallbackPrice: discountedTotalPrice { amount }
                 variant {
                   id
                   title

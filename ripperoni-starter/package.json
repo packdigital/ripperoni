@@ -29,14 +29,16 @@
     "@packdigital/gatsby-theme-ripperoni-netlify": "^0.0.13",
     "@packdigital/gatsby-theme-ripperoni-search": "^0.0.5",
     "@packdigital/gatsby-theme-ripperoni-store": "^0.0.4",
-    "@packdigital/ripperoni-account": "^0.0.6",
+    "@packdigital/ripperoni-account": "^0.0.7",
     "@packdigital/ripperoni-utilities": "^2.0.30",
+    "dateformat": "^3.0.3",
     "dotenv": "^8.2.0",
     "gatsby": "^2.23.11",
     "gatsby-plugin-netlify": "^2.3.2",
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-root-import": "^2.0.5",
     "gatsby-plugin-sharp": "^2.4.8",
+    "gatsby-plugin-theme-ui": "^0.3.0",
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.10",
     "gatsby-plugin-webpack-size": "^1.0.0",
     "gatsby-source-filesystem": "^2.3.1",
@@ -44,7 +46,8 @@
     "http-proxy-middleware": "1.0.4",
     "intersection-observer": "^0.10.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "theme-ui": "^0.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",

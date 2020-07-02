@@ -13,11 +13,7 @@ const recoverPassword = async ({ email }) => {
     throw errors;
   }
 
-  return {
-    accessToken: null,
-    customer: {},
-    loggedIn: false,
-  };
+  return {};
 };
 
 const resetPassword = async ({ password, url }) => {

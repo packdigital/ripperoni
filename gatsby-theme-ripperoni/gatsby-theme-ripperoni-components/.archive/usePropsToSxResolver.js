@@ -2,13 +2,11 @@
 // prop keys to defined style options
 // @see: FlexCol.sx.js as an example of these options
 export const usePropsToSxResolver = (props, sxOptions) => {
-  // console.log('props', props);
   const defaultSx = sxOptions.defaultSx;
   const onlyValidSx = option => option && sxOptions[option]; // filter out props not defined in the comp's Sx spec file
   const onlyTruthy = option => props[option] === true;
   const toSx = option => option && sxOptions[option];
   const toSxPreset = (sxs, option) => {
-    // console.log('option', option)
     return ({ ...sxs, ...option });
   };
 

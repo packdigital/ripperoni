@@ -4,7 +4,7 @@ import { Heading as HeadingUI, jsx } from 'theme-ui';
 
 import { useSxProps } from '../../hooks/useSxProps';
 import * as defaultProps from '../../props/default';
-import * as textProps from '../../props/typography';
+import * as typographyProps from '../../props/typography';
 
 
 export const Heading = forwardRef(({
@@ -12,7 +12,7 @@ export const Heading = forwardRef(({
   children,
   ...incomingProps
 }, ref) => {
-  const { sxObject, props } = useSxProps(incomingProps, [textProps]);
+  const { sxObject, props } = useSxProps(incomingProps, [typographyProps]);
 
   return (
     <HeadingUI
@@ -29,5 +29,5 @@ Heading.displayName = 'Heading';
 
 Heading.propTypes = {
   ...defaultProps.propTypes,
-  ...textProps.propTypes,
+  ...typographyProps.propTypes,
 };

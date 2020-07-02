@@ -43,7 +43,6 @@ exports.handler = async event => {
     }
 
     const data = await actions[body.action](body);
-    // console.log('data', data);
 
     return {
       statusCode: 200,

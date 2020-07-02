@@ -3,8 +3,8 @@ const description = 'Rest in pepperoni';
 const author = 'PackDigital';
 const logo = 'logo.png';
 const url = 'https://ripperoni.packdigital.com';
-const color = `#252525`;
-const backgroundColor = `#00f7bb`;
+const color = '#252525';
+const backgroundColor = '#00f7bb';
 
 const site = {
   title,

@@ -1,19 +1,26 @@
 export const layout = {
   account: {
-    flexWrap: ['nowrap', 'wrap'],
-    height: '100vh',
-    '.account-layout-user-meta': {
-
+    outer: {
+      bg: 'gray.0',
+      py: 7,
     },
-    '.account-layout-navigation': {
-      width: ['auto', '240px'],
+    inner: {
+      variant: 'layout.container.large',
+      px: 5,
     },
-    '.account-layout-contact': {
-      order: [1, 'initial'],
+    content: {
+      gridRowGap: 5,
+      gridColumnGap: [null, null, null, 6],
     },
-    '.account-layout-content': {
-      flexBasis: '100%',
-      width: '100%',
+    navigationItem: {
+      py: 2,
+      borderColor: 'gray.2',
+      ':hover': {
+        borderColor: 'text',
+      },
+      '&.active': {
+        borderColor: 'text',
+      }
     },
   }
 };

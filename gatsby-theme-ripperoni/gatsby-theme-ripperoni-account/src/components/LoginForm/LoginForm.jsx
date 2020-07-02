@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { Field, Input } from 'theme-ui';
+import { Input } from 'theme-ui';
 
-import { Button, Flex, Loader } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Button, FieldGroup, Flex, Loader } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
 
 import { CustomerContext } from '../../context/CustomerContext';
 
@@ -29,8 +29,8 @@ export const LoginForm = ({
   return (
     <Flex
       as='form'
-      direction='column'
       variant='forms.account.login'
+      direction='column'
       onSubmit={event => {
         event.preventDefault();
         const { email: { value: email }, password: { value: password }} = event.target;
@@ -39,13 +39,15 @@ export const LoginForm = ({
       }}
       {...props}
     >
-      <Field
+      <FieldGroup
+        variant='forms.account.login.fieldGroup'
         label='Email'
         name='email'
         as={EmailInput}
       />
 
-      <Field
+      <FieldGroup
+        variant='forms.account.login.fieldGroup'
         label='Password'
         name='password'
         as={PasswordInput}
@@ -53,11 +55,11 @@ export const LoginForm = ({
 
       <Loader.Hoc loading={state.loading?.['customer-login']}>
         <Button.Link
+          sx={{ alignSelf: 'center' }}
           onClick={event => {
             event.preventDefault();
             recoverPasswordToggle();
           }}
-          classname='recover-password-button'
         >
           Forgot Your Password?
         </Button.Link>

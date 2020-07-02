@@ -9,6 +9,7 @@ import * as defaultProps from '../../props/default';
 import * as containerProps from './Container.sx';
 import { ContainerSmall } from './ContainerSmall';
 import { ContainerLarge } from './ContainerLarge';
+import { ContainerFull } from './ContainerFull';
 
 
 export const Container = forwardRef((incomingProps, ref) => {
@@ -29,6 +30,7 @@ Container.displayName = 'Container';
 
 Container.Small = ContainerSmall;
 Container.Large = ContainerLarge;
+Container.Full = ContainerFull;
 
 Container.propTypes = {
   ...defaultProps.propTypes,

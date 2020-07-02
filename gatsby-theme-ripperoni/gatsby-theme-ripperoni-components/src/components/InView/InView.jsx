@@ -45,7 +45,6 @@ export const InView = ({
   useLayoutEffect(() => {
     if (entry && entry.target) {
       if (mounted) {
-        // console.log('Inview', seqIndex, 'height', entry.target.offsetHeight + 1)
         if (resetHeightTo === 'mounted' && entry.target.offsetHeight > 0) {
           setMountedHeight(entry.target.offsetHeight + 1);
         } else {

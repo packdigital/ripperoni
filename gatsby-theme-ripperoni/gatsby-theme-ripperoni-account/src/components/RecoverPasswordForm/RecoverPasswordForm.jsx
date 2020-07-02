@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { Field, Input } from 'theme-ui';
+import { Input } from 'theme-ui';
 
-import { Button, Flex, Loader } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Button, FieldGroup, Flex, Loader } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
 
 import { CustomerContext } from '../../context/CustomerContext';
 
@@ -32,7 +32,8 @@ export const RecoverPasswordForm = ({
       }}
       {...props}
     >
-      <Field
+      <FieldGroup
+        variant='forms.account.recoverPassword.fieldGroup'
         as={EmailInput}
         label='Email'
         name='email'
@@ -40,11 +41,11 @@ export const RecoverPasswordForm = ({
 
       <Loader.Hoc loading={state.loading?.['password-recover']}>
         <Button.Link
+          sx={{ alignSelf: 'center' }}
           onClick={event => {
             event.preventDefault();
             cancelToggle();
           }}
-          classname='cancel-recover-password-button'
         >
           Cancel
         </Button.Link>

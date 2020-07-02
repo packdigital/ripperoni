@@ -1,51 +1,45 @@
 export const forms = {
   account: {
-    base: {
+    shared: {
       label: {
-        fontSize: 1,
-        fontWeight: 'bold',
-      },
-      input: {
-        mb: 2,
-        width: '100%',
-        borderColor: 'gray',
-        '&:focus': {
-          borderColor: 'primary',
-          boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
-          outline: 'none',
-        },
-      },
-      select: {
-        borderColor: 'gray',
-        '&:focus': {
-          borderColor: 'primary',
-          boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
-          outline: 'none',
-        },
-      },
-      textarea: {
-        borderColor: 'gray',
-        '&:focus': {
-          borderColor: 'primary',
-          boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
-          outline: 'none',
-        },
-      },
-      slider: {
-        bg: 'muted',
+        variant: 'text.account.shared.small'
       },
       button: {
         mt: 3,
-      }
+      },
+      fieldGroup: {
+        mb: 2,
+      },
     },
     login: {
-      variant: 'forms.account.base',
+      variant: 'forms.account.shared',
+      fieldGroup: {
+        variant: 'forms.account.shared.fieldGroup',
+      },
     },
-    forgot: {
-      variant: 'forms.account.base',
+    recover: {
+      variant: 'forms.account.shared',
+      fieldGroup: {
+        variant: 'forms.account.shared.fieldGroup',
+      },
     },
     signUp: {
-      variant: 'forms.account.base',
+      variant: 'forms.account.shared',
+      fieldGroup: {
+        variant: 'forms.account.shared.fieldGroup',
+      },
     },
+    address: {
+      variant: 'forms.account.shared',
+      fieldGroup: {
+        variant: 'forms.account.shared.fieldGroup',
+        '&:nth-of-type(odd)': {
+          pl: [null, null, null, 2],
+        },
+        '&:nth-of-type(even)': {
+          pr: [null, null, null, 2],
+        }
+      },
+    }
   }
 };

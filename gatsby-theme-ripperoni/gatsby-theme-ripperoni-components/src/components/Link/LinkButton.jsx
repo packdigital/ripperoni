@@ -4,12 +4,18 @@ import { jsx } from 'theme-ui';
 import { Link } from './Link';
 
 
-export const LinkButton = props => {
+export const LinkButton = ({
+  sx,
+  ...props
+}) => {
   LinkButton.propTypes = Link.propTypes;
 
   return (
     <Link
-      variant='buttons.primary'
+      sx={{
+        variant: 'buttons.primary',
+        ...sx,
+      }}
       {...props}
     />
   );

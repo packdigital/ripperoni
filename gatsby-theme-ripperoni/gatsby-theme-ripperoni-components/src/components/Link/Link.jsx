@@ -2,7 +2,8 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link as LinkUI, jsx } from 'theme-ui';
-import TransitionLink from 'gatsby-plugin-transition-link';
+// import TransitionLink from 'gatsby-plugin-transition-link';
+import { Link as GatsbyLink } from 'gatsby';
 
 import { useSxProps } from '../../hooks/useSxProps';
 import * as defaultProps from '../../props/default';
@@ -16,9 +17,11 @@ import { fadeInChildrenSeq, fadeOutPageTemplate } from './LinkAnimations';
 export const Link = forwardRef(({
   to,
   href,
+  animate = true,
   ariaLabel,
   activeClassName,
   target,
+  newWindow = false,
   ...incomingProps
 }, ref) => {
   const { sxObject, props } = useSxProps(incomingProps, [buttonProps, typographyProps]);
@@ -33,19 +36,34 @@ export const Link = forwardRef(({
     },
   };
 
-  const linkProps = to ? { to, ...animationProps } : { href };
+  const linkProps = {
+    activeClassName,
+    'aria-label': ariaLabel,
+    'data-comp': Link.displayName,
+    ref: ref,
+    target: newWindow && '_blank' || target,
+    sx: {
+      variant: 'styles.a',
+      ...sxObject
+    },
+    ...(animate ? animationProps : {}),
+    ...props
+  };
+
+  if (to) {
+    return (
+      // <TransitionLink
+      <GatsbyLink
+        to={to}
+        {...linkProps}
+      />
+    );
+  }
 
   return (
     <LinkUI
-      as={to ? TransitionLink : 'a'}
-      ref={ref}
-      data-comp={Link.displayName}
-      aria-label={ariaLabel}
-      activeClassName={activeClassName}
-      target={target}
-      sx={sxObject}
+      href={href}
       {...linkProps}
-      {...props}
     />
   );
 });
@@ -60,7 +78,9 @@ Link.propTypes = {
   ...typographyProps.propTypes,
   to: PropTypes.string,
   href: PropTypes.string,
+  animate: PropTypes.bool,
   ariaLabel: PropTypes.string,
   activeClassName: PropTypes.string,
   target: PropTypes.oneOf(['_blank', '_self']),
+  newWindow: PropTypes.bool,
 };

@@ -1,7 +1,8 @@
 import deepmerge from 'deepmerge';
 
-import AccountTheme from '@packdigital/gatsby-theme-ripperoni-account/src/gatsby-plugin-theme-ui';
-import ComponentsTheme from '@packdigital/gatsby-theme-ripperoni-components/src/gatsby-plugin-theme-ui';
+import coreTheme from '@packdigital/gatsby-theme-ripperoni-core/src/gatsby-plugin-theme-ui';
+import accountTheme from '@packdigital/gatsby-theme-ripperoni-account/src/gatsby-plugin-theme-ui';
+import componentsTheme from '@packdigital/gatsby-theme-ripperoni-components/src/gatsby-plugin-theme-ui';
 
 
 import { fontWeights } from '../theme/fontWeights';
@@ -50,9 +51,12 @@ const theme = {
 };
 
 const mergedThemes = deepmerge.all([
-  AccountTheme,
-  ComponentsTheme,
+  coreTheme,
+  accountTheme,
+  componentsTheme,
   theme
 ]);
+
+console.log('mergedThemes', mergedThemes);
 
 export default mergedThemes;

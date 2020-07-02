@@ -9,7 +9,7 @@ export const ContainerSmall = props => {
 
   return (
     <Container
-      maxWidth='container.small'
+      variant='layout.container.small'
       {...props}
     />
   );

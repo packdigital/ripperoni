@@ -71,11 +71,6 @@
 - Presentation Themes
   - ?
 
-## Peer Deps
-
-- theme-ui
-- gatsby-plugin-theme-ui
-
 ## Account Serverless Function
 
 - _token
@@ -92,3 +87,13 @@
   - delete => customer
   - update => customer
   - default => customer
+
+## package.json
+
+- remove dead/unused packages
+- straighten out peer/dev/dependencies
+  - theme-ui
+  - gatsby-plugin-theme-ui
+
+
+link to product, redirect back to us

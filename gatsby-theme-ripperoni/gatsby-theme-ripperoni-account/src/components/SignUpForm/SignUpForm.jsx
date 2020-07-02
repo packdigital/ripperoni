@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { Field, Input } from 'theme-ui';
+import { Input } from 'theme-ui';
 
-import { Button, Flex, Loader } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Button, FieldGroup, Flex, Loader } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
 
 import { CustomerContext } from '../../context/CustomerContext';
 
@@ -42,25 +42,29 @@ export const SignUpForm = props => {
       }}
       {...props}
     >
-      <Field
+      <FieldGroup
+        variant='forms.account.signUp.fieldGroup'
         label='First Name'
         name='firstName'
         as={Input}
       />
 
-      <Field
+      <FieldGroup
+        variant='forms.account.signUp.fieldGroup'
         label='Last Name'
         name='lastName'
         as={Input}
       />
 
-      <Field
+      <FieldGroup
+        variant='forms.account.signUp.fieldGroup'
         label='Email'
         name='email'
         as={EmailInput}
       />
 
-      <Field
+      <FieldGroup
+        variant='forms.account.signUp.fieldGroup'
         label='Password'
         name='password'
         as={PasswordInput}

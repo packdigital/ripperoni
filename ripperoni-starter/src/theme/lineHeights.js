@@ -1,4 +1,1 @@
-export const lineHeights = {
-  body: 1.5,
-  heading: 1.125
-};
+export const lineHeights = {};

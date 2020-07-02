@@ -1,61 +1,79 @@
-import React, { useContext } from 'react';
-import Dropdown from 'react-dropdown';
+/** @jsx jsx */
+import { useContext } from 'react';
+import { Select, jsx } from 'theme-ui';
+import { navigate } from 'gatsby';
 
-import { Flex, Link, MQ, Svg, Text } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
+import { Box, Button, Flex, MQ } from '@packdigital/gatsby-theme-ripperoni-components/src/components';
 
-
-import Arrow from '../../assets/images/arrow.svg';
 import { CustomerContext } from '../../context/CustomerContext';
 
-import 'react-dropdown/style.css';
+import { navLinks } from './nav-links';
+import { NavigationItem } from './AccountNavigationItem';
 
 
 export const AccountNavigation = ({
   path,
   ...props
 }) => {
-  console.log('props', props);
-  const navLinks = [
-    { label: 'Order History', value: '/', paths: ['/orders/:id'] },
-    { label: 'Address Book', value: '/addresses' },
-    { label: 'Sign Out', value: '/logout' },
+  const { logout } = useContext(CustomerContext);
+
+  const desktopNavLinks = [
+    ...navLinks,
+    { label: 'Sign Out', as: Button.Link, onClick: logout },
   ];
 
-  const activeNavLink = navLinks.find(({ value, paths = [] }) => path === value  || paths.includes(path));
-  console.log('activeNavLink', activeNavLink);
-
-  const dropdownOnChange = option => {
-    console.log(option, option);
-  };
-
+  const activeNavLink = navLinks
+    .find(({ to, paths = [] }) =>
+      `/account${path}` === to || paths.includes(path));
 
   return (
-    <MQ
-      comps={[
-        <Dropdown
-          key='mobile-dropdown'
-          options={navLinks}
-          onChange={dropdownOnChange}
-          value={activeNavLink}
-        />,
-        <Flex.Col key='desktop-navigation'>
-          {navLinks.map(link => (
-            <Flex
-              middle
-              betwen
-              as={Link}
-              to={`/account${link.value}`}
-              key={link.value}
-            >
-              <Text variant='text.s'>{link.label}</Text>
-
-              {activeNavLink.value === link.value && (
-                <Svg as={Arrow} />
-              )}
-            </Flex>
-          ))}
-        </Flex.Col>
-      ]}
-    />
+    <Box {...props}>
+      <MQ
+        comps={[
+          <Select
+            key='mobile-navigation'
+            onChange={event => navigate(event.target.value)}
+            defaultValue={activeNavLink.to}
+          >
+            {navLinks.map(({ to, label }) => (
+              <option
+                key={label}
+                value={to}
+              >
+                {label}
+              </option>
+            ))}
+          </Select>,
+          null,
+          null,
+          <Flex.Col key='desktop-navigation'>
+            {desktopNavLinks.map(link => (
+              <NavigationItem
+                activeLabel={activeNavLink.label}
+                key={link.label}
+                {...link}
+              />
+            ))}
+          </Flex.Col>
+        ]}
+      />
+    </Box>
   );
 };
+
+
+// import Dropdown from 'react-dropdown';
+
+// import 'react-dropdown/style.css';
+
+// <Dropdown
+//   key='mobile-dropdown'
+//   options={navLinks}
+//   onChange={dropdownOnChange}
+//   value={activeNavLink}
+//   {...props}
+// />
+
+// const dropdownOnChange = option => {
+//   console.log(option, option);
+// };
