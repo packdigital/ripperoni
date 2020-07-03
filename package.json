@@ -7,7 +7,6 @@
     "tools/*",
     "packages/*",
     "plugins/*",
-    "projects/*",
     "themes/*"
   ],
   "scripts": {
