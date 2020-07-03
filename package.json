@@ -4,7 +4,7 @@
   "author": "@packdigital",
   "repository": "https://github.com/packdigital/ripperoni.git",
   "workspaces": [
-    "configs/*",
+    "tools/*",
     "packages/*",
     "plugins/*",
     "projects/*",
