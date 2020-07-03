@@ -1,0 +1,41 @@
+{
+  "name": "@packdigital/gatsby-source-backpack-shopify-collection",
+  "version": "0.1.3",
+  "author": "@packdigital",
+  "description": "something something whatever who gives a crap.",
+  "license": "MIT",
+  "main": "index.js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby-source-plugin",
+    "fart"
+  ],
+  "peerDependencies": {
+    "gatsby": "^2.0.0"
+  },
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link-http": "^1.5.16",
+    "chalk": "^4.0.0",
+    "deepmerge": "^4.2.2",
+    "gatsby-node-helpers": "^0.3.0",
+    "gatsby-source-filesystem": "^2.1.48",
+    "graphql": "^14.6.0",
+    "graphql-tag": "^2.10.3",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash.camelcase": "^4.3.0",
+    "lodash.startcase": "^4.4.0",
+    "progress": "^2.0.3",
+    "uuid": "^7.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "cross-env": "^5.2.1"
+  }
+}

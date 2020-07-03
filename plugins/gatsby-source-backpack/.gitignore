@@ -1,0 +1,8 @@
+# Ignore These
+node_modules
+build
+*.log
+yarn.lock
+*.js
+!/src/*
+*.DS_Store
