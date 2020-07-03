@@ -3,8 +3,8 @@ export const text = {
   default: {
     color: 'text',
     fontSize: 3,
-    lineHeight: 'body',
-    fontFamily: 'body',
+    lineHeight: 'text',
+    fontFamily: 'text',
   },
   heading: {
     fontSize: 4,

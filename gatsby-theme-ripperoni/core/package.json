@@ -20,12 +20,8 @@
   },
   "dependencies": {
     "@lekoarts/gatsby-theme-styleguide": "^1.1.7",
-    "@loadable/component": "^5.12.0",
-    "@packdigital/ripperoni-utilities": "^2.0.31",
     "chalk": "^4.1.0",
     "dateformat": "^3.0.3",
-    "dotenv": "^8.2.0",
-    "gatsby": "^2.23.18",
     "gatsby-plugin-eslint": "^2.0.8",
     "gatsby-plugin-loadable-components-ssr": "^2.1.0",
     "gatsby-plugin-manifest": "^2.4.11",
@@ -35,10 +31,32 @@
     "gatsby-plugin-theme-ui": "^0.3.0",
     "gatsby-source-filesystem": "^2.3.11",
     "gatsby-transformer-sharp": "^2.5.5",
-    "intersection-observer": "^0.11.0",
+    "intersection-observer": "^0.11.0"
+  },
+  "peerDependencies": {
+    "@loadable/component": "^5.12.0",
+    "@packdigital/ripperoni-utilities": "^2.0.31",
+    "gatsby": "^2.23.18",
+    "dotenv": "^8.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "theme-ui": "^0.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "eslint": "^7.3.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-custom-alias": "^1.2.0",
+    "eslint-import-resolver-webpack": "^0.12.2",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "prettier": "^2.0.5"
   },
   "prettier": "@packdigital/prettier-config-ripperoni"
 }

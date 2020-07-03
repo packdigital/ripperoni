@@ -1,5 +1,5 @@
 export const buttons = {
-  shared: {
+  base: {
     cursor: 'pointer',
     borderRadius: 0,
     border: 0,
@@ -7,7 +7,7 @@ export const buttons = {
     py: 2,
   },
   primary: {
-    variant: 'buttons.shared',
+    variant: 'buttons.base',
     color: 'background',
     bg: 'primary',
     '&:hover': {

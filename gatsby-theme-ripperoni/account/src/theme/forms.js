@@ -1,6 +1,6 @@
 export const forms = {
   account: {
-    shared: {
+    base: {
       label: {
         variant: 'text.account.shared.small'
       },
@@ -12,27 +12,27 @@ export const forms = {
       },
     },
     login: {
-      variant: 'forms.account.shared',
+      variant: 'forms.account.base',
       fieldGroup: {
-        variant: 'forms.account.shared.fieldGroup',
+        variant: 'forms.account.base.fieldGroup',
       },
     },
     recover: {
-      variant: 'forms.account.shared',
+      variant: 'forms.account.base',
       fieldGroup: {
-        variant: 'forms.account.shared.fieldGroup',
+        variant: 'forms.account.base.fieldGroup',
       },
     },
     signUp: {
-      variant: 'forms.account.shared',
+      variant: 'forms.account.base',
       fieldGroup: {
-        variant: 'forms.account.shared.fieldGroup',
+        variant: 'forms.account.base.fieldGroup',
       },
     },
     address: {
-      variant: 'forms.account.shared',
+      variant: 'forms.account.base',
       fieldGroup: {
-        variant: 'forms.account.shared.fieldGroup',
+        variant: 'forms.account.base.fieldGroup',
         '&:nth-of-type(odd)': {
           pl: [null, null, null, 2],
         },

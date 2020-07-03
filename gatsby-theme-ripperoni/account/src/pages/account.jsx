@@ -4,6 +4,7 @@ import React, { useContext } from 'react';
 import { Router } from '@reach/router';
 
 import { Flex, Loader } from '@ripperoni/components';
+import { isBrowser } from '@ripperoni/utilities';
 
 import { PrivateRoute } from '../components/PrivateRoute';
 import { CustomerContext } from '../context/CustomerContext';
@@ -11,9 +12,13 @@ import * as Views from '../views';
 
 
 export const AccountPage = React.memo(props => {
-  const { state } = useContext(CustomerContext);
+  const context = useContext(CustomerContext);
 
-  if (state.loggedIn === null || state.loading?.customerGet) {
+  if (!isBrowser) {
+    return null;
+  }
+
+  if (context.state.loggedIn === null || context.state.loading?.customerGet) {
     return (
       // make sure this flex takes up as much height as possible
       <Flex>
@@ -27,7 +32,7 @@ export const AccountPage = React.memo(props => {
       <PrivateRoute
         {...props}
         path='/'
-        condition={state.loggedIn}
+        condition={context.state.loggedIn}
         private={Views.Orders}
         public={Views.LoginSignUp}
       />
@@ -35,14 +40,14 @@ export const AccountPage = React.memo(props => {
       <PrivateRoute
         {...props}
         path='/orders/:id'
-        condition={state.loggedIn}
+        condition={context.state.loggedIn}
         private={Views.Order}
       />
 
       <PrivateRoute
         {...props}
         path='/addresses'
-        condition={state.loggedIn}
+        condition={context.state.loggedIn}
         private={Views.AddressBook}
       />
 

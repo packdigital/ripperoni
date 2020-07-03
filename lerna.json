@@ -1,5 +1,6 @@
 {
   "packages": [
+    "backpack/*",
     "gatsby-theme-ripperoni/*",
     "ripperoni-packages/*",
     "shareable-configs/*"

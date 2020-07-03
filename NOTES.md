@@ -88,3 +88,34 @@
 
 - remove dead/unused packages
 - straighten out peer/dev/dependencies
+
+## Merging Themes
+
+- Replace
+  - breakpoints
+  - colors
+  - fontSizes
+  - fontWeights
+  - fonts
+  - space
+  - sizes
+- Shallow Merge
+  - buttons
+  - styles
+  - text
+  - shadows
+  - radii
+- Deep Merge
+  - lineHeights
+- ???
+  - borderStyles
+  - borderWidths
+  - borders
+  - components
+  - forms
+  - layout
+  - letterSpacing
+  - links
+  - opacities
+  - pages
+  - zIndicies

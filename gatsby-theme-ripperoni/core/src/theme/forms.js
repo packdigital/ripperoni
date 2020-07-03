@@ -1,5 +1,5 @@
 export const forms = {
-  shared: {
+  base: {
     input: {
       borderColor: 'gray',
       '&:focus': {
@@ -10,12 +10,12 @@ export const forms = {
     },
   },
   input: {
-    variant: 'forms.shared.input'
+    variant: 'forms.base.input'
   },
   select: {
-    variant: 'forms.shared.input'
+    variant: 'forms.base.input'
   },
   textarea: {
-    variant: 'forms.shared.input'
+    variant: 'forms.base.input'
   },
 };

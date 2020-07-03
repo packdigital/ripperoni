@@ -1,20 +1,19 @@
 export const links = {
-  shared: {
+  base: {
     color: 'text',
     cursor: 'pointer',
     textDecoration: 'none',
     backgroundColor: 'transparent',
   },
   default: {
-    variant: 'links.shared',
-    p: 0,
+    variant: 'links.base',
     pb: 1,
     borderRadius: 0,
     borderColor: 'text',
     borderBottom: '1px solid',
   },
   plain: {
-    variant: 'links.shared',
+    variant: 'links.base',
     border: '0',
   }
 };
