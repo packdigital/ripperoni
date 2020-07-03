@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.34](https://github.com///compare/v0.0.9...v2.0.34) (2020-07-03)
+
 ### [2.0.31](https://github.com/packdigital/ripperoni-utilities/compare/v2.0.30...v2.0.31) (2020-06-25)
 
 
