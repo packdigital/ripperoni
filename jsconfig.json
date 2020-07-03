@@ -27,7 +27,7 @@
 	},
 	// Specifies a list of glob patterns that match files to be included in compilation.
 	"include": [
-    "configs/**/*",
+    "tools/**/*",
     "packages/**/*",
     "plugins/**/*",
     "projects/**/*",

@@ -1,27 +1,22 @@
 {
   "name": "@packdigital/gatsby-theme-ripperoni-components",
-  "description": "Ripperoni's UI components library",
-  "author": "@packdigital",
   "version": "1.1.15",
-  "main": "index.js",
+  "author": "@packdigital",
+  "description": "Ripperoni's UI components library",
+  "repository": "https://github.com/packdigital/ripperoni",
   "license": "MIT",
+  "main": "index.js",
   "scripts": {
-    "start": "run-p start:**",
+    "build": "gatsby build",
     "develop": "gatsby develop",
-    "clean": "gatsby clean",
-    "start:storybook": "start-storybook -s ./src/assets -p 9001",
-    "start:gatsby": "DEBUG=development gatsby develop -H 0.0.0.0 -o",
-    "reset": "git clean -dfx && git reset --hard && yarn",
-    "version": "standard-version",
-    "prepare-release": "run-s reset version",
-    "publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive",
-    "build": "run-p 'build:!(storybook)'",
-    "build:storybook": "build-storybook -c .storybook -o storybook",
-    "build:gatsby": "gatsby build"
+    "clean": "gatsby clean"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/packdigital/gatsby-theme-ripperoni-components.git"
+  "peerDependencies": {
+    "@loadable/component": "^5.12.0",
+    "@packdigital/ripperoni-utilities": "^2.0.21",
+    "dateformat": "^3.0.3",
+    "gatsby-plugin-theme-ui": "^0.3.0",
+    "theme-ui": "^0.3.1"
   },
   "dependencies": {
     "@theme-ui/match-media": "0.3.1",
@@ -40,13 +35,5 @@
     "react-helmet": "^5.2.1",
     "react-intersection-observer": "^8.26.2"
   },
-  "peerDependencies": {
-    "@loadable/component": "^5.12.0",
-    "@packdigital/ripperoni-utilities": "^2.0.21",
-    "dateformat": "^3.0.3",
-    "gatsby-plugin-theme-ui": "^0.3.0",
-    "theme-ui": "^0.3.1"
-  },
-  "devDependencies": {},
   "prettier": "@packdigital/prettier-config-ripperoni"
 }

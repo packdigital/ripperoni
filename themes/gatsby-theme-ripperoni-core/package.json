@@ -1,22 +1,24 @@
 {
   "name": "@packdigital/gatsby-theme-ripperoni-core",
-  "description": "",
-  "author": "@packdigital",
   "version": "0.0.25",
-  "main": "index.js",
+  "author": "@packdigital",
+  "description": "",
+  "repository": "https://github.com/packdigital/ripperoni",
   "license": "MIT",
+  "main": "index.js",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "clean": "gatsby clean",
-    "reset": "git clean -dfx && git reset --hard && yarn",
-    "version": "standard-version",
-    "prepare-release": "run-s reset version",
-    "publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive"
+    "clean": "gatsby clean"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/packdigital/gatsby-theme-ripperoni-core.git"
+  "peerDependencies": {
+    "@loadable/component": "^5.12.0",
+    "@packdigital/ripperoni-utilities": "^2.0.31",
+    "gatsby": "^2.23.18",
+    "dotenv": "^8.2.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "theme-ui": "^0.3.1"
   },
   "dependencies": {
     "@lekoarts/gatsby-theme-styleguide": "^1.1.7",
@@ -32,31 +34,6 @@
     "gatsby-source-filesystem": "^2.3.11",
     "gatsby-transformer-sharp": "^2.5.5",
     "intersection-observer": "^0.11.0"
-  },
-  "peerDependencies": {
-    "@loadable/component": "^5.12.0",
-    "@packdigital/ripperoni-utilities": "^2.0.31",
-    "gatsby": "^2.23.18",
-    "dotenv": "^8.2.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "theme-ui": "^0.3.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.10.4",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
-    "eslint": "^7.3.1",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-import-resolver-custom-alias": "^1.2.0",
-    "eslint-import-resolver-webpack": "^0.12.2",
-    "eslint-loader": "^4.0.2",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.3",
-    "prettier": "^2.0.5"
   },
   "prettier": "@packdigital/prettier-config-ripperoni"
 }

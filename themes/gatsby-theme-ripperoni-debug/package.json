@@ -1,27 +1,15 @@
 {
   "name": "@packdigital/gatsby-theme-ripperoni-debug",
-  "description": "",
-  "author": "@packdigital",
   "version": "0.0.18",
-  "main": "index.js",
+  "author": "@packdigital",
+  "description": "",
+  "repository": "https://github.com/packdigital/ripperoni",
   "license": "MIT",
+  "main": "index.js",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "clean": "gatsby clean",
-    "reset": "git clean -dfx && git reset --hard && yarn",
-    "version": "standard-version",
-    "prepare-release": "run-s reset version",
-    "publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/packdigital/gatsby-theme-ripperoni-debug.git"
-  },
-  "dependencies": {
-    "gatsby-plugin-schema-snapshot": "^1.0.0",
-    "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.10",
-    "gatsby-plugin-webpack-size": "^1.0.0"
+    "clean": "gatsby clean"
   },
   "peerDependencies": {
     "@packdigital/ripperoni-utilities": "^2.0.21",
@@ -29,6 +17,10 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
-  "devDependencies": {},
+  "dependencies": {
+    "gatsby-plugin-schema-snapshot": "^1.0.0",
+    "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.10",
+    "gatsby-plugin-webpack-size": "^1.0.0"
+  },
   "prettier": "@packdigital/prettier-config-ripperoni"
 }

@@ -5,12 +5,6 @@
   "description": "",
   "repository": "https://github.com/packdigital/ripperoni/tree/master/packages/ripperoni-account",
   "main": "index.js",
-  "scripts": {
-    "reset": "git clean -dfx && git reset --hard && yarn",
-    "version": "standard-version",
-    "prepare-release": "run-s reset version",
-    "publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive"
-  },
   "license": "MIT",
   "dependencies": {
     "@packdigital/ripperoni-utilities": "^2.0.21",

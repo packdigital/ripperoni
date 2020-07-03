@@ -1,11 +1,8 @@
 {
   "private": true,
   "name": "ripperoni",
-  "version": "1.0.0",
   "author": "@packdigital",
   "repository": "https://github.com/packdigital/ripperoni.git",
-  "license": "MIT",
-  "main": "index.js",
   "workspaces": [
     "configs/*",
     "packages/*",
@@ -13,33 +10,16 @@
     "projects/*",
     "themes/*"
   ],
-  "dependencies": {},
+  "scripts": {
+    "clean": "lerna run clean --stream --parallel",
+    "build": "lerna run build --stream --parallel",
+    "lint": "eslint . -f codeframe",
+    "start": "yarn start:client",
+    "start:client": "yarn workspace @sample/app start",
+    "start:server": "yarn workspace @sample/server start",
+    "prettify": "npx prettier \"./**/*.{js,ts,tsx}\" --write"
+  },
   "devDependencies": {
-    "@babel/core": "^7.10.4",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
-    "dateformat": "^3.0.3",
-    "dotenv": "^8.2.0",
-    "eslint": "^7.3.1",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-import-resolver-custom-alias": "^1.2.0",
-    "eslint-import-resolver-webpack": "^0.12.2",
-    "eslint-loader": "^4.0.2",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.3",
-    "gatsby": "^2.23.18",
-    "gatsby-plugin-theme-ui": "^0.3.0",
-    "lerna": "^3.22.1",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.0.5",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "standard-version": "^8.0.0",
-    "theme-ui": "^0.3.1",
-    "yarn-run-all": "^3.1.1"
+    "lerna": "^3.22.1"
   }
 }
