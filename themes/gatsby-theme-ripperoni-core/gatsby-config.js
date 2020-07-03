@@ -26,28 +26,8 @@ module.exports = ({
     root = process.cwd(),
     ...aliasOptions
   } = {},
-  format: {
-    money: {
-      string: moneyString = '${price}',
-      trimTralingZeros = false,
-    },
-    date: {
-      string: dateString = 'mm-dd-yyyy',
-    },
-  }
-}) => {
-  const siteMetadata = {
-    format: {
-      money: {
-        string: moneyString,
-        trimTralingZeros,
-      },
-      date: {
-        string: dateString
-      },
-    }
-  };
 
+}) => {
   const plugins = [
     {
       resolve: 'gatsby-plugin-eslint',
