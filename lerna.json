@@ -3,8 +3,7 @@
     "tools/*",
     "packages/*",
     "plugins/*",
-    "themes/*",
-    "projects/*"
+    "themes/*"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
