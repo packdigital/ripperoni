@@ -1,13 +1,19 @@
 {
-  "name": "ripperoni",
   "private": true,
+  "name": "ripperoni",
+  "version": "1.0.0",
+  "author": "@packdigital",
+  "repository": "https://github.com/packdigital/ripperoni.git",
+  "license": "MIT",
+  "main": "index.js",
   "workspaces": [
-    "backpack/*",
-    "gatsby-theme-ripperoni/*",
+    "configs/*",
+    "packages/*",
+    "plugins/*",
     "projects/*",
-    "ripperoni-packages/*",
-    "shareable-configs/*"
+    "themes/*"
   ],
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.10.4",
     "babel-eslint": "^10.1.0",
@@ -35,11 +41,5 @@
     "standard-version": "^8.0.0",
     "theme-ui": "^0.3.1",
     "yarn-run-all": "^3.1.1"
-  },
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/packdigital/ripperoni.git",
-  "author": "@packdigital",
-  "license": "MIT",
-  "dependencies": {}
+  }
 }

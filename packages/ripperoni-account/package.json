@@ -1,7 +1,9 @@
 {
   "name": "@packdigital/ripperoni-account",
   "version": "0.0.9",
+  "author": "@packdigital",
   "description": "",
+  "repository": "https://github.com/packdigital/ripperoni/tree/master/packages/ripperoni-account",
   "main": "index.js",
   "scripts": {
     "reset": "git clean -dfx && git reset --hard && yarn",
@@ -9,13 +11,7 @@
     "prepare-release": "run-s reset version",
     "publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive"
   },
-  "author": "@packdigital",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/packdigital/ripperoni-account.git"
-  },
-  "prettier": "@packdigital/prettier-config-ripperoni",
   "dependencies": {
     "@packdigital/ripperoni-utilities": "^2.0.21",
     "apollo-cache-inmemory": "^1.6.6",
@@ -27,5 +23,5 @@
     "graphql-tag": "^2.10.3",
     "isomorphic-fetch": "^2.2.1"
   },
-  "devDependencies": {}
+  "prettier": "@packdigital/prettier-config-ripperoni"
 }

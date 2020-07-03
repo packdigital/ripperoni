@@ -1,28 +1,23 @@
 {
-  "name": "@packdigital/babel-preset-ripperoni",
-  "version": "1.0.3",
+  "name": "@packdigital/prettier-config-ripperoni",
+  "version": "1.0.5",
+  "author": "@packdigital",
   "description": "",
-  "main": "index.js",
+  "license": "MIT",
+  "main": "prettier.config.js",
   "scripts": {
     "reset": "git clean -dfx && git reset --hard && yarn",
     "version": "standard-version",
     "prepare-release": "run-s reset version",
     "publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.10.1",
-    "babel-preset-gatsby": "^0.4.9"
+  "peerDependencies": {
+    "prettier": "^2.0.5"
   },
-  "devDependencies": {},
   "prettier": "./prettier.config.js",
   "eslintConfig": {
     "extends": [
       "@packdigital/eslint-config-ripperoni"
     ]
-  },
-  "peerDependencies": {
-    "@babel/core": "^7.10.2"
   }
 }

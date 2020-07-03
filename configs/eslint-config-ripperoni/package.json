@@ -1,20 +1,20 @@
 {
   "name": "@packdigital/eslint-config-ripperoni",
   "version": "1.0.3",
+  "author": "@packdigital",
   "description": "",
   "license": "MIT",
   "main": "index.js",
+  "keywords": [
+    "eslint",
+    "eslintconfig"
+  ],
   "scripts": {
     "reset": "git clean -dfx && git reset --hard && yarn",
     "version": "standard-version",
     "prepare-release": "run-s reset version",
     "publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive"
   },
-  "keywords": [
-    "eslint",
-    "eslintconfig"
-  ],
-  "author": "",
   "peerDependencies": {
     "eslint": ">= 3",
     "eslint-import-resolver-alias": "^1.1.2",
