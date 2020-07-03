@@ -1,0 +1,24 @@
+{
+  "name": "@packdigital/prettier-config-ripperoni",
+  "author": "@packdigital",
+  "version": "1.0.5",
+  "description": "",
+  "main": "prettier.config.js",
+  "scripts": {
+    "reset": "git clean -dfx && git reset --hard && yarn",
+    "version": "standard-version",
+    "prepare-release": "run-s reset version",
+    "publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive"
+  },
+  "license": "MIT",
+  "devDependencies": {},
+  "peerDependencies": {
+    "prettier": "^2.0.5"
+  },
+  "prettier": "./prettier.config.js",
+  "eslintConfig": {
+    "extends": [
+      "@packdigital/eslint-config-ripperoni"
+    ]
+  }
+}

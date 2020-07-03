@@ -1,0 +1,44 @@
+{
+  "name": "@packdigital/gatsby-theme-ripperoni-core",
+  "description": "",
+  "author": "@packdigital",
+  "version": "0.0.25",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "clean": "gatsby clean",
+    "reset": "git clean -dfx && git reset --hard && yarn",
+    "version": "standard-version",
+    "prepare-release": "run-s reset version",
+    "publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/packdigital/gatsby-theme-ripperoni-core.git"
+  },
+  "dependencies": {
+    "@lekoarts/gatsby-theme-styleguide": "^1.1.7",
+    "@loadable/component": "^5.12.0",
+    "@packdigital/ripperoni-utilities": "^2.0.31",
+    "chalk": "^4.1.0",
+    "dateformat": "^3.0.3",
+    "dotenv": "^8.2.0",
+    "gatsby": "^2.23.18",
+    "gatsby-plugin-eslint": "^2.0.8",
+    "gatsby-plugin-loadable-components-ssr": "^2.1.0",
+    "gatsby-plugin-manifest": "^2.4.11",
+    "gatsby-plugin-react-svg": "^3.0.0",
+    "gatsby-plugin-root-import": "^2.0.5",
+    "gatsby-plugin-sharp": "^2.6.11",
+    "gatsby-plugin-theme-ui": "^0.3.0",
+    "gatsby-source-filesystem": "^2.3.11",
+    "gatsby-transformer-sharp": "^2.5.5",
+    "intersection-observer": "^0.11.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "theme-ui": "^0.3.1"
+  },
+  "prettier": "@packdigital/prettier-config-ripperoni"
+}

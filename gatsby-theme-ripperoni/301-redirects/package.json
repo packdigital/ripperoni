@@ -1,0 +1,34 @@
+{
+  "name": "@packdigital/gatsby-theme-ripperoni-301-redirects",
+  "version": "0.0.13",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "clean": "gatsby clean",
+    "reset": "git clean -dfx && git reset --hard && yarn",
+    "version": "standard-version",
+    "prepare-release": "run-s reset version",
+    "publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/packdigital/https://github.com/packdigital/gatsby-theme-ripperoni-301-redirects.git"
+  },
+  "dependencies": {
+    "@packdigital/gatsby-plugin-301-redirects": "^0.0.5",
+    "gatsby-source-google-spreadsheet": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@packdigital/ripperoni-utilities": "^2.0.21",
+    "gatsby": "^2.20.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {},
+  "prettier": "@packdigital/prettier-config-ripperoni"
+}

@@ -70,4 +70,12 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
+
 .netlify
+
+.trash
+
+projects/
+ripperoni-starter/
+public-rec/
+backpack/

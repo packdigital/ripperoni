@@ -1,0 +1,10 @@
+{
+  "packages": [
+    "gatsby-theme-ripperoni/*",
+    "ripperoni-packages/*",
+    "shareable-configs/*"
+  ],
+  "version": "0.0.0",
+  "npmClient": "yarn",
+  "useWorkspaces": true
+}

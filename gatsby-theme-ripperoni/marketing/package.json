@@ -1,0 +1,39 @@
+{
+  "name": "@packdigital/gatsby-theme-ripperoni-marketing",
+  "version": "0.0.7",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "clean": "gatsby clean",
+    "reset": "git clean -dfx && git reset --hard && yarn",
+    "version": "standard-version",
+    "prepare-release": "run-s reset version",
+    "publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive"
+  },
+  "author": "@packdigital",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/packdigital/gatsby-theme-ripperoni-marketing.git"
+  },
+  "prettier": "@packdigital/prettier-config-ripperoni",
+  "peerDependencies": {
+    "@packdigital/ripperoni-utilities": "^2.0.21",
+    "gatsby": "^2.19.5",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "gatsby-plugin-facebook-pixel": "^1.0.3",
+    "gatsby-plugin-google-analytics": "^2.3.4",
+    "gatsby-plugin-google-tagmanager": "^2.3.5",
+    "gatsby-plugin-react-helmet": "^3.3.4",
+    "gatsby-plugin-robots-txt": "^1.5.1",
+    "gatsby-plugin-sitemap": "^2.4.5",
+    "prop-types": "^15.7.2",
+    "react-helmet": "^6.1.0"
+  }
+}
