@@ -104,7 +104,6 @@ module.exports = ({
   ];
 
   return {
-    siteMetadata,
     plugins,
   };
 };
