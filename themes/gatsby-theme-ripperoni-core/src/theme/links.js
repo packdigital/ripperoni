@@ -4,6 +4,7 @@ export const links = {
     cursor: 'pointer',
     textDecoration: 'none',
     backgroundColor: 'transparent',
+    fontFamily: 'text',
   },
   default: {
     variant: 'links.base',

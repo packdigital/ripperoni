@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
+import React from 'react';
 import { Input } from 'theme-ui';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
-import { CustomerContext } from '../../context/CustomerContext';
+import { useCustomerContext } from '../../context/CustomerContext';
 
 
 export const RecoverPasswordForm = ({
   cancelToggle,
   ...props
 }) => {
-  const { state, recover } = useContext(CustomerContext);
+  const { state, recover } = useCustomerContext();
 
   const EmailInput = props => (
     <Input

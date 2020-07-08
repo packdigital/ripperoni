@@ -41,7 +41,12 @@
       "dom"
     ],
     "types": [
-      "node"
+      "node",
+      "is-base64",
+      "lodash",
+      "node",
+      "react",
+      "react-dom"
     ],
     "typeRoots": [
       "./node_modules/@types",

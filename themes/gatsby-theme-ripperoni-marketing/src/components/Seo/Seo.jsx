@@ -6,7 +6,11 @@ import { graphql, useStaticQuery } from 'gatsby';
 
 export const Seo = props => {
   const result = useStaticQuery(staticQuery);
-  const { title, author, description } = result.site.metadata;
+  const { site, seo } = result.site.metadata;
+
+  const title = seo.title || site.name;
+  const author = seo.author || site.author;
+  const description = seo.description || site.description;
 
   return (
     <Helmet
@@ -73,9 +77,16 @@ const staticQuery = graphql`
   {
     site {
       metadata: siteMetadata {
-        title
-        author
-        description
+        site {
+          name
+          author
+          description
+        }
+        seo {
+          title
+          author
+          description
+        }
       }
     }
   }

@@ -22,6 +22,7 @@ const requestAccount = async ({ request: action, data = {}}, accessToken, signal
 
 export const reducer = (state, action) => {
   console.log('action', action);
+
   switch (action.type) {
     case 'LOGOUT':
       return {

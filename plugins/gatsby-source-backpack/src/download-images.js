@@ -1,10 +1,11 @@
-import { createRemoteFileNode } from 'gatsby-source-filesystem';
-import { formatMessage, downloadImageAndCreateRemoteFileNode } from '@packdigital/ripperoni-utilities';
+const { createRemoteFileNode } = require('gatsby-source-filesystem');
 
-import { PLUGIN_NAME, TYPE_PREFIX, IMAGE } from './constants';
+const { formatMessage, downloadImageAndCreateRemoteFileNode } = require('@packdigital/ripperoni-utilities');
+
+const { PLUGIN_NAME, TYPE_PREFIX, IMAGE } = require('./constants');
 
 
-export const downloadImages = async helpers => {
+exports.downloadImages = async helpers => {
   const imageNodes = helpers
     .getNodes()
     .filter(

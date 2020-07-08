@@ -1,44 +1,16 @@
-/**
- * [1] The `icon` option should:
- *       - be a square
- *       - at least 512x512
- *       - a .jpeg or .png
- *     You can provide this image by shadowing the file
- *     in the theme's src/gatsby-theme-ripperoni-core/assets/images/logo.png
- */
 require('./gatsby/config/log-environments');
 
 const path = require('path');
 
 const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
 
+const withDefaults = require('./gatsby/config/default-options');
 
-module.exports = ({
-  manifest: {
-    enabled: manifestEnabled = true,
-    title = '',
-    description = '',
-    color = '#252525',
-    backgroundColor = '#00f7bb',
-    ...manifestOptions
-  } = {},
-  alias: {
-    root = process.cwd(),
-    ...aliasOptions
-  } = {},
 
-}) => {
+module.exports = themeOptions => {
+  const { manifest, site, social, date, money } = withDefaults(themeOptions);
+
   const plugins = [
-    {
-      resolve: 'gatsby-plugin-eslint',
-      options: {
-        exclude: /(node_modules|.cache|public|ripperoni-utilities)/,
-        options: {
-          emitWarning: true,
-          failOnError: false
-        }
-      }
-    },
     {
       resolve: 'gatsby-plugin-react-svg',
       options: {
@@ -57,32 +29,27 @@ module.exports = ({
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     // 'gatsby-plugin-loadable-components-ssr',
-    ...conditionallyIncludePlugin({
-      enabled: manifestEnabled,
-      theme: 'core',
-      resolve: 'gatsby-plugin-manifest',
-      options: manifestOptions,
-      defaultOptions: {
-        start_url: '/',
-        display: 'minimal-ui',
-        name: title,
-        short_name: title,
-        description: description,
-        background_color: color,
-        theme_color: backgroundColor,
-        icon: 'src/assets/images/logo.png',  // [1]
-      },
-      requiredOptions: ['icon']
-    }),
-    ...conditionallyIncludePlugin({
+    'gatsby-plugin-theme-ui',
+    '@lekoarts/gatsby-theme-styleguide',
+    {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        exclude: /(node_modules|.cache|public|ripperoni-utilities)/,
+        options: {
+          emitWarning: true,
+          failOnError: false
+        }
+      }
+    },
+    {
       resolve: 'gatsby-plugin-root-import',
-      options: aliasOptions,
-      defaultOptions: {
-        'src': path.join(root, 'src'),
-        '@assets': path.join(root, 'src/assets'),
-        '@components': path.join(root, 'src/components'),
-        '@images': path.join(root, 'src/assets/images'),
-        '@layouts': path.join(root, 'src/layouts'),
+      options: {
+        'src': path.join(process.cwd(), 'src'),
+        '@assets': path.join(process.cwd(), 'src/assets'),
+        '@components': path.join(process.cwd(), 'src/components'),
+        '@images': path.join(process.cwd(), 'src/assets/images'),
+        '@layouts': path.join(process.cwd(), 'src/layouts'),
+        '@static': path.join(process.cwd(), 'static'),
         '@ripperoni/account/theme': '@packdigital/gatsby-theme-ripperoni-account/src/gatsby-plugin-theme-ui',
         '@ripperoni/account': '@packdigital/gatsby-theme-ripperoni-account/src',
         '@ripperoni/cart': '@packdigital/gatsby-theme-ripperoni-cart/src',
@@ -96,14 +63,26 @@ module.exports = ({
         '@ripperoni/search': '@packdigital/gatsby-theme-ripperoni-search/src',
         '@ripperoni/store': '@packdigital/gatsby-theme-ripperoni-store/src',
         '@ripperoni/utilities': '@packdigital/ripperoni-utilities',
-        '@static': path.join(root, 'static'),
       },
+    },
+    ...conditionallyIncludePlugin({
+      theme: 'core',
+      resolve: 'gatsby-plugin-manifest',
+      enabled: manifest.enabled,
+      options: manifest,
+      requiredOptions: ['icon'],
     }),
-    'gatsby-plugin-theme-ui',
-    '@lekoarts/gatsby-theme-styleguide',
   ];
+
+  const siteMetadata = {
+    site,
+    social,
+    date,
+    money,
+  };
 
   return {
     plugins,
+    siteMetadata,
   };
 };

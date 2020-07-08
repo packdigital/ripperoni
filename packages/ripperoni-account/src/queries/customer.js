@@ -49,6 +49,7 @@ const CUSTOMER_FRAGMENT = gql`
             edges {
               node {
                 title
+                quantity
                 fallbackCompareAtPrice: originalTotalPrice { amount }
                 fallbackPrice: discountedTotalPrice { amount }
                 variant {

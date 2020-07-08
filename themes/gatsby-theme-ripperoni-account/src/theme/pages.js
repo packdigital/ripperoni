@@ -9,9 +9,6 @@ export const pages = {
         bg: 'white',
       }
     },
-    loggedInPageHeader: {
-      variant: 'pages.account.shared.header'
-    },
     loginSignUp: {
       header: {
         mobile: {
@@ -32,13 +29,19 @@ export const pages = {
       },
     },
     order: {
+      header: {
+        variant: 'pages.account.shared.header'
+      },
       content: {
         variant: 'pages.account.shared.content',
       },
       addresses: {
         pb: 5,
         borderBottom: '1px solid',
-        borderColor: 'gray.1'
+        borderColor: 'gray.1',
+        trackOrder: {
+          variant: 'buttons.primary'
+        }
       },
       fulfillment: {
         header: {
@@ -61,18 +64,22 @@ export const pages = {
       },
       totals: {
         mt: 5,
+        pt: 5,
       },
       total: {
         py: 2,
       },
       totalPrice: {
         variant: 'pages.account.order.total',
-        mt: 2,
+        pt: 2,
         borderTop: '1px solid',
         borderColor: 'gray.1'
       }
     },
     orders: {
+      header: {
+        variant: 'pages.account.shared.header'
+      },
       content: {
         variant: 'pages.account.shared.content',
       },
@@ -83,17 +90,20 @@ export const pages = {
           borderBottom: '1px solid',
         },
         row: {
+          py: 3,
           '&:nth-of-type(2n+1)': {
             bg: 'gray.0'
           }
+        },
+        cell: {
+          px: 2,
         }
       },
-      cell: {
-        px: 2,
-        my: 3,
-      }
     },
     addressBook: {
+      header: {
+        variant: 'pages.account.shared.header'
+      },
       row: {
         variant: 'pages.account.shared.content',
         mb: 2,

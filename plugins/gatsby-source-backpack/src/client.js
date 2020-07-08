@@ -1,9 +1,10 @@
-import fetch from 'isomorphic-fetch';
-import { ApolloClient } from 'apollo-client';
-import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+const fetch = require('isomorphic-fetch');
+const { ApolloClient } = require('apollo-client');
+const { createHttpLink } = require('apollo-link-http');
+const { InMemoryCache } = require('apollo-cache-inmemory');
 
-export const createClient = (accessToken, apiVersion = `v1`, backpackUri) => {
+
+exports.createClient = (accessToken, apiVersion = 'v1', backpackUri) => {
   const uri = backpackUri || `https://platform-hasura.onrender.com/${apiVersion}/graphql`;
 
   const headers = {
@@ -12,7 +13,7 @@ export const createClient = (accessToken, apiVersion = `v1`, backpackUri) => {
   };
 
   const cache = new InMemoryCache();
-  const link = new createHttpLink({ uri, headers, fetch })
+  const link = new createHttpLink({ uri, headers, fetch });
   const client = new ApolloClient({ link, cache });
 
   return client;

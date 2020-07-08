@@ -4,25 +4,21 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
 
+const withDefaults = require('./gatsby/config/default-options');
 
-const cacheNever = [
-  'cache-control: public',
-  'cache-control: max-age=0',
-  'cache-control: must-revalidate',
-];
 
-const cacheOneYear = [
-  'cache-control: public',
-  'cache-control: max-age=31536000',
-  'cache-control: immutable',
-];
+module.exports = themeOptions => {
+  const { netlify } = withDefaults(themeOptions);
 
-module.exports = ({
-  netlify: {
-    enabled: netfliyEnabled = true,
-    ...netlifyOptions
-  } = {}
-}) => {
+  const plugins = [
+    ...conditionallyIncludePlugin({
+      theme: 'host',
+      resolve: 'gatsby-plugin-netlify',
+      enabled: netlify.enabled,
+      options: netlify,
+    }),
+  ];
+
   const developMiddleware = app => {
     app.use(
       '/api/*',
@@ -33,30 +29,8 @@ module.exports = ({
     );
   };
 
-  const plugins = [
-    ...conditionallyIncludePlugin({
-      enabled: netfliyEnabled,
-      theme: 'host',
-      resolve: 'gatsby-plugin-netlify',
-      options: netlifyOptions,
-      defaultOptions: {
-        headers: {
-          '/public/**/*.html': cacheNever,
-          '/public/page-data/*': cacheNever,
-          '/public/**/*.js': cacheOneYear,
-          '/*.js': cacheOneYear,
-          '/public/**/*.css': cacheOneYear,
-          '/public/third-parties/*': cacheOneYear,
-          '/public/swiper/*': cacheOneYear,
-          '/public/static/*': cacheOneYear,
-          '/sw.js': cacheNever,
-        },
-      },
-    }),
-  ];
-
   return {
-    developMiddleware,
     plugins,
+    developMiddleware,
   };
 };

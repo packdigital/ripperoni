@@ -22,7 +22,7 @@
 export async function asyncABC(): Promise<ReadonlyArray<string>> {
   function somethingSlow(index: 0 | 1 | 2): Promise<string> {
     const storage = 'abc'.charAt(index);
-    return new Promise<string>(resolve =>
+    return new Promise<string>((resolve) =>
       // later...
       resolve(storage)
     );

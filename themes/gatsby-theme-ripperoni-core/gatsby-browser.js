@@ -1,3 +1,6 @@
+// Shims
+require('./src/shims/requestTimeoutAndInterval')();
+
 // Stylesheets
 require('./src/assets/styles/global.css');
 require('./src/assets/styles/third-party-overwrites.css');

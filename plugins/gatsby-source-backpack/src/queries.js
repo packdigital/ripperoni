@@ -1,12 +1,13 @@
-import gql from 'graphql-tag';
+/* eslint-disable max-lines */
+const gql = require('graphql-tag');
 
-import {
+const {
   PRODUCT,
   PRODUCT_VARIANT,
   PRODUCT_OPTION,
   PRODUCT_OPTION_VALUE,
   IMAGE,
-} from './constants';
+} = require('./constants');
 
 /**
  *
@@ -16,8 +17,7 @@ import {
  *      result: productOptionValues
  *
 */
-
-export const PRODUCTS_QUERY = gql`
+const PRODUCTS_QUERY = gql`
   query GetProducts ($shopId: String) {
     result: products (
       where: {
@@ -74,7 +74,7 @@ export const PRODUCTS_QUERY = gql`
   }
 `;
 
-export const PRODUCT_VARIANTS_QUERY = gql`
+const PRODUCT_VARIANTS_QUERY = gql`
   query GetProductVariants ($shopId: String) {
     result: productVariants (
       order_by: {id: asc},
@@ -108,7 +108,7 @@ export const PRODUCT_VARIANTS_QUERY = gql`
   }
 `;
 
-export const PRODUCT_OPTIONS_QUERY = gql`
+const PRODUCT_OPTIONS_QUERY = gql`
   query GetProductOptions ($shopId: String) {
     result: productOptions (
       order_by: {id: asc},
@@ -133,7 +133,7 @@ export const PRODUCT_OPTIONS_QUERY = gql`
   }
 `;
 
-export const PRODUCT_OPTION_VALUES_QUERY = gql`
+const PRODUCT_OPTION_VALUES_QUERY = gql`
   query GetProductOptionValues ($shopId: citext) {
     result: productOptionValues (
       order_by: {id: asc},
@@ -150,7 +150,7 @@ export const PRODUCT_OPTION_VALUES_QUERY = gql`
   }
 `;
 
-export const IMAGES_QUERY = gql`
+const IMAGES_QUERY = gql`
   query GetImages ($shopId: String) {
     result: images (
       order_by: {id: asc},
@@ -184,7 +184,12 @@ export const IMAGES_QUERY = gql`
   }
 `;
 
-export default {
+module.exports = {
+  PRODUCTS_QUERY,
+  PRODUCT_VARIANTS_QUERY,
+  PRODUCT_OPTIONS_QUERY,
+  PRODUCT_OPTION_VALUES_QUERY,
+  IMAGES_QUERY,
   [PRODUCT]: PRODUCTS_QUERY,
   [PRODUCT_VARIANT]: PRODUCT_VARIANTS_QUERY,
   [PRODUCT_OPTION]: PRODUCT_OPTIONS_QUERY,

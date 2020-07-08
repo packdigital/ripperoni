@@ -1,9 +1,11 @@
-import createNodeHelpers from 'gatsby-node-helpers';
-import { formatMessage } from '@packdigital/ripperoni-utilities';
+const createNodeHelpers = require('gatsby-node-helpers').default;
 
-import Queries from './queries';
-import Middlewares from './middlewares';
-import { TYPE_PREFIX, PLUGIN_NAME, types } from './constants';
+const { formatMessage } = require('@packdigital/ripperoni-utilities');
+
+const Queries = require('./queries');
+const Middlewares = require('./middlewares');
+const { TYPE_PREFIX, PLUGIN_NAME, types } = require('./constants');
+
 
 const { createNodeFactory } = createNodeHelpers({
   typePrefix: TYPE_PREFIX,
@@ -28,7 +30,7 @@ const runQueries = async (client, shopId, reporter) => {
     const variables = { shopId };
 
     if (!query) {
-      reporter.warn(`No query found for type: ${type}.`)
+      reporter.warn(`No query found for type: ${type}.`);
       return;
     }
 
@@ -74,7 +76,7 @@ const createNodes = (nodeData, createNode) => {
     });
 };
 
-export const createContentNodes = async (client, shopId, helpers) => {
+exports.createContentNodes = async (client, shopId, helpers) => {
   try {
     const { reporter, actions: { createNode }} = helpers;
     const factories = createFactories();

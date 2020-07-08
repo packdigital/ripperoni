@@ -2,13 +2,15 @@ import React, { createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useReducerAsync } from 'use-reducer-async';
 
-import { isBrowser } from '@packdigital/ripperoni-utilities';
+import { isBrowser, useContextFactory } from '@packdigital/ripperoni-utilities';
 
 import { createActions } from './CustomerActions';
 import { asyncActionHandlers, reducer } from './CustomerReducer';
 
 
-export const CustomerContext = createContext();
+const CustomerContext = createContext();
+
+export const useCustomerContext = useContextFactory('Customer', CustomerContext);
 
 const initialState = {
   accessToken: null,

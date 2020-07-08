@@ -11,40 +11,42 @@ export const Totals = ({
   totalPrice,
   ...props
 }) => (
-  <Flex.Col
-    width='180px'
+  <Flex
     variant='pages.account.order.totals'
+    right
     {...props}
   >
-    {subtotal && (
-      <Line
-        name='Subtotal:'
-        amount={subtotal.amount}
-      />
-    )}
+    <Flex.Col width='180px'>
+      {subtotal && (
+        <Line
+          name='Subtotal:'
+          amount={subtotal.amount}
+        />
+      )}
 
-    {shipping && (
-      <Line
-        name='Shipping:'
-        amount={shipping.amount}
-      />
-    )}
+      {shipping && (
+        <Line
+          name='Shipping:'
+          amount={shipping.amount}
+        />
+      )}
 
-    {tax && (
-      <Line
-        name='Tax:'
-        amount={tax.amount}
-      />
-    )}
+      {tax && (
+        <Line
+          name='Tax:'
+          amount={tax.amount}
+        />
+      )}
 
-    {totalPrice && (
-      <Line
-        variant='pages.account.order.totalPrice'
-        name='Total:'
-        amount={totalPrice.amount}
-      />
-    )}
-  </Flex.Col>
+      {totalPrice && (
+        <Line
+          variant='pages.account.order.totalPrice'
+          name='Total:'
+          amount={totalPrice.amount}
+        />
+      )}
+    </Flex.Col>
+  </Flex>
 );
 
 Totals.displayName = 'Order Totals';

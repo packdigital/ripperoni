@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 /** @jsx jsx */
-import { useContext } from 'react';
 import { Select, jsx } from 'theme-ui';
 import { navigate } from 'gatsby';
 
 import { Box, Button, Flex, MQ } from '@ripperoni/components';
 
-import { CustomerContext } from '../../context/CustomerContext';
+import { useCustomerContext } from '../../context/CustomerContext';
 import { navLinks } from './nav-links';
 import { NavigationItem } from './AccountNavigationItem';
 
@@ -15,11 +14,16 @@ export const AccountNavigation = ({
   path,
   ...props
 }) => {
-  const { logout } = useContext(CustomerContext);
+  const { logout } = useCustomerContext();
 
   const desktopNavLinks = [
     ...navLinks,
-    { label: 'Sign Out', as: Button.Link, onClick: logout },
+    {
+      label: 'Sign Out',
+      as: Button.Link,
+      variant: 'layout.account.navigationItem',
+      onClick: logout
+    },
   ];
 
   const activeNavLink = navLinks

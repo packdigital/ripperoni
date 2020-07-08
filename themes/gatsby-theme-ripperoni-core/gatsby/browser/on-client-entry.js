@@ -1,5 +1,3 @@
-const dateformat = require('dateformat');
-
 const { isBrowser } = require('@packdigital/ripperoni-utilities');
 
 /*
@@ -13,10 +11,8 @@ const loadPolyfillsDynamically = async () => {
   //... add more conditional polyfills here..
 };
 
-module.exports = async (_, { format: { date }}) => {
-  console.log('The beginning of it all. React is not ready here..');
-
-  dateformat.masks.ripperoniTime = date.string;
+module.exports = async () => {
+  console.log('The beginning of it all. React is not ready here. Rest in pepperoni.');
 
   loadPolyfillsDynamically();
 };

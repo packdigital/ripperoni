@@ -3,6 +3,7 @@
     "import-graphql"
   ],
   "presets": [
-    ["babel-preset-gatsby-package"]
+    "babel-preset-gatsby-package",
+    "@packdigital/babel-preset-ripperoni"
   ]
 }

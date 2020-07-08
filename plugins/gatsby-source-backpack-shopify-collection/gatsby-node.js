@@ -1,12 +1,13 @@
 const deepmerge = require('deepmerge');
 const createNodeHelpers = require('gatsby-node-helpers').default;
 
-const createTypes = require('./types');
-const { clients } = require('./client');
-const { titleCase, formatMessage } = require('./utils');
-const { SHOPIFY_COLLECTIONS_QUERY } = require('./queries');
-const { downloadImagesAndCreateFileNode } = require('./download-asset');
-const { TYPE_PREFIX, COLLECTION, COLLECTION_META, COLLECTION_PRODUCTS } = require('./constants');
+const createTypes = require('./src/types');
+const { clients } = require('./src/client');
+const { titleCase, formatMessage } = require('./src/utils');
+const { SHOPIFY_COLLECTIONS_QUERY } = require('./src/queries');
+const { downloadImagesAndCreateFileNode } = require('./src/download-asset');
+const { TYPE_PREFIX, COLLECTION, COLLECTION_META, COLLECTION_PRODUCTS } = require('./src/constants');
+
 
 const { createNodeFactory } = createNodeHelpers({
   typePrefix: TYPE_PREFIX,
@@ -64,7 +65,7 @@ exports.sourceNodes = async (helpers, options) => {
   const { actions: { createNode }} = helpers;
   const CollectionNode = createNodeFactory(COLLECTION);
   const updateCollectionDataWithHelpers = updateCollectionData(helpers);
-  const startMessage = formatMessage('Sourcing collection data from Shopify.');
+  const startMessage = formatMessage('Sourcing collection data from Shopify 🛒');
   const endMessage = formatMessage('Finished sourcing collection data in');
 
   console.log(startMessage);

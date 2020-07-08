@@ -13,5 +13,5 @@ export function formatMessage(
   color = 'black'
 ): (message: string, color2: string) => string {
   return (message: string, color2 = 'black'): string =>
-    chalk`{${color} ${prefix}}  {${color2} ${message}}`.trim();
+    chalk`{${color} ${prefix}} {${color2} ${message}}`.trim();
 }

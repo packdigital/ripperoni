@@ -1,17 +1,19 @@
-import { convertToGatsbyGraphQLId } from '@packdigital/ripperoni-utilities';
+/* eslint-disable max-lines */
+const { convertToGatsbyGraphQLId } = require('@packdigital/ripperoni-utilities');
 
-import {
+const {
   TYPE_PREFIX,
   PRODUCT,
   PRODUCT_VARIANT,
   PRODUCT_OPTION,
   PRODUCT_OPTION_VALUE,
   IMAGE,
-} from './constants';
+} = require('./constants');
+
 
 const byId = type => ({ id }) => convertToGatsbyGraphQLId(id, type, TYPE_PREFIX);
 
-export const productMiddleware = node => {
+const productMiddleware = node => {
   const foreignIds = node.foreignIds.map(byId());
   const metadata = node.metadata === null ? {} : node.metadata;
   const optionValues = node.options.reduce((map, { title, values }) => ({
@@ -40,10 +42,10 @@ export const productMiddleware = node => {
     options___NODE,
     images___NODE,
     variants___NODE,
-  }
+  };
 };
 
-export const productVariantMiddleware = node => {
+const productVariantMiddleware = node => {
   const firstImage = node.images.find(({ position }) => position === 1) || {};
   const secondImage = node.images.find(({ position }) => position === 2) || {};
   const metadata = node.metadata === null ? {} : node.metadata;
@@ -70,10 +72,10 @@ export const productVariantMiddleware = node => {
     image___NODE,
     hoverImage___NODE,
     selectedOptions___NODE,
-  }
+  };
 };
 
-export const productOptionMiddleware = node => {
+const productOptionMiddleware = node => {
   const product___NODE = convertToGatsbyGraphQLId(node.productId, PRODUCT, TYPE_PREFIX);
   const values___NODE = node.values.map(byId(PRODUCT_OPTION_VALUE));
 
@@ -87,7 +89,7 @@ export const productOptionMiddleware = node => {
   };
 };
 
-export const productOptionValueMiddleware = node => {
+const productOptionValueMiddleware = node => {
   const option___NODE = convertToGatsbyGraphQLId(node.productOptionId, PRODUCT_OPTION, TYPE_PREFIX);
 
   delete node.option;
@@ -95,10 +97,10 @@ export const productOptionValueMiddleware = node => {
   return {
     ...node,
     option___NODE,
-  }
+  };
 };
 
-export const imageMiddleware = node => {
+const imageMiddleware = node => {
   const { id, src, altText, parent, children, internal } = node;
 
   if (node.variants && node.variants.length) {
@@ -150,7 +152,12 @@ export const imageMiddleware = node => {
   };
 };
 
-export default {
+module.exports = {
+  productMiddleware,
+  productVariantMiddleware,
+  productOptionMiddleware,
+  productOptionValueMiddleware,
+  imageMiddleware,
   [PRODUCT]: productMiddleware,
   [PRODUCT_VARIANT]: productVariantMiddleware,
   [PRODUCT_OPTION]: productOptionMiddleware,

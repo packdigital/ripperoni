@@ -1,12 +1,11 @@
 /* eslint-disable max-lines */
 /* eslint-disable react/prop-types */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input } from 'theme-ui';
 
-import { Box, Button, FieldGroup, Flex, Heading, Loader } from '@ripperoni/components';
+import { Box, Button, Checkbox, FieldGroup, Flex, Heading, Loader } from '@ripperoni/components';
 
-import { CustomerContext } from '../../context/CustomerContext';
-import { DefaultAddressCheckbox } from './AddressFormDefaultAddressCheckbox';
+import { useCustomerContext } from '../../context/CustomerContext';
 import { CountrySelect } from './AddressFormCountrySelect';
 import { ProvinceSelect } from './AddressFormProvinceSelect';
 import { ZipInput } from './AddressFormZipInput';
@@ -19,7 +18,7 @@ export const AddressForm = ({
   action,
   ...props
 }) => {
-  const { state } = useContext(CustomerContext);
+  const { state } = useCustomerContext();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -29,7 +28,7 @@ export const AddressForm = ({
   }, [state.loading]);
 
   const { id, firstName, lastName, address1, address2, city, province, zip, country = 'united states' } = address;
-  const isDefault = state.customer.defaultAddress.id === id;
+  const isDefault = state.customer.defaultAddress?.id === id;
 
   return (
     <Box variant='pages.account.addressBook.form'>
@@ -66,7 +65,11 @@ export const AddressForm = ({
             {title}
           </Heading>
 
-          <DefaultAddressCheckbox defaultChecked={isDefault} />
+          <Checkbox
+            label='Make Default'
+            name='default'
+            defaultChecked={isDefault}
+          />
         </Flex>
 
         <FieldGroup

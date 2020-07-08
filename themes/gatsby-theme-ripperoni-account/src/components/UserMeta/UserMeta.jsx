@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { Box, Button, Flex, Heading, Link } from '@ripperoni/components';
 
-import { CustomerContext } from '../../context/CustomerContext';
+import { useCustomerContext } from '../../context/CustomerContext';
 
 
 export const UserMeta = props => {
-  const { state, logout } = useContext(CustomerContext);
+  const { state, logout } = useCustomerContext();
 
   return (
     <Flex

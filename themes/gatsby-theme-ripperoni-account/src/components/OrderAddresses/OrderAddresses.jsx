@@ -13,7 +13,7 @@ export const Addresses = ({
 }) => (
   <Flex
     between
-    variant=''
+    variant='pages.account.order.addresses'
     {...props}
   >
     <Box width='33.33%'>
@@ -42,7 +42,7 @@ export const Addresses = ({
         {fulfillment?.company && (
           <Box variant='pages.account.order.fulfillment.company'>
             <Text variant='text.account.order.fulfillment.text'>
-              Shipped With: <strong>{fulfillment.company}</strong>
+              Shipped With: {fulfillment.company}
             </Text>
           </Box>
         )}

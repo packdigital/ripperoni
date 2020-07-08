@@ -12,98 +12,63 @@ require('dotenv').config();
 
 const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
 
+const withDefaults = require('./gatsby/config/default-options');
 
-module.exports = ({
-  googleTagManager: {
-    enabled: googleTagManagerEnabled = true,
-    ...googleTagManagerOptions
-  } = {},
-  googleAnalytics: {
-    enabled: googleAnalyticsEnabled = true,
-    ...googleAnalyticsOptions
-  } = {},
-  facebookPixel: {
-    enabled: facebookPixelEnabled = true,
-    ...facebookPixelOptions
-  } = {},
-  robotsTxt: {
-    enabled: robotsTxtEnabled = true,
-    ...robotsTxtOptions
-  } = {},
-  sitemap: {
-    enabled: sitemapEnabled = true,
-    ...sitemapOptions
-  } = {}
-}) => {
+
+module.exports = themeOptions => {
+  const {
+    googleTagManager,
+    googleAnalytics,
+    facebookPixel,
+    robotsTxt,
+    sitemap,
+    seo,
+  } = withDefaults(themeOptions);
+
   const plugins = [
     'gatsby-plugin-sitemap',
     'gatsby-plugin-react-helmet',
     ...conditionallyIncludePlugin({
-      enabled: googleTagManagerEnabled,
       theme: 'marketing',
       resolve: 'gatsby-plugin-google-tagmanager',
-      options: googleTagManagerOptions,  // [1][2]
+      enabled: googleTagManager.enabled,
+      options: googleTagManager,  // [1][2]
       requiredOptions: ['id'],
-      defaultOptions: { includeInDevelopment: false }
     }),
     ...conditionallyIncludePlugin({
-      enabled: googleAnalyticsEnabled,
       theme: 'marketing',
       resolve: 'gatsby-plugin-google-analytics',
-      options: googleAnalyticsOptions,  // [3]
+      enabled: googleAnalytics.enabled,
+      options: googleAnalytics,  // [3]
       requiredOptions: ['trackingId'],
-      defaultOptions: { head: false }
     }),
     ...conditionallyIncludePlugin({
-      enabled: facebookPixelEnabled,
       theme: 'marketing',
       resolve: 'gatsby-plugin-facebook-pixel',
-      options: facebookPixelOptions,
+      enabled: facebookPixel.enabled,
+      options: facebookPixel,
       requiredOptions: ['pixelId'],
     }),
     ...conditionallyIncludePlugin({
-      enabled: robotsTxtEnabled,
       theme: 'marketing',
       resolve: 'gatsby-plugin-robots-txt',
-      options: robotsTxtOptions,
-      defaultOptions: {
-        resolveEnv: () => {
-          const isNetlify = process.env.NETLIFY === 'true';
-          const isPreview = process.env.PREVIEW === 'true';
-          const isProduction = process.env.NODE_ENV === 'production';
-
-          return (isProduction && isNetlify)
-            ? 'production'
-            : (isPreview)
-              ? 'preview'
-              : 'development';
-        },
-        env: {
-          production: {
-            policy: [{ userAgent: '*' }]
-          },
-          preview: {
-            policy: [{ userAgent: '*', disallow: ['/'] }],
-            sitemap: null,
-            host: null
-          },
-          development: {
-            policy: [{ userAgent: '*', disallow: ['/'] }],
-            sitemap: null,
-            host: null
-          }
-        }
-      }
+      enabled: robotsTxt.enabled,
+      options: robotsTxt,
     }),
     ...conditionallyIncludePlugin({
-      enabled: sitemapEnabled,
       theme: 'marketing',
       resolve: 'gatsby-plugin-sitemap',
-      options: sitemapOptions,
+      enabled: sitemap.enabled,
+      options: sitemap,
     }),
   ];
 
+  const siteMetadata = {
+    seo,
+  };
+
   return {
     plugins,
+    siteMetadata
   };
 };

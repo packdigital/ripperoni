@@ -2,41 +2,32 @@ require('dotenv').config();
 
 const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
 
+const withDefaults = require('./gatsby/config/default-options');
 
-module.exports = ({
-  backpackSource: {
-    enabled: backpackSourceEnabled,
-    ...backpackSourceOptions
-  } = {},
-  backpackShopifyCollectionSource: {
-    enabled: backpackShopifyCollectionSourceEnabled,
-    ...backpackShopifyCollectionSourceOptions
-  } = {},
-}) => {
+
+module.exports = themeOptions => {
+  const {
+    backpackSource,
+    backpackShopifyCollectionSource
+  } = withDefaults(themeOptions);
+
   const plugins = [
     ...conditionallyIncludePlugin({
-      enabled: backpackSourceEnabled,
       theme: '🎒 backpack',
       resolve: '@packdigital/gatsby-source-backpack',
-      options: backpackSourceOptions,
+      enabled: backpackSource.enabled,
+      options: backpackSource,
       requiredOptions: ['accessToken'],
-      defaultOptions: {
-        apiVersion: 'v1',
-        backpackUri: process.env.BACKPACK_URL,
-      },
       previewable: false,
     }),
     ...conditionallyIncludePlugin({
-      enabled: backpackShopifyCollectionSourceEnabled,
       theme: '🎒 backpack',
       resolve: '@packdigital/gatsby-source-backpack-shopify-collection',
-      options: backpackShopifyCollectionSourceOptions,
-      requiredOptions: [
-        'shopName',
-        'accessToken'
-      ],
+      enabled: backpackShopifyCollectionSource.enabled,
+      options: backpackShopifyCollectionSource,
+      requiredOptions: ['shopName', 'accessToken', 'backpackAccessToken'],
       previewable: false,
-    })
+    }),
   ];
 
   return {

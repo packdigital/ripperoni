@@ -2,23 +2,19 @@ require('dotenv').config();
 
 const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
 
+const withDefaults = require('./gatsby/config/default-options');
 
-module.exports = ({
-  contentful: {
-    enabled: contentfulEnabled = true,
-    ...contentfulOptions
-  } = {}
-}) => {
+
+module.exports = themeOptions => {
+  const { contentful } = withDefaults(themeOptions);
+
   const plugins = [
     ...conditionallyIncludePlugin({
-      enabled: contentfulEnabled,
       theme: 'cms',
       resolve: 'gatsby-source-contentful',
-      options: contentfulOptions,
-      requiredOptions: [
-        'spaceId',
-        'accessToken'
-      ]
+      enabled: contentful.enabled,
+      options: contentful,
+      requiredOptions: ['spaceId', 'accessToken'],
     }),
   ];
 

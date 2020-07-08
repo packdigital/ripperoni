@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Box, Button, Flex, Text } from '@ripperoni/components';
 import { isBrowser } from '@ripperoni/utilities';
 
-import { CustomerContext } from '../../context/CustomerContext';
+import { useCustomerContext } from '../../context/CustomerContext';
 import { Address } from '../Address';
 import { AddressForm } from '../AddressForm';
 
@@ -13,7 +13,7 @@ export const AddressBookRow = ({
   address,
   ...props
 }) => {
-  const { updateAddress, deleteAddress } = useContext(CustomerContext);
+  const { updateAddress, deleteAddress } = useCustomerContext();
   const [formActive, setFormActive] = useState(false);
 
   if (formActive) {

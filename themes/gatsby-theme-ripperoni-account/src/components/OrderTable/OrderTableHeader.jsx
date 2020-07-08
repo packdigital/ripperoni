@@ -12,10 +12,10 @@ export const OrderTableHeader = props => {
       variant='pages.account.orders.table.header'
       {...props}
     >
-      <Cell>Order</Cell>
-      <Cell>Date</Cell>
-      <Cell>Status</Cell>
-      <Cell>Total</Cell>
+      <Cell variant='text.account.orders.table.header'>Order</Cell>
+      <Cell variant='text.account.orders.table.header'>Date</Cell>
+      <Cell variant='text.account.orders.table.header'>Status</Cell>
+      <Cell variant='text.account.orders.table.header'>Total</Cell>
     </Flex>
   );
 };

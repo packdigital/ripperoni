@@ -14,25 +14,23 @@ export function conditionallyIncludePlugin({
   options = {},
   theme = '',
   requiredOptions = [],
-  defaultOptions = {},
   previewable = true,
-  enabled: isEnabled = true
+  enabled: isEnabled = true,
 }: ConditionallyIncludePluginArguments): GatsbyPlugin[] {
   const themeName = chalk`{cyan ${theme}}`;
   const pluginName = chalk`{magenta ${resolve}}`;
   const prefix = `${pluginName}${theme ? ` in ${themeName}` : ''}`;
   const isPreviewable = process.env.PREVIEW === 'true' && !previewable ? false : true;
-  const mergedOptions = { ...defaultOptions, ...options };
   const missingOptions = requiredOptions
     .filter(
-      requiredOption =>
-        !has(mergedOptions, requiredOption) || get(mergedOptions, requiredOption) === undefined
+      (requiredOption) =>
+        !has(options, requiredOption) || get(options, requiredOption) === undefined
     )
-    .map(option => chalk`{bold ${option}}`)
+    .map((option) => chalk`{bold ${option}}`)
     .join(', ');
 
   if (isEnabled && !missingOptions && isPreviewable) {
-    return [{ options: mergedOptions, resolve }];
+    return [{ options, resolve }];
   }
 
   console.warn(`${prefix} not included:`);
@@ -66,7 +64,6 @@ export interface ConditionallyIncludePluginArguments {
   options: PluginOptions;
   theme?: string;
   requiredOptions?: string[];
-  defaultOptions?: PluginOptions;
   previewable?: boolean;
   enabled?: boolean;
 }

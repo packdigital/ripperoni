@@ -10,6 +10,7 @@ import Arrow from '../../assets/images/arrow.svg';
 export const NavigationItem = ({
   as,
   label,
+  variant,
   activeLabel,
   ...props
 }) => {
@@ -18,7 +19,7 @@ export const NavigationItem = ({
       <Link
         {...props}
         activeClassName='active'
-        sx={{ variant: 'layout.account.navigationItem' }}
+        sx={{ variant: variant || 'layout.account.navigationItem' }}
       >
         <Flex
           middle
@@ -46,7 +47,7 @@ export const NavigationItem = ({
       middle
       between
       {...props}
-      variant='layout.account.navigationItem'
+      variant={variant || 'layout.account.navigationItem'}
     >
       <Text variant='text.account.navigation'>
         {label}

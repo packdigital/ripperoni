@@ -94,9 +94,11 @@ export const text = {
       },
     },
     orders: {
-      cell: {
-        variant: 'text.account.shared.small'
-      },
+      table: {
+        cell: {
+          variant: 'text.account.shared.small'
+        },
+      }
     },
     order: {
       number: {

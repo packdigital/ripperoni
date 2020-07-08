@@ -3,7 +3,6 @@
 ## Todo
 
 - Cart Theme
-- Default options for configs
 
 ## Contentful Plugin
 

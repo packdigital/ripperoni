@@ -2,10 +2,9 @@ export const forms = {
   base: {
     input: {
       borderColor: 'gray',
-      '&:focus': {
+      '&:hover, &:active, &:focus': {
         outline: 'none',
-        borderColor: 'primary',
-        boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
+        borderColor: 'primary'
       },
     },
   },

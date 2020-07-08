@@ -8,10 +8,10 @@ export const OrderTableCell = props => {
   return (
     <Box
       flex={1}
-      variant='pages.account.orders.cell'
+      variant='pages.account.orders.table.cell'
     >
       <Text
-        variant='text.account.orders.cell'
+        variant='text.account.orders.table.cell'
         {...props}
       >
         {props.children}

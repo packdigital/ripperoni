@@ -23,7 +23,7 @@ export async function downloadImageAndCreateRemoteFileNode(
       createNodeId,
       store,
       cache,
-      reporter
+      reporter,
     } = helpers;
 
     const imageDataCacheKey = `${prefix}__IMAGE__${node.src}`;
@@ -36,7 +36,7 @@ export async function downloadImageAndCreateRemoteFileNode(
         parentNodeId: node.id,
         reporter,
         store,
-        url: node.src
+        url: node.src,
       });
 
       const { fileNodeID } = await cache.set(imageDataCacheKey, { fileNodeID: fileNode.id });

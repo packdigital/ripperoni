@@ -13,16 +13,16 @@
     "node": ">=8.9"
   },
   "scripts": {
-    "_describe": "npm-scripts-info",
-    "_build": "run-s clean && run-p build:*",
-    "_build:main": "tsc -p tsconfig.json",
-    "_build:module": "tsc -p tsconfig.module.json",
-    "_fix": "run-s fix:*",
-    "_fix:prettier": "prettier \"src/**/*.ts\" --write",
-    "_fix:tslint": "tslint --fix --project .",
-    "_test": "run-s build test:*",
-    "_test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
-    "_test:unit": "nyc --silent ava",
+    "describe": "npm-scripts-info",
+    "build": "run-s clean && run-p build:*",
+    "build:main": "tsc -p tsconfig.json",
+    "build:module": "tsc -p tsconfig.module.json",
+    "fix": "run-s fix:*",
+    "fix:prettier": "prettier \"src/**/*.ts\" --write",
+    "fix:tslint": "tslint --fix --project .",
+    "test": "run-s build test:*",
+    "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
+    "test:unit": "nyc --silent ava",
     "_watch": "run-s clean build:main && run-p \"build:main -- -w\" \"test:unit -- --watch\"",
     "_cov": "run-s build test:unit cov:html && open-cli coverage/index.html",
     "_cov:html": "nyc report --reporter=html",
@@ -34,7 +34,7 @@
     "_doc:publish2": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "_version": "standard-version",
     "_reset": "git clean -dfx && git reset --hard && yarn",
-    "_clean": "trash build test",
+    "clean": "trash build test",
     "_prepare-release": "run-s reset test cov:check doc:html version doc:publish",
     "_publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive",
     "_preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('ripperoni-utilities must be installed with Yarn: https://yarnpkg.com/')\""
@@ -55,15 +55,10 @@
   "dependencies": {
     "abab": "^2.0.3",
     "array-union": "^2.1.0",
-    "atob": "^2.1.2",
-    "btoa": "^1.2.1",
     "chalk": "^4.0.0",
     "deepmerge": "^4.2.2",
     "is-base64": "^1.1.0",
     "lodash": "^4.17.15",
-    "prettyjson": "^1.2.1",
-    "react-dom": "^16.13.1",
-    "sha.js": "^2.4.11",
     "typedoc": "^0.17.0-3",
     "typescript": "^3.9.6"
   },
@@ -74,6 +69,7 @@
     "@types/is-base64": "^1.1.0",
     "@types/lodash": "^4.14.151",
     "@types/node": "^14.0.1",
+    "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
     "ava": "2.2.0",
     "codecov": "^3.5.0",
@@ -86,7 +82,7 @@
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-immutable": "^6.0.1",
-    "typescript": "^3.5.3"
+    "typescript": "^3.9.6"
   },
   "ava": {
     "failFast": true,
@@ -110,5 +106,9 @@
     "exclude": [
       "**/*.spec.js"
     ]
+  },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   }
 }

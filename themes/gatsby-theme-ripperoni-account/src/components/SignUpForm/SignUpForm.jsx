@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Input } from 'theme-ui';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
-import { CustomerContext } from '../../context/CustomerContext';
+import { useCustomerContext } from '../../context/CustomerContext';
 
 
 export const SignUpForm = props => {
-  const { state, create } = useContext(CustomerContext);
+  const { state, create } = useCustomerContext();
 
   const EmailInput = props => (
     <Input

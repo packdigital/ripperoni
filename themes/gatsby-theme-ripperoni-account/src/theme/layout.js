@@ -13,13 +13,18 @@ export const layout = {
       gridColumnGap: [null, null, null, 6],
     },
     navigationItem: {
-      py: 2,
+      py: 4,
+      px: 0,
+      textDecoration: 'none',
+      borderBottom: '1px solid',
+      borderRadius: '0',
       borderColor: 'gray.2',
       ':hover': {
         borderColor: 'text',
       },
       '&.active': {
         borderColor: 'text',
+        borderWidth: '2px'
       }
     },
   }

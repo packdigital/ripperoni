@@ -10,10 +10,15 @@ import { Text } from '../Text';
 export const Price = forwardRef(({
   cents,
   children,
+  format: formatOverride,
+  trimTrailingZeros: trimTrailingZerosOverride,
   ...props
 }, ref) => {
-  const { site: { meta: { format }}} = useStaticQuery(staticQuery);
   let price = children;
+  const { site: { metadata: { money }}} = useStaticQuery(staticQuery);
+
+  const format = formatOverride || money.format;
+  const trimTrailingZeros = trimTrailingZerosOverride || money.trimTrailingZeros;
 
   if (typeof(price) === 'string') {
     price = parseFloat(price);
@@ -25,14 +30,14 @@ export const Price = forwardRef(({
 
   price = price.toFixed(2);
 
-  if (format.money.trimTralingZeros) {
+  if (trimTrailingZeros) {
     price = price.replace('.00', '');
   }
 
   if (isNaN(price)) {
     price = children;
   } else {
-    price = format.money.string.replace('{price}', price);
+    price = format.replace('{price}', price);
   }
 
   return (
@@ -61,12 +66,10 @@ Price.propTypes = {
 const staticQuery = graphql`
   {
     site {
-      meta: siteMetadata {
-        format {
-          money {
-            string
-            trimTralingZeros
-          }
+      metadata: siteMetadata {
+        money {
+          format
+          trimTrailingZeros
         }
       }
     }

@@ -1,18 +1,18 @@
 /* eslint-disable import/namespace */
 /* eslint-disable import/no-default-export */
-import React, { useContext } from 'react';
+import React from 'react';
 import { Router } from '@reach/router';
 
 import { Flex, Loader } from '@ripperoni/components';
 import { isBrowser } from '@ripperoni/utilities';
 
 import { PrivateRoute } from '../components/PrivateRoute';
-import { CustomerContext } from '../context/CustomerContext';
+import { useCustomerContext } from '../context/CustomerContext';
 import * as Views from '../views';
 
 
 export const AccountPage = React.memo(props => {
-  const context = useContext(CustomerContext);
+  const context = useCustomerContext();
 
   if (!isBrowser) {
     return null;

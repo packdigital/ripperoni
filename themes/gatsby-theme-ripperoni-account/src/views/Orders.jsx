@@ -3,7 +3,7 @@ import React from 'react';
 import { Box } from '@ripperoni/components';
 
 import { AccountLayout } from '../layout/AccountLayout';
-import { LoggedInPageHeader } from '../components/LoggedInPageHeader';
+import { OrdersHeader } from '../components/OrdersHeader';
 import { OrderTable } from '../components/OrderTable';
 
 
@@ -13,7 +13,7 @@ export const Orders = props => {
       loggedIn={true}
       {...props}
     >
-      <LoggedInPageHeader heading='Order History' />
+      <OrdersHeader />
 
       <Box variant='pages.account.orders.content'>
         <OrderTable />

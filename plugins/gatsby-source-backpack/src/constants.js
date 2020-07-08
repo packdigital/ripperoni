@@ -1,19 +1,19 @@
 // Plugin
-export const PLUGIN_NAME = `@packdigital/gatsby-source-backpack`
+const PLUGIN_NAME = '@packdigital/gatsby-source-backpack';
 
 // Node prefix
-export const TYPE_PREFIX = `Backpack`;
+const TYPE_PREFIX = 'Backpack';
 
 // Node types
-export const PRODUCT = `Product`;
-export const PRODUCT_VARIANT = `ProductVariant`;
-export const PRODUCT_OPTION = `ProductOption`;
-export const PRODUCT_OPTION_VALUE = `ProductOptionValue`;
-export const IMAGE = `Image`;
-export const VIDEO = `Video`;
+const PRODUCT = 'Product';
+const PRODUCT_VARIANT = 'ProductVariant';
+const PRODUCT_OPTION = 'ProductOption';
+const PRODUCT_OPTION_VALUE = 'ProductOptionValue';
+const IMAGE = 'Image';
+const VIDEO = 'Video';
 
 
-export const types = [
+const types = [
   PRODUCT,
   PRODUCT_OPTION,
   PRODUCT_OPTION_VALUE,
@@ -21,3 +21,16 @@ export const types = [
   IMAGE,
   VIDEO,
 ];
+
+
+module.exports = {
+  PLUGIN_NAME,
+  TYPE_PREFIX,
+  PRODUCT,
+  PRODUCT_VARIANT,
+  PRODUCT_OPTION,
+  PRODUCT_OPTION_VALUE,
+  IMAGE,
+  VIDEO,
+  types,
+};
