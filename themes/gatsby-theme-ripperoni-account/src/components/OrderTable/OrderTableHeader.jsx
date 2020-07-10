@@ -2,20 +2,20 @@ import React from 'react';
 
 import { Flex } from '@ripperoni/components';
 
-import { OrderTableCell as Cell } from './OrderTableCell';
+import { TableCell } from './OrderTableCell';
 
 
-export const OrderTableHeader = props => {
+export const TableHeader = props => {
   return (
     <Flex
       between
-      variant='pages.account.orders.table.header'
+      variant='account.pages.orders.table.header'
       {...props}
     >
-      <Cell variant='text.account.orders.table.header'>Order</Cell>
-      <Cell variant='text.account.orders.table.header'>Date</Cell>
-      <Cell variant='text.account.orders.table.header'>Status</Cell>
-      <Cell variant='text.account.orders.table.header'>Total</Cell>
+      <TableCell variant='account.text.orders.table.header'>Order</TableCell>
+      <TableCell variant='account.text.orders.table.header'>Date</TableCell>
+      <TableCell variant='account.text.orders.table.header'>Status</TableCell>
+      <TableCell variant='account.text.orders.table.header'>Total</TableCell>
     </Flex>
   );
 };

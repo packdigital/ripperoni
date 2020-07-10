@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
-import { Box, Button, Flex, Text } from '@ripperoni/components';
+import { Box, Button, Flex } from '@ripperoni/components';
 import { isBrowser } from '@ripperoni/utilities';
 
 import { useCustomerContext } from '../../context/CustomerContext';
@@ -13,14 +13,18 @@ export const AddressBookRow = ({
   address,
   ...props
 }) => {
-  const { updateAddress, deleteAddress } = useCustomerContext();
+  const { state, updateAddress, deleteAddress } = useCustomerContext();
   const [formActive, setFormActive] = useState(false);
+
+  const isDefault = state.customer.defaultAddress?.id === address.id;
 
   if (formActive) {
     return (
       <AddressForm
+        variant='account.pages.addressBook.form'
         title='Edit Address'
         address={address}
+        isDefault={isDefault}
         cancelToggle={() => setFormActive(false)}
         action={updateAddress}
       />
@@ -29,29 +33,35 @@ export const AddressBookRow = ({
 
   return (
     <Flex
-      variant='pages.account.addressBook.row'
-      between
+      variant='account.pages.addressBook.row'
       middle
+      between
       {...props}
     >
       <Address
-        variant='text.account.addressBook.address'
+        variant='account.pages.addressBook.row.address'
         address={address}
+        type='addressBook'
+        isDefault={isDefault}
       />
 
-      <Box variant='pages.account.addressBook.formControls'>
-        <Button.Link onClick={() => setFormActive(true)}>
-          <Text variant='text.account.addressBook.formToggle'>Edit</Text>
-        </Button.Link>
+      <Box variant='account.pages.addressBook.row.ctas'>
+        <Button
+          variant='account.text.addressBook.row.edit'
+          onClick={() => setFormActive(true)}
+        >
+          Edit
+        </Button>
 
         {isBrowser && (
-          <Button.Link
+          <Button
+            variant='account.text.addressBook.row.delete'
             onClick={() => {
               window.confirm('Are you sure?') && deleteAddress({ id: address.id });
             }}
           >
-            <Text variant='text.account.addressBook.formToggle'>Delete</Text>
-          </Button.Link>
+            Delete
+          </Button>
         )}
       </Box>
     </Flex>

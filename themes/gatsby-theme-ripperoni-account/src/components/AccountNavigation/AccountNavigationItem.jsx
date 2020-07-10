@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
+import PropTypes from 'prop-types';
 
-import { Flex, Link, Svg, Text } from '@ripperoni/components';
+import { Flex, Link, Text } from '@ripperoni/components';
 
-import Arrow from '../../assets/images/arrow.svg';
+import { ActiveIcon } from './AccountNavigationActiveIcon';
 
 
 export const NavigationItem = ({
@@ -17,25 +17,20 @@ export const NavigationItem = ({
   if (!as) {
     return (
       <Link
-        {...props}
+        data-comp={NavigationItem.displayName}
         activeClassName='active'
-        sx={{ variant: variant || 'layout.account.navigationItem' }}
+        sx={{ variant: variant || 'account.layout.navigation.item' }}
+        {...props}
       >
         <Flex
           middle
           between
         >
-          <Text variant='text.account.navigation'>
+          <Text variant='account.text.layout.navigation'>
             {label}
           </Text>
 
-          {activeLabel === label && (
-            <Svg
-              as={Arrow}
-              width='15px'
-              transform='scale(-1)'
-            />
-          )}
+          {activeLabel === label && <ActiveIcon />}
         </Flex>
       </Link>
     );
@@ -47,11 +42,22 @@ export const NavigationItem = ({
       middle
       between
       {...props}
-      variant={variant || 'layout.account.navigationItem'}
+      variant={variant || 'account.layout.navigation.item'}
     >
-      <Text variant='text.account.navigation'>
+      <Text variant='account.text.layout.navigation'>
         {label}
       </Text>
+
+      {activeLabel === label && <ActiveIcon />}
     </Flex>
   );
+};
+
+NavigationItem.displayName = 'Account Navigation Item';
+
+NavigationItem.propTypes = {
+  as: PropTypes.any,
+  label: PropTypes.string,
+  variant: PropTypes.string,
+  activeLabel: PropTypes.string,
 };

@@ -76,9 +76,8 @@ export const AspectRatio = forwardRef(({
   );
 });
 
-AspectRatio.displayName = 'AspectRatio';
-
 AspectRatio.Image = AspectRatioImage;
+AspectRatio.displayName = 'AspectRatio';
 
 AspectRatio.propTypes = {
   ratio: PropTypes.arrayOf([

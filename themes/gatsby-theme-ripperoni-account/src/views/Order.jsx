@@ -2,13 +2,12 @@
 import React from 'react';
 
 import { Flex } from '@ripperoni/components';
-
-import { AccountLayout } from '../layout/AccountLayout';
-import { Addresses } from '../components/OrderAddresses';
-import { LineItems } from '../components/OrderLineItems';
-import { Totals } from '../components/OrderTotals';
-import { OrderHeader } from '../components/OrderHeader';
-import { useCustomerContext } from '../context/CustomerContext';
+import { AccountLayout } from '@ripperoni/account/layout/AccountLayout';
+import { Addresses } from '@ripperoni/account/components/OrderAddresses';
+import { LineItems } from '@ripperoni/account/components/OrderLineItems';
+import { Totals } from '@ripperoni/account/components/OrderTotals';
+import { OrderHeader } from '@ripperoni/account/components/OrderHeader';
+import { useCustomerContext } from '@ripperoni/account/context/CustomerContext';
 
 
 export const Order = ({
@@ -20,13 +19,13 @@ export const Order = ({
 
   return (
     <AccountLayout
+      variant='account.layout.pages.order'
       loggedIn={true}
       {...props}
     >
-
       <OrderHeader order={order} />
 
-      <Flex.Col variant='pages.account.order.content'>
+      <Flex.Col variant='account.pages.order.content'>
         <Addresses
           shippingAddress={order.shippingAddress}
           fulfillment={order.fulfillments[0]}

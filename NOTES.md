@@ -3,6 +3,7 @@
 ## Todo
 
 - Cart Theme
+- data-comp
 
 ## Contentful Plugin
 

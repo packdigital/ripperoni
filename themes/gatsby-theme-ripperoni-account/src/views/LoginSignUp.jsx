@@ -6,11 +6,11 @@ import { Box, Button, Flex, Heading } from '@ripperoni/components';
 
 import { AccountLayout } from '../layout/AccountLayout';
 import { LoginForm } from '../components/LoginForm';
-import { SignUpForm } from '../components/SignUpForm';
+import { SignupForm } from '../components/SignupForm';
 import { RecoverPasswordForm } from '../components/RecoverPasswordForm';
 
 
-export const LoginSignUp = props => {
+export const LoginSignup = props => {
   const [loginActive, setLoginActive] = useState(true);
   // const [loginMessages, setLoginMessages] = useState({});
   const [recoverPasswordActive, setRecoverActive] = useState(false);
@@ -35,18 +35,16 @@ export const LoginSignUp = props => {
 
   return (
     <AccountLayout
+      variant='account.layout.pages.loginSignup'
       loggedIn={false}
       {...props}
     >
-      <Flex direction={['column', null, null, 'row']}>
-        <Flex
-          display={[null, null, null, 'none']}
-          variant='pages.account.loginSignUp.header.mobile'
-        >
+      <Flex variant='account.pages.loginSignup'>
+        <Flex variant='account.pages.loginSignup.header.mobile'>
           <Heading
             as={Button.Link}
             onClick={loginToggle}
-            variant='text.account.loginSignUp.heading.mobile'
+            variant='account.text.loginSignup.heading.mobile'
             borderColor={loginActive ? 'black' : 'gray'}
             borderBottomWidth='3px'
           >
@@ -56,7 +54,7 @@ export const LoginSignUp = props => {
           <Heading
             as={Button.Link}
             onClick={signupToggle}
-            variant='text.account.loginSignUp.heading.mobile'
+            variant='account.text.loginSignup.heading.mobile'
             borderColor={signupActive ? 'black' : 'gray'}
             borderBottomWidth='3px'
           >
@@ -65,15 +63,11 @@ export const LoginSignUp = props => {
         </Flex>
 
         <Flex.Col
-          variant='pages.account.loginSignUp.login'
-          width={['100%', null, null, '50%']}
+          variant='account.pages.loginSignup.login'
           display={[!loginActive && 'none', null, null, 'flex']}
         >
-          <Flex
-            variant='pages.account.loginSignUp.header.desktop'
-            display={['none', null, null, 'block']}
-          >
-            <Heading variant='text.account.loginSignUp.heading.desktop'>
+          <Flex variant='account.pages.loginSignup.header.desktop'>
+            <Heading variant='account.text.loginSignup.heading.desktop'>
               Sign In
             </Heading>
           </Flex>
@@ -99,20 +93,16 @@ export const LoginSignUp = props => {
         />
 
         <Flex.Col
-          variant='pages.account.loginSignUp.signUp'
-          width={['100%', null, null, '50%']}
+          variant='account.pages.loginSignup.signup'
           display={[!signupActive && 'none', null, null, 'flex']}
         >
-          <Flex
-            variant='pages.account.loginSignUp.header.desktop'
-            display={['none', null, null, 'block']}
-          >
-            <Heading variant='text.account.loginSignUp.heading.desktop'>
+          <Flex variant='account.pages.loginSignup.header.desktop'>
+            <Heading variant='account.text.loginSignup.heading.desktop'>
               Sign Up
             </Heading>
           </Flex>
 
-          <SignUpForm />
+          <SignupForm />
         </Flex.Col>
       </Flex>
     </AccountLayout>

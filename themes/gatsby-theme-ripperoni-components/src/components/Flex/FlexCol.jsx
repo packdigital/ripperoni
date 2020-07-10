@@ -9,8 +9,11 @@ export const FlexCol = props => {
 
   return (
     <Flex
+      data-comp={FlexCol.displayName}
       direction='column'
       {...props}
     />
   );
 };
+
+FlexCol.displayName = 'Flex.Col';

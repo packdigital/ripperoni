@@ -1,13 +1,18 @@
 import React from 'react';
 import { Input } from 'theme-ui';
+import { navigate } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
 import { useCustomerContext } from '../../context/CustomerContext';
 
 
-export const SignUpForm = props => {
+export const SignupForm = props => {
   const { state, create } = useCustomerContext();
+
+  if (state.customer !== null) {
+    navigate('/account/');
+  }
 
   const EmailInput = props => (
     <Input
@@ -24,10 +29,10 @@ export const SignUpForm = props => {
   );
 
   return (
-    <Flex
+    <Flex.Col
+      data-comp={SignupForm.displayName}
+      variant='account.forms.signup'
       as='form'
-      direction='column'
-      variant='forms.account.signUp'
       onSubmit={event => {
         event.preventDefault();
 
@@ -42,39 +47,48 @@ export const SignUpForm = props => {
       }}
       {...props}
     >
-      <FieldGroup
-        variant='forms.account.signUp.fieldGroup'
-        label='First Name'
-        name='firstName'
-        as={Input}
-      />
+      <Flex.Col variant='account.forms.signup.inputs'>
+        <FieldGroup
+          variant='account.forms.signup.firstName'
+          label='First Name'
+          name='firstName'
+          as={Input}
+        />
 
-      <FieldGroup
-        variant='forms.account.signUp.fieldGroup'
-        label='Last Name'
-        name='lastName'
-        as={Input}
-      />
+        <FieldGroup
+          variant='account.forms.signup.lastName'
+          label='Last Name'
+          name='lastName'
+          as={Input}
+        />
 
-      <FieldGroup
-        variant='forms.account.signUp.fieldGroup'
-        label='Email'
-        name='email'
-        as={EmailInput}
-      />
+        <FieldGroup
+          variant='account.forms.signup.email'
+          label='Email'
+          name='email'
+          as={EmailInput}
+        />
 
-      <FieldGroup
-        variant='forms.account.signUp.fieldGroup'
-        label='Password'
-        name='password'
-        as={PasswordInput}
-      />
+        <FieldGroup
+          variant='account.forms.signup.password'
+          label='Password'
+          name='password'
+          as={PasswordInput}
+        />
+      </Flex.Col>
 
-      <Loader.Hoc loading={state.loading?.customerCreate}>
-        <Button>
-          Sign Up
-        </Button>
-      </Loader.Hoc>
-    </Flex>
+      <Flex.Col variant='account.forms.signup.ctas'>
+        <Loader.Hoc
+          variant='account.forms.signup.loader'
+          loading={state.loading?.customerCreate}
+        >
+          <Button variant='account.forms.signup.submit'>
+            Sign Up
+          </Button>
+        </Loader.Hoc>
+      </Flex.Col>
+    </Flex.Col>
   );
 };
+
+SignupForm.displayName = 'Signup Form';

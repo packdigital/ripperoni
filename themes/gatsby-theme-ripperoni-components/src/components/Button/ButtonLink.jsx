@@ -9,10 +9,11 @@ export const ButtonLink = props => {
 
   return (
     <Button
+      data-comp={ButtonLink.displayName}
       variant='styles.a'
       {...props}
     />
   );
 };
 
-ButtonLink.displayName = 'Button Link';
+ButtonLink.displayName = 'Button.Link';

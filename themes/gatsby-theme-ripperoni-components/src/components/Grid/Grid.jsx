@@ -4,15 +4,20 @@ import { Grid as GridUI, jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 
 import { useSxProps } from '../../hooks/useSxProps';
-import * as defaultProps from '../../props/default';
-import * as gridProps from './Grid.sx';
+import GridSx from './Grid.sx';
 
 
 export const Grid = forwardRef((incomingProps, ref) => {
-  const { sxObject, props } = useSxProps(incomingProps, [gridProps]);
+  const { sxObject, props, propTypes } = useSxProps(incomingProps, GridSx);
+
+  Grid.propTypes = {
+    ...propTypes,
+    children: PropTypes.any,
+  };
 
   return (
     <GridUI
+      data-comp={Grid.displayName}
       ref={ref}
       sx={{
         ...sxObject,
@@ -29,8 +34,3 @@ export const Grid = forwardRef((incomingProps, ref) => {
 });
 
 Grid.displayName = 'Grid';
-
-Grid.propTypes = {
-  ...defaultProps.propTypes,
-  children: PropTypes.any,
-};

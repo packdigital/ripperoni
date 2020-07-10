@@ -1,42 +1,50 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Date, Flex, Link, Price } from '@ripperoni/components';
 
-import { OrderTableCell as Cell } from './OrderTableCell';
+import { TableCell } from './OrderTableCell';
 
 
-export const OrderTableRow = ({
+export const TableRow = ({
   order,
   ...props
 }) => {
   return (
     <Flex
-      variant='pages.account.orders.table.row'
+      data-comp={TableRow.displayName}
+      variant='account.pages.orders.table.row'
       between
       {...props}
     >
-      <Cell>
+      <TableCell>
         <Link
           to={`/account/orders/${order.id}`}
           state={{ order }}
           animate={false}
+          sx={{ variant: 'account.text.orders.table.cell.orderNumber' }}
         >
           #{order.id}
         </Link>
-      </Cell>
-      <Cell
-        as={Date}
-        format='dd-mm-yy'
-      >
+      </TableCell>
+
+      <TableCell as={Date}>
         {order.date}
-      </Cell>
-      <Cell>
+      </TableCell>
+
+      <TableCell>
         {order.status.toLowerCase()}
-      </Cell>
-      <Cell as={Price}>
+      </TableCell>
+
+      <TableCell as={Price}>
         {order.totalPrice.amount}
-      </Cell>
+      </TableCell>
     </Flex>
   );
+};
+
+TableRow.displayName = 'Table Row';
+
+TableRow.propTypes = {
+  order: PropTypes.object,
 };

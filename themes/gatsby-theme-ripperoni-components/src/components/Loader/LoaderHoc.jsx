@@ -14,6 +14,7 @@ export const LoaderHoc = ({ loading, children, ...props }) => {
   if (loading) {
     return (
       <Loader
+        data-comp={LoaderHoc.displayName}
         m='auto'
         {...props}
       />
@@ -22,3 +23,5 @@ export const LoaderHoc = ({ loading, children, ...props }) => {
 
   return children;
 };
+
+LoaderHoc.displayName = 'Loader.Hoc';

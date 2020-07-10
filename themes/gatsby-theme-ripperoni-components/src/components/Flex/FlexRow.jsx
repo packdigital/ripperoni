@@ -9,8 +9,11 @@ export const FlexRow = props => {
 
   return (
     <Flex
+      data-comp={FlexRow.displayName}
       direction='row'
       {...props}
     />
   );
 };
+
+FlexRow.displayName = 'Flex.Row';

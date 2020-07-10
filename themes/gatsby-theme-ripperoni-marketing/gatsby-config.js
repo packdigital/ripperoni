@@ -26,7 +26,6 @@ module.exports = themeOptions => {
   } = withDefaults(themeOptions);
 
   const plugins = [
-    'gatsby-plugin-sitemap',
     'gatsby-plugin-react-helmet',
     ...conditionallyIncludePlugin({
       theme: 'marketing',

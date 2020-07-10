@@ -8,6 +8,7 @@ import { mutuallyExclusiveProps } from 'airbnb-prop-types';
 export const ImageSharp = props => {
   return (
     <GatsbyImage
+      data-comp={ImageSharp.displayName}
       {...props}
     />
   );

@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
+import Arrow from '@ripperoni/account/assets/images/arrow.svg';
 import { Date, Flex, Heading, Link, Svg } from '@ripperoni/components';
-
-import Arrow from '../../assets/images/arrow.svg';
 
 
 export const OrderHeader = ({
@@ -11,9 +11,10 @@ export const OrderHeader = ({
 }) => {
   return (
     <Flex
+      data-comp={OrderHeader.displayName}
+      variant='account.pages.order.header'
       between
       middle
-      variant='pages.account.order.header'
       {...props}
     >
       <Link
@@ -27,18 +28,24 @@ export const OrderHeader = ({
             width='15px'
           />
 
-          <Heading variant='text.account.order.heading'>
+          <Heading variant='account.text.order.header.heading'>
             {`Order #${order.id}`}
           </Heading>
         </Flex>
       </Link>
 
       <Date
-        variant='text.account.order.date'
+        variant='account.text.order.header.date'
         format='ddd, mmm dS, yyyy'
       >
         {order.date}
       </Date>
     </Flex>
   );
+};
+
+OrderHeader.displayName = 'OrderHeader';
+
+OrderHeader.propTypes = {
+  order: PropTypes.object,
 };

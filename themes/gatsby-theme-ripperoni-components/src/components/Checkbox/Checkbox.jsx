@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { Checkbox as CheckboxUI, Label, jsx } from 'theme-ui';
 
 import { useSxProps } from '../../hooks/useSxProps';
-import * as defaultProps from '../../props/default';
-import * as flexProps from '../Flex/Flex.sx';
 import { Box } from '../Box';
 import { Flex } from '../Flex';
 
@@ -16,10 +14,18 @@ export const Checkbox = forwardRef(({
   defaultChecked,
   ...incomingProps
 }, ref) => {
-  const { sxObject, props } = useSxProps(incomingProps, [flexProps]);
+  const { sxObject, props, propTypes } = useSxProps(incomingProps);
+
+  Checkbox.propTypes = {
+    ...propTypes,
+    label: PropTypes.string,
+    variant: PropTypes.string,
+    defaultChecked: PropTypes.bool,
+  };
 
   return (
     <Flex
+      data-comp={Checkbox.displayName}
       as={Label}
       sx={{
         alignItems: 'center',
@@ -39,10 +45,3 @@ export const Checkbox = forwardRef(({
 });
 
 Checkbox.displayName = 'Checkbox';
-
-Checkbox.propTypes = {
-  ...defaultProps.propTypes,
-  label: PropTypes.string,
-  variant: PropTypes.string,
-  defaultChecked: PropTypes.bool,
-};

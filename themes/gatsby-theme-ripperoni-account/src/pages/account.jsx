@@ -1,14 +1,13 @@
 /* eslint-disable import/namespace */
 /* eslint-disable import/no-default-export */
 import React from 'react';
-import { Router } from '@reach/router';
+import { Redirect, Router } from '@reach/router';
 
 import { Flex, Loader } from '@ripperoni/components';
 import { isBrowser } from '@ripperoni/utilities';
-
-import { PrivateRoute } from '../components/PrivateRoute';
-import { useCustomerContext } from '../context/CustomerContext';
-import * as Views from '../views';
+import { PrivateRoute } from '@ripperoni/account/components/PrivateRoute';
+import * as Views from '@ripperoni/account/views';
+import { useCustomerContext } from '@ripperoni/account/context/CustomerContext';
 
 
 export const AccountPage = React.memo(props => {
@@ -34,7 +33,7 @@ export const AccountPage = React.memo(props => {
         path='/'
         condition={context.state.loggedIn}
         private={Views.Orders}
-        public={Views.LoginSignUp}
+        public={Views.LoginSignup}
       />
 
       <PrivateRoute
@@ -56,12 +55,17 @@ export const AccountPage = React.memo(props => {
         path='/login'
       />
 
-      <Views.SignUp
+      <Views.Signup
         {...props}
         path='/signup'
       />
 
-      <Views.PasswordReset
+      <Views.RecoverPassword
+        {...props}
+        path='/recover'
+      />
+
+      <Views.ResetPassword
         {...props}
         path='/reset/:customerId/:resetToken'
       />
@@ -69,6 +73,13 @@ export const AccountPage = React.memo(props => {
       <Views.AccountActivation
         {...props}
         path='/activate/:customerId/:activateToken'
+      />
+
+      <Redirect
+        default
+        to='/account/'
+        from='/'
+        noThrow
       />
     </Router>
   );

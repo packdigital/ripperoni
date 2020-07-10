@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 /** @jsx jsx */
 import { Select, jsx } from 'theme-ui';
+import PropTypes from 'prop-types';
 import { navigate } from 'gatsby';
 
 import { Box, Button, Flex, MQ } from '@ripperoni/components';
@@ -21,7 +21,7 @@ export const AccountNavigation = ({
     {
       label: 'Sign Out',
       as: Button.Link,
-      variant: 'layout.account.navigationItem',
+      variant: 'account.layout.navigation.item',
       onClick: logout
     },
   ];
@@ -31,7 +31,11 @@ export const AccountNavigation = ({
       `/account${path}` === to || paths.includes(path));
 
   return (
-    <Box {...props}>
+    <Box
+      data-comp={AccountNavigation.displayName}
+      variant='account.layout.navigation'
+      {...props}
+    >
       <MQ
         comps={[
           <Select
@@ -65,6 +69,11 @@ export const AccountNavigation = ({
   );
 };
 
+AccountNavigation.displayName = 'Account Navigation';
+
+AccountNavigation.propTypes = {
+  path: PropTypes.string,
+};
 
 // import Dropdown from 'react-dropdown';
 

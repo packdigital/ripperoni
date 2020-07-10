@@ -9,11 +9,13 @@ import { useCustomerContext } from '../../context/CustomerContext';
 import { CountrySelect } from './AddressFormCountrySelect';
 import { ProvinceSelect } from './AddressFormProvinceSelect';
 import { ZipInput } from './AddressFormZipInput';
+import { PhoneInput } from './AddressFormPhoneInput';
 
 
 export const AddressForm = ({
   title,
   address = {},
+  isDefault,
   cancelToggle,
   action,
   ...props
@@ -27,14 +29,11 @@ export const AddressForm = ({
     }
   }, [state.loading]);
 
-  const { id, firstName, lastName, address1, address2, city, province, zip, country = 'united states' } = address;
-  const isDefault = state.customer.defaultAddress?.id === id;
-
   return (
-    <Box variant='pages.account.addressBook.form'>
+    <Box {...props}>
       <Flex
         as='form'
-        variant='forms.account.address'
+        variant='account.forms.address'
         direction={['column', 'row']}
         wrap={['nowrap', 'wrap']}
         onSubmit={event => {
@@ -50,22 +49,22 @@ export const AddressForm = ({
             province: event.target.province.value,
             country: event.target.country.value,
             zip: event.target.zip.value,
+            phone: event.target.phone.value,
           };
 
           action({ address: data, id: address.id, isDefault: event.target.default.checked });
         }}
-        {...props}
       >
         <Flex
-          variant='pages.account.addressBook.form.header'
-          width='100%'
+          variant='account.forms.address.header'
           between
         >
-          <Heading variant='text.account.addressBook.formHeading'>
+          <Heading variant='account.text.addressBook.form.heading'>
             {title}
           </Heading>
 
           <Checkbox
+            variant='account.forms.address.default'
             label='Make Default'
             name='default'
             defaultChecked={isDefault}
@@ -73,93 +72,94 @@ export const AddressForm = ({
         </Flex>
 
         <FieldGroup
-          variant='forms.account.address.fieldGroup'
-          width={['100%', null, null, '50%']}
-          defaultValue={firstName}
+          variant='account.forms.address.firstName'
+          defaultValue={address.firstName}
           label='First Name'
           name='firstName'
           as={Input}
         />
 
         <FieldGroup
-          variant='forms.account.address.fieldGroup'
-          width={['100%', null, null, '50%']}
-          defaultValue={lastName}
+          variant='account.forms.address.lastName'
+          defaultValue={address.lastName}
           label='Last Name'
           name='lastName'
           as={Input}
         />
 
         <FieldGroup
-          variant='forms.account.address.fieldGroup'
-          width={['100%', null, null, '50%']}
-          defaultValue={address1}
-          label='Address'
+          variant='account.forms.address.address1'
+          defaultValue={address.address1}
+          label='Address Line 1'
           name='address1'
           as={Input}
         />
 
         <FieldGroup
-          variant='forms.account.address.fieldGroup'
-          width={['100%', null, null, '50%']}
-          defaultValue={address2}
-          label='Apartment, Suite, etc.'
+          variant='account.forms.address.address2'
+          defaultValue={address.address2}
+          label='Address Line 2'
           name='address2'
           as={Input}
         />
 
         <FieldGroup
-          variant='forms.account.address.fieldGroup'
-          width={['100%', null, null, '50%']}
-          defaultValue={city}
+          variant='account.forms.address.city'
+          defaultValue={address.city}
           label='City'
           name='city'
           as={Input}
         />
 
         <FieldGroup
-          variant='forms.account.address.fieldGroup'
-          width={['100%', null, null, '50%']}
-          defaultValue={province}
+          variant='account.forms.address.province'
+          defaultValue={address.province}
           label='State'
           name='province'
-          country={country}
+          country={address.country || 'united states'}
           as={ProvinceSelect}
         />
 
         <FieldGroup
-          variant='forms.account.address.fieldGroup'
-          width={['100%', null, null, '50%']}
-          defaultValue={country}
+          variant='account.forms.address.zip'
+          defaultValue={address.zip}
+          label='Zip Code'
+          name='zip'
+          as={ZipInput}
+        />
+
+        <FieldGroup
+          variant='account.forms.address.country'
+          defaultValue={address.country}
           label='Country'
           name='country'
           as={CountrySelect}
         />
 
         <FieldGroup
-          variant='forms.account.address.fieldGroup'
-          width={['100%', null, null, '50%']}
-          defaultValue={zip}
-          label='Zip'
-          name='zip'
-          as={ZipInput}
+          variant='account.forms.address.phone'
+          defaultValue={address.phone}
+          label='Phone Number'
+          name='phone'
+          as={PhoneInput}
         />
 
         <Flex
-          middle
           center
-          width='100%'
-          variant='pages.account.addressBook.formControls'
+          variant='account.forms.address.ctas'
         >
           <Loader.Hoc loading={isLoading}>
-            <Button>
+            <Button variant='account.forms.address.saveAddress'>
               Save
             </Button>
 
             {cancelToggle && (
-              <Button.Link onClick={cancelToggle}>
+              <Button
+                variant='account.forms.address.cancelAddress'
+                onClick={cancelToggle}
+              >
                 Cancel
-              </Button.Link>
+              </Button>
             )}
           </Loader.Hoc>
         </Flex>

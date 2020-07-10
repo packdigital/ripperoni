@@ -12,13 +12,14 @@ export const Totals = ({
   ...props
 }) => (
   <Flex
-    variant='pages.account.order.totals'
+    variant='account.pages.order.totals'
     right
     {...props}
   >
     <Flex.Col width='180px'>
       {subtotal && (
         <Line
+          variant='account.pages.order.totals.subtotal'
           name='Subtotal:'
           amount={subtotal.amount}
         />
@@ -26,6 +27,7 @@ export const Totals = ({
 
       {shipping && (
         <Line
+          variant='account.pages.order.totals.shipping'
           name='Shipping:'
           amount={shipping.amount}
         />
@@ -33,6 +35,7 @@ export const Totals = ({
 
       {tax && (
         <Line
+          variant='account.pages.order.totals.tax'
           name='Tax:'
           amount={tax.amount}
         />
@@ -40,7 +43,7 @@ export const Totals = ({
 
       {totalPrice && (
         <Line
-          variant='pages.account.order.totalPrice'
+          variant='account.pages.order.totals.total'
           name='Total:'
           amount={totalPrice.amount}
         />
@@ -59,17 +62,17 @@ const Line = ({
   <Flex
     right
     width='100%'
-    variant='pages.account.order.total'
+    variant='account.pages.order.totals.line'
     {...props}
   >
     <Text
       flex='1'
-      variant='text.account.order.total'
+      variant='account.text.order.totals.line.title'
     >
       {name}
     </Text>
 
-    <Price variant='text.account.order.total'>
+    <Price variant='account.text.order.totals.line.price'>
       {amount}
     </Price>
   </Flex>

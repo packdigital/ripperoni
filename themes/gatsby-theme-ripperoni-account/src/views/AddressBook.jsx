@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { Flex } from '@ripperoni/components';
-
-import { AccountLayout } from '../layout/AccountLayout';
-import { AddressForm } from '../components/AddressForm';
-import { AddressBookHeader } from '../components/AddressBookHeader';
-import { useCustomerContext } from '../context/CustomerContext';
-import { AddressBookRow } from '../components/AddressBookRow';
+import { AccountLayout } from '@ripperoni/account/layout/AccountLayout';
+import { AddressForm } from '@ripperoni/account/components/AddressForm';
+import { AddressBookHeader } from '@ripperoni/account/components/AddressBookHeader';
+import { useCustomerContext } from '@ripperoni/account/context/CustomerContext';
+import { AddressBookRow } from '@ripperoni/account/components/AddressBookRow';
 
 
 export const AddressBook = props => {
@@ -14,6 +13,7 @@ export const AddressBook = props => {
 
   return (
     <AccountLayout
+      variant='account.layout.pages.addressBook'
       loggedIn={true}
       {...props}
     >
@@ -28,6 +28,7 @@ export const AddressBook = props => {
         ))}
 
         <AddressForm
+          variant='account.pages.addressBook.form'
           title='Add A New Address'
           action={createAddress}
         />

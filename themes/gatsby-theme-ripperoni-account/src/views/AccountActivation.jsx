@@ -8,11 +8,12 @@ import { AccountLayout } from '../layout/AccountLayout';
 export const AccountActivation = props => {
   return (
     <AccountLayout
+      variant='account.layout.pages.accountActivation'
       loggedIn={false}
       {...props}
     >
       <Flex
-        variant='layout.account.accountActivation'
+        variant='account.pages.accountActivation'
         {...props}
       >
         Account Activation

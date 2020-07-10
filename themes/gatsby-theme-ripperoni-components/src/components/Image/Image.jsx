@@ -56,10 +56,10 @@ export const Image = forwardRef(({
   );
 });
 
-Image.displayName = 'Image';
 
 Image.Sharp = ImageSharp;
 Image.Contentful = ImageContentful;
+Image.displayName = 'Image';
 
 Image.propTypes = {
   src: PropTypes.string.isRequired,

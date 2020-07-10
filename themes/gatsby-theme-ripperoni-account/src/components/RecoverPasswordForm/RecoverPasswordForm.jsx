@@ -1,17 +1,21 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Input } from 'theme-ui';
+import { navigate } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
-
-import { useCustomerContext } from '../../context/CustomerContext';
+import { useCustomerContext } from '@ripperoni/account/context/CustomerContext';
 
 
 export const RecoverPasswordForm = ({
-  cancelToggle,
+  cancelToggle = false,
   ...props
 }) => {
   const { state, recover } = useCustomerContext();
+
+  if (state.customer !== null) {
+    navigate('/account/');
+  }
 
   const EmailInput = props => (
     <Input
@@ -21,40 +25,60 @@ export const RecoverPasswordForm = ({
   );
 
   return (
-    <Flex
+    <Flex.Col
+      data-comp={RecoverPasswordForm.displayName}
       as='form'
-      direction='column'
-      variant='forms.account.recover'
+      variant='account.forms.recover'
       onSubmit={event => {
         event.preventDefault();
+
         const { email: { value: email }} = event.target;
 
         recover({ email });
       }}
       {...props}
     >
-      <FieldGroup
-        variant='forms.account.recoverPassword.fieldGroup'
-        as={EmailInput}
-        label='Email'
-        name='email'
-      />
+      <Flex variant='account.forms.recover.inputs'>
+        <FieldGroup
+          variant='account.forms.recover.email'
+          as={EmailInput}
+          label='Email'
+          name='email'
+        />
+      </Flex>
 
-      <Loader.Hoc loading={state.loading?.passwordRecover}>
-        <Button.Link
-          sx={{ alignSelf: 'center' }}
-          onClick={event => {
-            event.preventDefault();
-            cancelToggle();
-          }}
+      <Flex variant='account.forms.recover.ctas'>
+        <Loader.Hoc
+          variant='account.forms.recover.loader'
+          loading={state.loading?.passwordRecover}
         >
-          Cancel
-        </Button.Link>
+          {cancelToggle && (
+            <Button
+              variant='account.forms.recover.cancel'
+              onClick={event => {
+                event.preventDefault();
 
-        <Button>
-          Reset Password
-        </Button>
-      </Loader.Hoc>
-    </Flex>
+                cancelToggle();
+              }}
+            >
+              Cancel
+            </Button>
+          )}
+
+          <Button variant='account.forms.recover.submit'>
+            Submit
+          </Button>
+        </Loader.Hoc>
+      </Flex>
+    </Flex.Col>
   );
+};
+
+RecoverPasswordForm.displayName = 'Recover Password Form';
+
+RecoverPasswordForm.propTypes = {
+  cancelToggle: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.bool,
+  ])
 };

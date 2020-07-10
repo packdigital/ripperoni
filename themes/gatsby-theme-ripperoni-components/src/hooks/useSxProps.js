@@ -1,67 +1,114 @@
-import { deepMerge } from '@packdigital/ripperoni-utilities';
+import background from '../props/background';
+import border from '../props/border';
+import color from '../props/color';
+import flex from '../props/flex';
+import grid from '../props/grid';
+import position from '../props/position';
+import size from '../props/size';
+import space from '../props/space';
+import typography from '../props/typography';
 
-import * as defaultProps from '../props/default';
 
+export const useSxProps = (incomingProps = {}, componentSxProps = {}) => {
+  // save for later to add back in to sx object at end
+  const { variant: incomingSxVariant, ...incomingSxWithoutVariant } = incomingProps.sx || {};
+  const incomingPropsWithSx = { ...incomingProps, ...incomingSxWithoutVariant };
 
-export const useSxProps = (incomingProps, possibleProps = []) => {
-  const sxProp = incomingProps.sx || {};
-  const { sxProps: availableSxProps = [], toggleProps: availableToggleProps = {}} = deepMerge(defaultProps, ...possibleProps);
+  const {
+    sx = [],
+    alias = {},
+    computed = {},
+    propTypes: componentPropTypes = {}
+  } = componentSxProps;
 
-  const { props, sxProps = {}, toggleProps = {}} = Object.entries(incomingProps)
-    .reduce((parsedProps, [key, value]) => {
-      const isToggleProp = typeof value === 'boolean' && Object.keys(availableToggleProps).includes(key);
-      const sxKey = possibleProps.find(({ sxProps }) => sxProps[key])?.sxProps[key] || key;
-      const isSxProp = availableSxProps.includes(sxKey);
+  const sxProps = [
+    ...background.sx,
+    ...border.sx,
+    ...color.sx,
+    ...flex.sx,
+    ...grid.sx,
+    ...position.sx,
+    ...size.sx,
+    ...space.sx,
+    ...typography.sx,
+    ...sx,
+  ];
 
-      if (isToggleProp) {
-        return {
-          ...parsedProps,
-          toggleProps: {
-            ...parsedProps.toggleProps,
-            [key]: value
-          }
-        };
-      }
+  const aliasProps = {
+    ...background.alias,
+    ...border.alias,
+    ...color.alias,
+    ...flex.alias,
+    ...grid.alias,
+    ...position.alias,
+    ...size.alias,
+    ...space.alias,
+    ...typography.alias,
+    ...alias,
+  };
 
-      if (isSxProp) {
-        return {
-          ...parsedProps,
-          sxProps: {
-            ...parsedProps.sxProps,
-            [sxKey]: value
-          }
-        };
-      }
+  const computedProps = {
+    ...background.computed,
+    ...border.computed,
+    ...color.computed,
+    ...flex.computed,
+    ...grid.computed,
+    ...position.computed,
+    ...size.computed,
+    ...space.computed,
+    ...typography.computed,
+    ...computed,
+  };
 
-      return {
-        ...parsedProps,
-        props: {
-          ...parsedProps.props,
-          [key]: value
-        }
-      };
-    }, { sxProps: sxProp });
+  const propTypes = {
+    ...background.propTypes,
+    ...border.propTypes,
+    ...color.propTypes,
+    ...flex.propTypes,
+    ...grid.propTypes,
+    ...position.propTypes,
+    ...size.propTypes,
+    ...space.propTypes,
+    ...typography.propTypes,
+    ...componentPropTypes,
+  };
 
-  const sxObject = Object.entries(toggleProps)
-    .reduce((sxObject, [key]) => {
-      const toggleKey = availableToggleProps[key];
+  const eligibleProps = [
+    ...sxProps,
+    ...Object.keys(aliasProps),
+    ...Object.keys(computedProps),
+  ];
 
-      if (toggleKey.condition) {
+  const sxObject = Object.entries(incomingPropsWithSx)
+    // filter out any non-sx props
+    .filter(([prop]) => eligibleProps.includes(prop))
+    // map aliased props to their sx prop
+    .map(([prop, value]) => aliasProps[prop] ? [aliasProps[prop], value] : [prop, value])
+    .reduce((sxObject, [prop, value], index, source) => {
+      if (sxProps.includes(prop)) {
         return {
           ...sxObject,
-          ...toggleKey[toggleKey.condition(sxObject)]
+          [prop]: value,
         };
       }
 
-      return {
-        ...sxObject,
-        ...toggleKey,
-      };
-    }, sxProps);
+      if (computedProps[prop]) {
+        const fn = computedProps[prop];
+        const props = Object.fromEntries(source);
 
-  if (props?.sx) {
-    delete props.sx;
-  }
+        return {
+          ...sxObject,
+          ...fn({ value, props }),
+        };
+      }
 
-  return { sxObject, props };
+      return sxObject;
+    }, { variant: incomingSxVariant });  // add sx variant back into sx object
+
+  const propsEntries = Object.entries(incomingPropsWithSx)
+    .filter(([prop]) => !eligibleProps.includes(prop) && prop !== 'sx');
+
+  const props = Object.fromEntries(propsEntries);
+
+  return { sxObject, props, propTypes };
 };

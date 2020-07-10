@@ -9,8 +9,11 @@ export const ContainerFull = props => {
 
   return (
     <Container
+      data-comp={ContainerFull.displayName}
       variant='layout.container.full'
       {...props}
     />
   );
 };
+
+ContainerFull.displayName = 'Container.Full';

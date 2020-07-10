@@ -6,8 +6,6 @@ import { Link as LinkUI, jsx } from 'theme-ui';
 import { Link as GatsbyLink } from 'gatsby';
 
 import { useSxProps } from '../../hooks/useSxProps';
-import * as defaultProps from '../../props/default';
-import * as typographyProps from '../../props/typography';
 import { LinkButton } from './LinkButton';
 import { fadeInChildrenSeq, fadeOutPageTemplate } from './LinkAnimations';
 
@@ -22,7 +20,18 @@ export const Link = forwardRef(({
   newWindow = false,
   ...incomingProps
 }, ref) => {
-  const { sxObject, props } = useSxProps(incomingProps, [typographyProps]);
+  const { sxObject, props, propTypes } = useSxProps(incomingProps);
+
+  Link.propTypes = {
+    ...propTypes,
+    to: PropTypes.string,
+    href: PropTypes.string,
+    animate: PropTypes.bool,
+    ariaLabel: PropTypes.string,
+    activeClassName: PropTypes.string,
+    target: PropTypes.oneOf(['_blank', '_self']),
+    newWindow: PropTypes.bool,
+  };
 
   const animationProps = {
     entry: {
@@ -37,7 +46,6 @@ export const Link = forwardRef(({
   const linkProps = {
     activeClassName,
     'aria-label': ariaLabel,
-    'data-comp': Link.displayName,
     ref: ref,
     target: newWindow && '_blank' || target,
     sx: {
@@ -52,6 +60,7 @@ export const Link = forwardRef(({
     return (
       // <TransitionLink
       <GatsbyLink
+        data-comp='Internal Link'
         to={to}
         {...linkProps}
       />
@@ -60,24 +69,12 @@ export const Link = forwardRef(({
 
   return (
     <LinkUI
+      data-comp='External Link'
       href={href}
       {...linkProps}
     />
   );
 });
 
-Link.displayName = 'Link';
-
 Link.Button = LinkButton;
-
-Link.propTypes = {
-  ...defaultProps.propTypes,
-  ...typographyProps.propTypes,
-  to: PropTypes.string,
-  href: PropTypes.string,
-  animate: PropTypes.bool,
-  ariaLabel: PropTypes.string,
-  activeClassName: PropTypes.string,
-  target: PropTypes.oneOf(['_blank', '_self']),
-  newWindow: PropTypes.bool,
-};
+Link.displayName = 'Link';

@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Box, Flex, Heading, Link, Text } from '@ripperoni/components';
 
@@ -12,45 +12,48 @@ export const Addresses = ({
   ...props
 }) => (
   <Flex
+    data-comp={Addresses.displayName}
+    variant='account.pages.order.addresses'
     between
-    variant='pages.account.order.addresses'
     {...props}
   >
-    <Box width='33.33%'>
-      <Heading variant='text.account.order.shippingAddress.heading'>
-        Shipping Address
-      </Heading>
+    <Box variant='account.pages.order.addresses.shipping'>
+      <Box variant='account.pages.order.addresses.shipping.header'>
+        <Heading variant='account.text.order.addresses.shipping.heading'>
+          Shipping Address
+        </Heading>
+      </Box>
 
       <Address
-        variant='text.account.order.shippingAddress.address'
-        type='Shipping Address'
+        variant='account.pages.order.addresses.shipping.address'
+        type='shipping'
         address={shippingAddress}
       />
     </Box>
 
     {fulfillment && (
-      <Box
-        width='33.33%'
-        variant='pages.account.order.fulfillment'
-      >
-        <Box variant='pages.account.order.fulfillment.header'>
-          <Heading variant='text.account.order.fulfillment.heading'>
+      <Box variant='account.pages.order.addresses.fulfillment'>
+        <Box variant='account.pages.order.addresses.fulfillment.header'>
+          <Heading variant='account.text.order.addresses.fulfillment.heading'>
             Shipping Method
           </Heading>
         </Box>
 
         {fulfillment?.company && (
-          <Box variant='pages.account.order.fulfillment.company'>
-            <Text variant='text.account.order.fulfillment.text'>
+          <Box variant='account.pages.order.addresses.fulfillment.company'>
+            <Text variant='account.text.order.addresses.fulfillment.company'>
               Shipped With: {fulfillment.company}
             </Text>
           </Box>
         )}
 
         {fulfillment?.tracking.length && (
-          <Link.Button to={fulfillment.tracking[0].url}>
+          <Link
+            variant='account.pages.order.addresses.fulfillment.trackOrder'
+            href={fulfillment.tracking[0].url}
+          >
             Track Order
-          </Link.Button>
+          </Link>
         )}
       </Box>
     )}
@@ -58,3 +61,8 @@ export const Addresses = ({
 );
 
 Addresses.displayName = 'Order Addresses';
+
+Addresses.propTypes = {
+  shippingAddress: PropTypes.object,
+  fulfillment: PropTypes.object,
+};

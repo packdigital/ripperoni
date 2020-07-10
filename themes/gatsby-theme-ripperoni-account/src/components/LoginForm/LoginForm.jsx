@@ -1,17 +1,21 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Input } from 'theme-ui';
+import { navigate } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
-
-import { useCustomerContext } from '../../context/CustomerContext';
+import { useCustomerContext } from '@ripperoni/account/context/CustomerContext';
 
 
 export const LoginForm = ({
-  recoverPasswordToggle,
+  recoverPasswordToggle = false,
   ...props
 }) => {
   const { state, login } = useCustomerContext();
+
+  if (state.customer !== null) {
+    navigate('/account/');
+  }
 
   const EmailInput = props => (
     <Input
@@ -28,47 +32,69 @@ export const LoginForm = ({
   );
 
   return (
-    <Flex
+    <Flex.Col
+      data-comp={LoginForm.displayName}
+      variant='account.forms.login'
       as='form'
-      variant='forms.account.login'
-      direction='column'
       onSubmit={event => {
         event.preventDefault();
-        const { email: { value: email }, password: { value: password }} = event.target;
+
+        const {
+          email: { value: email },
+          password: { value: password }
+        } = event.target;
 
         login({ email, password });
       }}
       {...props}
     >
-      <FieldGroup
-        variant='forms.account.login.fieldGroup'
-        label='Email'
-        name='email'
-        as={EmailInput}
-      />
+      <Flex variant='account.forms.login.inputs'>
+        <FieldGroup
+          variant='account.forms.login.email'
+          label='Email'
+          name='email'
+          as={EmailInput}
+        />
 
-      <FieldGroup
-        variant='forms.account.login.fieldGroup'
-        label='Password'
-        name='password'
-        as={PasswordInput}
-      />
+        <FieldGroup
+          variant='account.forms.login.password'
+          label='Password'
+          name='password'
+          as={PasswordInput}
+        />
+      </Flex>
 
-      <Loader.Hoc loading={state.loading?.customerLogin}>
-        <Button.Link
-          sx={{ alignSelf: 'center' }}
-          onClick={event => {
-            event.preventDefault();
-            recoverPasswordToggle();
-          }}
+      <Flex variant='account.forms.login.ctas'>
+        <Loader.Hoc
+          variant='account.forms.login.loader'
+          loading={state.loading?.customerLogin}
         >
-          Forgot Your Password?
-        </Button.Link>
+          {recoverPasswordToggle && (
+            <Button
+              variant='account.forms.login.recoverPassword'
+              onClick={event => {
+                event.preventDefault();
+                recoverPasswordToggle();
+              }}
+            >
+              Forgot Your Password?
+            </Button>
+          )}
 
-        <Button>
-          Sign In
-        </Button>
-      </Loader.Hoc>
-    </Flex>
+          <Button variant='account.forms.login.submit'>
+            Sign In
+          </Button>
+        </Loader.Hoc>
+      </Flex>
+    </Flex.Col>
   );
+};
+
+LoginForm.displayName = 'Login Form';
+
+LoginForm.propTypes = {
+  recoverPasswordToggle: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.bool,
+  ]),
 };

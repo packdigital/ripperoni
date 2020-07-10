@@ -4,14 +4,15 @@ import React from 'react';
 import { Box, Text } from '@ripperoni/components';
 
 
-export const OrderTableCell = props => {
+export const TableCell = props => {
   return (
     <Box
+      data-comp={TableCell.displayName}
+      variant='account.pages.orders.table.cell'
       flex={1}
-      variant='pages.account.orders.table.cell'
     >
       <Text
-        variant='text.account.orders.table.cell'
+        variant='account.text.orders.table.cell'
         {...props}
       >
         {props.children}
@@ -19,3 +20,5 @@ export const OrderTableCell = props => {
     </Box>
   );
 };
+
+TableCell.displayName = 'Cell';

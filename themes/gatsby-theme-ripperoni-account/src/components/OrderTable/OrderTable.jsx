@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Flex } from '@ripperoni/components';
 
+import { TableRow } from './OrderTableRow';
+import { TableHeader } from './OrderTableHeader';
 import { useCustomerContext } from '../../context/CustomerContext';
-import { OrderTableHeader } from './OrderTableHeader';
-import { OrderTableRow } from './OrderTableRow';
 
 
 export const OrderTable = props => {
@@ -12,13 +12,13 @@ export const OrderTable = props => {
 
   return (
     <Flex.Col
-      variant='pages.account.orders.table'
+      variant='account.pages.orders.table'
       {...props}
     >
-      <OrderTableHeader />
+      <TableHeader />
 
       {state.customer.orders.map((order, index) => (
-        <OrderTableRow
+        <TableRow
           order={order}
           key={index}
         />

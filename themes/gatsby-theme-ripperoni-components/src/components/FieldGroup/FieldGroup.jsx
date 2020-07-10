@@ -4,7 +4,6 @@ import { Field as FieldUI, jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 
 import { useSxProps } from '../../hooks/useSxProps';
-import * as defaultProps from '../../props/default';
 import { Box } from '../Box';
 
 
@@ -16,10 +15,16 @@ export const FieldGroup = forwardRef(({
   variant,
   ...incomingProps
 }, ref) => {
-  const { sxObject, props } = useSxProps(incomingProps);
+  const { sxObject, props, propTypes } = useSxProps(incomingProps);
+
+  FieldGroup.propTypes = {
+    ...propTypes,
+    children: PropTypes.any,
+  };
 
   return (
     <Box
+      data-comp={FieldGroup.displayName}
       sx={sxObject}
       variant={variant}
     >
@@ -36,11 +41,6 @@ export const FieldGroup = forwardRef(({
 });
 
 FieldGroup.displayName = 'Field Group';
-
-FieldGroup.propTypes = {
-  ...defaultProps.propTypes,
-  children: PropTypes.any,
-};
 
 
 // <FieldGroup

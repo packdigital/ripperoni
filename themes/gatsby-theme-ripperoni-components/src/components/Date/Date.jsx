@@ -18,8 +18,8 @@ export const Date = forwardRef(({
 
   return (
     <Text
-      variant='date'
       data-comp={Date.displayName}
+      variant='date'
       ref={ref}
       {...props}
     >

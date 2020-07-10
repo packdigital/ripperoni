@@ -1,20 +1,17 @@
 export const forms = {
-  base: {
-    input: {
-      borderColor: 'gray',
-      '&:hover, &:active, &:focus': {
-        outline: 'none',
-        borderColor: 'primary'
-      },
+  input: {
+    p: 3,
+    mb: 2,
+    borderColor: 'gray',
+    '&:hover, &:active, &:focus': {
+      outline: 'none',
+      borderColor: 'primary'
     },
   },
-  input: {
-    variant: 'forms.base.input'
-  },
   select: {
-    variant: 'forms.base.input'
+    variant: 'account.forms.input',
   },
   textarea: {
-    variant: 'forms.base.input'
+    variant: 'account.forms.input',
   },
 };

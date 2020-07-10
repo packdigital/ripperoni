@@ -14,6 +14,7 @@ const ADDRESS_FRAGMENT = gql`
     provinceCode
     zip
     country
+    phone
   }
 `;
 

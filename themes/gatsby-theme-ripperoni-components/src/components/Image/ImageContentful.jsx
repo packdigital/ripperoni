@@ -33,6 +33,7 @@ export const ImageContentful = ({
   if (isSvg) {
     return (
       <Svg.Static
+        data-comp='Contentful SVG'
         alt={alt}
         uri={primaryImage.file.url}
         {...props}
@@ -42,7 +43,7 @@ export const ImageContentful = ({
 
   return (
     <GatsbyImage
-      data-comp='ContentfulImage'
+      data-comp={ImageContentful.displayName}
       {...imageProps}
       {...props}
     />

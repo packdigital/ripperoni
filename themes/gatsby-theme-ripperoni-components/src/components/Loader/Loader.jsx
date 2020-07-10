@@ -14,6 +14,8 @@ export const Loader = ({
 }) => {
   return (
     <Spinner
+      data-comp={Loader.displayName}
+      variant='loader'
       title={title}
       size={size}
       strokeWidth={width}

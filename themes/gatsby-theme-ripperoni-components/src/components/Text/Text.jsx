@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import { Text as TextUI, jsx } from 'theme-ui';
 
 import { useSxProps } from '../../hooks/useSxProps';
-import * as defaultProps from '../../props/default';
-import * as typographyProps from '../../props/typography';
 
 
 export const Text = forwardRef(({
@@ -12,7 +11,13 @@ export const Text = forwardRef(({
   children,
   ...incomingProps
 }, ref) => {
-  const { sxObject, props } = useSxProps(incomingProps, [typographyProps]);
+  const { sxObject, props, propTypes } = useSxProps(incomingProps);
+
+  Text.propTypes = {
+    ...propTypes,
+    text: PropTypes.any,
+    children: PropTypes.any,
+  };
 
   return (
     <TextUI
@@ -27,8 +32,3 @@ export const Text = forwardRef(({
 });
 
 Text.displayName = 'Text';
-
-Text.propTypes = {
-  ...defaultProps.propTypes,
-  ...typographyProps.propTypes,
-};

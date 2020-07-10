@@ -8,10 +8,10 @@ export const OrdersHeader = props => {
     <Flex
       between
       middle
-      variant='pages.account.orders.header'
+      variant='account.pages.orders.header'
       {...props}
     >
-      <Heading variant='text.account.orders.heading'>
+      <Heading variant='account.text.orders.heading'>
         Order History
       </Heading>
     </Flex>

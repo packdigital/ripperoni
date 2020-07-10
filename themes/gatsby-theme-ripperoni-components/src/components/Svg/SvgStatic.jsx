@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Box, jsx } from 'theme-ui';
 
 import { useSxProps } from '../../hooks/useSxProps';
-import * as defaultProps from '../../props/default';
 
 
 export const SvgStatic = ({
@@ -11,10 +10,17 @@ export const SvgStatic = ({
   altTxt = 'SVG Image',
   ...incomingProps
 }) => {
-  const { sxObject, props } = useSxProps(incomingProps);
+  const { sxObject, props, propTypes } = useSxProps(incomingProps);
+
+  SvgStatic.propTypes = {
+    ...propTypes,
+    uri: PropTypes.string.isRequired,
+    altTxt: PropTypes.string.isRequired,
+  };
 
   return (
     <Box
+      data-comp={SvgStatic.displayName}
       as='img'
       src={uri}
       alt={altTxt}
@@ -26,9 +32,3 @@ export const SvgStatic = ({
 };
 
 SvgStatic.displayName = 'Svg.Static';
-
-SvgStatic.propTypes = {
-  ...defaultProps.propTypes,
-  uri: PropTypes.string.isRequired,
-  altTxt: PropTypes.string.isRequired,
-};

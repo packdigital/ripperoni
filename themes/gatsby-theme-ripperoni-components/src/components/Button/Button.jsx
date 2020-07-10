@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import { Button as ButtonUI, jsx } from 'theme-ui';
 
 import { useSxProps } from '../../hooks/useSxProps';
-import * as defaultProps from '../../props/default';
-import * as typographyProps from '../../props/typography';
 import { ButtonLink } from './ButtonLink';
 
 
@@ -13,12 +12,18 @@ export const Button = forwardRef(({
   children,
   ...incomingProps
 }, ref) => {
-  const { sxObject, props } = useSxProps(incomingProps, [typographyProps]);
+  const { sxObject, props, propTypes } = useSxProps(incomingProps);
+
+  Button.propTypes = {
+    ...propTypes,
+    text: PropTypes.any,
+    children: PropTypes.any,
+  };
 
   return (
     <ButtonUI
-      ref={ref}
       data-comp={Button.displayName}
+      ref={ref}
       sx={sxObject}
       {...props}
     >
@@ -27,11 +32,5 @@ export const Button = forwardRef(({
   );
 });
 
-Button.displayName = 'Button';
-
 Button.Link = ButtonLink;
-
-Button.propTypes = {
-  ...defaultProps.propTypes,
-  ...typographyProps.propTypes,
-};
+Button.displayName = 'Button';

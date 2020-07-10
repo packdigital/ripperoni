@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { Label, Radio as RadioUI, jsx } from 'theme-ui';
 
 import { useSxProps } from '../../hooks/useSxProps';
-import * as defaultProps from '../../props/default';
-import * as flexProps from '../Flex/Flex.sx';
 import { Box } from '../Box';
 import { Flex } from '../Flex';
 
@@ -16,10 +14,18 @@ export const Radio = forwardRef(({
   defaultChecked,
   ...incomingProps
 }, ref) => {
-  const { sxObject, props } = useSxProps(incomingProps, [flexProps]);
+  const { sxObject, props, propTypes } = useSxProps(incomingProps);
+
+  Radio.propTypes = {
+    ...propTypes,
+    label: PropTypes.string,
+    variant: PropTypes.string,
+    defaultChecked: PropTypes.bool,
+  };
 
   return (
     <Flex
+      data-comp={Radio.displayName}
       as={Label}
       sx={{
         alignItems: 'center',
@@ -39,10 +45,3 @@ export const Radio = forwardRef(({
 });
 
 Radio.displayName = 'Radio';
-
-Radio.propTypes = {
-  ...defaultProps.propTypes,
-  label: PropTypes.string,
-  variant: PropTypes.string,
-  defaultChecked: PropTypes.bool,
-};

@@ -12,6 +12,7 @@ export const LinkButton = ({
 
   return (
     <Link
+      data-comp={LinkButton.displayName}
       sx={{
         variant: 'buttons.primary',
         ...sx,
@@ -21,4 +22,4 @@ export const LinkButton = ({
   );
 };
 
-LinkButton.displayName = 'Link Button';
+LinkButton.displayName = 'Link.Button';

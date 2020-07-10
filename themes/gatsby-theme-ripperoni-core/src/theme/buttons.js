@@ -1,16 +1,13 @@
 export const buttons = {
-  base: {
-    fontFamily: 'text',
-    fontWeight: 'text',
-    lineHeight: 1,
+  primary: {
     cursor: 'pointer',
-    borderRadius: 0,
-    border: 0,
     px: 3,
     py: 2,
-  },
-  primary: {
-    variant: 'buttons.base',
+    lineHeight: 1,
+    fontFamily: 'text',
+    fontWeight: 'text',
+    border: 0,
+    borderRadius: 0,
     color: 'background',
     bg: 'primary',
     '&:hover': {
@@ -18,10 +15,12 @@ export const buttons = {
     }
   },
   plain: {
-    variant: 'buttons.base',
-    fontFamily: 'text',
+    variant: 'buttons.primary',
     p: 0,
-    bg: 'transparent',
     color: 'text',
+    bg: 'transparent',
+    '&:hover': {
+      bg: 'transparent'
+    }
   }
 };

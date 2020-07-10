@@ -4,9 +4,12 @@ import React from 'react';
 import { Box } from '@ripperoni/components';
 
 
-export const LoggedInPage = props => {
+export const PageContents = props => {
   return (
-    <Box {...props}>
+    <Box
+      variant='account.layout.contents'
+      {...props}
+    >
       {props.children}
     </Box>
   );

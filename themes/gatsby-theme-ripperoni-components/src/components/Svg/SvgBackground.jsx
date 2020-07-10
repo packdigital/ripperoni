@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { Box, jsx } from 'theme-ui';
 
 import { useSxProps } from '../../hooks/useSxProps';
-import * as defaultProps from '../../props/default';
-import * as svgBackgroundProps from './SvgBackground.sx';
 
 
 export const SvgBackground = ({
@@ -12,11 +10,18 @@ export const SvgBackground = ({
   altTxt = 'SVG Image',
   ...incomingProps
 }) => {
-  const { sxObject, props } = useSxProps(incomingProps, [svgBackgroundProps]);
+  const { sxObject, props, propTypes } = useSxProps(incomingProps);
+
+  SvgBackground.propTypes = {
+    ...propTypes,
+    uri: PropTypes.string.isRequired,
+    altTxt: PropTypes.string.isRequired,
+  };
 
   return (
     <Box
-      role="img"
+      data-comp={SvgBackground.displayName}
+      role='img'
       aria-label={altTxt}
       sx={{
         ...sxObject,
@@ -28,28 +33,6 @@ export const SvgBackground = ({
 };
 
 SvgBackground.displayName = 'Svg.Background';
-
-SvgBackground.propTypes = {
-  ...defaultProps.propTypes,
-  uri: PropTypes.string.isRequired,
-  altTxt: PropTypes.string.isRequired,
-  backgroundPosition: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]),
-  backgroundSize: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]),
-  backgroundRepeat: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]),
-  backgroundAttachment: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]),
-};
 
 SvgBackground.defaultProps = {
   backgroundPosition: 'center center',

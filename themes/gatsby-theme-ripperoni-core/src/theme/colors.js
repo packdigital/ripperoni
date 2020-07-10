@@ -1,5 +1,5 @@
 const white = '#ffffff';
-const black = '#000000';
+const black = '#333333';
 const grays = [
   '#f5f5f5',  // 0
   '#e2e0e0',  // 1
@@ -8,7 +8,6 @@ const grays = [
   '#aaaaaa',  // 4
   '#939393',  // 5
   '#252525',  // 6
-  '#333333',  // 7
 ];
 const packGreen = '#00f7bb';
 
@@ -16,7 +15,7 @@ export const colors = {
   gray: grays,
   primary: grays[6],
   secondary: packGreen,
-  text: grays[7],
+  text: black,
   background: white,
   sale: grays[2],
 };

@@ -22,7 +22,7 @@ export const PrivateRoute = ({
     return <Public {...props} />;
   }
 
-  navigate('/account');
+  navigate('/account/');
 
   return null;
 };

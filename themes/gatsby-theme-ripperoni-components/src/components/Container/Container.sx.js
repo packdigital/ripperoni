@@ -1,10 +1,29 @@
-export const sxProps = [];
+/* eslint-disable import/no-default-export */
+import PropTypes from 'prop-types';
 
-sxProps.contain = 'maxWidth';
-sxProps.gutter = 'px';
+import { numberOrStringOrArray } from '../../props/types';
 
-export const toggleProps = {
-  center: { mx: 'auto' },
-  left: { mr: 'auto' },
-  right: { ml: 'auto' },
+
+const alias = {
+  gutter: 'px',
+  contain: 'maxWidth',
+};
+
+const computed = {
+  center: ({ value }) => ({ mx: value === true && 'auto' }),
+  left: ({ value }) => ({ mr: value === true && 'auto' }),
+  right: ({ value }) => ({ ml: value === true && 'auto' }),
+};
+
+const propTypes = {
+  contain: numberOrStringOrArray,
+  center: PropTypes.bool,
+  primary: PropTypes.bool,
+  secondary: PropTypes.bool,
+};
+
+export default {
+  alias,
+  computed,
+  propTypes,
 };

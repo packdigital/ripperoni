@@ -10,18 +10,19 @@ export const UserMeta = props => {
 
   return (
     <Flex
+      variant='account.layout.meta'
       between
       top
       {...props}
     >
-      <Box>
-        <Heading variant='text.account.meta.heading'>
+      <Box variant='account.layout.meta.content'>
+        <Heading variant='account.text.layout.meta.heading'>
           Hey {state.customer.firstName}
         </Heading>
 
         <Link
           href={`mailto:${state.customer.email}`}
-          sx={{ variant: 'text.account.meta.email' }}
+          sx={{ variant: 'account.text.layout.meta.email' }}
         >
           {state.customer.email}
         </Link>

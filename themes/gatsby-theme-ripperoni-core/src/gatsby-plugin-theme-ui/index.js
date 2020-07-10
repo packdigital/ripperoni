@@ -8,8 +8,12 @@ import { fontWeights } from '../theme/fontWeights';
 import { forms } from '../theme/forms';
 import { lineHeights } from '../theme/lineHeights';
 import { links } from '../theme/links';
+import { loader } from '../theme/loader';
+import { radii } from '../theme/radii';
+import { sizes } from '../theme/sizes';
 import { space } from '../theme/space';
 import { styles } from '../theme/styles';
+import { text } from '../theme/text';
 
 
 export default {
@@ -22,6 +26,10 @@ export default {
   forms,
   lineHeights,
   links,
+  loader,
+  radii,
+  sizes,
   space,
   styles,
+  text,
 };

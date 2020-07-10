@@ -1,20 +1,21 @@
 export const links = {
-  base: {
+  default: {
     color: 'text',
     cursor: 'pointer',
     textDecoration: 'none',
     backgroundColor: 'transparent',
     fontFamily: 'text',
-  },
-  default: {
-    variant: 'links.base',
     pb: 1,
     borderRadius: 0,
     borderColor: 'text',
     borderBottom: '1px solid',
+    '&:link, &:visited, &:hover, &:active': {
+      color: 'text',
+    },
   },
   plain: {
-    variant: 'links.base',
+    variant: 'account.links.default',
+    p: 0,
     border: '0',
   }
 };

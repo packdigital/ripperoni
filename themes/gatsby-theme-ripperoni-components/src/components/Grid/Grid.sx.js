@@ -1,4 +1,5 @@
-export const sxProps = [
+/* eslint-disable import/no-default-export */
+const sx = [
   'gridTemplateColumns',
   'gridTemplateRows',
   'gridTemplateAreas',
@@ -18,11 +19,16 @@ export const sxProps = [
   'grid',
 ];
 
-sxProps.columns = 'gridTemplateColumns';
-sxProps.rows = 'gridTemplateRows';
-sxProps.areas = 'gridTemplateAreas';
-sxProps.columnGap = 'gridColumnGap';
-sxProps.rowGap = 'gridRowGap';
-sxProps.gap = 'gridGap';
+const alias = {
+  columns: 'gridTemplateColumns',
+  rows: 'gridTemplateRows',
+  areas: 'gridTemplateAreas',
+  columnGap: 'gridColumnGap',
+  rowGap: 'gridRowGap',
+  gap: 'gridGap',
+};
 
-export const toggleProps = {};
+export default {
+  sx,
+  alias,
+};

@@ -2,14 +2,16 @@
 import { Box as BoxUI, jsx } from 'theme-ui';
 
 import { useSxProps } from '../../hooks/useSxProps';
-import * as defaultProps from '../../props/default';
 
 
 export const Box = incomingProps => {
-  const { sxObject, props } = useSxProps(incomingProps);
+  const { sxObject, props, propTypes } = useSxProps(incomingProps);
+
+  Box.propTypes = propTypes;
 
   return (
     <BoxUI
+      data-comp={Box.displayName}
       sx={sxObject}
       {...props}
     />
@@ -17,5 +19,3 @@ export const Box = incomingProps => {
 };
 
 Box.displayName = 'Box';
-
-Box.propTypes = defaultProps.propTypes;
