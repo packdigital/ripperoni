@@ -18,7 +18,7 @@
     "react-dom": "^16.13.1"
   },
   "dependencies": {
-    "@packdigital/gatsby-plugin-301-redirects": "^1.0.5",
+    "@packdigital/gatsby-plugin-301-redirects": "^1.0.1",
     "gatsby-source-google-spreadsheet": "^2.0.0"
   },
   "prettier": "@packdigital/prettier-config-ripperoni"
