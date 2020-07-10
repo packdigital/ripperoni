@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-plugin-301-redirects",
-  "version": "0.0.5",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "keywords": [],
