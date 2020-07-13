@@ -12,10 +12,6 @@ export const shared = {
     smallHeading: {
       variant: 'text.small',
     },
-    tableCell: {
-      variant: 'text.small',
-      textAlign: 'center',
-    },
   },
   loggedOut: {
     heading: {

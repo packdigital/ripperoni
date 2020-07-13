@@ -1,4 +1,10 @@
 export const layout = {
+  shared: {
+    pages: {
+      py: 7,
+      bg: 'gray.0',
+    }
+  },
   contact: {
     justifySelf: ['center', null, null, 'flex-start'],
   },
@@ -50,27 +56,29 @@ export const layout = {
     },
   },
   pages: {
-    login: {
-      py: 7,
-      bg: 'gray.0',
+    addressBook: {
+      variant: 'account.layout.shared.pages',
     },
-    signup: {
-      variant: 'layout.pages.login'
+    login: {
+      variant: 'account.layout.shared.pages',
     },
     loginSignup: {
-      variant: 'layout.pages.login'
-    },
-    passwordReset: {
-      variant: 'layout.pages.login'
+      variant: 'account.layout.shared.pages',
     },
     order: {
-      variant: 'layout.pages.login'
+      variant: 'account.layout.shared.pages',
     },
     orders: {
-      variant: 'layout.pages.login'
+      variant: 'account.layout.shared.pages',
     },
-    addressBook: {
-      variant: 'layout.pages.login'
+    recover: {
+      variant: 'account.layout.shared.pages',
+    },
+    reset: {
+      variant: 'account.layout.shared.pages',
+    },
+    signup: {
+      variant: 'account.layout.shared.pages',
     },
   },
 };

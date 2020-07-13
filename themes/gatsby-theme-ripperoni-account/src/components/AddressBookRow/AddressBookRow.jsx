@@ -35,7 +35,6 @@ export const AddressBookRow = ({
     <Flex
       variant='account.pages.addressBook.row'
       middle
-      // between
       {...props}
     >
       <Address
