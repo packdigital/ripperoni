@@ -6,7 +6,6 @@
   "workspaces": [
     "packages/*",
     "plugins/*",
-    "projects/*",
     "themes/*",
     "tools/*"
   ],
