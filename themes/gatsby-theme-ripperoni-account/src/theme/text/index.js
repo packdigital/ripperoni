@@ -1,24 +1,22 @@
-import { address } from './address';
-import { addressBook } from './addressBook';
-import { layout } from './layout';
+import { shared } from './shared';
 import { login } from './login';
 import { loginSignup } from './loginSignup';
-import { order } from './order';
-import { orders } from './orders';
-import { signup } from './signup';
 import { recover } from './recover';
 import { reset } from './reset';
+import { signup } from './signup';
+import { addressBook } from './addressBook';
+import { order } from './order';
+import { orders } from './orders';
 
 
-export const text = {
-  address,
-  addressBook,
-  layout,
+export const pages = {
+  shared,
   login,
   loginSignup,
-  order,
-  orders,
-  signup,
   recover,
   reset,
+  signup,
+  addressBook,
+  order,
+  orders,
 };

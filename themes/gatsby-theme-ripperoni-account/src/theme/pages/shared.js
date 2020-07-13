@@ -1,5 +1,5 @@
 export const shared = {
-  internal: {
+  loggedIn: {
     header: {
       mb: [2, null, null, null, 5],
     },
@@ -8,18 +8,22 @@ export const shared = {
       bg: 'background',
     },
   },
-  external: {
+  loggedOut: {
+    page: {
+      mx: 'auto',
+      width: ['100%', null, '66.66%', null, '50%'],
+    },
     header: {
       mb: 6,
     },
     content: {
-      bg: 'background',
-      px: 12,
-      py: 8,
+      p: 12,
       mb: 6,
+      width: 'full',
+      bg: 'background',
     },
-    loginSignupText: {
+    footerText: {
       mr: 4,
     },
-  },
+  }
 };

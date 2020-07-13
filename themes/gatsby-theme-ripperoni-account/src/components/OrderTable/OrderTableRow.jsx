@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Date, Flex, Link, Price } from '@ripperoni/components';
-
-import { TableCell } from './OrderTableCell';
+import { Box, Date, Flex, Link, Price, Text } from '@ripperoni/components';
 
 
 export const TableRow = ({
@@ -17,7 +15,7 @@ export const TableRow = ({
       between
       {...props}
     >
-      <TableCell>
+      <Box variant='account.pages.orders.table.cell.orderNumber'>
         <Link
           to={`/account/orders/${order.id}`}
           state={{ order }}
@@ -26,19 +24,25 @@ export const TableRow = ({
         >
           #{order.id}
         </Link>
-      </TableCell>
+      </Box>
 
-      <TableCell as={Date}>
-        {order.date}
-      </TableCell>
+      <Box variant='account.pages.orders.table.cell.date'>
+        <Date variant='account.text.orders.table.cell.date'>
+          {order.date}
+        </Date>
+      </Box>
 
-      <TableCell>
-        {order.status.toLowerCase()}
-      </TableCell>
+      <Box variant='account.pages.orders.table.cell.status'>
+        <Text variant='account.text.orders.table.cell.status'>
+          {order.status.toLowerCase()}
+        </Text>
+      </Box>
 
-      <TableCell as={Price}>
-        {order.totalPrice.amount}
-      </TableCell>
+      <Box variant='account.pages.orders.table.cell.price'>
+        <Price variant='account.text.orders.table.cell.price'>
+          {order.totalPrice.amount}
+        </Price>
+      </Box>
     </Flex>
   );
 };

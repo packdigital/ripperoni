@@ -4,10 +4,11 @@
   "author": "@packdigital",
   "repository": "https://github.com/packdigital/ripperoni.git",
   "workspaces": [
-    "tools/*",
     "packages/*",
     "plugins/*",
-    "themes/*"
+    "projects/*",
+    "themes/*",
+    "tools/*"
   ],
   "scripts": {
     "clean": "lerna run clean --stream --parallel",

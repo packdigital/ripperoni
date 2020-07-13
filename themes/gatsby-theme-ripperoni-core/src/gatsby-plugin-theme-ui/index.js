@@ -1,4 +1,5 @@
 /* eslint-disable import/no-default-export */
+import { borders } from '../theme/borders';
 import { breakpoints } from '../theme/breakpoints';
 import { buttons } from '../theme/buttons';
 import { colors } from '../theme/colors';
@@ -17,6 +18,7 @@ import { text } from '../theme/text';
 
 
 export default {
+  borders,
   breakpoints,
   buttons,
   colors,

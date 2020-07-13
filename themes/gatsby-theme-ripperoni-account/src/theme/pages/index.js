@@ -1,8 +1,22 @@
-import { external } from './external';
-import { internal } from './internal';
+import { shared } from './shared';
+import { login } from './login';
+import { loginSignup } from './loginSignup';
+import { recover } from './recover';
+import { reset } from './reset';
+import { signup } from './signup';
+import { addressBook } from './addressBook';
+import { order } from './order';
+import { orders } from './orders';
 
 
 export const pages = {
-  ...external,
-  ...internal,
+  shared,
+  login,
+  loginSignup,
+  recover,
+  reset,
+  signup,
+  addressBook,
+  order,
+  orders,
 };

@@ -1,37 +1,34 @@
 export const order = {
   header: {
     number: {
-      variant: 'text.heading',
+      variant: 'account.text.shared.loggedIn.heading',
     },
     date: {
-      variant: 'text.small'
+      variant: 'account.text.shared.loggedIn.smallHeading',
     },
   },
   addresses: {
     shipping: {
       heading: {
-        variant: 'text.small'
-      },
-      address: {
-        variant: 'text.default'
+        variant: 'account.text.shared.loggedIn.smallHeading',
       },
     },
     fulfillment: {
       heading: {
-        variant: 'text.small'
+        variant: 'account.text.shared.loggedIn.smallHeading',
       },
       company: {
-        variant: 'text.default',
+        variant: 'text.default'
       },
     },
   },
   lineItem: {
     variant: {
-      variant: 'text.small',
+      variant: 'account.text.shared.loggedIn.smallHeading',
       fontSize: 1,
     },
     title: {
-      variant: 'text.small'
+      variant: 'account.text.shared.loggedIn.smallHeading',
     },
     price: {
       variant: 'text.price',

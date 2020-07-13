@@ -13,7 +13,7 @@ export const forms = {
       variant: 'links.default',
       alignSelf: 'center',
       mt: 4,
-    }
+    },
   },
   address: {
     header: {

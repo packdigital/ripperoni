@@ -3,7 +3,7 @@ import React from 'react';
 import { Flex } from '@ripperoni/components';
 
 import { TableRow } from './OrderTableRow';
-import { TableHeader } from './OrderTableHeader';
+import { TableHeaderRow } from './OrderTableHeaderRow';
 import { useCustomerContext } from '../../context/CustomerContext';
 
 
@@ -15,7 +15,7 @@ export const OrderTable = props => {
       variant='account.pages.orders.table'
       {...props}
     >
-      <TableHeader />
+      <TableHeaderRow />
 
       {state.customer.orders.map((order, index) => (
         <TableRow

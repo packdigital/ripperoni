@@ -1,5 +1,1 @@
-export const reset = {
-  heading: {
-    variant: 'styles.h3'
-  },
-};
+export const reset = {};

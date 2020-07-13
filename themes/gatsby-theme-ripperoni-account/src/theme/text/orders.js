@@ -1,10 +1,31 @@
 export const orders = {
-  table: {
-    cell: {
+  shared: {
+    tableCell: {
       variant: 'text.small',
-      orderNumber: {
-        variant: 'styles.a',
+      textAlign: 'center',
+    },
+  },
+  table: {
+    headerRow: {
+      cell: {
+        variant: 'account.text.orders.shared.tableCell',
+        color: 'gray.3',
       },
     },
-  }
+    cell: {
+      orderNumber: {
+        variant: 'links.default',
+        textAlign: 'center'
+      },
+      date: {
+        variant: 'account.text.orders.shared.tableCell',
+      },
+      status: {
+        variant: 'account.text.orders.shared.tableCell',
+      },
+      price: {
+        variant: 'account.text.orders.shared.tableCell',
+      },
+    },
+  },
 };

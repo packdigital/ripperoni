@@ -10,7 +10,7 @@ export const links = {
     borderColor: 'text',
     borderBottom: '1px solid',
     '&:link, &:visited, &:hover, &:active': {
-      color: 'text',
+      // color: 'text',
     },
   },
   plain: {

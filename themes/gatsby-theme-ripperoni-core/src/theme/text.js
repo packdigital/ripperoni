@@ -21,6 +21,7 @@ export const text = {
   },
   price: {
     variant: 'text.default',
+    whiteSpace: 'nowrap',
   },
   compareAtPrice: {
     variant: 'text.price',

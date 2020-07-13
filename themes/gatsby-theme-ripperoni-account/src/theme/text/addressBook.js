@@ -9,7 +9,7 @@ export const addressBook = {
   },
   form: {
     heading: {
-      variant: 'text.heading',
+      variant: 'account.text.shared.loggedIn.heading',
     },
   },
 };

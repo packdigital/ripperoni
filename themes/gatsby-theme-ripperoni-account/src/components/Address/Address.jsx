@@ -13,6 +13,7 @@ export const Address = ({
 }) => {
   return (
     <Box
+      data-comp={`${Address.displayName}: ${type}`}
       variant={`account.address.${type}`}
       {...props}
     >
@@ -59,6 +60,8 @@ export const Address = ({
     </Box>
   );
 };
+
+Address.displayName = 'Account Address';
 
 Address.propTypes = {
   type: PropTypes.string,

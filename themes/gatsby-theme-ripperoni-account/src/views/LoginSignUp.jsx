@@ -41,36 +41,40 @@ export const LoginSignup = props => {
     >
       <Flex variant='account.pages.loginSignup'>
         <Flex variant='account.pages.loginSignup.header.mobile'>
-          <Heading
-            as={Button.Link}
-            onClick={loginToggle}
-            variant='account.text.loginSignup.heading.mobile'
-            borderColor={loginActive ? 'black' : 'gray'}
-            borderBottomWidth='3px'
-          >
-            Sign In
-          </Heading>
+          <Box variant='account.pages.loginSignup.header.mobile.loginToggle'>
+            <Heading
+              as={Button.Link}
+              onClick={loginToggle}
+              variant='account.text.loginSignup.heading.mobile'
+              borderColor={loginActive ? 'black' : 'gray'}
+              borderBottomWidth='3px'
+            >
+              Sign In
+            </Heading>
+          </Box>
 
-          <Heading
-            as={Button.Link}
-            onClick={signupToggle}
-            variant='account.text.loginSignup.heading.mobile'
-            borderColor={signupActive ? 'black' : 'gray'}
-            borderBottomWidth='3px'
-          >
-            Sign Up
-          </Heading>
+          <Box variant='account.pages.loginSignup.header.mobile.signupToggle'>
+            <Heading
+              as={Button.Link}
+              onClick={signupToggle}
+              variant='account.text.loginSignup.heading.mobile'
+              borderColor={signupActive ? 'black' : 'gray'}
+              borderBottomWidth='3px'
+            >
+              Sign Up
+            </Heading>
+          </Box>
         </Flex>
 
         <Flex.Col
           variant='account.pages.loginSignup.login'
           display={[!loginActive && 'none', null, null, 'flex']}
         >
-          <Flex variant='account.pages.loginSignup.header.desktop'>
+          <Box variant='account.pages.loginSignup.header.desktop'>
             <Heading variant='account.text.loginSignup.heading.desktop'>
               Sign In
             </Heading>
-          </Flex>
+          </Box>
 
           <LoginForm
             sx={{ display: recoverPasswordActive ? 'none' : 'flex' }}
@@ -96,11 +100,11 @@ export const LoginSignup = props => {
           variant='account.pages.loginSignup.signup'
           display={[!signupActive && 'none', null, null, 'flex']}
         >
-          <Flex variant='account.pages.loginSignup.header.desktop'>
+          <Box variant='account.pages.loginSignup.header.desktop'>
             <Heading variant='account.text.loginSignup.heading.desktop'>
               Sign Up
             </Heading>
-          </Flex>
+          </Box>
 
           <SignupForm />
         </Flex.Col>

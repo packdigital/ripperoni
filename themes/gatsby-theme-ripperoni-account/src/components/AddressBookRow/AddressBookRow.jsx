@@ -35,7 +35,7 @@ export const AddressBookRow = ({
     <Flex
       variant='account.pages.addressBook.row'
       middle
-      between
+      // between
       {...props}
     >
       <Address
@@ -45,15 +45,17 @@ export const AddressBookRow = ({
         isDefault={isDefault}
       />
 
-      <Box variant='account.pages.addressBook.row.ctas'>
+      <Box variant='account.pages.addressBook.row.edit'>
         <Button
           variant='account.text.addressBook.row.edit'
           onClick={() => setFormActive(true)}
         >
           Edit
         </Button>
+      </Box>
 
-        {isBrowser && (
+      {isBrowser && (
+        <Box variant='account.pages.addressBook.row.delete'>
           <Button
             variant='account.text.addressBook.row.delete'
             onClick={() => {
@@ -62,8 +64,8 @@ export const AddressBookRow = ({
           >
             Delete
           </Button>
-        )}
-      </Box>
+        </Box>
+      )}
     </Flex>
   );
 };

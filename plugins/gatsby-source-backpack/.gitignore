@@ -4,5 +4,4 @@ build
 *.log
 yarn.lock
 *.js
-!/src/*
 *.DS_Store

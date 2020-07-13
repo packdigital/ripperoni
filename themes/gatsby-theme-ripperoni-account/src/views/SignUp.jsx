@@ -13,6 +13,7 @@ export const Signup = props => {
       {...props}
     >
       <Flex.Col
+        data-comp={Signup.displayName}
         center
         variant='account.pages.signup'
       >
@@ -49,3 +50,5 @@ export const Signup = props => {
     </AccountLayout>
   );
 };
+
+Signup.displayName = 'Signup';

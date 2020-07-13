@@ -12,6 +12,7 @@ export const Totals = ({
   ...props
 }) => (
   <Flex
+    data-comp={Totals.displayName}
     variant='account.pages.order.totals'
     right
     {...props}
@@ -60,6 +61,7 @@ const Line = ({
   ...props
 }) => (
   <Flex
+    data-comp={Line.displayName}
     right
     width='100%'
     variant='account.pages.order.totals.line'
@@ -77,3 +79,5 @@ const Line = ({
     </Price>
   </Flex>
 );
+
+Line.displayName = 'Order Totals Line';

@@ -18,6 +18,7 @@ export const RecoverPassword = props => {
       {...props}
     >
       <Flex.Col
+        data-comp={RecoverPassword.displayName}
         center
         variant='account.pages.recover'
       >

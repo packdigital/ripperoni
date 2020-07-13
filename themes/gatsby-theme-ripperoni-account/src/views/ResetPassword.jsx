@@ -11,7 +11,6 @@ export const ResetPassword = ({
   resetToken,
   ...props
 }) => {
-  console.log('props', props);
   return (
     <AccountLayout
       variant='account.layout.pages.reset'
@@ -19,6 +18,7 @@ export const ResetPassword = ({
       {...props}
     >
       <Flex.Col
+        data-comp={ResetPassword.displayName}
         center
         variant='account.pages.reset'
       >
