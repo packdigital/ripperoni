@@ -78,7 +78,7 @@ exports.sourceNodes = async (helpers, options) => {
 
   const collectionNodes = collections.map((collection, id) => createNode(CollectionNode({ id, ...collection })));
 
-  const statusMessage = formatMessage(`Created ${collections.length} WhateverCollection Meta and Products nodes.`);
+  const statusMessage = formatMessage(`Created ${collections.length} BackpackCollection Meta and Products nodes.`);
 
   console.log(statusMessage);
   console.timeEnd(endMessage);
