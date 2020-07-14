@@ -5,8 +5,6 @@ module.exports = themeOptions => {
   const defaults = {
     backpackSource: {
       enable: true,
-      apiVersion: 'v1',
-      backpackUri: process.env.BACKPACK_URL,
     },
     backpackShopifyCollectionSource: {
       enable: true,

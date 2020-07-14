@@ -4,9 +4,9 @@ const createNodeHelpers = require('gatsby-node-helpers').default;
 const createTypes = require('./src/types');
 const { clients } = require('./src/client');
 const { titleCase, formatMessage } = require('./src/utils');
-const { SHOPIFY_COLLECTIONS_QUERY } = require('./src/queries');
+const { SHOPIFY_COLLECTIONS_QUERY, SHOPIFY_COLLECTIONS_QUERY_2 } = require('./src/queries');
 const { downloadImagesAndCreateFileNode } = require('./src/download-asset');
-const { TYPE_PREFIX, COLLECTION, COLLECTION_META, COLLECTION_PRODUCTS } = require('./src/constants');
+const { TYPE_PREFIX, COLLECTION } = require('./src/constants');
 
 
 const { createNodeFactory } = createNodeHelpers({
@@ -71,6 +71,11 @@ exports.sourceNodes = async (helpers, options) => {
   console.log(startMessage);
   console.time(endMessage);
 
+  // const client = clients.shopify(options);
+
+  // const allCollections = await recursivelyQueryShopifyCollections(client);
+
+
   const collections = await clients.shopify(options)
     .query({ query: SHOPIFY_COLLECTIONS_QUERY })
     .then(cleanupRequestResults)
@@ -87,3 +92,23 @@ exports.sourceNodes = async (helpers, options) => {
 };
 
 exports.createSchemaCustomization = createTypes;
+
+
+// const recursivelyQueryShopifyCollections = async (client, cursor, results = []) => {
+//   console.log('results count', results.length);
+//   console.log('cursor', cursor);
+//   const query = SHOPIFY_COLLECTIONS_QUERY_2;
+//   // const { edges: { cursor } = {}} = results.collections || {};
+//   const variables = { cursor };
+
+//   const { data } = await client.query({ query, variables });
+//   const { pageInfo, edges } = data.collections;
+
+//   if (pageInfo.hasNextPage) {
+//     const newCursor = edges.reverse()[0].cursor;
+
+//     return recursivelyQueryShopifyCollections(client, newCursor, [ ...results, ...edges ]);
+//   }
+
+//   return results;
+// };

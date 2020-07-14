@@ -19,7 +19,7 @@ const types = [
   PRODUCT_OPTION_VALUE,
   PRODUCT_VARIANT,
   IMAGE,
-  VIDEO,
+  // VIDEO,
 ];
 
 

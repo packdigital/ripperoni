@@ -17,7 +17,7 @@ module.exports = themeOptions => {
       resolve: '@packdigital/gatsby-source-backpack',
       enabled: backpackSource.enabled,
       options: backpackSource,
-      requiredOptions: ['accessToken'],
+      requiredOptions: ['accessToken', 'backpackUri', 'shopId'],
       previewable: false,
     }),
     ...conditionallyIncludePlugin({

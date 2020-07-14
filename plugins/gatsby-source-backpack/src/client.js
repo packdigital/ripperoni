@@ -4,9 +4,7 @@ const { createHttpLink } = require('apollo-link-http');
 const { InMemoryCache } = require('apollo-cache-inmemory');
 
 
-exports.createClient = (accessToken, apiVersion = 'v1', backpackUri) => {
-  const uri = backpackUri || `https://platform-hasura.onrender.com/${apiVersion}/graphql`;
-
+exports.createClient = (accessToken, uri) => {
   const headers = {
     'Content-Type': 'application/json',
     'x-hasura-admin-secret': accessToken,

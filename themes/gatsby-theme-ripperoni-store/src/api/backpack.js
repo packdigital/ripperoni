@@ -4,23 +4,23 @@ import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-
 import WebSocket from 'ws';
 import fetch from 'isomorphic-fetch';
 
 import { isBrowser } from '@packdigital/ripperoni-utilities';
 
+
 const httpLink = new HttpLink({
-  uri: `https://${process.env.BACKPACK_URL}/v1/graphql`,
+  uri: process.env.BACKPACK_URL,
   headers: {
     'content-type': 'application/json',
     'x-hasura-admin-secret': process.env.BACKPACK_SECRET_KEY,
   },
   fetch,
-})
+});
 
 const wsLink = new WebSocketLink({
-  uri: `wss://${process.env.BACKPACK_URL}/v1/graphql`,
+  uri: process.env.BACKPACK_URL.replace(/^https?/, 'wss'),
   options: {
     lazy: true,
     reconnect: true,
