@@ -1,9 +1,5 @@
 {
-  "plugins": [
-    "import-graphql"
-  ],
   "presets": [
-    "babel-preset-gatsby-package",
     "@packdigital/babel-preset-ripperoni"
   ]
 }
