@@ -5,6 +5,8 @@ const { formatMessage, downloadImageAndCreateRemoteFileNode } = require('@packdi
 const { PLUGIN_NAME, PLUGIN_COLOR, TYPE_PREFIX, IMAGE } = require('./constants');
 
 
+const asFormattedMessage = formatMessage(PLUGIN_NAME, PLUGIN_COLOR);
+
 exports.downloadImages = async helpers => {
   const imageNodes = helpers
     .getNodes()
@@ -27,8 +29,7 @@ exports.downloadImages = async helpers => {
   const images = await Promise.all(downloadedImages)
     .then(images => images.filter(image => image));
 
-  const message = `🎒 Downloaded ${images.length} new image files.`;
-  const asFormattedMessage = formatMessage(PLUGIN_NAME, PLUGIN_COLOR);
+  const message = `🛒 Downloaded ${images.length} new image files.`;
 
   console.log(asFormattedMessage(message));
 

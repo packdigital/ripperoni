@@ -1,4 +1,4 @@
-const typeDefs = `
+exports.typeDefs = `
   type BackpackCollectionImage {
     src: String
     altText: String
@@ -19,5 +19,3 @@ const typeDefs = `
     products: [BackpackCollectionProduct]
   }
 `;
-
-module.exports = ({ actions: { createTypes }}) => createTypes(typeDefs);

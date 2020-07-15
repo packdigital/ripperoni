@@ -1,5 +1,6 @@
 // Plugin
 const PLUGIN_NAME = '@packdigital/gatsby-source-backpack';
+const PLUGIN_COLOR = 'magenta';
 
 // Node prefix
 const TYPE_PREFIX = 'Backpack';
@@ -25,6 +26,7 @@ const types = [
 
 module.exports = {
   PLUGIN_NAME,
+  PLUGIN_COLOR,
   TYPE_PREFIX,
   PRODUCT,
   PRODUCT_VARIANT,
