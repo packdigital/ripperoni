@@ -3,18 +3,18 @@ exports.typeDefs = `
     id: ID!
     src: String!
     altText: String!
-    collection: BackpackCollection!
+    collection: BackpackCollection! @link
     localFile: File @link(by: "id", from: "localFile___NODE")
   }
 
-  type BackpackCollection implements Node {
+  type BackpackCollection implements Node @infer {
     id: ID!
     title: String!
     handle: String!
     description: String
     optionValues: JSON
     updatedAt: Date!
-    image: BackpackCollectionImage
-    products: [BackpackProduct]
+    image: BackpackCollectionImage @link
+    products: [BackpackProduct] @link
   }
 `;

@@ -27,7 +27,7 @@ exports.typeDefs = `
     values: [BackpackProductOptionValue] @link (by: "id", from: "values___NODE")
   }
 
-  type BackpackProductVariant implements Node {
+  type BackpackProductVariant implements Node @infer {
     available: Boolean
     foreignProductPublishedAt: Date
     metadata: JSON

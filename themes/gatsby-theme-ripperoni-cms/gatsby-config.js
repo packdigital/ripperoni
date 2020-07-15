@@ -6,13 +6,13 @@ const withDefaults = require('./gatsby/config/default-options');
 
 
 module.exports = themeOptions => {
-  const { contentful } = withDefaults(themeOptions);
+  const { contentful: { enabled: contentfulEnabled, ...contentful }} = withDefaults(themeOptions);
 
   const plugins = [
     ...conditionallyIncludePlugin({
       theme: 'cms',
       resolve: 'gatsby-source-contentful',
-      enabled: contentful.enabled,
+      enabled: contentfulEnabled,
       options: contentful,
       requiredOptions: ['spaceId', 'accessToken'],
     }),

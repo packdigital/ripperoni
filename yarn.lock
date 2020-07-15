@@ -2577,6 +2577,14 @@
   dependencies:
     "@types/node" ">= 8"
 
+"@packdigital/gatsby-theme-ripperoni-backpack@^0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-backpack/-/gatsby-theme-ripperoni-backpack-0.0.24.tgz#f5e89f43c2eade08e54dec54e85781e0c45a3d04"
+  integrity sha512-C3+a7Vdd7uEx/YnNv0bCIsQgJ+aluq1Z/JVkmeZQ+tPtPkX5c1YvLNH0Ijqii6wgvniEHzzTI1cpvQgd2I3Drw==
+  dependencies:
+    "@packdigital/gatsby-source-backpack" "^0.1.61"
+    "@packdigital/gatsby-source-backpack-shopify-collection" "^0.1.9"
+
 "@pieh/friendly-errors-webpack-plugin@1.7.0-chalk-2":
   version "1.7.0-chalk-2"
   resolved "https://registry.yarnpkg.com/@pieh/friendly-errors-webpack-plugin/-/friendly-errors-webpack-plugin-1.7.0-chalk-2.tgz#2e9da9d3ade9d18d013333eb408c457d04eabac0"
@@ -3699,7 +3707,7 @@ apollo-link-ws@^1.0.20:
     apollo-link "^1.2.14"
     tslib "^1.9.3"
 
-apollo-link@^1.0.0, apollo-link@^1.2.13, apollo-link@^1.2.14:
+apollo-link@^1.0.0, apollo-link@^1.2.14:
   version "1.2.14"
   resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.14.tgz#3feda4b47f9ebba7f4160bef8b977ba725b684d9"
   integrity sha512-p67CMEFP7kOG1JZ0ZkYZwRDa369w5PIjtMjvrQd/HnIV8FRsHRqLqK+oAZQnFa1DDdZtOtHTi+aMIW6EatC2jg==
@@ -18904,7 +18912,7 @@ ws@^6.0.0, ws@^6.2.1:
   dependencies:
     async-limiter "~1.0.0"
 
-ws@^7.1.2, ws@^7.3.0:
+ws@^7.1.2, ws@^7.3.0, ws@^7.3.1:
   version "7.3.1"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.3.1.tgz#d0547bf67f7ce4f12a72dfe31262c68d7dc551c8"
   integrity sha512-D3RuNkynyHmEJIpD2qrgVkc9DQ23OrN/moAwZX4L8DfvszsJxpjQuUq3LMx6HoYji9fbIOBY18XWBsAux1ZZUA==

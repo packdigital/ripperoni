@@ -94,8 +94,10 @@ const fetchAdditionalCollectionProducts = client => {
         const path = 'data.results.products';
 
         products = await recursivelyRunQuery({ client, query, variables, results, path });
+        console.log('products.length', products.length);
 
         addtionalProductsCount += (products.length - 250);
+        console.log('addtionalProductsCount', addtionalProductsCount);
       }
 
       const productsWithLegacyId = products
