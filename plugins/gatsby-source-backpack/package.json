@@ -13,12 +13,6 @@
     "gatsby-plugin",
     "gatsby-source-plugin"
   ],
-  "scripts": {
-    "clean": "rm -rf ./node_modules/.cache/babel-loader",
-    "start": "npm run watch",
-    "build": "npm run clean && babel src --out-dir ./",
-    "watch": "npm run build -- --watch"
-  },
   "peerDependencies": {
     "gatsby": "^2.0.0"
   },
