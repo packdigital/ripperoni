@@ -17,7 +17,8 @@ const SHOPIFY_COLLECTIONS_QUERY = gql`
           description
           image {
             id
-            src: originalSrc
+            src: transformedSrc (preferredContentType: WEBP)
+            altText
           }
           products (first: 250) {
             pageInfo {
@@ -30,6 +31,7 @@ const SHOPIFY_COLLECTIONS_QUERY = gql`
               }
             }
           }
+          updatedAt
         }
       }
     }
@@ -46,6 +48,9 @@ const SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY = gql`
         cursor
         node {
           id
+          image {
+            id
+          }
           updatedAt
         }
       }

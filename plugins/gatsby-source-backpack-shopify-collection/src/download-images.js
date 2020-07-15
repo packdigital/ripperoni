@@ -29,9 +29,16 @@ exports.downloadImages = async helpers => {
   const images = await Promise.all(downloadedImages)
     .then(images => images.filter(image => image));
 
-  const message = `🛒 Downloaded ${images.length} new image files.`;
+  const cachedNodes = images.filter(({ type }) => type === 'TOUCH_NODE');
+  const downloadedNodes = images.filter(({ __typename }) => __typename === 'Image');
 
-  console.log(asFormattedMessage(message));
+  if (cachedNodes.length) {
+    console.log(asFormattedMessage(`🛒 Touched ${cachedNodes.length} image files from cache.`));
+  }
+
+  if (downloadedNodes.length) {
+    console.log(asFormattedMessage(`🛒 Downloaded ${downloadedNodes.length} new image files.`));
+  }
 
   return images;
 };

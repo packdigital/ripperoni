@@ -7,7 +7,7 @@ const TYPE_PREFIX = 'Backpack';
 
 // Node types
 const COLLECTION = 'Collection';
-const IMAGE = 'Image';
+const IMAGE = 'CollectionImage';
 
 module.exports = {
   PLUGIN_NAME,

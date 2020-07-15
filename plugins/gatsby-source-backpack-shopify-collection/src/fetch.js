@@ -1,9 +1,15 @@
 const get = require('lodash.get');
 
-const { formatMessage, flattenEdges, getLegacyShopifyId, deepMerge } = require('@packdigital/ripperoni-utilities');
+const {
+  formatMessage,
+  flattenEdges,
+  getLegacyShopifyId,
+  deepMerge,
+  convertToGatsbyGraphQLId,
+} = require('@packdigital/ripperoni-utilities');
 
 const { clients } = require('./client');
-const { PLUGIN_NAME, PLUGIN_COLOR } = require('./constants');
+const { PLUGIN_NAME, PLUGIN_COLOR, TYPE_PREFIX, COLLECTION, IMAGE } = require('./constants');
 const {
   SHOPIFY_COLLECTIONS_QUERY,
   SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY,
@@ -13,13 +19,7 @@ const {
 
 const asFormattedMessage = formatMessage(PLUGIN_NAME, PLUGIN_COLOR);
 
-const recursivelyRunQuery = async ({
-  client,
-  query,
-  variables = {},
-  results = [],
-  path = 'data.results'
-}) => {
+const recursivelyRunQuery = async ({ client, query, variables = {}, results = [], path = 'data.results' }) => {
   const response = await client.query({ query, variables });
   const { pageInfo, edges } = get(response, path);
 
@@ -38,21 +38,36 @@ const recursivelyRunQuery = async ({
   return flattenEdges({ edges: [...results, ...edges] });
 };
 
-const findOldestUpdatedCollectionTimestamp = (cache, collectionsMeta) => {
-  const oldestTimestamp = collectionsMeta.reduce((oldestTimestamp, { id, updatedAt }) => {
-    const cachedValue = cache.get(id) || {};
+const findOldestUpdatedCollectionTimestamp = async (cache, touchNode, collectionsMeta) => {
+  let touchedCollectionNodes = 0;
+  let touchedCollectionImageNodes = 0;
+
+  const oldestTimestamp = await collectionsMeta.reduce(async (oldestTimestamp, { id, image, updatedAt }) => {
+    const backpackCollectionId = convertToGatsbyGraphQLId(id, COLLECTION, TYPE_PREFIX);
+    const cachedValue = await cache.get(backpackCollectionId) || {};
     const hasChanged = cachedValue.updatedAt !== updatedAt;
 
-    return (!hasChanged || updatedAt > oldestTimestamp)
-      ? oldestTimestamp
-      : updatedAt;
+    if (!hasChanged || updatedAt > oldestTimestamp) {
+      touchNode({ nodeId: backpackCollectionId });
+      touchedCollectionNodes++;
+
+      if (image) {
+        const collectionImageId = convertToGatsbyGraphQLId(image.id, IMAGE, TYPE_PREFIX);
+        touchNode({ nodeId: collectionImageId });
+        touchedCollectionImageNodes++;
+      }
+    }
+
+    return (!hasChanged || updatedAt > oldestTimestamp) ? oldestTimestamp : updatedAt;
   });
 
   const oldestIndex = collectionsMeta.findIndex(({ updatedAt }) => updatedAt === oldestTimestamp);
 
+  console.log(asFormattedMessage(`🛒 Touched ${touchedCollectionNodes} BackpackCollection nodes from cache.`));
+  console.log(asFormattedMessage(`🛒 Touched ${touchedCollectionImageNodes} BackpackCollectionImage nodes from cache.`));
   console.log(asFormattedMessage(`🛒 Fetching ${oldestIndex + 1} new collections.`));
 
-  return Promise.resolve(oldestTimestamp);
+  return oldestTimestamp;
 };
 
 const fetchUpdatedCollectionData = client => {
@@ -97,21 +112,25 @@ const fetchAdditionalCollectionProducts = client => {
   };
 };
 
-const mapBackpackProductsToCollection = getNodesByType => {
+const mapBackpackProductsToCollection = (getNode, getNodesByType) => {
   return collections => {
     const backpackProducts = getNodesByType('BackpackProduct');
-    const createProductMap = id => (map, shopifyId) => ({ ...map, [shopifyId]: id });
     const shopifyBackpackProductsMap = backpackProducts
-      .reduce((productsMap, { id, foreignIds }) => ({
-        ...productsMap,
-        ...(foreignIds.reduce(createProductMap(id), {})),
-      }), {});
+      .reduce((productsMap, { id, foreignIds }) => {
+        const backpackProduct = getNode(id);
+        const createProductMap = (map, shopifyId) =>
+          ({ ...map, [getLegacyShopifyId(shopifyId)]: backpackProduct });
+        const productMap = foreignIds.reduce(createProductMap, {});
+
+        return { ...productsMap, ...productMap };
+      }, {});
 
     const mapProducts = collection => collection.products
-      .reduce((products, { legacyId }) => shopifyBackpackProductsMap[legacyId]
-        ? [ ...products, { ...shopifyBackpackProductsMap[legacyId] } ]
-        : products
-      , []);
+      .reduce((products, { legacyId }) => {
+        const product = shopifyBackpackProductsMap[legacyId];
+
+        return product ? [ ...products, product ] : products;
+      }, []);
 
     const mapOptionValues = products => products
       .reduce((optionValues, product) => deepMerge(optionValues, product.optionValues), {});
@@ -125,39 +144,21 @@ const mapBackpackProductsToCollection = getNodesByType => {
   };
 };
 
-const cacheAndMergeNewCollectionData = (cache, collectionsMeta) => {
-  return async collections => {
-    await Promise.all(collections.map(collection => cache.set(collection.id, collection)));
+exports.fetchAndTransformShopifyData = async (options, helpers) => {
+  const { actions: { touchNode }, cache, getNode, getNodesByType, reporter } = helpers;
 
-    const collectionDataFromCache = collectionsMeta.map(({ id }) => cache.get(id));
-
-    return await Promise.all(collectionDataFromCache);
-  };
-};
-
-exports.fetchAndTransformShopifyData = async (options, { cache, getNodesByType, reporter }) => {
   try {
     const client = clients.shopify(options);
     const query = SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY;
     const collectionsMeta = await recursivelyRunQuery({ client, query });
 
-    const collectionsWithProducts = await findOldestUpdatedCollectionTimestamp(cache, collectionsMeta)
+    const collectionsWithProducts = await findOldestUpdatedCollectionTimestamp(cache, touchNode, collectionsMeta)
       .then(fetchUpdatedCollectionData(client))
       .then(fetchAdditionalCollectionProducts(client))
-      .then(mapBackpackProductsToCollection(getNodesByType));
-      // .then(cacheAndMergeNewCollectionData(cache, collectionsMeta));
+      .then(mapBackpackProductsToCollection(getNode, getNodesByType));
 
     return collectionsWithProducts;
   } catch (error) {
     reporter.panic('Something went wrong while sourcing collection data from Shopify: ', error);
   }
 };
-
-
-// 1. get all collections w/ updated_at only
-// 2. compare updated_at against updated_at in cache
-// 3. if no cache get all collections
-// 4. if cache find oldest, changed/different updated_at and run query w/ query: "updated_at:>=YYYY-MM-DD"
-// 5. after querying all collection data, inspect product field and check if pageInfo.hasNextPage === true
-// 6. if true, run follow up query(s) using collectionByHandle w/ only product field and recursively request all products
-// 7. once all the data has been fetched, update cache with new values

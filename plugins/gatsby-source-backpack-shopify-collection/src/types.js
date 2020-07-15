@@ -1,21 +1,20 @@
 exports.typeDefs = `
-  type BackpackCollectionImage {
-    src: String
-    altText: String
+  type BackpackCollectionImage implements Node {
+    id: ID!
+    src: String!
+    altText: String!
+    collection: BackpackCollection!
     localFile: File @link(by: "id", from: "localFile___NODE")
   }
 
-  type BackpackCollectionProduct {
-    activeColor: String
-    product: BackpackProduct @link
-  }
-
   type BackpackCollection implements Node {
-    title: String
-    handle: String
+    id: ID!
+    title: String!
+    handle: String!
     description: String
     optionValues: JSON
+    updatedAt: Date!
     image: BackpackCollectionImage
-    products: [BackpackCollectionProduct]
+    products: [BackpackProduct]
   }
 `;

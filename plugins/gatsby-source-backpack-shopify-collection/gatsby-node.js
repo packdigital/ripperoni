@@ -14,7 +14,6 @@ exports.createSchemaCustomization = ({ actions: { createTypes }}) => {
 };
 
 exports.sourceNodes = async (helpers, options) => {
-  const { actions: { createNode }} = helpers;
   const startMessage = '🛒 Sourcing collection data from Shopify 🛒';
   const endMessage = '🛒 Finished sourcing collection data in';
 
