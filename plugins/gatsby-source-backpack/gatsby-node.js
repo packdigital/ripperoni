@@ -30,7 +30,7 @@ exports.sourceNodes = async (helpers, options) => {
 
     // Throw an error early if the API key is missing
     // Gatsby provides an API for that, too: https://www.gatsbyjs.org/docs/node-api-helpers/#reporter
-    if (!accessToken) {
+    if (!accessToken || !backpackUri) {
       reporter.panic(`Please include an access token to ${PLUGIN_NAME}.`);
     }
 

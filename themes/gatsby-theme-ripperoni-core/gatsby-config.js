@@ -11,36 +11,7 @@ module.exports = themeOptions => {
   const { manifest, site, social, date, money } = withDefaults(themeOptions);
 
   const plugins = [
-    {
-      resolve: 'gatsby-plugin-react-svg',
-      options: {
-        rule: {
-          include: /assets/,
-        }
-      }
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'images',
-        path: './src/assets/images',
-      },
-    },
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
     // 'gatsby-plugin-loadable-components-ssr',
-    'gatsby-plugin-theme-ui',
-    '@lekoarts/gatsby-theme-styleguide',
-    {
-      resolve: 'gatsby-plugin-eslint',
-      options: {
-        exclude: /(node_modules|.cache|public|ripperoni-utilities)/,
-        options: {
-          emitWarning: true,
-          failOnError: false
-        }
-      }
-    },
     {
       resolve: 'gatsby-plugin-root-import',
       options: {
@@ -64,6 +35,35 @@ module.exports = themeOptions => {
         '@ripperoni/store': '@packdigital/gatsby-theme-ripperoni-store/src',
         '@ripperoni/utilities': '@packdigital/ripperoni-utilities',
       },
+    },
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /assets/,
+        }
+      }
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'images',
+        path: './src/assets/images',
+      },
+    },
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-theme-ui',
+    '@lekoarts/gatsby-theme-styleguide',
+    {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        exclude: /(node_modules|.cache|public|ripperoni-utilities)/,
+        options: {
+          emitWarning: true,
+          failOnError: false
+        }
+      }
     },
     ...conditionallyIncludePlugin({
       theme: 'core',
