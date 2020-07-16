@@ -7,6 +7,7 @@ import uniqueid from 'lodash.uniqueid';
 import { Box } from '../Box';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { ImageSharp } from './ImageSharp';
+import { ImageStatic } from './ImageStatic';
 import { ImageContentful } from './ImageContentful';
 
 
@@ -58,6 +59,7 @@ export const Image = forwardRef(({
 
 
 Image.Sharp = ImageSharp;
+Image.Static = ImageStatic;
 Image.Contentful = ImageContentful;
 Image.displayName = 'Image';
 
