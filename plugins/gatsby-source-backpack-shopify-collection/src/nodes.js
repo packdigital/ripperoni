@@ -16,15 +16,13 @@ const { createNodeFactory } = createNodeHelpers({
 const ImageNode = createNodeFactory(IMAGE, middlewares.image);
 const CollectionNode = createNodeFactory(COLLECTION, middlewares.collection);
 
-const cacheNode = async (node, cache) => await cache.set(node.id, node);
-
 exports.createContentNodes = async (collections, { actions: { createNode }, cache }) => {
   const collectionNodes = collections.map(async collection => {
     const nodeData = CollectionNode(collection);
 
     await createNode(nodeData);
 
-    return cacheNode(nodeData, cache);
+    return await cache.set(nodeData.id, nodeData);
   });
 
   const imageNodes = collections
@@ -35,7 +33,7 @@ exports.createContentNodes = async (collections, { actions: { createNode }, cach
 
       await createNode(nodeData);
 
-      return cacheNode(nodeData, cache);
+      return await cache.set(nodeData.id, nodeData);
     });
 
   await Promise.all([...imageNodes, ...collectionNodes]);

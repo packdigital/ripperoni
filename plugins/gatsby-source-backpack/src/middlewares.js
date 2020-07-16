@@ -101,7 +101,7 @@ const productOptionValueMiddleware = node => {
 };
 
 const imageMiddleware = node => {
-  const { id, src, altText, parent, children, internal } = node;
+  const { id, src, altText, updatedAt, parent, children, internal } = node;
 
   if (node.variants && node.variants.length) {
     const { variant: firstVariant } = node.variants && node.variants[0];
@@ -117,6 +117,7 @@ const imageMiddleware = node => {
       src,
       altText,
       position,
+      updatedAt,
       product___NODE: product,
       variants___NODE: variants,
       parent,
@@ -130,6 +131,7 @@ const imageMiddleware = node => {
       id,
       src,
       altText,
+      updatedAt,
       position: node.product.position || null,
       product___NODE: convertToGatsbyGraphQLId(node.product.id, PRODUCT, TYPE_PREFIX),
       variants___NODE: [],
@@ -143,6 +145,7 @@ const imageMiddleware = node => {
     id,
     src,
     altText,
+    updatedAt,
     position: null,
     product___NODE: null,
     variants___NODE: [],
@@ -153,14 +156,9 @@ const imageMiddleware = node => {
 };
 
 module.exports = {
-  productMiddleware,
-  productVariantMiddleware,
-  productOptionMiddleware,
-  productOptionValueMiddleware,
-  imageMiddleware,
-  [PRODUCT]: productMiddleware,
-  [PRODUCT_VARIANT]: productVariantMiddleware,
-  [PRODUCT_OPTION]: productOptionMiddleware,
-  [PRODUCT_OPTION_VALUE]: productOptionValueMiddleware,
-  [IMAGE]: imageMiddleware,
+  product: productMiddleware,
+  productVariant: productVariantMiddleware,
+  productOption: productOptionMiddleware,
+  productOptionValue: productOptionValueMiddleware,
+  image: imageMiddleware,
 };

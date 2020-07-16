@@ -1,15 +1,13 @@
 const { createRemoteFileNode } = require('gatsby-source-filesystem');
 
-const { formatMessage, downloadImageAndCreateRemoteFileNode } = require('@packdigital/ripperoni-utilities');
+const { downloadImageAndCreateRemoteFileNode } = require('@packdigital/ripperoni-utilities');
 
-const { PLUGIN_NAME, PLUGIN_COLOR, TYPE_PREFIX, IMAGE } = require('./constants');
+const { PLUGIN_NAME, TYPE_PREFIX, IMAGE } = require('./constants');
 
 
-const asFormattedMessage = formatMessage(PLUGIN_NAME, PLUGIN_COLOR);
-
-exports.downloadImages = async helpers => {
-  const imageNodes = helpers
-    .getNodes()
+exports.downloadImages = async ({ helpers }) => {
+  const { getNodes, reporter } = helpers;
+  const imageNodes = getNodes()
     .filter(
       node => (
         node.internal.owner === PLUGIN_NAME &&
@@ -33,11 +31,11 @@ exports.downloadImages = async helpers => {
   const downloadedNodes = images.filter(({ __typename }) => __typename === 'Image');
 
   if (cachedNodes.length) {
-    console.log(asFormattedMessage(`🎒 Touched ${cachedNodes.length} image files from cache.`));
+    reporter.log(`🎒 Touched ${cachedNodes.length} image files from cache.`);
   }
 
   if (downloadedNodes.length) {
-    console.log(asFormattedMessage(`🎒 Downloaded ${downloadedNodes.length} new image files.`));
+    reporter.log(`🎒 Downloaded ${downloadedNodes.length} new image files.`);
   }
 
   return images;

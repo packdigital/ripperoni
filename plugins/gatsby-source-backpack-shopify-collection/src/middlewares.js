@@ -4,18 +4,13 @@ const { TYPE_PREFIX, COLLECTION, IMAGE } = require('./constants');
 
 
 const collection = node => {
-  const products___NODE = node.products.map(({ id }) => id);
-  const image___NODE = node.image
-    ? convertToGatsbyGraphQLId(node.image.id, IMAGE, TYPE_PREFIX)
-    : null;
+  const image___NODE = node.image ? convertToGatsbyGraphQLId(node.image.id, IMAGE, TYPE_PREFIX) : null;
 
   delete node.image;
-  delete node.products;
 
   return {
     ...node,
     image___NODE,
-    products___NODE,
   };
 };
 

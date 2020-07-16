@@ -10,10 +10,6 @@ import typography from '../props/typography';
 
 
 export const useSxProps = (incomingProps = {}, componentSxProps = {}) => {
-  // save for later to add back in to sx object at end
-  const { variant: incomingSxVariant, ...incomingSxWithoutVariant } = incomingProps.sx || {};
-  const incomingPropsWithSx = { ...incomingProps, ...incomingSxWithoutVariant };
-
   const {
     sx = [],
     alias = {},
@@ -79,7 +75,7 @@ export const useSxProps = (incomingProps = {}, componentSxProps = {}) => {
     ...Object.keys(computedProps),
   ];
 
-  const sxObject = Object.entries(incomingPropsWithSx)
+  const computedSxObject = Object.entries(incomingProps)
     // filter out any non-sx props
     .filter(([prop]) => eligibleProps.includes(prop))
     // map aliased props to their sx prop
@@ -103,12 +99,13 @@ export const useSxProps = (incomingProps = {}, componentSxProps = {}) => {
       }
 
       return sxObject;
-    }, { variant: incomingSxVariant });  // add sx variant back into sx object
+    }, {});
 
-  const propsEntries = Object.entries(incomingPropsWithSx)
-    .filter(([prop]) => !eligibleProps.includes(prop) && prop !== 'sx');
+  const sxObject = { ...computedSxObject, ...incomingProps.sx };
 
-  const props = Object.fromEntries(propsEntries);
+  const props = Object.entries(incomingProps)
+    .filter(([prop]) => !eligibleProps.includes(prop) && prop !== 'sx')
+    .reduce((props, [key, value]) => ({ ...props, [key]: value }), {});
 
   return { sxObject, props, propTypes };
 };

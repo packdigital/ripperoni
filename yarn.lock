@@ -2585,6 +2585,13 @@
     "@packdigital/gatsby-source-backpack" "^0.1.61"
     "@packdigital/gatsby-source-backpack-shopify-collection" "^0.1.9"
 
+"@packdigital/gatsby-theme-ripperoni-cms@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-cms/-/gatsby-theme-ripperoni-cms-0.0.10.tgz#9ee1da562d781701623762efe979fd28befb7b0f"
+  integrity sha512-8pX94FU5RiCX2AzxZrrLVKOWNRet5igddVjNN2BC+WmzVld/E8xwxnH5VOpInEP/9PuksJmJTusuFOv8uzni2A==
+  dependencies:
+    gatsby-source-contentful "^2.3.15"
+
 "@pieh/friendly-errors-webpack-plugin@1.7.0-chalk-2":
   version "1.7.0-chalk-2"
   resolved "https://registry.yarnpkg.com/@pieh/friendly-errors-webpack-plugin/-/friendly-errors-webpack-plugin-1.7.0-chalk-2.tgz#2e9da9d3ade9d18d013333eb408c457d04eabac0"
@@ -6636,6 +6643,11 @@ dedent@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/dedent/-/dedent-0.7.0.tgz#2495ddbaf6eb874abb0e1be9df22d2e5a544326c"
   integrity sha1-JJXduvbrh0q7Dhvp3yLS5aVEMmw=
+
+deep-diff@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-1.0.2.tgz#afd3d1f749115be965e89c63edc7abb1506b9c26"
+  integrity sha512-aWS3UIVH+NPGCD1kki+DCU9Dua032iSsO43LqQpcs4R3+dVv7tX0qBGjiVHJHjplsoUM2XRO/KB92glqc68awg==
 
 deep-equal@^1.0.0, deep-equal@^1.0.1, deep-equal@^1.1.0:
   version "1.1.1"

@@ -10,7 +10,7 @@ const fetch = require('isomorphic-fetch');
 const { isBrowser } = require('@packdigital/ripperoni-utilities');
 
 
-exports.createClient = (accessToken, uri) => {
+exports.createClient = ({ accessToken, backpackUri: uri }) => {
   const httpLink = new HttpLink({
     uri,
     headers: {
@@ -39,8 +39,8 @@ exports.createClient = (accessToken, uri) => {
       const { kind, operation } = getMainDefinition(query);
       return kind === 'OperationDefinition' && operation === 'subscription';
     },
-    httpLink,
     wsLink,
+    httpLink,
   );
 
   const cache = new InMemoryCache();

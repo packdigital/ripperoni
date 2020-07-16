@@ -1,93 +1,185 @@
+/* eslint-disable max-lines */
 const createNodeHelpers = require('gatsby-node-helpers').default;
 
-const { formatMessage } = require('@packdigital/ripperoni-utilities');
+const { convertToGatsbyGraphQLId } = require('@packdigital/ripperoni-utilities');
 
-const Queries = require('./queries');
-const Middlewares = require('./middlewares');
-const { TYPE_PREFIX, PLUGIN_NAME, types } = require('./constants');
+const queries = require('./queries');
+const middleware = require('./middlewares');
+const {
+  TYPE_PREFIX,
+  PRODUCT,
+  PRODUCT_OPTION,
+  PRODUCT_OPTION_VALUE,
+  PRODUCT_VARIANT,
+  IMAGE,
+} = require('./constants');
 
 
-const { createNodeFactory } = createNodeHelpers({
-  typePrefix: TYPE_PREFIX,
-  conflictFieldPrefix: 'platform',
-});
-
-const createFactories = () => {
-  return types.reduce((factories, type) => {
-    const middleware = Middlewares[type];
-    const factory = createNodeFactory(type, middleware);
-
-    return {
-      ...factories,
-      [type]: factory,
-    };
-  }, {});
+const types = {
+  [PRODUCT]: {
+    query: queries.query.product,
+    subscription: queries.subscription.product,
+    middleware: middleware.product,
+  },
+  [PRODUCT_VARIANT]: {
+    query: queries.query.productVariant,
+    subscription: queries.subscription.productVariant,
+    middleware: middleware.productVariant,
+  },
+  [PRODUCT_OPTION]: {
+    query: queries.query.productOption,
+    subscription: queries.subscription.productOption,
+    middleware: middleware.productOption,
+  },
+  [PRODUCT_OPTION_VALUE]: {
+    query: queries.query.productOptionValue,
+    subscription: queries.subscription.productOptionValue,
+    middleware: middleware.productOptionValue,
+  },
+  [IMAGE]: {
+    query: queries.query.image,
+    subscription: queries.subscription.image,
+    middleware: middleware.image,
+  },
 };
 
-const runQueries = async (client, shopId, reporter) => {
-  const queryPromises = types.map(type => {
-    const query = Queries[type];
-    const variables = { shopId };
+const { createNodeFactory } = createNodeHelpers({ typePrefix: TYPE_PREFIX, conflictFieldPrefix: 'platform' });
 
-    if (!query) {
-      reporter.warn(`No query found for type: ${type}.`);
-      return;
-    }
+const getFactory = type => {
+  const { middleware, factory } = types[type];
 
-    return client.query({ query, variables })
-      .then(({ data }) => ({ [type]: data.result }));
+  if (factory) return factory;
+
+  types[type].factory = createNodeFactory(type, middleware);
+
+  return types[type].factory;
+};
+
+const touchUnchangedCachedData = async ({ client, shopId, helpers }) => {
+  const { cache, reporter, actions } = helpers;
+  const { touchNode } = actions;
+  const query = queries.query.meta;
+  const variables = { shopId, ciShopId: shopId };
+  const backpackMeta = await client.query({ query, variables });
+
+  const touchedTypes = Object.entries(backpackMeta.data).map(async ([type, data]) => {
+    let touchedNodesCount = 0;
+
+    const nodes = data.map(async data => {
+      const backpackId = convertToGatsbyGraphQLId(data.id, type, TYPE_PREFIX);
+      const cachedNode = await cache.get(backpackId) || {};
+      const isChanged = cachedNode.updatedAt !== data.updatedAt;
+
+      if (!isChanged) {
+        touchNode({ nodeId: backpackId });
+
+        touchedNodesCount += 1;
+      }
+    });
+
+    const results = await Promise.all(nodes);
+
+    reporter.log(`🎒 Touched ${touchedNodesCount} ${TYPE_PREFIX}${type} nodes from cache.`);
+
+    return results;
   });
 
-  return await Promise.all(queryPromises)
-    .then(queries =>
-      queries
-      // .filter(result => result)
-      .reduce((results, result) => ({
-        ...results,
-        ...result,
-      }), {}));
+  return await Promise.all(touchedTypes);
 };
 
-const getNodeData = (factories, results) => {
-  return types.reduce((nodeData, type) => {
-    const factory = factories[type];
-    const data = results[type];
+const createAndCacheNode = (type, helpers) => data => {
+  const { cache, actions: { createNode }} = helpers;
+  const factory = getFactory(type);
+  const nodeData = factory(data);
 
-    if (!data) return nodeData;
-
-    const nodes = data.map(item => factory(item));
-
-    return {
-      ...nodeData,
-      [type]: nodes,
-    };
-  }, {});
+  createNode(nodeData);
+  cache.set(nodeData.id, nodeData);
+  return nodeData;
 };
 
-const createNodes = (nodeData, createNode) => {
-  return Object.entries(nodeData)
-    .map(([type, nodes]) => {
-      const message = `🎒 Created ${nodes.length} ${TYPE_PREFIX}${type} nodes.`;
-      const asFormattedMessage = formatMessage(PLUGIN_NAME, 'magenta');
+const deleteAndUncacheNode = helpers => node => {
+  const { cache, actions: { deleteNode }} = helpers;
+  deleteNode({ node: node });
+  cache.set(node.id, undefined);
+  return node;
+};
 
-      console.log(asFormattedMessage(message));
+const getDeletedNodes = (freshData, type, helpers) => {
+  const { getNodesByType } = helpers;
+  const oldNodes = getNodesByType(`${TYPE_PREFIX}${type}`);
+  const freshNodeIds = freshData.map(data => convertToGatsbyGraphQLId(data.id, type, TYPE_PREFIX));
 
-      return nodes.map(node => createNode(node));
+  return oldNodes
+    .filter(oldNode => !freshNodeIds.includes(oldNode.id));
+};
+
+const getNewOrUpdatedData = (freshData, type, helpers) => {
+  const { getNode } = helpers;
+
+  return freshData
+    .filter(data => {
+      const backpackId = convertToGatsbyGraphQLId(data.id, type, TYPE_PREFIX);
+      const oldNode = getNode(backpackId);
+
+      return !oldNode || oldNode.updatedAt < data.updatedAt;
     });
 };
 
-exports.createContentNodes = async (client, shopId, helpers) => {
+const diffAndUpdateNodes = ({ type, helpers }) => {
+  return ({ data }) => {
+    const { getNodesByType, reporter, actions: { touchNode }} = helpers;
+
+    getNodesByType(`${TYPE_PREFIX}${type}`)
+      .forEach(node => touchNode({ nodeId: node.id }));
+
+    const newNodes = getNewOrUpdatedData(data.result, type, helpers)
+      .map(createAndCacheNode(type, helpers));
+
+    const deletedNodes = getDeletedNodes(data.result, type, helpers)
+      .map(deleteAndUncacheNode(helpers));
+
+    if (newNodes.length > 0) {
+      reporter.log(`🎒 Added/Updated ${newNodes.length} ${TYPE_PREFIX}${type} nodes.`);
+    }
+
+    if (deletedNodes.length > 0) {
+      reporter.log(`🎒 Deleted ${deletedNodes.length} ${TYPE_PREFIX}${type} nodes.`);
+    }
+  };
+};
+
+const setupSubscriptions = async ({ client, shopId, helpers }) => {
+  const variables = { shopId };
+
+  Object.entries(types).map(([type, { subscription: query }]) => {
+    return client
+      .subscribe({ query, variables })
+      .subscribe({
+        next: diffAndUpdateNodes({ type, helpers }),
+        error: () => {}
+      });
+  });
+};
+
+const queryForNewNodes = async ({ client, shopId, helpers }) => {
+  const query = queries.query.newNodes;
+  const variables = { shopId, ciShopId: shopId };
+  const newNodeData = await client.query({ query, variables });
+
+  Object.entries(newNodeData.data).map(([type, result]) =>
+    diffAndUpdateNodes({ type, helpers })({ data: { result }}));
+};
+
+exports.createContentNodes = async ({ client, shopId, helpers }) => {
+  const { reporter } = helpers;
+
   try {
-    const { reporter, actions: { createNode }} = helpers;
-    const factories = createFactories();
-    const results = await runQueries(client, shopId, reporter);
-    const nodeData = getNodeData(factories, results);
-    const createdNodes = createNodes(nodeData, createNode);
+    await touchUnchangedCachedData({ client, shopId, helpers });
+    await queryForNewNodes({ client, shopId, helpers });
+    await setupSubscriptions({ client, shopId, helpers });
 
-    await Promise.all(createdNodes);
-
-    return nodeData;
+    return Promise.resolve();
   } catch (error) {
-    console.log('error', error);
+    reporter.panic('Something went wrong while creating Backpack Nodes: ', error);
   }
 };

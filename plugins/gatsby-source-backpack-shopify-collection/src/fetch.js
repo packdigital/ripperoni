@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 const get = require('lodash.get');
 
 const {
@@ -44,8 +45,8 @@ const findOldestUpdatedCollectionTimestamp = async (cache, touchNode, collection
 
   const oldestTimestamp = await collectionsMeta.reduce(async (oldestTimestamp, { id, image, updatedAt }) => {
     const backpackCollectionId = convertToGatsbyGraphQLId(id, COLLECTION, TYPE_PREFIX);
-    const cachedValue = await cache.get(backpackCollectionId) || {};
-    const hasChanged = cachedValue.updatedAt !== updatedAt;
+    const cachedData = await cache.get(backpackCollectionId) || {};
+    const hasChanged = cachedData.updatedAt !== updatedAt;
 
     if (!hasChanged || updatedAt > oldestTimestamp) {
       touchNode({ nodeId: backpackCollectionId });
@@ -79,9 +80,9 @@ const fetchUpdatedCollectionData = client => {
 };
 
 const fetchAdditionalCollectionProducts = client => {
-  let addtionalProductsCount = 0;
-
   return async collections => {
+    let addtionalProductsCount = 0;
+
     const collectionsWithProducts = collections.map(async collection => {
       let products = flattenEdges(collection.products);
 
@@ -94,10 +95,8 @@ const fetchAdditionalCollectionProducts = client => {
         const path = 'data.results.products';
 
         products = await recursivelyRunQuery({ client, query, variables, results, path });
-        console.log('products.length', products.length);
 
         addtionalProductsCount += (products.length - 250);
-        console.log('addtionalProductsCount', addtionalProductsCount);
       }
 
       const productsWithLegacyId = products
@@ -108,9 +107,11 @@ const fetchAdditionalCollectionProducts = client => {
       return collection;
     });
 
+    const resolvedCollectionsWithProducts = await Promise.all(collectionsWithProducts);
+
     console.log(asFormattedMessage(`🛒 Fetched ${addtionalProductsCount} addtional products.`));
 
-    return await Promise.all(collectionsWithProducts);
+    return resolvedCollectionsWithProducts;
   };
 };
 
@@ -131,7 +132,9 @@ const mapBackpackProductsToCollection = (getNode, getNodesByType) => {
       .reduce((products, { legacyId }) => {
         const product = shopifyBackpackProductsMap[legacyId];
 
-        return product ? [ ...products, product ] : products;
+        return product
+          ? [ ...products, product ]
+          : products;
       }, []);
 
     const mapOptionValues = products => products
@@ -139,9 +142,12 @@ const mapBackpackProductsToCollection = (getNode, getNodesByType) => {
 
     return collections.map(collection => {
       const products = mapProducts(collection);
-      const optionValues = mapOptionValues(products);
 
-      return { ...collection, products, optionValues };
+      return {
+        ...collection,
+        products: products.map(({ id }) => id),
+        optionValues: mapOptionValues(products),
+      };
     });
   };
 };
