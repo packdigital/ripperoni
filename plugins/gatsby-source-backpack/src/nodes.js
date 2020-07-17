@@ -6,6 +6,7 @@ const { convertToGatsbyGraphQLId } = require('@packdigital/ripperoni-utilities')
 const queries = require('./queries');
 const middleware = require('./middlewares');
 const {
+  LOG_PREFIX,
   TYPE_PREFIX,
   PRODUCT,
   PRODUCT_OPTION,
@@ -105,8 +106,10 @@ const getUpdatedData = (freshData, type, helpers) => {
 const diffAndUpdateNodes = ({ type, helpers }) => {
   return ({ data }) => {
     const { getNodesByType, reporter, actions: { touchNode }} = helpers;
+    const { format, success } = reporter;
+    const prefixedType = `${TYPE_PREFIX}${type}`;
 
-    getNodesByType(`${TYPE_PREFIX}${type}`)
+    getNodesByType(prefixedType)
       .forEach(node => touchNode({ nodeId: node.id }));
 
     const newNodes = getNewData(data.result, type, helpers)
@@ -119,28 +122,28 @@ const diffAndUpdateNodes = ({ type, helpers }) => {
       .map(deleteAndUncacheNode(helpers));
 
     if (newNodes.length > 0) {
-      reporter._log(`🎒 Added ${newNodes.length} ${TYPE_PREFIX}${type} nodes.`);
+      success(format`{${LOG_PREFIX}} Create {bold ${prefixedType}} nodes - {bold ${newNodes.length} nodes}`);
     }
 
     if (updatedNodes.length > 0) {
-      reporter._log(`🎒 Updated ${updatedNodes.length} ${TYPE_PREFIX}${type} nodes.`);
+      success(format`{${LOG_PREFIX}} Updated {bold ${prefixedType}} nodes - {bold ${updatedNodes.length} nodes}`);
     }
 
     if (deletedNodes.length > 0) {
-      reporter._log(`🎒 Deleted ${deletedNodes.length} ${TYPE_PREFIX}${type} nodes.`);
+      success(format`{${LOG_PREFIX}} Deleted {bold ${prefixedType}} nodes - {bold ${deletedNodes.length} nodes}`);
     }
   };
 };
 
 const touchUnchangedCachedData = async ({ client, shopId, helpers }) => {
-  const { cache, reporter, actions } = helpers;
-  const { touchNode } = actions;
+  const { cache, reporter, actions: { touchNode }} = helpers;
+  const { format, success } = reporter;
   const query = queries.query.meta;
   const variables = { shopId, ciShopId: shopId };
   const backpackMeta = await client.query({ query, variables });
 
   const touchedTypes = Object.entries(backpackMeta.data).map(async ([type, data]) => {
-    let touchedNodesCount = 0;
+    let touchedNodes = 0;
 
     const nodes = data.map(async data => {
       const backpackId = convertToGatsbyGraphQLId(data.id, type, TYPE_PREFIX);
@@ -149,14 +152,15 @@ const touchUnchangedCachedData = async ({ client, shopId, helpers }) => {
 
       if (!isChanged) {
         touchNode({ nodeId: backpackId });
-
-        touchedNodesCount += 1;
+        touchedNodes++;
       }
     });
 
     const results = await Promise.all(nodes);
 
-    reporter._log(`🎒 Touched ${touchedNodesCount} ${TYPE_PREFIX}${type} nodes from cache.`);
+    if (touchedNodes > 0) {
+      success(format`{${LOG_PREFIX}} Load {bold ${TYPE_PREFIX}${type}} from cache - {bold ${touchedNodes} nodes}`);
+    }
 
     return results;
   });
@@ -178,17 +182,22 @@ const setupSubscriptions = async ({ client, shopId, helpers }) => {
 };
 
 const queryForNewNodes = async ({ client, shopId, helpers }) => {
+  const { format, activityTimer } = helpers.reporter;
   const query = queries.query.newNodes;
   const variables = { shopId, ciShopId: shopId };
-  const newNodeData = await client.query({ query, variables });
+  const timer = activityTimer(format`{${LOG_PREFIX}} Fetch new node data from {red {bold Backpack}}`);
 
-  Object.entries(newNodeData.data).map(([type, result]) =>
+  timer.start();
+
+  const { data } = await client.query({ query, variables });
+
+  timer.end();
+
+  Object.entries(data).map(([type, result]) =>
     diffAndUpdateNodes({ type, helpers })({ data: { result }}));
 };
 
 exports.createContentNodes = async ({ client, shopId, helpers }) => {
-  const { reporter } = helpers;
-
   try {
     await touchUnchangedCachedData({ client, shopId, helpers });
     await queryForNewNodes({ client, shopId, helpers });
@@ -196,6 +205,6 @@ exports.createContentNodes = async ({ client, shopId, helpers }) => {
 
     return Promise.resolve();
   } catch (error) {
-    reporter.panic('Something went wrong while creating Backpack Nodes: ', error);
+    helpers.reporter.panic('Something went wrong while creating Backpack Nodes: ', error);
   }
 };

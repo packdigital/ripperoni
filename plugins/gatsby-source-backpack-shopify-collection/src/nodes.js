@@ -1,22 +1,17 @@
 const createNodeHelpers = require('gatsby-node-helpers').default;
 
-const { formatMessage } = require('@packdigital/ripperoni-utilities');
-
-const { PLUGIN_NAME, PLUGIN_COLOR, TYPE_PREFIX, COLLECTION, IMAGE } = require('./constants');
+const { LOG_PREFIX, TYPE_PREFIX, COLLECTION, IMAGE } = require('./constants');
 const middlewares = require('./middlewares');
 
 
-const asFormattedMessage = formatMessage(PLUGIN_NAME, PLUGIN_COLOR);
-
-const { createNodeFactory } = createNodeHelpers({
-  typePrefix: TYPE_PREFIX,
-  conflictFieldPrefix: 'foreign',
-});
-
+const { createNodeFactory } = createNodeHelpers({ typePrefix: TYPE_PREFIX, conflictFieldPrefix: 'foreign' });
 const ImageNode = createNodeFactory(IMAGE, middlewares.image);
 const CollectionNode = createNodeFactory(COLLECTION, middlewares.collection);
 
-exports.createContentNodes = async (collections, { actions: { createNode }, cache }) => {
+exports.createContentNodes = async ({ collections, helpers }) => {
+  const { cache, reporter, actions: { createNode }} = helpers;
+  const { format, success } = reporter;
+
   const collectionNodes = collections.map(async collection => {
     const nodeData = CollectionNode(collection);
 
@@ -36,13 +31,21 @@ exports.createContentNodes = async (collections, { actions: { createNode }, cach
       return await cache.set(nodeData.id, nodeData);
     });
 
-  await Promise.all([...imageNodes, ...collectionNodes]);
+  await Promise.all([ ...imageNodes, ...collectionNodes ]);
 
-  const collectionMessage = `🛒 Created ${collectionNodes.length} new BackpackCollection nodes.`;
-  const imageMessage = `🛒 Created ${imageNodes.length} new BackpackCollectionImage nodes.`;
+  if (collectionNodes.length > 0) {
+    const createCollectionsMessage = format`{${LOG_PREFIX}} Create {bold BackpackCollection} nodes`;
+    const createCollectionsResultMessage = format`{bold ${collectionNodes.length} nodes}`;
 
-  console.log(asFormattedMessage(collectionMessage));
-  console.log(asFormattedMessage(imageMessage));
+    success(`${createCollectionsMessage} - ${createCollectionsResultMessage}`);
+  }
+
+  if (imageNodes.length > 0) {
+    const createImagesMessage = format`{${LOG_PREFIX}} Create {bold BackpackCollectionImage} nodes`;
+    const createImagesResultMessage = format`{bold ${imageNodes.length} nodes}`;
+
+    success(`${createImagesMessage} - ${createImagesResultMessage}`);
+  }
 
   return collectionNodes;
 };

@@ -5,11 +5,6 @@ module.exports = themeOptions => {
   const redirectsPrivateKey = process.env.REDIRECTS_PRIVATE_KEY;
 
   const defaults = {
-    redirects: {
-      enabled: true,
-      redirectsFilePath: './static/_redirects',
-      redirectsOutputPath: './public/_redirects',
-    },
     googleSpreadsheet: {
       enabled: true,
       spreadsheetName: 'redirects',
@@ -17,6 +12,11 @@ module.exports = themeOptions => {
         client_email: process.env.REDIRECTS_CLIENT_EMAIL,
         private_key: redirectsPrivateKey && redirectsPrivateKey.replace(/\\n/gm, '\n'),
       }
+    },
+    redirects: {
+      enabled: true,
+      redirectsFilePath: './static/_redirects',
+      redirectsOutputPath: './public/_redirects',
     },
   };
 

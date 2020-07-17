@@ -3,14 +3,13 @@ const get = require('lodash.get');
 const { atob } = require('abab');
 
 const {
-  formatMessage,
   flattenEdges,
   deepMerge,
   convertToGatsbyGraphQLId,
 } = require('@packdigital/ripperoni-utilities');
 
 const { clients } = require('./client');
-const { PLUGIN_NAME, PLUGIN_COLOR, TYPE_PREFIX, COLLECTION, IMAGE } = require('./constants');
+const { LOG_PREFIX, TYPE_PREFIX, COLLECTION, IMAGE } = require('./constants');
 const {
   SHOPIFY_COLLECTIONS_QUERY,
   SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY,
@@ -18,30 +17,42 @@ const {
 } = require('./queries');
 
 
-const asFormattedMessage = formatMessage(PLUGIN_NAME, PLUGIN_COLOR);
-
-const recursivelyRunQuery = async ({ client, query, variables = {}, results = [], path = 'data.results' }) => {
+const recursivelyRunQuery = async ({
+  client,
+  query,
+  variables = {},
+  results = [],
+  path = 'data.results',
+  callback = () => {},
+}) => {
   const response = await client.query({ query, variables });
   const { pageInfo, edges } = get(response, path);
 
+  callback(edges);
+
   if (pageInfo.hasNextPage) {
-    const cursor = edges.reverse()[0].cursor;
+    const { cursor } = edges[edges.length - 1];
 
     return recursivelyRunQuery({
       path,
       client,
       query,
-      results: [ ...edges, ...results ],
+      results: [ ...results, ...edges ],
       variables: { ...variables, cursor },
+      callback,
     });
   }
 
-  return flattenEdges({ edges: [...results, ...edges] });
+  return flattenEdges({ edges: [ ...results, ...edges ] });
 };
 
-const findOldestUpdatedCollectionTimestamp = async (cache, touchNode, collectionsMeta) => {
-  let touchedCollectionNodes = 0;
-  let touchedCollectionImageNodes = 0;
+const findOldestUpdatedCollection = async ({ collectionsMeta, helpers }) => {
+  const { cache, reporter, actions: { touchNode }} = helpers;
+  const { format, success } = reporter;
+  const collection = `${TYPE_PREFIX}${COLLECTION}`;
+  const image = `${TYPE_PREFIX}${IMAGE}`;
+  let touchedCollections = 0;
+  let touchedImages = 0;
 
   const oldestTimestamp = await collectionsMeta.reduce(async (oldestTimestamp, { id, image, updatedAt }) => {
     const backpackCollectionId = convertToGatsbyGraphQLId(id, COLLECTION, TYPE_PREFIX);
@@ -50,108 +61,149 @@ const findOldestUpdatedCollectionTimestamp = async (cache, touchNode, collection
 
     if (!hasChanged || updatedAt > oldestTimestamp) {
       touchNode({ nodeId: backpackCollectionId });
-      touchedCollectionNodes++;
+      touchedCollections++;
 
       if (image) {
         const collectionImageId = convertToGatsbyGraphQLId(image.id, IMAGE, TYPE_PREFIX);
         touchNode({ nodeId: collectionImageId });
-        touchedCollectionImageNodes++;
+        touchedImages++;
       }
     }
 
-    return (!hasChanged || updatedAt > oldestTimestamp) ? oldestTimestamp : updatedAt;
+    return (!hasChanged || updatedAt > oldestTimestamp)
+      ? oldestTimestamp
+      : updatedAt;
   });
 
-  const oldestIndex = collectionsMeta.findIndex(({ updatedAt }) => updatedAt === oldestTimestamp);
+  if (touchedCollections > 0) {
+    success(format`{${LOG_PREFIX}} Load {bold ${collection}} from cache - {bold ${touchedCollections} nodes}`);
+  }
 
-  console.log(asFormattedMessage(`🛒 Touched ${touchedCollectionNodes} BackpackCollection nodes from cache.`));
-  console.log(asFormattedMessage(`🛒 Touched ${touchedCollectionImageNodes} BackpackCollectionImage nodes from cache.`));
-  console.log(asFormattedMessage(`🛒 Fetching ${oldestIndex + 1} new collections.`));
+  if (touchedImages > 0) {
+    success(format`{${LOG_PREFIX}} Load {bold ${image}} from cache - {bold ${touchedImages} nodes}`);
+  }
 
   return oldestTimestamp;
 };
 
-const fetchUpdatedCollectionData = client => {
-  return timestamp => recursivelyRunQuery({
-    client,
-    query: SHOPIFY_COLLECTIONS_QUERY,
-    variables: { query: `updated_at:>=${timestamp}` },
+const fetchUpdatedCollectionData = async ({ client, oldestTimestamp, oldestIndex, helpers, retries = 3 }) => {
+  const { format, createProgress } = helpers.reporter;
+
+  try {
+    if (oldestIndex === -1) return;
+
+    const collectionCount = oldestIndex + 1;
+    const progressMessage = format`{${LOG_PREFIX}} Fetch collections from {green {bold Shopify}}`;
+    const progress = createProgress(progressMessage, collectionCount, 0);
+
+    progress.start();
+
+    const collectionData = await recursivelyRunQuery({
+      client,
+      query: SHOPIFY_COLLECTIONS_QUERY,
+      variables: { query: `updated_at:>=${oldestTimestamp}` },
+      callback: result => progress.tick(result.length),
+    });
+
+    progress.setStatus(format`{bold ${collectionCount} collections}`);
+    progress.end();
+
+    return collectionData;
+  } catch (error) {
+    if (retries > 0) {
+      return fetchUpdatedCollectionData({ client, oldestTimestamp, oldestIndex, helpers, retries: retries - 1 });
+    }
+
+    throw new Error(error);
+  }
+};
+
+const fetchAdditionalCollectionVariants = async ({ client, collectionsData, helpers }) => {
+  const { format, activityTimer } = helpers.reporter;
+
+  if (!collectionsData) return;
+
+  let addtionalProducts = 0;
+  const timer = activityTimer(format`{${LOG_PREFIX}} Fetch collection products from {green {bold Shopify}}`);
+
+  timer.start();
+
+  const collectionsWithVariants = collectionsData.map(async collection => {
+    let products = flattenEdges(collection.products);
+
+    if (collection.products.pageInfo.hasNextPage) {
+      const handle = collection.handle;
+      const cursor = collection.products.edges.reverse()[0].cursor;
+      const query = SHOPIFY_COLLECTION_PRODUCTS_QUERY;
+      const variables = { cursor, handle };
+      const results = collection.products.edges;
+      const path = 'data.results.products';
+
+      products = await recursivelyRunQuery({ client, query, variables, results, path });
+
+      addtionalProducts += (products.length - 250);
+    }
+
+    collection.variants = products
+      .map(product => atob(flattenEdges(product.variants)[0].id));
+
+    return collection;
+  });
+
+  const resolvedCollectionsWithVariants = await Promise.all(collectionsWithVariants);
+
+  timer.setStatus(format`{bold ${addtionalProducts} products}`);
+  timer.end();
+
+  return resolvedCollectionsWithVariants;
+};
+
+const mapBackpackVariantsToCollection = ({ collectionsWithVariants = [], helpers }) => {
+  const { getNode, getNodesByType } = helpers;
+
+  const shopifyBackpackVariantsMap = getNodesByType('BackpackProductVariant')
+    .reduce((productVariantsMap, { id, foreignId }) => ({
+      ...productVariantsMap,
+      [foreignId]: getNode(id)
+    }), {});
+
+  return collectionsWithVariants.map(collection => {
+    const variants = collection.variants
+      .reduce((nodes, id) => {
+        return shopifyBackpackVariantsMap[id]
+          ? [ ...nodes, shopifyBackpackVariantsMap[id] ]
+          : nodes;
+      }, []);
+
+    const optionValues = new Set(variants.map(variant => getNode(variant.product___NODE).optionValues));
+
+    return {
+      ...collection,
+      variants: variants.map(({ id }) => id),
+      optionValues: deepMerge(...Array.from(optionValues))
+    };
   });
 };
 
-const fetchAdditionalCollectionProductVariants = client => {
-  return async collections => {
-    let addtionalProductsCount = 0;
-
-    const collectionsWithProductVariants = collections.map(async collection => {
-      let products = flattenEdges(collection.products);
-
-      if (collection.products.pageInfo.hasNextPage) {
-        const handle = collection.handle;
-        const cursor = collection.products.edges.reverse()[0].cursor;
-        const query = SHOPIFY_COLLECTION_PRODUCTS_QUERY;
-        const variables = { cursor, handle };
-        const results = collection.products.edges;
-        const path = 'data.results.products';
-
-        products = await recursivelyRunQuery({ client, query, variables, results, path });
-
-        addtionalProductsCount += (products.length - 250);
-      }
-
-      collection.variants = products
-        .map(product => atob(flattenEdges(product.variants)[0].id));
-
-      return collection;
-    });
-
-    const resolvedCollectionsWithProductVariants = await Promise.all(collectionsWithProductVariants);
-
-    console.log(asFormattedMessage(`🛒 Fetched ${addtionalProductsCount} addtional products.`));
-
-    return resolvedCollectionsWithProductVariants;
-  };
-};
-
-const mapBackpackProductVariantsToCollection = (getNode, getNodesByType) => {
-  return collections => {
-    const backpackProductVariants = getNodesByType('BackpackProductVariant');
-
-    const shopifyBackpackProductVariantsMap = backpackProductVariants
-      .reduce((productVariantsMap, { id, foreignId }) => ({
-        ...productVariantsMap,
-        [foreignId]: getNode(id)
-      }), {});
-
-    return collections.map(collection => {
-      const variants = collection.variants
-        .map(id => shopifyBackpackProductVariantsMap[id]);
-      const optionValues = new Set(variants.map(variant => getNode(variant.product___NODE).optionValues));
-
-      return {
-        ...collection,
-        variants: variants.map(({ id }) => id),
-        optionValues: deepMerge(...Array.from(optionValues))
-      };
-    });
-  };
-};
-
-exports.fetchAndTransformShopifyData = async (options, helpers) => {
-  const { actions: { touchNode }, cache, getNode, getNodesByType, reporter } = helpers;
+exports.fetchAndTransformShopifyData = async ({ options, helpers }) => {
+  const { reporter } = helpers;
 
   try {
     const client = clients.shopify(options);
     const query = SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY;
     const collectionsMeta = await recursivelyRunQuery({ client, query });
+    const oldestTimestamp = await findOldestUpdatedCollection({ collectionsMeta, helpers });
+    const oldestIndex = collectionsMeta.findIndex(({ updatedAt }) => updatedAt === oldestTimestamp);
+    const collectionsData = await fetchUpdatedCollectionData({ client, oldestTimestamp, oldestIndex, helpers });
+    const collectionsWithVariants = await fetchAdditionalCollectionVariants({ client, collectionsData, helpers });
+    const collectionsNodeData = mapBackpackVariantsToCollection({ collectionsWithVariants, helpers });
 
-    const collectionsWithProducts = await findOldestUpdatedCollectionTimestamp(cache, touchNode, collectionsMeta)
-      .then(fetchUpdatedCollectionData(client))
-      .then(fetchAdditionalCollectionProductVariants(client))
-      .then(mapBackpackProductVariantsToCollection(getNode, getNodesByType));
-
-    return collectionsWithProducts;
+    return collectionsNodeData;
   } catch (error) {
-    reporter.panic('Something went wrong while sourcing collection data from Shopify: ', error);
+    reporter.panic(`
+      Something went wrong while sourcing collection data from Shopify.
+      Make sure your Backpack products and Shopify collection data are coming from the same place.
+
+      Error:`, error);
   }
 };

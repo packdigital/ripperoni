@@ -14,8 +14,10 @@ const writeFile = (file, data, reporter) => {
   return new Promise((resolve, reject) => {
     fs.writeFile(file, data, err => {
       if (err) {
-        reporter.warn(`301 Redirects Error: Unable to write file - ${file}`);
+        reporter.warn(`301 Redirects: Unable to write to redirects file - ${file}`);
       }
+
+      reporter.success(`301 Redirects: Successfully wrote redirects to file - ${file}`);
 
       resolve();
     });
@@ -26,8 +28,12 @@ const readFile = (file, reporter) => {
   return new Promise((resolve, reject) => {
     fs.readFile(file, 'utf8', (err, data = '') => {
       if (err) {
-        reporter.warn(`301 Redirects Error: Unable to read file - ${file}`);
+        reporter.warn(`301 Redirects: Unable to read existing redirects from file - ${file}`);
+
+        resolve();
       }
+
+      reporter.info(`301 Redirects: Found existing redirects file - ${file}`);
 
       resolve(data);
     });
@@ -37,22 +43,34 @@ const readFile = (file, reporter) => {
 const runQuery = (graphql, reporter) => {
   return graphql(query).then(res => {
     if (res.errors) {
-      reporter.warn('301 Redirects Error: Unable to run query. Check that your sheet has the correct title.');
+      reporter.panic(
+        '301 Redirects: Unable to run query. Check that your sheet has the correct title.',
+        new Error(res.errors)
+      );
     }
 
-    return res.data.google301Redirects.redirects;
+    const { redirects } = res.data.google301Redirects;
+
+    reporter.info(`301 Redirects: Found ${redirects.length} additional redirects from Google Sheets.`);
+
+    return redirects;
   });
 };
 
 exports.onPostBuild = async function onPostBuild({ graphql, reporter }, options) {
   try {
-    const result = await runQuery(graphql, reporter);
-    const newRedirects = result.reduce((redirects, { to, from }) => `${redirects}\n${from} ${to}`, '');
+    const redirects = await runQuery(graphql, reporter);
+
+    if (!redirects || !redirects.length) {
+      return reporter.warn('301 Redirects: no redirects found');
+    }
+
     const existingRedirects = await readFile(options.redirectsFilePath, reporter);
+    const newRedirects = redirects.reduce((redirects, { to, from }) => `${redirects}\n${from} ${to}`, '');
     const data = `${newRedirects}\n${existingRedirects}`;
 
-    return await writeFile(options.redirectsOutputPath, data, reporter);
+    return await writeFile(options.redirectsOutputPath, data, reporter);;
   } catch (error) {
-    reporter.warn('301 Redirects Error: Something went wrong');
+    reporter.warn('301 Redirects: Something went wrong');
   }
 };

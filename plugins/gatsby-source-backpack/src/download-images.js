@@ -2,40 +2,42 @@ const { createRemoteFileNode } = require('gatsby-source-filesystem');
 
 const { downloadImageAndCreateRemoteFileNode } = require('@packdigital/ripperoni-utilities');
 
-const { PLUGIN_NAME, TYPE_PREFIX, IMAGE } = require('./constants');
+const { LOG_PREFIX, TYPE_PREFIX, IMAGE } = require('./constants');
 
 
 exports.downloadImages = async ({ helpers }) => {
-  const { getNodes, reporter } = helpers;
-  const imageNodes = getNodes()
-    .filter(
-      node => (
-        node.internal.owner === PLUGIN_NAME &&
-        node.internal.type === `${TYPE_PREFIX}${IMAGE}`
+  const { getNodesByType, reporter } = helpers;
+  const { format, success } = reporter;
+  const prefixedImage = `${TYPE_PREFIX}${IMAGE}`;
+
+  const downloadedImages = getNodesByType(prefixedImage)
+    .map(node =>
+      downloadImageAndCreateRemoteFileNode(
+        node,
+        helpers,
+        createRemoteFileNode,
+        TYPE_PREFIX
       )
     );
-
-  const downloadedImages = imageNodes.map(node =>
-    downloadImageAndCreateRemoteFileNode(
-      node,
-      helpers,
-      createRemoteFileNode,
-      TYPE_PREFIX
-    )
-  );
 
   const images = await Promise.all(downloadedImages)
     .then(images => images.filter(image => image));
 
-  const cachedNodes = images.filter(({ type }) => type === 'TOUCH_NODE');
-  const downloadedNodes = images.filter(({ __typename }) => __typename === 'Image');
+  const cachedFiles = images.filter(({ type }) => type === 'TOUCH_NODE');
+  const downloadedFiles = images.filter(({ __typename }) => __typename === 'Image');
 
-  if (cachedNodes.length) {
-    reporter._log(`🎒 Touched ${cachedNodes.length} image files from cache.`);
+  if (cachedFiles.length > 0) {
+    const cachedFilesMessage = format`{${LOG_PREFIX}} Load {bold ${prefixedImage}} files from cache`;
+    const cachedFilesResultMessage = format`{bold ${cachedFiles.length} files}`;
+
+    success(`${cachedFilesMessage} - ${cachedFilesResultMessage}`);
   }
 
-  if (downloadedNodes.length) {
-    reporter._log(`🎒 Downloaded ${downloadedNodes.length} new image files.`);
+  if (downloadedFiles.length > 0) {
+    const downloadedFilesMessage = format`{${LOG_PREFIX}} Download {bold ${prefixedImage}} files`;
+    const downloadedFilesResultMessage = format`{bold ${downloadedFiles.length} files}`;
+
+    success(`${downloadedFilesMessage} - ${downloadedFilesResultMessage}`);
   }
 
   return images;

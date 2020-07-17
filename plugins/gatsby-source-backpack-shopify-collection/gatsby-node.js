@@ -1,29 +1,32 @@
-const { formatMessage } = require('@packdigital/ripperoni-utilities');
-
 const { typeDefs } = require('./src/types');
-const { PLUGIN_NAME, PLUGIN_COLOR } = require('./src/constants');
+const { LOG_PREFIX } = require('./src/constants');
 const { createContentNodes } = require('./src/nodes');
 const { downloadImages } = require('./src/download-images');
 const { fetchAndTransformShopifyData } = require('./src/fetch');
 
-
-const asFormattedMessage = formatMessage(PLUGIN_NAME, PLUGIN_COLOR);
 
 exports.createSchemaCustomization = ({ actions: { createTypes }}) => {
   createTypes(typeDefs);
 };
 
 exports.sourceNodes = async (helpers, options) => {
-  const startMessage = '🛒 Sourcing collection data from Shopify 🛒';
-  const endMessage = '🛒 Finished sourcing collection data in';
+  const { format, activityTimer } = helpers.reporter;
 
-  console.log(asFormattedMessage(startMessage));
-  console.time(asFormattedMessage(endMessage));
+  const timer = activityTimer(format`{${LOG_PREFIX}}`);
 
-  const collections = await fetchAndTransformShopifyData(options, helpers);
+  timer.start();
+  timer.setStatus(format`Fetching data`);
 
-  await createContentNodes(collections, helpers);
+  const collections = await fetchAndTransformShopifyData({ options, helpers });
 
-  return downloadImages(helpers)
-    .then(() => console.timeEnd(asFormattedMessage(endMessage)));
+  timer.setStatus('Creating nodes');
+
+  await createContentNodes({ collections, helpers });
+
+  timer.setStatus('Downloading images');
+
+  await downloadImages({ helpers });
+
+  timer.setStatus(format`Sourced {bold BackpackCollection} nodes from {green {bold Shopify}}`);
+  timer.end();
 };
