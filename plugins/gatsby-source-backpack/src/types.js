@@ -50,9 +50,9 @@ exports.typeDefs = `
     sku: String
     updatedAt: Date!
     product: BackpackProduct @link (by: "id", from: "product___NODE")
-    image: BackpackImage! @link (by: "id", from: "image___NODE")
-    hoverImage: BackpackImage! @link(by: "id", from: "hoverImage___NODE")
-    images: [BackpackImage]! @link (by: "id", from: "images___NODE")
+    image: BackpackImage @link (by: "id", from: "image___NODE")
+    hoverImage: BackpackImage @link(by: "id", from: "hoverImage___NODE")
+    images: [BackpackImage] @link (by: "id", from: "images___NODE")
     selectedOptions: [BackpackProductOptionValue] @link(by: "id", from: "selectedOptions___NODE")
   }
 

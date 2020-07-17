@@ -13,7 +13,7 @@ exports.sourceNodes = async (helpers, options) => {
   const timer = activityTimer(format`{${LOG_PREFIX}}`);
 
   if (!accessToken || !backpackUri) {
-    panic(`Please include an access token to ${PLUGIN_NAME}.`);
+    panic(`Please include a Backpack access token and uri to ${PLUGIN_NAME}.`);
   }
 
   const client = createClient({ accessToken, backpackUri });
