@@ -5,19 +5,18 @@ const { downloadImages } = require('./src/download-images');
 const { LOG_PREFIX, PLUGIN_NAME } = require('./src/constants');
 
 
-exports.createSchemaCustomization = ({ actions: { createTypes }}) => {
-  createTypes(typeDefs);
-};
+exports.createSchemaCustomization = ({ actions: { createTypes }}) => createTypes(typeDefs);
 
 exports.sourceNodes = async (helpers, options) => {
   const { format, panic, activityTimer } = helpers.reporter;
   const { accessToken, shopId, backpackUri } = options;
-  const client = createClient({ accessToken, backpackUri });
   const timer = activityTimer(format`{${LOG_PREFIX}}`);
 
   if (!accessToken || !backpackUri) {
     panic(`Please include an access token to ${PLUGIN_NAME}.`);
   }
+
+  const client = createClient({ accessToken, backpackUri });
 
   timer.start();
   timer.setStatus(format`Fetching data and creating nodes`);
