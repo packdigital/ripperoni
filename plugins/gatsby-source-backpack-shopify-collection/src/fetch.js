@@ -1,10 +1,10 @@
 /* eslint-disable max-lines */
 const get = require('lodash.get');
+const { atob } = require('abab');
 
 const {
   formatMessage,
   flattenEdges,
-  getLegacyShopifyId,
   deepMerge,
   convertToGatsbyGraphQLId,
 } = require('@packdigital/ripperoni-utilities');
@@ -79,11 +79,11 @@ const fetchUpdatedCollectionData = client => {
   });
 };
 
-const fetchAdditionalCollectionProducts = client => {
+const fetchAdditionalCollectionProductVariants = client => {
   return async collections => {
     let addtionalProductsCount = 0;
 
-    const collectionsWithProducts = collections.map(async collection => {
+    const collectionsWithProductVariants = collections.map(async collection => {
       let products = flattenEdges(collection.products);
 
       if (collection.products.pageInfo.hasNextPage) {
@@ -99,54 +99,39 @@ const fetchAdditionalCollectionProducts = client => {
         addtionalProductsCount += (products.length - 250);
       }
 
-      const productsWithLegacyId = products
-        .map(product => ({ ...product, legacyId: getLegacyShopifyId(product.id) }));
-
-      collection.products = productsWithLegacyId;
+      collection.variants = products
+        .map(product => atob(flattenEdges(product.variants)[0].id));
 
       return collection;
     });
 
-    const resolvedCollectionsWithProducts = await Promise.all(collectionsWithProducts);
+    const resolvedCollectionsWithProductVariants = await Promise.all(collectionsWithProductVariants);
 
     console.log(asFormattedMessage(`🛒 Fetched ${addtionalProductsCount} addtional products.`));
 
-    return resolvedCollectionsWithProducts;
+    return resolvedCollectionsWithProductVariants;
   };
 };
 
-const mapBackpackProductsToCollection = (getNode, getNodesByType) => {
+const mapBackpackProductVariantsToCollection = (getNode, getNodesByType) => {
   return collections => {
-    const backpackProducts = getNodesByType('BackpackProduct');
-    const shopifyBackpackProductsMap = backpackProducts
-      .reduce((productsMap, { id, foreignIds }) => {
-        const backpackProduct = getNode(id);
-        const createProductMap = (map, shopifyId) =>
-          ({ ...map, [getLegacyShopifyId(shopifyId)]: backpackProduct });
-        const productMap = foreignIds.reduce(createProductMap, {});
+    const backpackProductVariants = getNodesByType('BackpackProductVariant');
 
-        return { ...productsMap, ...productMap };
-      }, {});
-
-    const mapProducts = collection => collection.products
-      .reduce((products, { legacyId }) => {
-        const product = shopifyBackpackProductsMap[legacyId];
-
-        return product
-          ? [ ...products, product ]
-          : products;
-      }, []);
-
-    const mapOptionValues = products => products
-      .reduce((optionValues, product) => deepMerge(optionValues, product.optionValues), {});
+    const shopifyBackpackProductVariantsMap = backpackProductVariants
+      .reduce((productVariantsMap, { id, foreignId }) => ({
+        ...productVariantsMap,
+        [foreignId]: getNode(id)
+      }), {});
 
     return collections.map(collection => {
-      const products = mapProducts(collection);
+      const variants = collection.variants
+        .map(id => shopifyBackpackProductVariantsMap[id]);
+      const optionValues = new Set(variants.map(variant => getNode(variant.product___NODE).optionValues));
 
       return {
         ...collection,
-        products: products.map(({ id }) => id),
-        optionValues: mapOptionValues(products),
+        variants: variants.map(({ id }) => id),
+        optionValues: deepMerge(...Array.from(optionValues))
       };
     });
   };
@@ -162,8 +147,8 @@ exports.fetchAndTransformShopifyData = async (options, helpers) => {
 
     const collectionsWithProducts = await findOldestUpdatedCollectionTimestamp(cache, touchNode, collectionsMeta)
       .then(fetchUpdatedCollectionData(client))
-      .then(fetchAdditionalCollectionProducts(client))
-      .then(mapBackpackProductsToCollection(getNode, getNodesByType));
+      .then(fetchAdditionalCollectionProductVariants(client))
+      .then(mapBackpackProductVariantsToCollection(getNode, getNodesByType));
 
     return collectionsWithProducts;
   } catch (error) {

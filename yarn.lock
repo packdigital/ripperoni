@@ -2577,20 +2577,32 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@packdigital/gatsby-theme-ripperoni-backpack@^0.0.24":
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-backpack/-/gatsby-theme-ripperoni-backpack-0.0.24.tgz#f5e89f43c2eade08e54dec54e85781e0c45a3d04"
-  integrity sha512-C3+a7Vdd7uEx/YnNv0bCIsQgJ+aluq1Z/JVkmeZQ+tPtPkX5c1YvLNH0Ijqii6wgvniEHzzTI1cpvQgd2I3Drw==
+"@packdigital/gatsby-theme-ripperoni-backpack@^0.0.28":
+  version "0.0.28"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-backpack/-/gatsby-theme-ripperoni-backpack-0.0.28.tgz#cccc5135d31d07d23f56b79315cf2c437eb4ac11"
+  integrity sha512-GiDCYtc4HyW9k8Z98u0vgFVS+BSLGEcXLbS7aedJfARSF6EtTRt1Q0yy00n1odJKgrJn0XlAg2f4cZCRvd8Wmw==
   dependencies:
-    "@packdigital/gatsby-source-backpack" "^0.1.61"
-    "@packdigital/gatsby-source-backpack-shopify-collection" "^0.1.9"
+    "@packdigital/gatsby-source-backpack" "^0.1.65"
+    "@packdigital/gatsby-source-backpack-shopify-collection" "^0.1.12"
 
-"@packdigital/gatsby-theme-ripperoni-cms@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-cms/-/gatsby-theme-ripperoni-cms-0.0.10.tgz#9ee1da562d781701623762efe979fd28befb7b0f"
-  integrity sha512-8pX94FU5RiCX2AzxZrrLVKOWNRet5igddVjNN2BC+WmzVld/E8xwxnH5VOpInEP/9PuksJmJTusuFOv8uzni2A==
+"@packdigital/gatsby-theme-ripperoni-core@^0.0.33":
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-core/-/gatsby-theme-ripperoni-core-0.0.33.tgz#6734eebb34f74d9778d36dd666d573fb22b74776"
+  integrity sha512-hmqab/bsTEzUL6QGBsBTgG4MtiooafRKC5YKrchaUvsI4M/YHKdDQqYg7Ey9fxNkFYTnIeOY7olDRFwRtC9nRg==
   dependencies:
-    gatsby-source-contentful "^2.3.15"
+    "@lekoarts/gatsby-theme-styleguide" "^1.1.7"
+    chalk "^4.1.0"
+    dateformat "^3.0.3"
+    gatsby-plugin-eslint "^2.0.8"
+    gatsby-plugin-loadable-components-ssr "^2.1.0"
+    gatsby-plugin-manifest "^2.4.11"
+    gatsby-plugin-react-svg "^3.0.0"
+    gatsby-plugin-root-import "^2.0.5"
+    gatsby-plugin-sharp "^2.6.11"
+    gatsby-plugin-theme-ui "^0.3.0"
+    gatsby-source-filesystem "^2.3.11"
+    gatsby-transformer-sharp "^2.5.5"
+    intersection-observer "^0.11.0"
 
 "@pieh/friendly-errors-webpack-plugin@1.7.0-chalk-2":
   version "1.7.0-chalk-2"

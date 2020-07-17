@@ -30,8 +30,12 @@
  * @param {ResponseWithEdges} data
  * @returns {object[]}
  */
-export function flattenEdges(data: ResponseWithEdges): object[] {
-  return data.edges.map((edge: Edge) => edge.node);
+export function flattenEdges(data: any): any {
+  if (data.edges && Array.isArray(data.edges)) {
+    return data.edges.map((edge: Edge) => edge.node);
+  }
+
+  return data;
 }
 
 export interface ResponseWithEdges {

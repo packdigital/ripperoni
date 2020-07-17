@@ -119,15 +119,15 @@ const diffAndUpdateNodes = ({ type, helpers }) => {
       .map(deleteAndUncacheNode(helpers));
 
     if (newNodes.length > 0) {
-      reporter.log(`🎒 Added ${newNodes.length} ${TYPE_PREFIX}${type} nodes.`);
+      reporter._log(`🎒 Added ${newNodes.length} ${TYPE_PREFIX}${type} nodes.`);
     }
 
     if (updatedNodes.length > 0) {
-      reporter.log(`🎒 Updated ${updatedNodes.length} ${TYPE_PREFIX}${type} nodes.`);
+      reporter._log(`🎒 Updated ${updatedNodes.length} ${TYPE_PREFIX}${type} nodes.`);
     }
 
     if (deletedNodes.length > 0) {
-      reporter.log(`🎒 Deleted ${deletedNodes.length} ${TYPE_PREFIX}${type} nodes.`);
+      reporter._log(`🎒 Deleted ${deletedNodes.length} ${TYPE_PREFIX}${type} nodes.`);
     }
   };
 };
@@ -156,7 +156,7 @@ const touchUnchangedCachedData = async ({ client, shopId, helpers }) => {
 
     const results = await Promise.all(nodes);
 
-    reporter.log(`🎒 Touched ${touchedNodesCount} ${TYPE_PREFIX}${type} nodes from cache.`);
+    reporter._log(`🎒 Touched ${touchedNodesCount} ${TYPE_PREFIX}${type} nodes from cache.`);
 
     return results;
   });

@@ -27,7 +27,13 @@ const SHOPIFY_COLLECTIONS_QUERY = gql`
             edges {
               cursor
               node {
-                id
+                variants (first: 1){
+                  edges {
+                    node {
+                      id
+                    }
+                  }
+                }
               }
             }
           }
@@ -68,7 +74,13 @@ const SHOPIFY_COLLECTION_PRODUCTS_QUERY = gql`
         edges {
           cursor
           node {
-            id
+            variants (first: 1) {
+              edges {
+                node {
+                  id
+                }
+              }
+            }
           }
         }
       }

@@ -7,6 +7,7 @@ const collection = node => {
   const image___NODE = node.image ? convertToGatsbyGraphQLId(node.image.id, IMAGE, TYPE_PREFIX) : null;
 
   delete node.image;
+  delete node.products;
 
   return {
     ...node,

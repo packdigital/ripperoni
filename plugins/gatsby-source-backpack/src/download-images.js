@@ -31,11 +31,11 @@ exports.downloadImages = async ({ helpers }) => {
   const downloadedNodes = images.filter(({ __typename }) => __typename === 'Image');
 
   if (cachedNodes.length) {
-    reporter.log(`🎒 Touched ${cachedNodes.length} image files from cache.`);
+    reporter._log(`🎒 Touched ${cachedNodes.length} image files from cache.`);
   }
 
   if (downloadedNodes.length) {
-    reporter.log(`🎒 Downloaded ${downloadedNodes.length} new image files.`);
+    reporter._log(`🎒 Downloaded ${downloadedNodes.length} new image files.`);
   }
 
   return images;

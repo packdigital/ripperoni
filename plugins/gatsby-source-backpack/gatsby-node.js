@@ -16,14 +16,14 @@ exports.sourceNodes = async (helpers, options) => {
   const { accessToken, shopId, backpackUri } = options;
   const asFormattedMessage = formatMessage(PLUGIN_NAME, PLUGIN_COLOR);
 
-  helpers.reporter.log = message => console.log(asFormattedMessage(message));
+  helpers.reporter._log = message => console.log(asFormattedMessage(message));
 
   // If the user knows they are offline, serve them cached result
   // For prod builds though always fail if we can't get the latest data
   // if (shouldUseOfflineCache(helpers.getNodes, helpers.touchNode)) return;
 
   try {
-    reporter.log('🎒 Sourcing product data from Backpack 🎒');
+    reporter._log('🎒 Sourcing product data from Backpack 🎒');
     const endMessage = '🎒 Finished in';
 
     console.time(asFormattedMessage(endMessage));
