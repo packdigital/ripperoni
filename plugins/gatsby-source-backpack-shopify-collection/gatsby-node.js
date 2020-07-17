@@ -5,9 +5,7 @@ const { downloadImages } = require('./src/download-images');
 const { fetchAndTransformShopifyData } = require('./src/fetch');
 
 
-exports.createSchemaCustomization = ({ actions: { createTypes }}) => {
-  createTypes(typeDefs);
-};
+exports.createSchemaCustomization = ({ actions: { createTypes }}) => createTypes(typeDefs);
 
 exports.sourceNodes = async (helpers, options) => {
   const { format, activityTimer } = helpers.reporter;
