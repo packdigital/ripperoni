@@ -156,6 +156,7 @@ const touchUnchangedCachedData = async ({ client, shopId, helpers }) => {
       }
     });
 
+    // eslint-disable-next-line no-undef
     const results = await Promise.all(nodes);
 
     if (touchedNodes > 0) {
@@ -165,6 +166,7 @@ const touchUnchangedCachedData = async ({ client, shopId, helpers }) => {
     return results;
   });
 
+  // eslint-disable-next-line no-undef
   return await Promise.all(touchedTypes);
 };
 
@@ -201,8 +203,12 @@ exports.createContentNodes = async ({ client, shopId, helpers }) => {
   try {
     await touchUnchangedCachedData({ client, shopId, helpers });
     await queryForNewNodes({ client, shopId, helpers });
-    await setupSubscriptions({ client, shopId, helpers });
 
+    if (process.env.NODE_ENV !== 'production') {
+      await setupSubscriptions({ client, shopId, helpers });
+    }
+
+    // eslint-disable-next-line no-undef
     return Promise.resolve();
   } catch (error) {
     helpers.reporter.panic('Something went wrong while creating Backpack Nodes: ', error);

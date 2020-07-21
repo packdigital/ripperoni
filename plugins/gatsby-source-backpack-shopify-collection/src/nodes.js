@@ -31,6 +31,7 @@ exports.createContentNodes = async ({ collections, helpers }) => {
       return await cache.set(nodeData.id, nodeData);
     });
 
+  // eslint-disable-next-line no-undef
   await Promise.all([ ...imageNodes, ...collectionNodes ]);
 
   if (collectionNodes.length > 0) {

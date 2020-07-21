@@ -20,6 +20,7 @@ exports.downloadImages = async ({ helpers }) => {
       )
     );
 
+  // eslint-disable-next-line no-undef
   const images = await Promise.all(downloadedImages)
     .then(images => images.filter(image => image));
 

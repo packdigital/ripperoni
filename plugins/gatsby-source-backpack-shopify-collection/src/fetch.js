@@ -150,6 +150,7 @@ const fetchAdditionalCollectionVariants = async ({ client, collectionsData, help
     return collection;
   });
 
+  // eslint-disable-next-line no-undef
   const resolvedCollectionsWithVariants = await Promise.all(collectionsWithVariants);
 
   timer.setStatus(format`{bold ${addtionalProducts} products}`);

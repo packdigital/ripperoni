@@ -11,6 +11,7 @@ const query = `{
 }`;
 
 const writeFile = (file, data, reporter) => {
+  // eslint-disable-next-line no-undef
   return new Promise((resolve, reject) => {
     fs.writeFile(file, data, err => {
       if (err) {
@@ -25,6 +26,7 @@ const writeFile = (file, data, reporter) => {
 };
 
 const readFile = (file, reporter) => {
+  // eslint-disable-next-line no-undef
   return new Promise((resolve, reject) => {
     fs.readFile(file, 'utf8', (err, data = '') => {
       if (err) {
