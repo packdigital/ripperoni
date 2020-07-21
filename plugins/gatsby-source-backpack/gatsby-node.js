@@ -1,3 +1,5 @@
+const { isShopifyGid } = require('@packdigital/ripperoni-utilities');
+
 const { typeDefs } = require('./src/types');
 const { createClient } = require('./src/client');
 const { createContentNodes } = require('./src/nodes');
@@ -18,6 +20,10 @@ exports.sourceNodes = async (helpers, options) => {
 
   if (!backpackUri) {
     panic(`Please include a Backpack uri to ${PLUGIN_NAME}.`);
+  }
+
+  if (!shopId || !isShopifyGid(shopId)) {
+    panic(`Please include a Shopify graphql shop id to ${PLUGIN_NAME}.`);
   }
 
   const client = createClient({ accessToken, backpackUri });
