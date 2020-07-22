@@ -1,9 +1,18 @@
 /* eslint-disable import/no-default-export */
 import React from 'react';
 
+import { isBrowser } from '@ripperoni/utilities';
 import { Signup as SignupView } from '@ripperoni/account/views/Signup';
 
 
-export const Signup = props => <SignupView {...props} />;
+export const Signup = props => {
+  if (!isBrowser) {
+    return null;
+  }
+
+  return (
+    <SignupView {...props} />
+  );
+};
 
 export default Signup;
