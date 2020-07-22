@@ -39,6 +39,7 @@ export const Link = forwardRef(({
       // trigger: ({ exit, node }) => fadeInChildrenSeq(exit, node),
     },
     exit: {
+      length: 1
       // trigger: ({ exit, node }) => fadeOutPageTemplate(exit, node)
     },
   };
