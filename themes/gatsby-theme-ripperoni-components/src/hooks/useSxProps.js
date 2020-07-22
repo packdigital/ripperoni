@@ -11,9 +11,9 @@ import typography from '../props/typography';
 
 export const useSxProps = (incomingProps = {}, componentSxProps = {}) => {
   const {
-    sx = [],
-    alias = {},
-    computed = {},
+    sx: componentSx = [],
+    alias: componentAlias = {},
+    computed: componentComputed = {},
     propTypes: componentPropTypes = {}
   } = componentSxProps;
 
@@ -27,7 +27,7 @@ export const useSxProps = (incomingProps = {}, componentSxProps = {}) => {
     ...size.sx,
     ...space.sx,
     ...typography.sx,
-    ...sx,
+    ...componentSx,
   ];
 
   const aliasProps = {
@@ -40,7 +40,7 @@ export const useSxProps = (incomingProps = {}, componentSxProps = {}) => {
     ...size.alias,
     ...space.alias,
     ...typography.alias,
-    ...alias,
+    ...componentAlias,
   };
 
   const computedProps = {
@@ -53,7 +53,7 @@ export const useSxProps = (incomingProps = {}, componentSxProps = {}) => {
     ...size.computed,
     ...space.computed,
     ...typography.computed,
-    ...computed,
+    ...componentComputed
   };
 
   const propTypes = {
@@ -81,13 +81,9 @@ export const useSxProps = (incomingProps = {}, componentSxProps = {}) => {
     // map aliased props to their sx prop
     .map(([prop, value]) => aliasProps[prop] ? [aliasProps[prop], value] : [prop, value])
     .reduce((sxObject, [prop, value], index, source) => {
-      if (sxProps.includes(prop)) {
-        return {
-          ...sxObject,
-          [prop]: value,
-        };
-      }
-
+      // computed props take precident over regular sx props because certain
+      // components can have computed props that overwrite default sx props
+      // e.g. top|right|bottom|left on flex.sx overwrites position
       if (computedProps[prop]) {
         const fn = computedProps[prop];
         const props = Object.fromEntries(source);
@@ -95,6 +91,14 @@ export const useSxProps = (incomingProps = {}, componentSxProps = {}) => {
         return {
           ...sxObject,
           ...fn({ value, props }),
+        };
+      }
+
+      // computed props take precident
+      if (sxProps.includes(prop)) {
+        return {
+          ...sxObject,
+          [prop]: value,
         };
       }
 

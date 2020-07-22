@@ -2,12 +2,12 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link as LinkUI, jsx } from 'theme-ui';
-// import TransitionLink from 'gatsby-plugin-transition-link';
-import { Link as GatsbyLink } from 'gatsby';
+import TransitionLink from 'gatsby-plugin-transition-link';
+// import { Link as GatsbyLink } from 'gatsby';
 
 import { useSxProps } from '../../hooks/useSxProps';
 import { LinkButton } from './LinkButton';
-import { fadeInChildrenSeq, fadeOutPageTemplate } from './LinkAnimations';
+// import { fadeInChildrenSeq, fadeOutPageTemplate } from './LinkAnimations';
 
 
 export const Link = forwardRef(({
@@ -36,10 +36,10 @@ export const Link = forwardRef(({
   const animationProps = {
     entry: {
       delay: 0.2,
-      trigger: ({ exit, node }) => fadeInChildrenSeq(exit, node),
+      // trigger: ({ exit, node }) => fadeInChildrenSeq(exit, node),
     },
     exit: {
-      trigger: ({ exit, node }) => fadeOutPageTemplate(exit, node)
+      // trigger: ({ exit, node }) => fadeOutPageTemplate(exit, node)
     },
   };
 
@@ -58,8 +58,8 @@ export const Link = forwardRef(({
 
   if (to) {
     return (
-      // <TransitionLink
-      <GatsbyLink
+      // <GatsbyLink
+      <TransitionLink
         data-comp='Internal Link'
         to={to}
         {...linkProps}

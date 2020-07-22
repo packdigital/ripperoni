@@ -21,8 +21,8 @@ export const Text = forwardRef(({
 
   return (
     <TextUI
-      ref={ref}
       data-comp={Text.displayName}
+      ref={ref}
       sx={sxObject}
       {...props}
     >

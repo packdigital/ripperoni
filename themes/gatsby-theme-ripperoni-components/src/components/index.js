@@ -7,6 +7,7 @@ export * from './Checkbox';
 export * from './ClientSideOnly';
 export * from './Container';
 export * from './Date';
+export * from './Divider';
 export * from './ErrorBoundry';
 export * from './ErrorFallback';
 export * from './Flex';

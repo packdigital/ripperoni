@@ -16,6 +16,7 @@ export const Svg = forwardRef((incomingProps, ref) => {
     <Box
       data-comp={Svg.displayName}
       ref={ref}
+      display='block'
       sx={sxObject}
       {...props}
     />

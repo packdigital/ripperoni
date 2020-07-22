@@ -7,6 +7,10 @@ const sx = [
   'position',
   'zIndex',
   'transform',
+  'top',
+  'right',
+  'bottom',
+  'left',
 ];
 
 const computed = {
