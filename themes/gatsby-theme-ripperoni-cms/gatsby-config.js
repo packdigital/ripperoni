@@ -10,7 +10,7 @@ module.exports = themeOptions => {
 
   const plugins = [
     ...conditionallyIncludePlugin({
-      theme: 'cms',
+      theme: 'gatsby-theme-ripperoni-cms',
       resolve: 'gatsby-source-contentful',
       enabled: contentfulEnabled,
       options: contentful,

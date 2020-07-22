@@ -10,7 +10,7 @@ module.exports = (themeOptions, arg2) => {
 
   const plugins = [
     ...conditionallyIncludePlugin({
-      theme: '301-redirects',
+      theme: 'gatsby-theme-ripperoni-301-redirects',
       resolve: 'gatsby-source-google-spreadsheet',
       enabled: googleSpreadsheet.enabled,
       options: googleSpreadsheet,
@@ -21,7 +21,7 @@ module.exports = (themeOptions, arg2) => {
       ],
     }),
     ...conditionallyIncludePlugin({
-      theme: '301-redirects',
+      theme: 'gatsby-theme-ripperoni-301-redirects',
       resolve: '@packdigital/gatsby-plugin-301-redirects',
       enabled: redirects.enabled,
       options: redirects,

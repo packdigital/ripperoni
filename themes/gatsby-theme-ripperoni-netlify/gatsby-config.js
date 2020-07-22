@@ -12,7 +12,7 @@ module.exports = themeOptions => {
 
   const plugins = [
     ...conditionallyIncludePlugin({
-      theme: 'host',
+      theme: 'gatsby-theme-ripperoni-host',
       resolve: 'gatsby-plugin-netlify',
       enabled: netlify.enabled,
       options: netlify,

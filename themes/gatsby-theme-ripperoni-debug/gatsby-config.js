@@ -10,19 +10,19 @@ module.exports = themeOptions => {
 
   const plugins = [
     ...conditionallyIncludePlugin({
-      theme: 'debug',
+      theme: 'gatsby-theme-ripperoni-debug',
       resolve: 'gatsby-plugin-webpack-size',
       enabled: webpackSize.enabled,
       options: webpackSize,
     }),
     ...conditionallyIncludePlugin({
-      theme: 'debug',
+      theme: 'gatsby-theme-ripperoni-debug',
       resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
       enabled: bundleAnalyser.enabled,
       options: bundleAnalyser,
     }),
     ...conditionallyIncludePlugin({
-      theme: 'debug',
+      theme: 'gatsby-theme-ripperoni-debug',
       resolve: 'gatsby-plugin-schema-snapshot',
       enabled: schemaSnapshot.enabled,
       options: schemaSnapshot,

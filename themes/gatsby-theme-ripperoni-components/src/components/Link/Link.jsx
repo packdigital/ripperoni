@@ -34,14 +34,8 @@ export const Link = forwardRef(({
   };
 
   const animationProps = {
-    entry: {
-      delay: 0.2,
-      // trigger: ({ exit, node }) => fadeInChildrenSeq(exit, node),
-    },
-    exit: {
-      length: 1
-      // trigger: ({ exit, node }) => fadeOutPageTemplate(exit, node)
-    },
+    exit: { length: 1 },
+    entry: { delay: 0.2 },
   };
 
   const linkProps = {

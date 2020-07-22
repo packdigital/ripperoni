@@ -12,7 +12,7 @@ module.exports = ({
   const plugins = [
     ...conditionallyIncludePlugin({
       enabled: elasticlunarEnabled,
-      theme: 'search',
+      theme: 'gatsby-theme-ripperoni-search',
       resolve: '@gatsby-contrib/gatsby-plugin-elasticlunr-search',
       options: elasticlunarOptions,
       requiredOptions: [

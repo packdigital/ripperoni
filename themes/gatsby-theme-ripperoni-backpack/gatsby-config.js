@@ -13,7 +13,7 @@ module.exports = themeOptions => {
 
   const plugins = [
     ...conditionallyIncludePlugin({
-      theme: '🎒 backpack',
+      theme: 'gatsby-theme-ripperoni-backpack',
       resolve: '@packdigital/gatsby-source-backpack',
       enabled: backpackSource.enabled,
       options: backpackSource,
@@ -21,11 +21,11 @@ module.exports = themeOptions => {
       previewable: false,
     }),
     ...conditionallyIncludePlugin({
-      theme: '🎒 backpack',
+      theme: 'gatsby-theme-ripperoni-backpack',
       resolve: '@packdigital/gatsby-source-backpack-shopify-collection',
       enabled: backpackShopifyCollectionSource.enabled,
       options: backpackShopifyCollectionSource,
-      requiredOptions: ['shopName', 'accessToken', 'backpackAccessToken'],
+      requiredOptions: ['shopName', 'accessToken'],
       previewable: false,
     }),
   ];

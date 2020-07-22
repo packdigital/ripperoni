@@ -2577,6 +2577,17 @@
   dependencies:
     "@types/node" ">= 8"
 
+"@packdigital/gatsby-theme-ripperoni-account@^0.0.29":
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-account/-/gatsby-theme-ripperoni-account-0.0.29.tgz#af87c27e12226580e2c017ead7217e3c8f30c07c"
+  integrity sha512-1g+6QOvt04s7FB5z5QQb/BaSX7s48wdH8K6wOTtU74mPTsqEzm4naZFPhFSBhmRbsTOYUDWKUzFuhxdyCOf/ww==
+  dependencies:
+    country-and-province "^1.2.0"
+    country-list "^2.2.0"
+    gatsby-plugin-create-client-paths "^2.3.4"
+    react-dropdown "^1.7.0"
+    use-reducer-async "^2.0.1"
+
 "@pieh/friendly-errors-webpack-plugin@1.7.0-chalk-2":
   version "1.7.0-chalk-2"
   resolved "https://registry.yarnpkg.com/@pieh/friendly-errors-webpack-plugin/-/friendly-errors-webpack-plugin-1.7.0-chalk-2.tgz#2e9da9d3ade9d18d013333eb408c457d04eabac0"

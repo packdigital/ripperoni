@@ -5,7 +5,14 @@ const { downloadImages } = require('./src/download-images');
 const { fetchAndTransformShopifyData } = require('./src/fetch');
 
 
-exports.createSchemaCustomization = ({ actions: { createTypes }}) => createTypes(typeDefs);
+exports.createSchemaCustomization = ({ getNodesByType, actions: { createTypes }}) => {
+  const requiredTypes = ['BackpackProductVariant'];
+  const hasRequiredTypes = requiredTypes.every(requiredType => getNodesByType(requiredType).length > 0);
+
+  if (hasRequiredTypes) {
+    createTypes(typeDefs);
+  }
+};
 
 exports.sourceNodes = async (helpers, options) => {
   const { format, activityTimer } = helpers.reporter;

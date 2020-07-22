@@ -66,7 +66,7 @@ module.exports = themeOptions => {
       }
     },
     ...conditionallyIncludePlugin({
-      theme: 'core',
+      theme: 'gatsby-theme-ripperoni-core',
       resolve: 'gatsby-plugin-manifest',
       enabled: manifest.enabled,
       options: manifest,
