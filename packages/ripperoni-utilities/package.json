@@ -29,7 +29,7 @@
     "doc:html": "typedoc",
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "prepare-release": "run-s test doc",
-    "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('ripperoni-utilities must be installed with Yarn: https://yarnpkg.com/')\""
+    "_preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('ripperoni-utilities must be installed with Yarn: https://yarnpkg.com/')\""
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
