@@ -11,11 +11,11 @@ import { useCustomerContext } from '@ripperoni/account/context/CustomerContext';
 
 
 export const AccountPage = React.memo(props => {
-  const context = useCustomerContext();
-
   if (!isBrowser) {
     return null;
   }
+
+  const context = useCustomerContext();
 
   if (context.state.loggedIn === null || context.state.loading?.customerGet) {
     return (

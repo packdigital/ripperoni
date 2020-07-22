@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { jsx } from 'theme-ui';
 
-import { Box, Button, Flex, Heading } from '@ripperoni/components';
+import { Box, Button, Divider, Flex, Heading } from '@ripperoni/components';
 
 import { AccountLayout } from '../layout/AccountLayout';
 import { LoginForm } from '../components/LoginForm';
@@ -87,13 +87,9 @@ export const LoginSignup = props => {
           />
         </Flex.Col>
 
-        <Box
-          width='1px'
+        <Divider
+          vertical
           display={['none', null, null, 'block']}
-          sx={{
-            borderColor: 'black',
-            borderRight: '1px solid',
-          }}
         />
 
         <Flex.Col
