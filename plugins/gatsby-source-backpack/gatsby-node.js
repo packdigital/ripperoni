@@ -1,3 +1,8 @@
+const path = require('path');
+
+const fs = require('fs-extra');
+
+
 const { isShopifyGid } = require('@packdigital/ripperoni-utilities');
 
 const { typeDefs } = require('./src/types');
@@ -39,4 +44,13 @@ exports.sourceNodes = async (helpers, options) => {
 
   timer.setStatus(format`Sourced {bold Backpack} nodes from {red {bold Backpack}}`);
   timer.end();
+};
+
+exports.onPreExtractQueries = async ({ store, getNodesByType }) => {
+  const program = store.getState().program;
+
+  await fs.copy(
+    path.join(__dirname, 'fragments', 'fragments.js'),
+    `${program.directory}/.cache/fragments/backpack-fragments.js`,
+  );
 };

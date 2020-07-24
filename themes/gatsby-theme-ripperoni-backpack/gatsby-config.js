@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const frag = require('@packdigital/gatsby-source-backpack');
+
 const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
 
 const withDefaults = require('./gatsby/config/default-options');
