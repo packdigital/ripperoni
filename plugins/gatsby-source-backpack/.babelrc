@@ -1,5 +1,6 @@
 {
   "presets": [
-    "@packdigital/babel-preset-ripperoni"
+    "@packdigital/babel-preset-ripperoni",
+    "babel-preset-gatsby-package"
   ]
 }

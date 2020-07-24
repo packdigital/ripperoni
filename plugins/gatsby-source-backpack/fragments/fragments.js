@@ -1,50 +1,62 @@
+/* eslint-disable max-lines */
 const { graphql } = require('gatsby');
 
-const IMAGE = graphql`
+export const IMAGE = graphql`
   fragment Image on BackpackImage {
     position
     src
     altText
     updatedAt
-    localFile
-    product
-    variants
+    localFile {
+      id
+    }
   }
 `;
 
-const VIDEO = graphql`
+export const VIDEO = graphql`
   fragment Video on BackpackVideo {
     src: String
     updatedAt
   }
 `;
 
-const PRODUCT_OPTION_VALUE = graphql`
+export const PRODUCT_OPTION_VALUE = graphql`
   fragment ProductOptionValue on BackpackProductOptionValue {
     position
     title
     productOptionId
     updatedAt
-    option
+    option {
+      position
+      title
+      productId
+      updatedAt
+    }
   }
 `;
 
-const PRODUCT_OPTION = graphql`
+export const PRODUCT_OPTION = graphql`
   fragment ProductOption on BackpackProductOption {
     position
     title
     productId
     updatedAt
-    product {
-      title
-    }
     values {
+      position
       title
+      productOptionId
+      updatedAt
+      option {
+        position
+        title
+        productId
+        updatedAt
+      }
     }
   }
 `;
 
-const PRODUCT_VARIANT = graphql`
+export const PRODUCT_VARIANT = graphql`
   fragment ProductVariant on BackpackProductVariant {
     available
     foreignProductPublishedAt
@@ -62,24 +74,82 @@ const PRODUCT_VARIANT = graphql`
     sku
     updatedAt
     product {
+      available
+      metadata
+      optionValues
       title
+      handle
+      description
+      type
+      foreignIds
+      updatedAt
+      featuredImage {
+        position
+        src
+        altText
+        updatedAt
+        localFile {
+          id
+        }
+      }
+      images {
+        position
+        src
+        altText
+        updatedAt
+        localFile {
+          id
+        }
+      }
+      options {
+        position
+        title
+        productId
+        updatedAt
+      }
     }
     image {
+      position
       src
+      altText
+      updatedAt
+      localFile {
+        id
+      }
     }
     hoverImage {
+      position
       src
+      altText
+      updatedAt
+      localFile {
+        id
+      }
     }
     images {
+      position
       src
+      altText
+      updatedAt
+      localFile {
+        id
+      }
     }
     selectedOptions {
       title
+      productOptionId
+      updatedAt
+      option {
+        position
+        title
+        productId
+        updatedAt
+      }
     }
   }
 `;
 
-const PRODUCT = graphql`
+export const PRODUCT = graphql`
   fragment Product on BackpackProduct {
     available
     metadata
@@ -94,20 +164,104 @@ const PRODUCT = graphql`
       id
     }
     images {
-      src
+      id
     }
     options {
+      position
       title
+      productId
+      updatedAt
     }
     variants {
+      available
+      foreignProductPublishedAt
+      metadata
+      selectedOptionsMap
+      inventory
+      price
+      compareAtPrice
+      position
       title
+      productId
+      foreignId
+      productForeignId
+      foreignProductHandle
+      sku
+      updatedAt
+      product {
+        available
+        metadata
+        optionValues
+        title
+        handle
+        description
+        type
+        foreignIds
+        updatedAt
+        featuredImage {
+          position
+          src
+          altText
+          updatedAt
+          localFile {
+            id
+          }
+        }
+        images {
+          position
+          src
+          altText
+          updatedAt
+          localFile {
+            id
+          }
+        }
+        options {
+          position
+          title
+          productId
+          updatedAt
+        }
+      }
+      image {
+        position
+        src
+        altText
+        updatedAt
+        localFile {
+          id
+        }
+      }
+      hoverImage {
+        position
+        src
+        altText
+        updatedAt
+        localFile {
+          id
+        }
+      }
+      images {
+        position
+        src
+        altText
+        updatedAt
+        localFile {
+          id
+        }
+      }
+      selectedOptions {
+        title
+        productOptionId
+        updatedAt
+        option {
+          position
+          title
+          productId
+          updatedAt
+        }
+      }
     }
   }
 `;
 
-exports.IMAGE = IMAGE;
-exports.VIDEO = VIDEO;
-exports.PRODUCT_OPTION_VALUE = PRODUCT_OPTION_VALUE;
-exports.PRODUCT_OPTION = PRODUCT_OPTION;
-exports.PRODUCT_VARIANT = PRODUCT_VARIANT;
-exports.PRODUCT = PRODUCT;
