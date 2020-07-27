@@ -1,6 +1,7 @@
 /* eslint-disable max-lines */
 const { graphql } = require('gatsby');
 
+
 export const IMAGE = graphql`
   fragment Image on BackpackImage {
     position
@@ -15,7 +16,7 @@ export const IMAGE = graphql`
 
 export const VIDEO = graphql`
   fragment Video on BackpackVideo {
-    src: String
+    src
     updatedAt
   }
 `;
