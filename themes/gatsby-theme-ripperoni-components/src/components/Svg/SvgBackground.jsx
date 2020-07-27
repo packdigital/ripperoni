@@ -1,15 +1,16 @@
 /** @jsx jsx */
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Box, jsx } from 'theme-ui';
 
 import { useSxProps } from '../../hooks/useSxProps';
 
 
-export const SvgBackground = ({
+export const SvgBackground = forwardRef(({
   uri,
   altTxt = 'SVG Image',
   ...incomingProps
-}) => {
+}, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps);
 
   SvgBackground.propTypes = {
@@ -21,6 +22,7 @@ export const SvgBackground = ({
   return (
     <Box
       data-comp={SvgBackground.displayName}
+      ref={ref}
       role='img'
       aria-label={altTxt}
       sx={{
@@ -30,7 +32,7 @@ export const SvgBackground = ({
       {...props}
     />
   );
-};
+});
 
 SvgBackground.displayName = 'Svg.Background';
 

@@ -1,15 +1,16 @@
 /** @jsx jsx */
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Box, jsx } from 'theme-ui';
 
 import { useSxProps } from '../../hooks/useSxProps';
 
 
-export const SvgStatic = ({
+export const SvgStatic = forwardRef(({
   uri,
   altTxt = 'SVG Image',
   ...incomingProps
-}) => {
+}, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps);
 
   SvgStatic.propTypes = {
@@ -21,6 +22,7 @@ export const SvgStatic = ({
   return (
     <Box
       data-comp={SvgStatic.displayName}
+      ref={ref}
       as='img'
       src={uri}
       alt={altTxt}
@@ -29,6 +31,6 @@ export const SvgStatic = ({
       {...props}
     />
   );
-};
+});
 
 SvgStatic.displayName = 'Svg.Static';

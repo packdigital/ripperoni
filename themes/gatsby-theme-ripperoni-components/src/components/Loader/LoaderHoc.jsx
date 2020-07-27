@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Loader } from './Loader';
 
 
-export const LoaderHoc = ({ loading, children, ...props }) => {
+export const LoaderHoc = forwardRef(({ loading, children, ...props }, ref) => {
   LoaderHoc.propTypes = {
     ...Loader.propTypes,
     loading: PropTypes.bool,
@@ -15,6 +15,7 @@ export const LoaderHoc = ({ loading, children, ...props }) => {
     return (
       <Loader
         data-comp={LoaderHoc.displayName}
+        ref={ref}
         m='auto'
         {...props}
       />
@@ -22,6 +23,6 @@ export const LoaderHoc = ({ loading, children, ...props }) => {
   };
 
   return children;
-};
+});
 
 LoaderHoc.displayName = 'Loader.Hoc';

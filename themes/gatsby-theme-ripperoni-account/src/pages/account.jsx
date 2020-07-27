@@ -1,7 +1,7 @@
 /* eslint-disable import/namespace */
 /* eslint-disable import/no-default-export */
 import React from 'react';
-import { Redirect, Router } from '@reach/router';
+import { Router } from '@reach/router';
 
 import { Flex, Loader } from '@ripperoni/components';
 import { isBrowser } from '@ripperoni/utilities';
@@ -73,13 +73,6 @@ export const AccountPage = React.memo(props => {
       <Views.AccountActivation
         {...props}
         path='/activate/:customerId/:activateToken'
-      />
-
-      <Redirect
-        default
-        to='/account/'
-        from='/'
-        noThrow
       />
     </Router>
   );
