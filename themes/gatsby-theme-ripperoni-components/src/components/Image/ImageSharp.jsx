@@ -1,18 +1,20 @@
 /** @jsx jsx */
+import { forwardRef } from 'react';
 import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 import GatsbyImage from 'gatsby-image';
 import { mutuallyExclusiveProps } from 'airbnb-prop-types';
 
 
-export const ImageSharp = props => {
+export const ImageSharp = forwardRef((props, ref) => {
   return (
     <GatsbyImage
       data-comp={ImageSharp.displayName}
+      ref={ref}
       {...props}
     />
   );
-};
+});
 
 ImageSharp.displayName = 'Sharp Image';
 

@@ -22,6 +22,7 @@ module.exports = themeOptions => {
       requiredOptions: ['accessToken', 'backpackUri', 'shopId'],
       previewable: false,
     }),
+
     ...conditionallyIncludePlugin({
       theme: 'gatsby-theme-ripperoni-backpack',
       resolve: '@packdigital/gatsby-source-backpack-shopify-collection',

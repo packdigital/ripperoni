@@ -1,20 +1,22 @@
 /** @jsx jsx */
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Spinner, jsx } from 'theme-ui';
 
 import { LoaderHoc } from './LoaderHoc';
 
 
-export const Loader = ({
+export const Loader = forwardRef(({
   title,
   size,
   width,
   color = 'primary',
   ...props
-}) => {
+}, ref) => {
   return (
     <Spinner
       data-comp={Loader.displayName}
+      ref={ref}
       variant='loader'
       title={title}
       size={size}
@@ -23,7 +25,7 @@ export const Loader = ({
       {...props}
     />
   );
-};
+});
 
 Loader.displayName = 'Loader';
 

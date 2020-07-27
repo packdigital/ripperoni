@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-theme-ripperoni-core",
-  "version": "0.0.35",
+  "version": "0.0.37",
   "author": "@packdigital",
   "description": "",
   "repository": "https://github.com/packdigital/ripperoni",
@@ -21,7 +21,7 @@
     "theme-ui": "^0.3.1"
   },
   "dependencies": {
-    "@lekoarts/gatsby-theme-styleguide": "^1.1.7",
+    "@lekoarts/gatsby-theme-styleguide": "^1.1.10",
     "chalk": "^4.1.0",
     "dateformat": "^3.0.3",
     "gatsby-plugin-eslint": "^2.0.8",

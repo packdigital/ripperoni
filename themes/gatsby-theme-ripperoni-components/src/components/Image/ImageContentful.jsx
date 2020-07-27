@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { forwardRef } from 'react';
 import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 import GatsbyImage from 'gatsby-image';
@@ -6,14 +7,14 @@ import GatsbyImage from 'gatsby-image';
 import { Svg } from '../Svg';
 
 
-export const ImageContentful = ({
+export const ImageContentful = forwardRef(({
   alt,
   primaryImage = {},
   secondaryImage = {},
   primaryImageSizes,
   secondaryImageSizes,
   ...props
-}) => {
+}, ref) => {
   const isSvg = primaryImage.file?.fileName.includes('svg');
   const sharpType = primaryImage.fluid ? 'fluid' : 'fixed';
   const primarySharp = primaryImage[sharpType];
@@ -44,11 +45,12 @@ export const ImageContentful = ({
   return (
     <GatsbyImage
       data-comp={ImageContentful.displayName}
+      ref={ref}
       {...imageProps}
       {...props}
     />
   );
-};
+});
 
 ImageContentful.displayName = 'Contentful Image';
 

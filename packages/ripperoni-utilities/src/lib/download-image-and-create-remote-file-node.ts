@@ -51,12 +51,12 @@ export async function downloadImageAndCreateRemoteFileNode(
       ? touchNode({ nodeId: cachedRemoteData.fileNodeID })
       : await createAndCacheRemoteFileNode();
   } catch (error) {
-    console.log(node);
 
     const message = `Error downloading image and creating remote file node: ${error}`;
     const asFormattedMessage = formatMessage();
 
     console.log(asFormattedMessage(message, 'red'));
+    console.log(`node:\n${node}`);
 
     return;
   }

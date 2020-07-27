@@ -2,12 +2,10 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link as LinkUI, jsx } from 'theme-ui';
-import TransitionLink from 'gatsby-plugin-transition-link';
-// import { Link as GatsbyLink } from 'gatsby';
+import { Link as GatsbyLink } from 'gatsby';
 
 import { useSxProps } from '../../hooks/useSxProps';
 import { LinkButton } from './LinkButton';
-// import { fadeInChildrenSeq, fadeOutPageTemplate } from './LinkAnimations';
 
 
 export const Link = forwardRef(({
@@ -53,8 +51,7 @@ export const Link = forwardRef(({
 
   if (to) {
     return (
-      // <GatsbyLink
-      <TransitionLink
+      <GatsbyLink
         data-comp='Internal Link'
         to={to}
         {...linkProps}

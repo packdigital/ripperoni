@@ -1,10 +1,11 @@
 /** @jsx jsx */
+import { forwardRef } from 'react';
 import { Box as BoxUI, jsx } from 'theme-ui';
 
 import { useSxProps } from '../../hooks/useSxProps';
 
 
-export const Box = incomingProps => {
+export const Box = forwardRef((incomingProps, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps);
 
   Box.propTypes = propTypes;
@@ -12,10 +13,11 @@ export const Box = incomingProps => {
   return (
     <BoxUI
       data-comp={Box.displayName}
+      ref={ref}
       sx={sxObject}
       {...props}
     />
   );
-};
+});
 
 Box.displayName = 'Box';
