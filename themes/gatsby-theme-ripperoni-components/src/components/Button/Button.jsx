@@ -5,6 +5,7 @@ import { Button as ButtonUI, jsx } from 'theme-ui';
 
 import { useSxProps } from '../../hooks/useSxProps';
 import { ButtonLink } from './ButtonLink';
+import { ButtonPlain } from './ButtonPlain';
 
 
 export const Button = forwardRef(({
@@ -33,4 +34,5 @@ export const Button = forwardRef(({
 });
 
 Button.Link = ButtonLink;
+Button.Plain = ButtonPlain;
 Button.displayName = 'Button';

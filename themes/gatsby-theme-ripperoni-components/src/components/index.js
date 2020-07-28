@@ -19,6 +19,7 @@ export * from './InView';
 export * from './Link';
 export * from './Loader';
 export * from './MQ';
+export * from './Overlay';
 export * from './Price';
 export * from './Radio';
 export * from './Svg';

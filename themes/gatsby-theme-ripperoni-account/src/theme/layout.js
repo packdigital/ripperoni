@@ -2,6 +2,7 @@ export const layout = {
   shared: {
     pages: {
       py: 7,
+      // py: 'account.space.xl',
       bg: 'gray.0',
     }
   },
@@ -32,6 +33,7 @@ export const layout = {
   inner: {
     variant: 'layout.container.large',
     px: 5,
+    // px: 'account.space.m',
   },
   meta: {
     mb: [3, null, null, 4],
