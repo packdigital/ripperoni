@@ -12,6 +12,9 @@ module.exports = themeOptions => {
 
   const plugins = [
     // 'gatsby-plugin-loadable-components-ssr',
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-theme-ui',
+    '@lekoarts/gatsby-theme-styleguide',
     {
       resolve: 'gatsby-plugin-root-import',
       options: {
@@ -42,6 +45,16 @@ module.exports = themeOptions => {
       },
     },
     {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        exclude: /(node_modules|.cache|public|ripperoni-utilities)/,
+        options: {
+          emitWarning: true,
+          failOnError: false
+        }
+      }
+    },
+    {
       resolve: 'gatsby-plugin-react-svg',
       options: {
         rule: {
@@ -58,24 +71,12 @@ module.exports = themeOptions => {
     },
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    'gatsby-plugin-theme-ui',
-    '@lekoarts/gatsby-theme-styleguide',
-    {
-      resolve: 'gatsby-plugin-eslint',
-      options: {
-        exclude: /(node_modules|.cache|public|ripperoni-utilities)/,
-        options: {
-          emitWarning: true,
-          failOnError: false
-        }
-      }
-    },
     ...conditionallyIncludePlugin({
-      theme: 'gatsby-theme-ripperoni-core',
       resolve: 'gatsby-plugin-manifest',
       enabled: manifest.enabled,
       options: manifest,
       requiredOptions: ['icon'],
+      theme: 'gatsby-theme-ripperoni-core',
     }),
   ];
 

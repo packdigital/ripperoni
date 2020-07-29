@@ -31,7 +31,6 @@ module.exports = themeOptions => {
   } = withDefaults(themeOptions);
 
   const plugins = [
-    'gatsby-plugin-react-helmet',
     ...conditionallyIncludePlugin({
       theme: 'gatsby-theme-ripperoni-marketing',
       resolve: 'gatsby-plugin-google-tagmanager',

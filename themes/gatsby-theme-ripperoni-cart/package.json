@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-theme-ripperoni-cart",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": "@packdigital",
   "description": "",
   "repository": "https://github.com/packdigital/ripperoni",
@@ -20,6 +20,7 @@
   },
   "prettier": "@packdigital/prettier-config-ripperoni",
   "dependencies": {
+    "node-fetch": "^2.6.0",
     "shopify-buy": "^2.10.0"
   }
 }

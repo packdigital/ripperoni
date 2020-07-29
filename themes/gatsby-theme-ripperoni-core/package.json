@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-theme-ripperoni-core",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "author": "@packdigital",
   "description": "",
   "repository": "https://github.com/packdigital/ripperoni",
@@ -28,13 +28,15 @@
     "gatsby-plugin-eslint": "^2.0.8",
     "gatsby-plugin-loadable-components-ssr": "^2.1.0",
     "gatsby-plugin-manifest": "^2.4.11",
+    "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-root-import": "^2.0.5",
     "gatsby-plugin-sharp": "^2.6.11",
     "gatsby-plugin-theme-ui": "^0.3.0",
     "gatsby-source-filesystem": "^2.3.11",
     "gatsby-transformer-sharp": "^2.5.5",
-    "intersection-observer": "^0.11.0"
+    "intersection-observer": "^0.11.0",
+    "react-helmet": "^6.1.0"
   },
   "prettier": "@packdigital/prettier-config-ripperoni"
 }
