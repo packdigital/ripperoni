@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { Link as LinkUI, jsx } from 'theme-ui';
 import { Link as GatsbyLink } from 'gatsby';
 
-import { useSxProps } from '../../hooks/useSxProps';
+import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
+
 import { LinkButton } from './LinkButton';
 
 

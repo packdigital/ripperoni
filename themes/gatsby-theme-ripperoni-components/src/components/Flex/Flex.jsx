@@ -2,7 +2,8 @@
 import { forwardRef } from 'react';
 import { Flex as FlexUI, jsx } from 'theme-ui';
 
-import { useSxProps } from '../../hooks/useSxProps';
+import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
+
 import { FlexCol } from './FlexCol';
 import { FlexRow } from './FlexRow';
 import FlexSx from './Flex.sx';

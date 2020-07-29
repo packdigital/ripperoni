@@ -10,8 +10,10 @@ export const CartHeader = props => {
 
   return (
     <Flex
+      data-comp={CartHeader.displayName}
       p='22px'
       borderBottom='default'
+      borderColor='gray.1'
       {...props}
     >
       <Button.Plain
@@ -29,3 +31,5 @@ export const CartHeader = props => {
     </Flex>
   );
 };
+
+CartHeader.displayName = 'CartHeader';

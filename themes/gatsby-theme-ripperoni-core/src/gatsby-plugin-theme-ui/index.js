@@ -17,7 +17,7 @@ import { styles } from '../theme/styles';
 import { text } from '../theme/text';
 
 
-export default {
+const coreTheme = {
   borders,
   breakpoints,
   buttons,
@@ -35,3 +35,5 @@ export default {
   styles,
   text,
 };
+
+export default coreTheme;

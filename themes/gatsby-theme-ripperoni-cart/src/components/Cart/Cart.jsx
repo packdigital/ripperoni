@@ -1,9 +1,9 @@
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { Button, FlexCol, Overlay } from '@ripperoni/components';
+import { FlexCol, Loader, Overlay } from '@ripperoni/components';
 import { CartHeader } from '@ripperoni/cart/components/CartHeader';
-import { CartLineItem } from '@ripperoni/cart/components/CartLineItem';
+import { CartLineItems } from '@ripperoni/cart/components/CartLineItems';
 import { CartEmptyState } from '@ripperoni/cart/components/CartEmptyState';
 // import { CartUpsell } from '@ripperoni/cart/components/CartUpsell';
 import { CartTotals } from '@ripperoni/cart/components/CartTotals';
@@ -14,9 +14,8 @@ import { useUIContext } from '@ripperoni/core/context/UIContext';
 const AnimatedCart = motion.custom(FlexCol);
 
 export const Cart = props => {
-  const { state: cartState, addLineItems } = useCartContext();
+  const { state: cartState } = useCartContext();
   const { state: uiState, toggleCart } = useUIContext();
-
   const lineItems = cartState?.cart?.lineItems;
 
   return (
@@ -33,7 +32,7 @@ export const Cart = props => {
             data-comp={Cart.displayName}
             bg='white'
             position='fixed'
-            width='400px'
+            width={['100%', '400px']}
             top={0}
             right={0}
             bottom={0}
@@ -46,30 +45,24 @@ export const Cart = props => {
           >
             <CartHeader />
 
-            <Button onClick={() => {
-              const variantId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMDA1MzUyNTU2MTQzMg==';
+            <Loader.Hoc loading={lineItems === undefined}>
+              {lineItems?.length === 0 && (
+                <CartEmptyState />
+              )}
 
-              addLineItems([{ variantId, quantity: 1 }]);
-            }}
-            >
-              Add Item
-            </Button>
-
-            {cartState.totalItems === 0
-              ? <CartEmptyState />
-              : (
+              {lineItems?.length > 0 && (
                 <>
-                  {lineItems && lineItems.map(lineItem => (
-                    <CartLineItem
-                      key={lineItem.id}
-                      lineItem={lineItem}
-                    />
-                  ))}
+                  <CartLineItems lineItems={lineItems} />
 
-                  <CartTotals />
+                  {/* <CartUpsell /> */}
+
+                  <CartTotals
+                    subtotal={cartState.cart.subtotalPrice}
+                    checkoutUrl={cartState.cart.webUrl}
+                  />
                 </>
-              )
-            }
+              )}
+            </Loader.Hoc>
           </AnimatedCart>
         )}
       </AnimatePresence>

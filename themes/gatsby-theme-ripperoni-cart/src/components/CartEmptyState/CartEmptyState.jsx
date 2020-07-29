@@ -6,6 +6,7 @@ import { Box, Link, Text } from '@ripperoni/components';
 export const CartEmptyState = props => {
   return (
     <Box
+      data-comp={CartEmptyState.displayName}
       p='22px'
       {...props}
     >
@@ -19,3 +20,5 @@ export const CartEmptyState = props => {
     </Box>
   );
 };
+
+CartEmptyState.displayName = 'Cart Empty State';

@@ -5,6 +5,6 @@ import { Flex } from '@ripperoni/components';
 
 export const CartUpsell = props => {
   return (
-    <></>
+    <Flex></Flex>
   );
 };
