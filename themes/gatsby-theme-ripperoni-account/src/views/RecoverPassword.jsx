@@ -13,31 +13,31 @@ export const RecoverPassword = props => {
 
   return (
     <AccountLayout
-      variant='account.layout.pages.recover'
+      variant='account.layout.recover'
       loggedIn={false}
       {...props}
     >
       <Flex.Col
         data-comp={RecoverPassword.displayName}
         center
-        variant='account.pages.recover'
+        variant='account.recover'
       >
-        <Box variant='account.pages.recover.header'>
+        <Box variant='account.recover.header'>
           <Heading variant='account.text.recover.heading'>
             Forgot Password
           </Heading>
         </Box>
 
-        <Box variant='account.pages.recover.content'>
+        <Box variant='account.recover.content'>
           <RecoverPasswordForm cancelToggle={cancelToggle} />
         </Box>
 
         <Flex
           between
           middle
-          variant='account.pages.recover.createAccount'
+          variant='account.recover.createAccount'
         >
-          <Box variant='account.pages.recover.signupText'>
+          <Box variant='account.recover.signupText'>
             <Text variant='account.text.recover.signupText'>
               Don't have an account?
             </Text>

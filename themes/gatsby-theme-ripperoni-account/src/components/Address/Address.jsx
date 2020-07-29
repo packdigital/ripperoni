@@ -8,52 +8,52 @@ import { Box, Text } from '@ripperoni/components';
 export const Address = ({
   address,
   isDefault,
-  type = 'default',
+  type,
   ...props
 }) => {
   return (
     <Box
       data-comp={`${Address.displayName}: ${type}`}
-      variant={`account.address.${type}`}
+      variant={`account.${type}.address`}
       {...props}
     >
-      <Box variant={`account.address.${type}.name`}>
-        <Text variant={`account.text.address.${type}.name`}>
+      <Box variant={`account.${type}.address.name`}>
+        <Text variant={`account.text.${type}.address.name`}>
           {`${address.firstName} ${address.lastName}`}
           {isDefault && ' (Default)'}
         </Text>
       </Box>
 
-      <Box variant={`account.address.${type}.address1`}>
-        <Text variant={`account.text.address.${type}.address1`}>
+      <Box variant={`account.${type}.address.address1`}>
+        <Text variant={`account.text.${type}.address.address1`}>
           {address.address1}
         </Text>
       </Box>
 
-      <Box variant={`account.address.${type}.address2`}>
+      <Box variant={`account.${type}.address.address2`}>
         {address.address2 && (
-          <Text variant={`account.text.address.${type}.address2`}>
+          <Text variant={`account.text.${type}.address.address2`}>
             {address.address2}
           </Text>
         )}
       </Box>
 
-      <Box variant={`account.address.${type}.company`}>
+      <Box variant={`account.${type}.address.company`}>
         {address.company && (
-          <Text variant={`account.text.address.${type}.company`}>
+          <Text variant={`account.text.${type}.address.company`}>
             {address.company}
           </Text>
         )}
       </Box>
 
-      <Box variant={`account.address.${type}.cityStateZip`}>
-        <Text variant={`account.text.address.${type}.cityStateZip`}>
+      <Box variant={`account.${type}.address.cityStateZip`}>
+        <Text variant={`account.text.${type}.address.cityStateZip`}>
           {`${address.city}, ${address.provinceCode} ${address.zip}`}
         </Text>
       </Box>
 
-      <Box variant={`account.address.${type}.country`}>
-        <Text variant={`account.text.address.${type}.country`}>
+      <Box variant={`account.${type}.address.country`}>
+        <Text variant={`account.text.${type}.address.country`}>
           {`${address.country}`}
         </Text>
       </Box>
@@ -64,5 +64,5 @@ export const Address = ({
 Address.displayName = 'Account Address';
 
 Address.propTypes = {
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
 };

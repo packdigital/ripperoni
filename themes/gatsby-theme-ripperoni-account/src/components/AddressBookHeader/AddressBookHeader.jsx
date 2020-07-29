@@ -8,7 +8,7 @@ export const AddressBookHeader = props => {
     <Flex
       between
       middle
-      variant='account.pages.addressBook.header'
+      variant='account.addressBook.header'
       {...props}
     >
       <Heading variant='account.text.addressBook.heading'>

@@ -11,11 +11,11 @@ export const TableRow = ({
   return (
     <Flex
       data-comp={TableRow.displayName}
-      variant='account.pages.orders.table.row'
+      variant='account.orders.table.row'
       between
       {...props}
     >
-      <Box variant='account.pages.orders.table.cell.orderNumber'>
+      <Box variant='account.orders.table.cell.orderNumber'>
         <Link
           to={`/account/orders/${order.id}`}
           state={{ order }}
@@ -26,19 +26,19 @@ export const TableRow = ({
         </Link>
       </Box>
 
-      <Box variant='account.pages.orders.table.cell.date'>
+      <Box variant='account.orders.table.cell.date'>
         <Date variant='account.text.orders.table.cell.date'>
           {order.date}
         </Date>
       </Box>
 
-      <Box variant='account.pages.orders.table.cell.status'>
+      <Box variant='account.orders.table.cell.status'>
         <Text variant='account.text.orders.table.cell.status'>
           {order.status.toLowerCase()}
         </Text>
       </Box>
 
-      <Box variant='account.pages.orders.table.cell.price'>
+      <Box variant='account.orders.table.cell.price'>
         <Price variant='account.text.orders.table.cell.price'>
           {order.totalPrice.amount}
         </Price>

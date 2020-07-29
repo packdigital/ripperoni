@@ -16,7 +16,7 @@ export const LineItems = ({
 
   return (
     <Flex.Col
-      variant='account.pages.order.lineItems'
+      variant='account.order.lineItems'
       {...props}
     >
       {lineItems.map((lineItem, index) => (

@@ -54,6 +54,7 @@ export const LoginForm = ({
           label='Email'
           name='email'
           as={EmailInput}
+          id='login-email'
         />
 
         <FieldGroup
@@ -61,6 +62,7 @@ export const LoginForm = ({
           label='Password'
           name='password'
           as={PasswordInput}
+          id='login-password'
         />
       </Flex>
 

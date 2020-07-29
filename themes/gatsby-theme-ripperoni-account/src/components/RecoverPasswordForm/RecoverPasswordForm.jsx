@@ -44,6 +44,7 @@ export const RecoverPasswordForm = ({
           as={EmailInput}
           label='Email'
           name='email'
+          id='recover-password-email'
         />
       </Flex>
 

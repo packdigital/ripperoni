@@ -13,7 +13,7 @@ export const AddressBook = props => {
 
   return (
     <AccountLayout
-      variant='account.layout.pages.addressBook'
+      variant='account.layout.addressBook'
       loggedIn={true}
       {...props}
     >
@@ -28,7 +28,7 @@ export const AddressBook = props => {
         ))}
 
         <AddressForm
-          variant='account.pages.addressBook.form'
+          variant='account.addressBook.form'
           title='Add A New Address'
           action={createAddress}
         />

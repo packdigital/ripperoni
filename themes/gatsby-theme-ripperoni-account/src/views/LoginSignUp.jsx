@@ -35,13 +35,13 @@ export const LoginSignup = props => {
 
   return (
     <AccountLayout
-      variant='account.layout.pages.loginSignup'
+      variant='account.layout.loginSignup'
       loggedIn={false}
       {...props}
     >
-      <Flex variant='account.pages.loginSignup'>
-        <Flex variant='account.pages.loginSignup.header.mobile'>
-          <Box variant='account.pages.loginSignup.header.mobile.loginToggle'>
+      <Flex variant='account.loginSignup'>
+        <Flex variant='account.loginSignup.header.mobile'>
+          <Box variant='account.loginSignup.header.mobile.loginToggle'>
             <Heading
               as={Button.Link}
               onClick={loginToggle}
@@ -53,7 +53,7 @@ export const LoginSignup = props => {
             </Heading>
           </Box>
 
-          <Box variant='account.pages.loginSignup.header.mobile.signupToggle'>
+          <Box variant='account.loginSignup.header.mobile.signupToggle'>
             <Heading
               as={Button.Link}
               onClick={signupToggle}
@@ -67,10 +67,10 @@ export const LoginSignup = props => {
         </Flex>
 
         <Flex.Col
-          variant='account.pages.loginSignup.login'
+          variant='account.loginSignup.login'
           display={[!loginActive && 'none', null, null, 'flex']}
         >
-          <Box variant='account.pages.loginSignup.header.desktop'>
+          <Box variant='account.loginSignup.header.desktop'>
             <Heading variant='account.text.loginSignup.heading.desktop'>
               Sign In
             </Heading>
@@ -93,10 +93,10 @@ export const LoginSignup = props => {
         />
 
         <Flex.Col
-          variant='account.pages.loginSignup.signup'
+          variant='account.loginSignup.signup'
           display={[!signupActive && 'none', null, null, 'flex']}
         >
-          <Box variant='account.pages.loginSignup.header.desktop'>
+          <Box variant='account.loginSignup.header.desktop'>
             <Heading variant='account.text.loginSignup.heading.desktop'>
               Sign Up
             </Heading>

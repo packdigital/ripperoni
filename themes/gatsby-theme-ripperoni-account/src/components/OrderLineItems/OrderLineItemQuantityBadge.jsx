@@ -11,7 +11,7 @@ export const QuantityBadge = ({
   return (
     <Flex
       data-comp={QuantityBadge.displayName}
-      variant='account.pages.order.lineItem.badge'
+      variant='account.order.lineItem.badge'
       center
       middle
       width='24px'

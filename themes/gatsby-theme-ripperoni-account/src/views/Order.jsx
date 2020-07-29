@@ -19,13 +19,13 @@ export const Order = ({
 
   return (
     <AccountLayout
-      variant='account.layout.pages.order'
+      variant='account.layout.order'
       loggedIn={true}
       {...props}
     >
       <OrderHeader order={order} />
 
-      <Flex.Col variant='account.pages.order.content'>
+      <Flex.Col variant='account.order.content'>
         <Addresses
           shippingAddress={order.shippingAddress}
           fulfillment={order.fulfillments[0]}

@@ -13,31 +13,31 @@ export const Login = props => {
 
   return (
     <AccountLayout
-      variant='account.layout.pages.login'
+      variant='account.layout.login'
       loggedIn={false}
       {...props}
     >
       <Flex.Col
         data-comp={Login.displayName}
         center
-        variant='account.pages.login'
+        variant='account.login'
       >
-        <Box variant='account.pages.login.header'>
+        <Box variant='account.login.header'>
           <Heading variant='account.text.login.heading'>
             Sign In to Your Account
           </Heading>
         </Box>
 
-        <Box variant='account.pages.login.content'>
+        <Box variant='account.login.content'>
           <LoginForm recoverPasswordToggle={recoverPasswordToggle} />
         </Box>
 
         <Flex
           between
           middle
-          variant='account.pages.login.createAccount'
+          variant='account.login.createAccount'
         >
-          <Box variant='account.pages.login.signupText'>
+          <Box variant='account.login.signupText'>
             <Text variant='account.text.login.signupText'>
               Don't have an account?
             </Text>

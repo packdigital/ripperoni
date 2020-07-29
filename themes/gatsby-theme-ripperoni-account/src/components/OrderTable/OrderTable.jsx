@@ -12,7 +12,7 @@ export const OrderTable = props => {
 
   return (
     <Flex.Col
-      variant='account.pages.orders.table'
+      variant='account.orders.table'
       {...props}
     >
       <TableHeaderRow />

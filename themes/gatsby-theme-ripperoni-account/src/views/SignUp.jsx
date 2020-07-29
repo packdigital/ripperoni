@@ -8,31 +8,31 @@ import { SignupForm } from '@ripperoni/account/components/SignupForm';
 export const Signup = props => {
   return (
     <AccountLayout
-      variant='account.layout.pages.signup'
+      variant='account.layout.signup'
       loggedIn={false}
       {...props}
     >
       <Flex.Col
         data-comp={Signup.displayName}
         center
-        variant='account.pages.signup'
+        variant='account.signup'
       >
-        <Box variant='account.pages.signup.header'>
+        <Box variant='account.signup.header'>
           <Heading variant='account.text.signup.heading'>
             Create an Account
           </Heading>
         </Box>
 
-        <Box variant='account.pages.signup.content'>
+        <Box variant='account.signup.content'>
           <SignupForm />
         </Box>
 
         <Flex
           between
           middle
-          variant='account.pages.signup.login'
+          variant='account.signup.login'
         >
-          <Box variant='account.pages.signup.loginText'>
+          <Box variant='account.signup.loginText'>
             <Text variant='account.text.signup.loginText'>
               Already have an account?
             </Text>

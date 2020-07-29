@@ -2,23 +2,23 @@ export const loginSignup = {
   flexDirection: ['column', null, null, 'row'],
   header: {
     mobile: {
-      mb: 2,
       display: [null, null, null, 'none'],
+      mb: t => t.account.space.xxs,
       loginToggle: {
-        mr: 3
+        mr: t => t.account.space.xs,
       }
     },
     desktop: {
-      mb: 5,
       display: ['none', null, null, 'block'],
+      mb: t => t.account.space.m,
     },
   },
   login: {
-    pr: [null, null, null, 6],
     width: ['full', null, null, 'half'],
+    pr: t => [null, null, null, t.account.space.l],
   },
   signup: {
-    pl: [null, null, null, 6],
     width: ['full', null, null, 'half'],
+    pl: t => [null, null, null, t.account.space.l],
   },
 };

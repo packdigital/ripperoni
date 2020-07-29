@@ -53,6 +53,7 @@ export const SignupForm = props => {
           label='First Name'
           name='firstName'
           as={Input}
+          id='signup-first-name'
         />
 
         <FieldGroup
@@ -60,6 +61,7 @@ export const SignupForm = props => {
           label='Last Name'
           name='lastName'
           as={Input}
+          id='signup-last-name'
         />
 
         <FieldGroup
@@ -67,6 +69,7 @@ export const SignupForm = props => {
           label='Email'
           name='email'
           as={EmailInput}
+          id='signup-email'
         />
 
         <FieldGroup
@@ -74,6 +77,7 @@ export const SignupForm = props => {
           label='Password'
           name='password'
           as={PasswordInput}
+          id='signup-password'
         />
       </Flex.Col>
 

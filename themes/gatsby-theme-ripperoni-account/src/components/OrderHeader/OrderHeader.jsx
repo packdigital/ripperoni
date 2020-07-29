@@ -12,7 +12,7 @@ export const OrderHeader = ({
   return (
     <Flex
       data-comp={OrderHeader.displayName}
-      variant='account.pages.order.header'
+      variant='account.order.header'
       between
       middle
       {...props}

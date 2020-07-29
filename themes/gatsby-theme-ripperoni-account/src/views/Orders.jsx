@@ -10,13 +10,13 @@ import { OrderTable } from '../components/OrderTable';
 export const Orders = props => {
   return (
     <AccountLayout
-      variant='account.layout.pages.orders'
+      variant='account.layout.orders'
       loggedIn={true}
       {...props}
     >
       <OrdersHeader />
 
-      <Box variant='account.pages.orders.content'>
+      <Box variant='account.orders.content'>
         <OrderTable />
       </Box>
     </AccountLayout>

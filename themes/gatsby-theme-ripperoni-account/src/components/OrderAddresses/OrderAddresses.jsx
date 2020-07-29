@@ -13,34 +13,34 @@ export const Addresses = ({
 }) => (
   <Flex
     data-comp={Addresses.displayName}
-    variant='account.pages.order.addresses'
+    variant='account.order.addresses'
     between
     {...props}
   >
-    <Box variant='account.pages.order.addresses.shipping'>
-      <Box variant='account.pages.order.addresses.shipping.header'>
+    <Box variant='account.order.addresses.shipping'>
+      <Box variant='account.order.addresses.shipping.header'>
         <Heading variant='account.text.order.addresses.shipping.heading'>
           Shipping Address
         </Heading>
       </Box>
 
       <Address
-        variant='account.pages.order.addresses.shipping.address'
-        type='shipping'
+        variant='account.order.addresses.shipping.address'
         address={shippingAddress}
+        type='order'
       />
     </Box>
 
     {fulfillment && (
-      <Box variant='account.pages.order.addresses.fulfillment'>
-        <Box variant='account.pages.order.addresses.fulfillment.header'>
+      <Box variant='account.order.addresses.fulfillment'>
+        <Box variant='account.order.addresses.fulfillment.header'>
           <Heading variant='account.text.order.addresses.fulfillment.heading'>
             Shipping Method
           </Heading>
         </Box>
 
         {fulfillment?.company && (
-          <Box variant='account.pages.order.addresses.fulfillment.company'>
+          <Box variant='account.order.addresses.fulfillment.company'>
             <Text variant='account.text.order.addresses.fulfillment.company'>
               Shipped With: {fulfillment.company}
             </Text>
@@ -49,7 +49,7 @@ export const Addresses = ({
 
         {fulfillment?.tracking.length && (
           <Link
-            variant='account.pages.order.addresses.fulfillment.trackOrder'
+            variant='account.order.addresses.fulfillment.trackOrder'
             href={fulfillment.tracking[0].url}
           >
             Track Order

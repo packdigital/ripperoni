@@ -13,14 +13,14 @@ export const Totals = ({
 }) => (
   <Flex
     data-comp={Totals.displayName}
-    variant='account.pages.order.totals'
+    variant='account.order.totals'
     right
     {...props}
   >
     <Flex.Col width='180px'>
       {subtotal && (
         <Line
-          variant='account.pages.order.totals.subtotal'
+          variant='account.order.totals.subtotal'
           name='Subtotal:'
           amount={subtotal.amount}
         />
@@ -28,7 +28,7 @@ export const Totals = ({
 
       {shipping && (
         <Line
-          variant='account.pages.order.totals.shipping'
+          variant='account.order.totals.shipping'
           name='Shipping:'
           amount={shipping.amount}
         />
@@ -36,7 +36,7 @@ export const Totals = ({
 
       {tax && (
         <Line
-          variant='account.pages.order.totals.tax'
+          variant='account.order.totals.tax'
           name='Tax:'
           amount={tax.amount}
         />
@@ -44,7 +44,7 @@ export const Totals = ({
 
       {totalPrice && (
         <Line
-          variant='account.pages.order.totals.total'
+          variant='account.order.totals.total'
           name='Total:'
           amount={totalPrice.amount}
         />
@@ -64,7 +64,7 @@ const Line = ({
     data-comp={Line.displayName}
     right
     width='100%'
-    variant='account.pages.order.totals.line'
+    variant='account.order.totals.line'
     {...props}
   >
     <Text

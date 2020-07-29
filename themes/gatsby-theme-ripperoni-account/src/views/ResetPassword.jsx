@@ -13,22 +13,22 @@ export const ResetPassword = ({
 }) => {
   return (
     <AccountLayout
-      variant='account.layout.pages.reset'
+      variant='account.layout.reset'
       loggedIn={false}
       {...props}
     >
       <Flex.Col
         data-comp={ResetPassword.displayName}
         center
-        variant='account.pages.reset'
+        variant='account.reset'
       >
-        <Box variant='account.pages.reset.header'>
+        <Box variant='account.reset.header'>
           <Heading variant='account.text.reset.heading'>
             Reset Password
           </Heading>
         </Box>
 
-        <Box variant='account.pages.reset.content'>
+        <Box variant='account.reset.content'>
           <ResetPasswordForm
             customerId={customerId}
             resetToken={resetToken}

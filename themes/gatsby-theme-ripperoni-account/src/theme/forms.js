@@ -1,32 +1,16 @@
 export const forms = {
-  shared: {
-    inputs: {
-      flexDirection: 'column',
-    },
-    ctas: {
-      flexDirection: 'column',
-    },
-    submit: {
-      variant: 'buttons.primary'
-    },
-    secondaryCta: {
-      variant: 'links.default',
-      alignSelf: 'center',
-      mt: 4,
-    },
-  },
   address: {
     header: {
-      mb: 3,
       width: '100%',
+      mb: t => t.account.space.xs,
     },
     firstName: {
       width: ['full', null, null, 'half'],
-      pr: [null, null, null, 3],
+      pr: t => [null, null, null, t.account.space.xs],
     },
     lastName: {
       width: ['full', null, null, 'half'],
-      pl: [null, null, null, 3],
+      pl: t => [null, null, null, t.account.space.xs],
     },
     address1: {
       width: 'full',
@@ -36,19 +20,19 @@ export const forms = {
     },
     city: {
       width: ['full', null, null, 'half'],
-      pr: [null, null, null, 3],
+      pr: t => [null, null, null, t.account.space.xs],
     },
     province: {
       width: ['full', null, null, 'half'],
-      pl: [null, null, null, 3],
+      pl: t => [null, null, null, t.account.space.xs],
     },
     zip: {
       width: ['full', null, null, 'half'],
-      pr: [null, null, null, 3],
+      pr: t => [null, null, null, t.account.space.xs],
     },
     country: {
       width: ['full', null, null, 'half'],
-      pl: [null, null, null, 3],
+      pl: t => [null, null, null, t.account.space.xs],
     },
     phone: {
       width: 'full',
@@ -67,52 +51,56 @@ export const forms = {
   },
   login: {
     inputs: {
-      variant: 'account.forms.shared.inputs'
+      flexDirection: 'column',
     },
     ctas: {
-      variant: 'account.forms.shared.ctas'
+      flexDirection: 'column',
     },
     recoverPassword: {
-      variant: 'account.forms.shared.secondaryCta'
+      variant: 'links.default',
+      alignSelf: 'center',
+      mt: t => t.account.space.s,
     },
     submit: {
-      variant: 'account.forms.shared.submit'
+      variant: 'buttons.primary',
     }
   },
   signup: {
     inputs: {
-      variant: 'account.forms.shared.inputs'
+      flexDirection: 'column',
     },
     ctas: {
-      variant: 'account.forms.shared.ctas'
+      flexDirection: 'column',
     },
     submit: {
-      variant: 'account.forms.shared.submit'
+      variant: 'buttons.primary',
     },
   },
   recover: {
     inputs: {
-      variant: 'account.forms.shared.inputs'
+      flexDirection: 'column',
     },
     ctas: {
-      variant: 'account.forms.shared.ctas'
+      flexDirection: 'column',
     },
     cancel: {
-      variant: 'account.forms.shared.secondaryCta'
+      variant: 'links.default',
+      alignSelf: 'center',
+      mt: t => t.account.space.s,
     },
     submit: {
-      variant: 'account.forms.shared.submit'
+      variant: 'buttons.primary',
     },
   },
   reset: {
     inputs: {
-      variant: 'account.forms.shared.inputs'
+      flexDirection: 'column',
     },
     ctas: {
-      variant: 'account.forms.shared.ctas'
+      flexDirection: 'column',
     },
     submit: {
-      variant: 'account.forms.shared.submit'
+      variant: 'buttons.primary',
     },
   },
 };

@@ -21,7 +21,7 @@ export const AddressBookRow = ({
   if (formActive) {
     return (
       <AddressForm
-        variant='account.pages.addressBook.form'
+        variant='account.addressBook.form'
         title='Edit Address'
         address={address}
         isDefault={isDefault}
@@ -33,18 +33,18 @@ export const AddressBookRow = ({
 
   return (
     <Flex
-      variant='account.pages.addressBook.row'
+      variant='account.addressBook.row'
       middle
       {...props}
     >
       <Address
-        variant='account.pages.addressBook.row.address'
+        variant='account.addressBook.row.address'
         address={address}
         type='addressBook'
         isDefault={isDefault}
       />
 
-      <Box variant='account.pages.addressBook.row.edit'>
+      <Box variant='account.addressBook.row.edit'>
         <Button
           variant='account.text.addressBook.row.edit'
           onClick={() => setFormActive(true)}
@@ -54,7 +54,7 @@ export const AddressBookRow = ({
       </Box>
 
       {isBrowser && (
-        <Box variant='account.pages.addressBook.row.delete'>
+        <Box variant='account.addressBook.row.delete'>
           <Button
             variant='account.text.addressBook.row.delete'
             onClick={() => {

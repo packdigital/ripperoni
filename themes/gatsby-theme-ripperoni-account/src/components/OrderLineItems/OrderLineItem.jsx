@@ -19,7 +19,7 @@ export const LineItem = ({
   return (
     <Flex
       data-comp={LineItem.displayName}
-      variant='account.pages.order.lineItem'
+      variant='account.order.lineItem'
       middle
       {...props}
     >
@@ -34,14 +34,14 @@ export const LineItem = ({
         </QuantityBadge>
 
         <Image
-          variant='account.pages.order.lineItem.image'
+          variant='account.order.lineItem.image'
           src={image.src}
           alt={image.altText}
         />
       </Link>
 
       <Flex
-        variant='account.pages.order.lineItem.meta'
+        variant='account.order.lineItem.meta'
         as={Link}
         href={url}
         newWindow={true}
@@ -58,7 +58,7 @@ export const LineItem = ({
         </Text>
       </Flex>
 
-      <Box variant='account.pages.order.lineItem.price'>
+      <Box variant='account.order.lineItem.price'>
         <Price variant='account.text.order.lineItem.price'>
           {price}
         </Price>

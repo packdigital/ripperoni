@@ -8,7 +8,7 @@ export const OrdersHeader = props => {
     <Flex
       between
       middle
-      variant='account.pages.orders.header'
+      variant='account.orders.header'
       {...props}
     >
       <Heading variant='account.text.orders.heading'>
