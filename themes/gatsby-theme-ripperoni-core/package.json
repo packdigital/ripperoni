@@ -23,6 +23,8 @@
   "dependencies": {
     "@lekoarts/gatsby-theme-styleguide": "^1.1.10",
     "abortcontroller-polyfill": "^1.4.0",
+    "atob": "^2.1.2",
+    "btoa": "^1.2.1",
     "chalk": "^4.1.0",
     "dateformat": "^3.0.3",
     "gatsby-plugin-eslint": "^2.0.8",
