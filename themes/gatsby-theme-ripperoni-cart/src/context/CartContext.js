@@ -20,6 +20,11 @@ const initialState = {
 };
 
 export const CartContextProvider = React.memo(({ children }) => {
+  // REMOVE THIS LATER THIS IS BAD
+  if (!isBrowser) {
+    return null;
+  }
+
   const [state, dispatch] = useReducerAsync(reducer, initialState, asyncActionHandlers);
   const actions = createActions(dispatch);
 
