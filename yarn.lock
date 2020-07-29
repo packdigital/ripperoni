@@ -2534,6 +2534,47 @@
   dependencies:
     "@types/node" ">= 8"
 
+"@packdigital/gatsby-theme-ripperoni-cart@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-cart/-/gatsby-theme-ripperoni-cart-0.0.10.tgz#e7f6dfeee10d7e4d776eabe5ad92845f2218913f"
+  integrity sha512-19eYV7tYwZFASSxPyjCrnxR8/CWINr+B3C+gbgOxEMIeDr7ZfAwGRfI0+dwvVNmi6LwS9+Z+yQ9FXMHzAlH2bg==
+  dependencies:
+    shopify-buy "^2.10.0"
+
+"@packdigital/gatsby-theme-ripperoni-core@^0.0.40":
+  version "0.0.40"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-core/-/gatsby-theme-ripperoni-core-0.0.40.tgz#819dcc63ed79bf35552852311b37c9f5c5e43164"
+  integrity sha512-gU5yOJlfkVkvGhAsAufYFQ8+zO7LWD8kPKpoXlYtGR9MdYPcRMDiU7hOBEYzevdtLbcU7YLfWUglwoWCJZ4D9w==
+  dependencies:
+    "@lekoarts/gatsby-theme-styleguide" "^1.1.10"
+    abortcontroller-polyfill "^1.4.0"
+    chalk "^4.1.0"
+    dateformat "^3.0.3"
+    gatsby-plugin-eslint "^2.0.8"
+    gatsby-plugin-loadable-components-ssr "^2.1.0"
+    gatsby-plugin-manifest "^2.4.11"
+    gatsby-plugin-react-svg "^3.0.0"
+    gatsby-plugin-root-import "^2.0.5"
+    gatsby-plugin-sharp "^2.6.11"
+    gatsby-plugin-theme-ui "^0.3.0"
+    gatsby-source-filesystem "^2.3.11"
+    gatsby-transformer-sharp "^2.5.5"
+    intersection-observer "^0.11.0"
+
+"@packdigital/gatsby-theme-ripperoni-marketing@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-marketing/-/gatsby-theme-ripperoni-marketing-0.0.14.tgz#94b19aafd76cf7d523e8fb240e26e3e5b82e8963"
+  integrity sha512-AfG0wLVpjCzpaGFMCkgYDV+oextIRJY242tevoN8tIsWU1Yzlb13GLtKbW2PnPb1AdntW+BM2GaNcis7nHibMw==
+  dependencies:
+    gatsby-plugin-facebook-pixel "^1.0.3"
+    gatsby-plugin-google-analytics "^2.3.4"
+    gatsby-plugin-google-tagmanager "^2.3.5"
+    gatsby-plugin-react-helmet "^3.3.4"
+    gatsby-plugin-robots-txt "^1.5.1"
+    gatsby-plugin-sitemap "^2.4.5"
+    prop-types "^15.7.2"
+    react-helmet "^6.1.0"
+
 "@pieh/friendly-errors-webpack-plugin@1.7.0-chalk-2":
   version "1.7.0-chalk-2"
   resolved "https://registry.yarnpkg.com/@pieh/friendly-errors-webpack-plugin/-/friendly-errors-webpack-plugin-1.7.0-chalk-2.tgz#2e9da9d3ade9d18d013333eb408c457d04eabac0"
@@ -8865,7 +8906,7 @@ gatsby-plugin-page-creator@^2.3.19:
     lodash "^4.17.15"
     micromatch "^3.1.10"
 
-gatsby-plugin-react-helmet@^3.3.10:
+gatsby-plugin-react-helmet@^3.3.10, gatsby-plugin-react-helmet@^3.3.4:
   version "3.3.10"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-3.3.10.tgz#ba2f84715cc2471606b90327c7c3ba11c5287bc7"
   integrity sha512-AcXYwmS3r298JWs6iQ3OLNxIe8L8i5a2iSdLr/SDMpHqumYm7q/vB9kCX0et5wM7DIuZ7aPXDrdi5yDCAvU5lg==
