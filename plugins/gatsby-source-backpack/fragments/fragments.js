@@ -1,8 +1,14 @@
+"use strict";
+
+exports.__esModule = true;
+exports.PRODUCT = exports.PRODUCT_VARIANT = exports.PRODUCT_OPTION = exports.PRODUCT_OPTION_VALUE = exports.VIDEO = exports.IMAGE = void 0;
+
 /* eslint-disable max-lines */
-const { graphql } = require('gatsby');
+const {
+  graphql
+} = require('gatsby');
 
-
-export const IMAGE = graphql`
+const IMAGE = graphql`
   fragment Image on BackpackImage {
     position
     src
@@ -13,15 +19,15 @@ export const IMAGE = graphql`
     }
   }
 `;
-
-export const VIDEO = graphql`
+exports.IMAGE = IMAGE;
+const VIDEO = graphql`
   fragment Video on BackpackVideo {
     src
     updatedAt
   }
 `;
-
-export const PRODUCT_OPTION_VALUE = graphql`
+exports.VIDEO = VIDEO;
+const PRODUCT_OPTION_VALUE = graphql`
   fragment ProductOptionValue on BackpackProductOptionValue {
     position
     title
@@ -35,8 +41,8 @@ export const PRODUCT_OPTION_VALUE = graphql`
     }
   }
 `;
-
-export const PRODUCT_OPTION = graphql`
+exports.PRODUCT_OPTION_VALUE = PRODUCT_OPTION_VALUE;
+const PRODUCT_OPTION = graphql`
   fragment ProductOption on BackpackProductOption {
     position
     title
@@ -56,8 +62,8 @@ export const PRODUCT_OPTION = graphql`
     }
   }
 `;
-
-export const PRODUCT_VARIANT = graphql`
+exports.PRODUCT_OPTION = PRODUCT_OPTION;
+const PRODUCT_VARIANT = graphql`
   fragment ProductVariant on BackpackProductVariant {
     available
     foreignProductPublishedAt
@@ -149,8 +155,8 @@ export const PRODUCT_VARIANT = graphql`
     }
   }
 `;
-
-export const PRODUCT = graphql`
+exports.PRODUCT_VARIANT = PRODUCT_VARIANT;
+const PRODUCT = graphql`
   fragment Product on BackpackProduct {
     available
     metadata
@@ -277,4 +283,4 @@ export const PRODUCT = graphql`
     }
   }
 `;
-
+exports.PRODUCT = PRODUCT;

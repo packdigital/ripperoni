@@ -1,5 +1,10 @@
+"use strict";
+
+exports.__esModule = true;
+exports.PRODUCT_TEMPLATE = exports.PRODUCT_VARIANT_TEMPLATE = exports.PRODUCT_OPTION_TEMPLATE = exports.PRODUCT_OPTION_VALUE_TEMPLATE = exports.VIDEO_TEMPLATE = exports.IMAGE_TEMPLATE = void 0;
+
 /* eslint-disable max-lines */
-export const IMAGE_TEMPLATE = `
+const IMAGE_TEMPLATE = `
   position
   src
   altText
@@ -8,13 +13,13 @@ export const IMAGE_TEMPLATE = `
     id
   }
 `;
-
-export const VIDEO_TEMPLATE = `
+exports.IMAGE_TEMPLATE = IMAGE_TEMPLATE;
+const VIDEO_TEMPLATE = `
   src
   updatedAt
 `;
-
-export const PRODUCT_OPTION_VALUE_TEMPLATE = `
+exports.VIDEO_TEMPLATE = VIDEO_TEMPLATE;
+const PRODUCT_OPTION_VALUE_TEMPLATE = `
   position
   title
   productOptionId
@@ -26,8 +31,8 @@ export const PRODUCT_OPTION_VALUE_TEMPLATE = `
     updatedAt
   }
 `;
-
-export const PRODUCT_OPTION_TEMPLATE = `
+exports.PRODUCT_OPTION_VALUE_TEMPLATE = PRODUCT_OPTION_VALUE_TEMPLATE;
+const PRODUCT_OPTION_TEMPLATE = `
   position
   title
   productId
@@ -45,8 +50,8 @@ export const PRODUCT_OPTION_TEMPLATE = `
     }
   }
 `;
-
-export const PRODUCT_VARIANT_TEMPLATE = `
+exports.PRODUCT_OPTION_TEMPLATE = PRODUCT_OPTION_TEMPLATE;
+const PRODUCT_VARIANT_TEMPLATE = `
   available
   foreignProductPublishedAt
   metadata
@@ -136,8 +141,8 @@ export const PRODUCT_VARIANT_TEMPLATE = `
     }
   }
 `;
-
-export const PRODUCT_TEMPLATE = `
+exports.PRODUCT_VARIANT_TEMPLATE = PRODUCT_VARIANT_TEMPLATE;
+const PRODUCT_TEMPLATE = `
   available
   metadata
   optionValues
@@ -262,3 +267,4 @@ export const PRODUCT_TEMPLATE = `
     }
   }
 `;
+exports.PRODUCT_TEMPLATE = PRODUCT_TEMPLATE;

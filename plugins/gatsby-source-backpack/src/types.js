@@ -1,6 +1,4 @@
 exports.typeDefs = `
-  union Backpack = BackpackImage | BackpackVideo | BackpackProductOptionValue | BackpackProductOption | BackpackProductVariant | BackpackProduct
-
   type BackpackImage implements Node @infer {
     position: Int
     src: String

@@ -1,67 +1,14 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+const gql = require('graphql-tag');
 
-var _taggedTemplateLiteralLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/taggedTemplateLiteralLoose"));
-
-function _templateObject5() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["\n  subscription ImagesSubscription ($shopId: String) {\n    result: images (\n      order_by: {id: asc},\n      where: {\n        shop: {shopifyAccount: {id: {_eq: $shopId}}},\n        _or: [\n          {joinProductImages: {product: {variants: {foreignProductPublishedAt: {_is_null: false}}}}},\n          {joinVariantImages: {productVariant: {foreignProductPublishedAt: {_is_null: false}}}}\n        ]\n      }\n    ) {\n      ...image\n    }\n  }\n  ", "\n"]);
-
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["\n  subscription ProductOptionValuesSubscription ($shopId: citext) {\n    result: productOptionValues (\n      order_by: {id: asc},\n      where: {\n        title: {_neq: $shopId},\n        variantOptionValues: {variant: {foreignProductPublishedAt: {_is_null: false}}},\n      }\n    ) {\n      ...productOptionValue\n    }\n  }\n  ", "\n"]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["\n  subscription ProductOptionsSubscription ($shopId: String) {\n    result: productOptions (\n      order_by: {id: asc},\n      where: {\n        shop: {shopifyAccount: {id: {_eq: $shopId}}}\n        product: {variants: {foreignProductPublishedAt: {_is_null: false}}}\n      }\n    ) {\n      ...productOption\n    }\n  }\n  ", "\n"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["\n  subscription ProductVariantsSubscription ($shopId: String) {\n    result: productVariants (\n      order_by: {id: asc},\n      where: {\n        shop: {shopifyAccount: {id: {_eq: $shopId}}},\n        foreignProductPublishedAt: {_is_null: false}\n      }\n    ) {\n      ...productVariant\n    }\n  }\n  ", "\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["\n  subscription ProductsSubscription ($shopId: String) {\n    result: products (\n      where: {\n        shop: {shopifyAccount: {id: {_eq: $shopId}}},\n        variants: {foreignProductPublishedAt: {_is_null: false}},\n      }\n    ) {\n      ...product\n    }\n  }\n  ", "\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-var gql = require('graphql-tag');
-
-var _require = require('./fragments'),
-    PRODUCT_FRAGMENT = _require.PRODUCT_FRAGMENT,
-    PRODUCT_VARIANT_FRAGMENT = _require.PRODUCT_VARIANT_FRAGMENT,
-    PRODUCT_OPTION_FRAGMENT = _require.PRODUCT_OPTION_FRAGMENT,
-    PRODUCT_OPTION_VALUE_FRAGMENT = _require.PRODUCT_OPTION_VALUE_FRAGMENT,
-    IMAGE_FRAGMENT = _require.IMAGE_FRAGMENT;
+const {
+  PRODUCT_FRAGMENT,
+  PRODUCT_VARIANT_FRAGMENT,
+  PRODUCT_OPTION_FRAGMENT,
+  PRODUCT_OPTION_VALUE_FRAGMENT,
+  IMAGE_FRAGMENT
+} = require('./fragments');
 /**
  *
  * When adding a new query, make sure you alias the root field of the result to `data`
@@ -72,11 +19,78 @@ var _require = require('./fragments'),
 */
 
 
-var PRODUCTS_SUBSCRIPTION = gql(_templateObject(), PRODUCT_FRAGMENT);
-var PRODUCT_VARIANTS_SUBSCRIPTION = gql(_templateObject2(), PRODUCT_VARIANT_FRAGMENT);
-var PRODUCT_OPTIONS_SUBSCRIPTION = gql(_templateObject3(), PRODUCT_OPTION_FRAGMENT);
-var PRODUCT_OPTION_VALUES_SUBSCRIPTION = gql(_templateObject4(), PRODUCT_OPTION_VALUE_FRAGMENT);
-var IMAGES_SUBSCRIPTION = gql(_templateObject5(), IMAGE_FRAGMENT);
+const PRODUCTS_SUBSCRIPTION = gql`
+  subscription ProductsSubscription ($shopId: String) {
+    result: products (
+      where: {
+        shop: {shopifyAccount: {id: {_eq: $shopId}}},
+        variants: {foreignProductPublishedAt: {_is_null: false}},
+      }
+    ) {
+      ...product
+    }
+  }
+  ${PRODUCT_FRAGMENT}
+`;
+const PRODUCT_VARIANTS_SUBSCRIPTION = gql`
+  subscription ProductVariantsSubscription ($shopId: String) {
+    result: productVariants (
+      order_by: {id: asc},
+      where: {
+        shop: {shopifyAccount: {id: {_eq: $shopId}}},
+        foreignProductPublishedAt: {_is_null: false}
+      }
+    ) {
+      ...productVariant
+    }
+  }
+  ${PRODUCT_VARIANT_FRAGMENT}
+`;
+const PRODUCT_OPTIONS_SUBSCRIPTION = gql`
+  subscription ProductOptionsSubscription ($shopId: String) {
+    result: productOptions (
+      order_by: {id: asc},
+      where: {
+        shop: {shopifyAccount: {id: {_eq: $shopId}}}
+        product: {variants: {foreignProductPublishedAt: {_is_null: false}}}
+      }
+    ) {
+      ...productOption
+    }
+  }
+  ${PRODUCT_OPTION_FRAGMENT}
+`;
+const PRODUCT_OPTION_VALUES_SUBSCRIPTION = gql`
+  subscription ProductOptionValuesSubscription ($shopId: citext) {
+    result: productOptionValues (
+      order_by: {id: asc},
+      where: {
+        title: {_neq: $shopId},
+        variantOptionValues: {variant: {foreignProductPublishedAt: {_is_null: false}}},
+      }
+    ) {
+      ...productOptionValue
+    }
+  }
+  ${PRODUCT_OPTION_VALUE_FRAGMENT}
+`;
+const IMAGES_SUBSCRIPTION = gql`
+  subscription ImagesSubscription ($shopId: String) {
+    result: images (
+      order_by: {id: asc},
+      where: {
+        shop: {shopifyAccount: {id: {_eq: $shopId}}},
+        _or: [
+          {joinProductImages: {product: {variants: {foreignProductPublishedAt: {_is_null: false}}}}},
+          {joinVariantImages: {productVariant: {foreignProductPublishedAt: {_is_null: false}}}}
+        ]
+      }
+    ) {
+      ...image
+    }
+  }
+  ${IMAGE_FRAGMENT}
+`;
 module.exports = {
   product: PRODUCTS_SUBSCRIPTION,
   productVariant: PRODUCT_VARIANTS_SUBSCRIPTION,

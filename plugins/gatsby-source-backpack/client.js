@@ -1,46 +1,50 @@
 "use strict";
 
-require("core-js/modules/es6.regexp.replace");
+const {
+  ApolloClient
+} = require('apollo-client');
 
-require("core-js/modules/es6.regexp.split");
+const {
+  split
+} = require('apollo-link');
 
-var _require = require('apollo-client'),
-    ApolloClient = _require.ApolloClient;
+const {
+  HttpLink
+} = require('apollo-link-http');
 
-var _require2 = require('apollo-link'),
-    split = _require2.split;
+const {
+  WebSocketLink
+} = require('apollo-link-ws');
 
-var _require3 = require('apollo-link-http'),
-    HttpLink = _require3.HttpLink;
+const {
+  getMainDefinition
+} = require('apollo-utilities');
 
-var _require4 = require('apollo-link-ws'),
-    WebSocketLink = _require4.WebSocketLink;
+const {
+  InMemoryCache
+} = require('apollo-cache-inmemory');
 
-var _require5 = require('apollo-utilities'),
-    getMainDefinition = _require5.getMainDefinition;
+const WebSocket = require('ws');
 
-var _require6 = require('apollo-cache-inmemory'),
-    InMemoryCache = _require6.InMemoryCache;
+const fetch = require('isomorphic-fetch');
 
-var WebSocket = require('ws');
+const {
+  isBrowser
+} = require('@packdigital/ripperoni-utilities');
 
-var fetch = require('isomorphic-fetch');
-
-var _require7 = require('@packdigital/ripperoni-utilities'),
-    isBrowser = _require7.isBrowser;
-
-exports.createClient = function (_ref) {
-  var accessToken = _ref.accessToken,
-      uri = _ref.backpackUri;
-  var httpLink = new HttpLink({
-    uri: uri,
+exports.createClient = ({
+  accessToken,
+  backpackUri: uri
+}) => {
+  const httpLink = new HttpLink({
+    uri,
     headers: {
       'content-type': 'application/json',
       'x-hasura-admin-secret': accessToken
     },
-    fetch: fetch
+    fetch
   });
-  var wsLink = new WebSocketLink({
+  const wsLink = new WebSocketLink({
     uri: uri.replace(/^https?/, 'wss'),
     options: {
       lazy: true,
@@ -53,19 +57,19 @@ exports.createClient = function (_ref) {
     },
     webSocketImpl: !isBrowser && WebSocket
   });
-  var link = split(function (_ref2) {
-    var query = _ref2.query;
-
-    var _getMainDefinition = getMainDefinition(query),
-        kind = _getMainDefinition.kind,
-        operation = _getMainDefinition.operation;
-
+  const link = split(({
+    query
+  }) => {
+    const {
+      kind,
+      operation
+    } = getMainDefinition(query);
     return kind === 'OperationDefinition' && operation === 'subscription';
   }, wsLink, httpLink);
-  var cache = new InMemoryCache();
-  var client = new ApolloClient({
-    link: link,
-    cache: cache
+  const cache = new InMemoryCache();
+  const client = new ApolloClient({
+    link,
+    cache
   });
   return client;
 };
