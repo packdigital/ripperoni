@@ -6,7 +6,8 @@ const client = Client.buildClient({
   storefrontAccessToken: process.env.GATSBY_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
 });
 
-client.cart = client.checkout;  // alias `checkout` on client with `cart` for continuity
+// alias `checkout` on client with `cart` for continuity
+client.cart = client.checkout;
 
 const getTotalItems = cart => {
   return cart.lineItems
