@@ -16,6 +16,9 @@ export const LinkButton = forwardRef(({
       data-comp={LinkButton.displayName}
       ref={ref}
       sx={{
+        display: 'block',     // recently added (7-28-2020), make sure this doesn't break anything
+        textAlign: 'center',  // recently added (7-28-2020), make sure this doesn't break anything
+
         variant: 'buttons.primary',
         ...sx,
       }}

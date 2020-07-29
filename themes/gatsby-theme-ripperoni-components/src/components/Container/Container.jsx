@@ -2,7 +2,8 @@
 import { forwardRef } from 'react';
 import { Container as ContainerUI, jsx } from 'theme-ui';
 
-import { useSxProps } from '../../hooks/useSxProps';
+import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
+
 import { ContainerSmall } from './ContainerSmall';
 import { ContainerLarge } from './ContainerLarge';
 import { ContainerFull } from './ContainerFull';

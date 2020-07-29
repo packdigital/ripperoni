@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-theme-ripperoni-cart",
-  "version": "0.0.7",
+  "version": "0.0.10",
   "author": "@packdigital",
   "description": "",
   "repository": "https://github.com/packdigital/ripperoni",
@@ -13,6 +13,7 @@
   },
   "peerDependencies": {
     "@packdigital/ripperoni-utilities": "^2.0.21",
+    "framer-motion": "^2.2.0",
     "gatsby": "^2.19.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"

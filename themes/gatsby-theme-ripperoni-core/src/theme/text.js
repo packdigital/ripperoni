@@ -28,6 +28,9 @@ export const text = {
     color: 'sale',
     textDecoration: 'line-through',
   },
+  sale: {
+    variant: 'text.compareAtPrice'
+  },
   email: {
     variant: 'text.default',
     borderBottom: 'none',

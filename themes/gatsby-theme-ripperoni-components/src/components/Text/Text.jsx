@@ -3,7 +3,9 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Text as TextUI, jsx } from 'theme-ui';
 
-import { useSxProps } from '../../hooks/useSxProps';
+import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
+
+import TextSx from './Text.sx';
 
 
 export const Text = forwardRef(({
@@ -11,7 +13,7 @@ export const Text = forwardRef(({
   children,
   ...incomingProps
 }, ref) => {
-  const { sxObject, props, propTypes } = useSxProps(incomingProps);
+  const { sxObject, props, propTypes } = useSxProps(incomingProps, TextSx);
 
   Text.propTypes = {
     ...propTypes,

@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Box, jsx } from 'theme-ui';
 
-import { useSxProps } from '../../hooks/useSxProps';
+import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
 
 
 export const SvgStatic = forwardRef(({

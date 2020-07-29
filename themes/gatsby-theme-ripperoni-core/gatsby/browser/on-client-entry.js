@@ -1,3 +1,9 @@
+require('abortcontroller-polyfill/dist/polyfill-patch-fetch');
+
+
+console.log('ding');
+
+
 const { isBrowser } = require('@packdigital/ripperoni-utilities');
 
 /*

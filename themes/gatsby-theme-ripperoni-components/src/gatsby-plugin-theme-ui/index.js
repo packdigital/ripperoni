@@ -1,11 +1,11 @@
 /* eslint-disable import/no-default-export */
-import { sizes } from '../theme/sizes';
 import { layout } from '../theme/layout';
+import { sizes } from '../theme/sizes';
 
 
 const theme = {
-  sizes,
   layout,
+  sizes,
 };
 
 export default theme;

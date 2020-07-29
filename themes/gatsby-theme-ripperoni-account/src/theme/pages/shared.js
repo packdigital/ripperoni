@@ -18,6 +18,7 @@ export const shared = {
     },
     content: {
       p: 12,
+      // p: 'account.space.xxl',
       mb: 6,
       width: 'full',
       bg: 'background',

@@ -2,7 +2,7 @@
 import { forwardRef } from 'react';
 import { Box as BoxUI, jsx } from 'theme-ui';
 
-import { useSxProps } from '../../hooks/useSxProps';
+import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
 
 
 export const Box = forwardRef((incomingProps, ref) => {

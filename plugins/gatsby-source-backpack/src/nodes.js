@@ -126,11 +126,11 @@ const diffAndUpdateNodes = ({ type, helpers }) => {
     }
 
     if (updatedNodes.length > 0) {
-      success(format`{${LOG_PREFIX}} Updated {bold ${prefixedType}} nodes - {bold ${updatedNodes.length} nodes}`);
+      success(format`{${LOG_PREFIX}} Update {bold ${prefixedType}} nodes - {bold ${updatedNodes.length} nodes}`);
     }
 
     if (deletedNodes.length > 0) {
-      success(format`{${LOG_PREFIX}} Deleted {bold ${prefixedType}} nodes - {bold ${deletedNodes.length} nodes}`);
+      success(format`{${LOG_PREFIX}} Delete {bold ${prefixedType}} nodes - {bold ${deletedNodes.length} nodes}`);
     }
   };
 };

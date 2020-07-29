@@ -3,8 +3,10 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button as ButtonUI, jsx } from 'theme-ui';
 
-import { useSxProps } from '../../hooks/useSxProps';
+import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
+
 import { ButtonLink } from './ButtonLink';
+import { ButtonPlain } from './ButtonPlain';
 
 
 export const Button = forwardRef(({
@@ -33,4 +35,5 @@ export const Button = forwardRef(({
 });
 
 Button.Link = ButtonLink;
+Button.Plain = ButtonPlain;
 Button.displayName = 'Button';

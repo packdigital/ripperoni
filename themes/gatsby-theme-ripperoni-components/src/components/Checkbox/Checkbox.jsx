@@ -3,7 +3,8 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox as CheckboxUI, Label, jsx } from 'theme-ui';
 
-import { useSxProps } from '../../hooks/useSxProps';
+import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
+
 import { Box } from '../Box';
 import { Flex } from '../Flex';
 

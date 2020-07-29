@@ -3,7 +3,9 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Heading as HeadingUI, jsx } from 'theme-ui';
 
-import { useSxProps } from '../../hooks/useSxProps';
+import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
+
+import HeadingSx from './Heading.sx';
 
 
 export const Heading = forwardRef(({
@@ -11,7 +13,7 @@ export const Heading = forwardRef(({
   children,
   ...incomingProps
 }, ref) => {
-  const { sxObject, props, propTypes } = useSxProps(incomingProps);
+  const { sxObject, props, propTypes } = useSxProps(incomingProps, HeadingSx);
 
   Heading.propTypes = {
     ...propTypes,
