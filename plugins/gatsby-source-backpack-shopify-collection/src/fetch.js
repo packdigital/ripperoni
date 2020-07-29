@@ -73,7 +73,7 @@ const findOldestUpdatedCollection = async ({ collectionsMeta, helpers }) => {
     return (!hasChanged || updatedAt > oldestTimestamp)
       ? oldestTimestamp
       : updatedAt;
-  });
+  }, Promise.resolve());
 
   if (touchedCollections > 0) {
     success(format`{${LOG_PREFIX}} Load {bold ${collection}} from cache - {bold ${touchedCollections} nodes}`);
