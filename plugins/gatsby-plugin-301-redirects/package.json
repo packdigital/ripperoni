@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-plugin-301-redirects",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -27,7 +27,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@packdigital/babel-preset-ripperoni": "^1.0.2",
-    "@packdigital/eslint-config-ripperoni": "^1.0.9",
+    "@packdigital/eslint-config-ripperoni": "^1.0.10",
     "@packdigital/prettier-config-ripperoni": "^1.0.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.2.0",
