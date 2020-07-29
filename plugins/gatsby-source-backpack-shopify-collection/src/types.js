@@ -15,6 +15,6 @@ exports.typeDefs = `
     optionValues: JSON
     updatedAt: Date!
     image: BackpackCollectionImage @link
-    variants: [BackpackProductVariant] @link
+    variants: [BackpackProductVariant] @link(by: "id", from: "variants___NODE")
   }
 `;

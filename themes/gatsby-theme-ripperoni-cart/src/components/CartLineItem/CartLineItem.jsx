@@ -14,7 +14,11 @@ export const CartLineItem = ({
 }) => {
   const [quantity, setQuantity] = useState(initialQuantity);
   const { selectedOptions, image, price, compareAtPrice } = variant || {};
-  const size = selectedOptions?.find(({ name }) => name.toLowerCase() === 'size');
+  const options = selectedOptions.reduce((acc, curr, index) => {
+    acc.push(`${curr.name} - ${curr.value}`);
+
+    return acc;
+  }, []).join(' / ');
 
   return (
     <Flex
@@ -30,8 +34,8 @@ export const CartLineItem = ({
         sx={{ variant: 'links.plain' }}
       >
         <Image
-          src={image.src}
-          alt={image.altText}
+          src={image?.src}
+          alt={image?.altText}
         />
       </Link>
 
@@ -43,7 +47,7 @@ export const CartLineItem = ({
           letterSpacing='1px'
           variant='cart.text.lineItem.secondaryTitle'
         >
-          {size.name} / {size.value}
+          { options }
         </Text>
 
         <Heading
