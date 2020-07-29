@@ -1,17 +1,55 @@
-const { isShopifyGid } = require('@packdigital/ripperoni-utilities');
+"use strict";
 
-const { typeDefs } = require('./src/types');
-const { createClient } = require('./src/client');
-const { createContentNodes } = require('./src/nodes');
-const { downloadImages } = require('./src/download-images');
-const { LOG_PREFIX, PLUGIN_NAME } = require('./src/constants');
+var _createStoreJson = require("./gatsby/node/create-store-json");
 
+var _fragmentTemplates = require("./fragments/fragmentTemplates");
 
-exports.createSchemaCustomization = ({ actions: { createTypes }}) => createTypes(typeDefs);
+const path = require('path');
+
+const fs = require('fs-extra');
+
+const {
+  isShopifyGid
+} = require('@packdigital/ripperoni-utilities');
+
+const {
+  typeDefs
+} = require('./src/types');
+
+const {
+  createClient
+} = require('./src/client');
+
+const {
+  createContentNodes
+} = require('./src/nodes');
+
+const {
+  downloadImages
+} = require('./src/download-images');
+
+const {
+  LOG_PREFIX,
+  PLUGIN_NAME
+} = require('./src/constants');
+
+exports.createSchemaCustomization = ({
+  actions: {
+    createTypes
+  }
+}) => createTypes(typeDefs);
 
 exports.sourceNodes = async (helpers, options) => {
-  const { format, panic, activityTimer } = helpers.reporter;
-  const { accessToken, shopId, backpackUri } = options;
+  const {
+    format,
+    panic,
+    activityTimer
+  } = helpers.reporter;
+  const {
+    accessToken,
+    shopId,
+    backpackUri
+  } = options;
   const timer = activityTimer(format`{${LOG_PREFIX}}`);
 
   if (!accessToken) {
@@ -26,17 +64,21 @@ exports.sourceNodes = async (helpers, options) => {
     panic(`Please include a Shopify graphql shop id to ${PLUGIN_NAME}.`);
   }
 
-  const client = createClient({ accessToken, backpackUri });
-
+  const client = createClient({
+    accessToken,
+    backpackUri
+  });
   timer.start();
   timer.setStatus(format`Fetching data and creating nodes`);
-
-  await createContentNodes({ client, shopId, helpers });
-
+  await createContentNodes({
+    client,
+    shopId,
+    helpers
+  });
   timer.setStatus('Downloading images');
-
-  await downloadImages({ helpers });
-
+  await downloadImages({
+    helpers
+  });
   timer.setStatus(format`Sourced {bold Backpack} nodes from {red {bold Backpack}}`);
   timer.end();
 };

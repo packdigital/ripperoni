@@ -1,3 +1,5 @@
+"use strict";
+
 exports.typeDefs = `
   type BackpackImage implements Node @infer {
     position: Int
