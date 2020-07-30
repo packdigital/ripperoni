@@ -14,9 +14,9 @@ export const useCartContext = useContextFactory('Cart', CartContext);
 
 const initialState = {
   cart: null,
-  totalItems: 0,
+  totalItems: null,
+  loading: true,
   errors: {},
-  loading: false,
 };
 
 export const CartContextProvider = React.memo(({ children }) => {

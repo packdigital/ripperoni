@@ -11,8 +11,8 @@
  * [4] These plugins need site.siteMetadata.siteUrl to be present in order to work. The siteUrl metadata is
  *     added through themeOptions.siteUrl. If this option is missing, we don't want these plugins to run so
  *     we make siteUrl a required option and pass it in the value of themeOption.siteUrl
- *
  */
+
 require('dotenv').config();
 
 const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
@@ -22,12 +22,12 @@ const withDefaults = require('./gatsby/config/default-options');
 
 module.exports = themeOptions => {
   const {
+    meta,
     googleTagManager,
     googleAnalytics,
     facebookPixel,
     robotsTxt,
     sitemap,
-    seo,
   } = withDefaults(themeOptions);
 
   const plugins = [
@@ -57,24 +57,24 @@ module.exports = themeOptions => {
       resolve: 'gatsby-plugin-sitemap',
       enabled: sitemap.enabled,
       options: sitemap,
-      requiredOptions: [{ 'site.siteMetadata.siteUrl': themeOptions.siteUrl }],  // [4]
+      requiredOptions: [{ 'meta.site.url': meta.site.url }],  // [4]
     }),
     ...conditionallyIncludePlugin({
       theme: 'gatsby-theme-ripperoni-marketing',
       resolve: 'gatsby-plugin-robots-txt',
       enabled: robotsTxt.enabled,
       options: robotsTxt,
-      requiredOptions: [{ 'site.siteMetadata.siteUrl': themeOptions.siteUrl }],  // [4]
+      requiredOptions: [{ 'meta.site.url': meta.site.url }],  // [4]
     }),
   ];
 
   const siteMetadata = {
-    seo,
-    siteUrl: themeOptions.siteUrl,
+    ...meta,
+    siteUrl: meta.site.url,
   };
 
   return {
     plugins,
-    siteMetadata
+    siteMetadata,
   };
 };

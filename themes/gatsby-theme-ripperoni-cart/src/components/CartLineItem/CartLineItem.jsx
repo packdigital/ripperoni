@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Box, Button, Flex, Heading, Image, Link, Price, Svg, Text } from '@ripperoni/components';
 import { QuantitySelect } from '@ripperoni/cart/components/QuantitySelect';
 import Close from '@ripperoni/cart/assets/images/close.svg';
+import { useCartContext } from '@ripperoni/cart/context/CartContext';
 
 
 export const CartLineItem = ({
+  id,
   title,
-  quantity: initialQuantity,
+  quantity,
   variant,
   ...props
 }) => {
-  const [quantity, setQuantity] = useState(initialQuantity);
-  const { selectedOptions, image, price, compareAtPrice } = variant || {};
-  const options = selectedOptions.reduce((acc, curr, index) => {
-    acc.push(`${curr.name} - ${curr.value}`);
+  const { removeLineItems } = useCartContext();
 
-    return acc;
-  }, []).join(' / ');
+  const { selectedOptions, image, price, compareAtPrice } = variant || {};
+  const options = selectedOptions
+    .map(({ name, value }) => `${name} - ${value}`)
+    .join(' / ');
 
   return (
     <Flex
@@ -63,8 +64,8 @@ export const CartLineItem = ({
         <QuantitySelect
           width='75px'
           height='23px'
+          id={id}
           quantity={quantity}
-          setQuantity={setQuantity}
         />
       </Flex.Col>
 
@@ -75,7 +76,7 @@ export const CartLineItem = ({
       >
         <Button.Plain
           mb='auto'
-          onClick={() => {}}
+          onClick={() => removeLineItems([ id ])}
         >
           <Svg
             as={Close}
@@ -105,6 +106,7 @@ export const CartLineItem = ({
 CartLineItem.displayName = 'Cart Line Item';
 
 CartLineItem.propTypes = {
+  id: PropTypes.string,
   title: PropTypes.string,
   quantity: PropTypes.oneOfType([
     PropTypes.string,

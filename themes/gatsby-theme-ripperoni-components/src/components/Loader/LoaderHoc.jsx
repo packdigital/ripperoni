@@ -7,7 +7,7 @@ import { Loader } from './Loader';
 export const LoaderHoc = forwardRef(({ loading, children, ...props }, ref) => {
   LoaderHoc.propTypes = {
     ...Loader.propTypes,
-    loading: PropTypes.bool,
+    loading: PropTypes.any,
     children: PropTypes.any
   };
 

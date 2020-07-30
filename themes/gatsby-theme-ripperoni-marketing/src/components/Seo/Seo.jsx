@@ -9,7 +9,6 @@ export const Seo = props => {
   const { site, seo } = result.site.metadata;
 
   const title = seo.title || site.name;
-  const author = seo.author || site.author;
   const description = seo.description || site.description;
 
   return (
@@ -44,7 +43,7 @@ export const Seo = props => {
         },
         {
           name: 'twitter:creator',
-          content: author,
+          content: seo.author,
         },
         {
           name: 'twitter:title',
@@ -79,7 +78,6 @@ const staticQuery = graphql`
       metadata: siteMetadata {
         site {
           name
-          author
           description
         }
         seo {

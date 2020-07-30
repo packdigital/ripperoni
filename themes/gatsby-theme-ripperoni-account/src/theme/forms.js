@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 export const forms = {
   address: {
     header: {
@@ -5,36 +6,45 @@ export const forms = {
       mb: t => t.account.space.xs,
     },
     firstName: {
+      variant: 'forms.fieldGroup',
       width: ['full', null, null, 'half'],
       pr: t => [null, null, null, t.account.space.xs],
     },
     lastName: {
+      variant: 'forms.fieldGroup',
       width: ['full', null, null, 'half'],
       pl: t => [null, null, null, t.account.space.xs],
     },
     address1: {
+      variant: 'forms.fieldGroup',
       width: 'full',
     },
     address2: {
+      variant: 'forms.fieldGroup',
       width: 'full',
     },
     city: {
+      variant: 'forms.fieldGroup',
       width: ['full', null, null, 'half'],
       pr: t => [null, null, null, t.account.space.xs],
     },
     province: {
+      variant: 'forms.fieldGroup',
       width: ['full', null, null, 'half'],
       pl: t => [null, null, null, t.account.space.xs],
     },
     zip: {
+      variant: 'forms.fieldGroup',
       width: ['full', null, null, 'half'],
       pr: t => [null, null, null, t.account.space.xs],
     },
     country: {
+      variant: 'forms.fieldGroup',
       width: ['full', null, null, 'half'],
       pl: t => [null, null, null, t.account.space.xs],
     },
     phone: {
+      variant: 'forms.fieldGroup',
       width: 'full',
     },
     ctas: {
@@ -53,6 +63,12 @@ export const forms = {
     inputs: {
       flexDirection: 'column',
     },
+    email: {
+      variant: 'forms.fieldGroup',
+    },
+    password: {
+      variant: 'forms.fieldGroup',
+    },
     ctas: {
       flexDirection: 'column',
     },
@@ -69,6 +85,18 @@ export const forms = {
     inputs: {
       flexDirection: 'column',
     },
+    firstName: {
+      variant: 'forms.fieldGroup',
+    },
+    lastName: {
+      variant: 'forms.fieldGroup',
+    },
+    email: {
+      variant: 'forms.fieldGroup',
+    },
+    password: {
+      variant: 'forms.fieldGroup',
+    },
     ctas: {
       flexDirection: 'column',
     },
@@ -79,6 +107,9 @@ export const forms = {
   recover: {
     inputs: {
       flexDirection: 'column',
+    },
+    email: {
+      variant: 'forms.fieldGroup',
     },
     ctas: {
       flexDirection: 'column',
@@ -95,6 +126,9 @@ export const forms = {
   reset: {
     inputs: {
       flexDirection: 'column',
+    },
+    password: {
+      variant: 'forms.fieldGroup',
     },
     ctas: {
       flexDirection: 'column',

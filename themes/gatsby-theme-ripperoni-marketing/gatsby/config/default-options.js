@@ -34,8 +34,17 @@ module.exports = themeOptions => {
     return 'development';
   };
 
-
   const defaults = {
+    meta: {
+      site: {
+        url: '',
+      },
+      seo: {
+        title: '',
+        author: '',
+        description: '',
+      },
+    },
     facebookPixel: {
       enabled: true,
     },
@@ -52,11 +61,6 @@ module.exports = themeOptions => {
       env,
       resolveEnv,
     },
-    seo: {
-      title: '',
-      author: '',
-      description: '',
-    },
     sitemap: {
       enabled: true,
     },
@@ -65,11 +69,11 @@ module.exports = themeOptions => {
   const getOptionsFor = getPluginOptions(defaults, themeOptions);
 
   return {
+    meta: getOptionsFor('meta'),
     facebookPixel: getOptionsFor('facebookPixel'),
     googleAnalytics: getOptionsFor('googleAnalytics'),
     googleTagManager: getOptionsFor('googleTagManager'),
     robotsTxt: getOptionsFor('robotsTxt'),
-    seo: getOptionsFor('seo'),
     sitemap: getOptionsFor('sitemap'),
   };
 };

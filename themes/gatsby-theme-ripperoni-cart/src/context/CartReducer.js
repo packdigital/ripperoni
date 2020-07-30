@@ -1,4 +1,7 @@
 import Client from 'shopify-buy';
+import isBase64Encoded from 'is-base64';
+
+import { isShopifyGid } from '@packdigital/ripperoni-utilities';
 
 
 const client = Client.buildClient({
@@ -91,9 +94,27 @@ export const asyncActionHandlers = {
     return async action => {
       dispatch({ type: 'START_CART_ACTION', request: action.request });
 
+      let data = action.data;
+
+      // allow any type of variant id (legacy, unencoded, encoded) to be passed in addToCart
+      if (action.request === 'addLineItems') {
+        const items = Array.isArray(data) ? data : [data];
+
+        data = items.map(({ variantId, ...variant }) => {
+          const isBase64 = isBase64Encoded(variantId);
+          const rawId = isBase64 ? atob(variantId) : variantId;
+          const isGid = isShopifyGid(rawId);
+          const normalizedVariantId = isGid
+            ? btoa(rawId)
+            : btoa(`gid://shopify/ProductVariant/${rawId}`);
+
+          return { ...variant, variantId: normalizedVariantId };
+        });
+      }
+
       try {
         const cartId = getState().cart.id;
-        const cart = await client.cart[action.request](cartId, action.data);
+        const cart = await client.cart[action.request](cartId, data);
 
         const totalItems = getTotalItems(cart);
 

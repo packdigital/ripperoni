@@ -1,6 +1,5 @@
 const { AbortController } = require('abortcontroller-polyfill/dist/cjs-ponyfill');
-const atob = require('btoa');
-const btoa = require('btoa');
+const { atob, btoa } = require('abab');
 
 
 global.atob = atob;

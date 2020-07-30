@@ -1,9 +1,13 @@
 import React from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
 
 import { Box, Heading, Link } from '@ripperoni/components';
 
 
 export const ContactUs = props => {
+  const result = useStaticQuery(staticQuery);
+  const { supportEmail } = result.site.siteMetadata.site;
+
   return (
     <Box
       data-comp={ContactUs.displayName}
@@ -15,13 +19,25 @@ export const ContactUs = props => {
       </Heading>
 
       <Link
-        href='mailto:help@domain.com'
+        href={`mailto:${supportEmail}`}
         sx={{ variant: 'account.text.layout.contact.email' }}
       >
-        help@domain.com
+        {supportEmail}
       </Link>
     </Box>
   );
 };
 
 ContactUs.displayName = 'Contact Us';
+
+const staticQuery = graphql`
+  {
+    site {
+      siteMetadata {
+        site {
+          supportEmail
+        }
+      }
+    }
+  }
+`;

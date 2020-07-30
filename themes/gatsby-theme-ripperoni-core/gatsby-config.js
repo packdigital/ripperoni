@@ -8,7 +8,7 @@ const withDefaults = require('./gatsby/config/default-options');
 
 
 module.exports = themeOptions => {
-  const { manifest, site, social, date, money } = withDefaults(themeOptions);
+  const { meta, manifest } = withDefaults(themeOptions);
 
   const plugins = [
     // 'gatsby-plugin-loadable-components-ssr',
@@ -80,12 +80,7 @@ module.exports = themeOptions => {
     }),
   ];
 
-  const siteMetadata = {
-    site,
-    social,
-    date,
-    money,
-  };
+  const siteMetadata = meta;
 
   return {
     plugins,

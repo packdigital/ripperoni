@@ -13,7 +13,7 @@ export const FieldGroup = forwardRef(({
   label,
   name,
   defaultValue,
-  variant,
+  variant = 'forms.fieldGroup',
   ...incomingProps
 }, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps);
@@ -42,43 +42,3 @@ export const FieldGroup = forwardRef(({
 });
 
 FieldGroup.displayName = 'Field Group';
-
-
-// <FieldGroup
-//   width={['100%', null, null, '50%']}
-//   defaultValue={firstName}
-//   label='First Name'
-//   name='firstName'
-//   as={Input}
-// />
-
-// const CountrySelect = props => (
-//   <Select {...props}>
-//     <option value='US'>United States</option>
-//   </Select>
-// );
-
-// const ZipInput = props => (
-//   <Input
-//     pattern='\d{5}'
-//     maxlength='5'
-//     size='5'
-//     {...props}
-//   />
-// );
-
-// <FieldGroup
-//   width={['100%', null, null, '50%']}
-//   defaultValue={country}
-//   label='Country'
-//   name='country'
-//   as={CountrySelect}
-// />
-
-// <FieldGroup
-//   width={['100%', null, null, '50%']}
-//   defaultValue={zip}
-//   label='Zip'
-//   name='zip'
-//   as={ZipInput}
-// />

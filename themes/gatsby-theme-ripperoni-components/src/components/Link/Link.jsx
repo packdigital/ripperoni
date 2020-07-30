@@ -32,11 +32,6 @@ export const Link = forwardRef(({
     newWindow: PropTypes.bool,
   };
 
-  const animationProps = {
-    exit: { length: 1 },
-    entry: { delay: 0.2 },
-  };
-
   const linkProps = {
     activeClassName,
     'aria-label': ariaLabel,
@@ -46,7 +41,10 @@ export const Link = forwardRef(({
       variant: 'styles.a',
       ...sxObject
     },
-    ...(animate ? animationProps : {}),
+    state: {
+      animate,
+      ...props?.state
+    },
     ...props
   };
 

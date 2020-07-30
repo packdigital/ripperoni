@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Button, Flex, Heading, Link } from '@ripperoni/components';
+import { Box, Button, Flex, Heading, Text } from '@ripperoni/components';
 
 import { useCustomerContext } from '../../context/CustomerContext';
 
@@ -20,12 +20,9 @@ export const UserMeta = props => {
           Hey {state.customer.firstName}
         </Heading>
 
-        <Link
-          href={`mailto:${state.customer.email}`}
-          sx={{ variant: 'account.text.layout.meta.email' }}
-        >
+        <Text variant='account.text.layout.meta.email'>
           {state.customer.email}
-        </Link>
+        </Text>
       </Box>
 
       <Button.Link

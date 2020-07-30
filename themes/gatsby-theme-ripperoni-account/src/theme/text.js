@@ -182,6 +182,7 @@ export const text = {
         status: {
           variant: 'text.small',
           textAlign: 'center',
+          textTransform: 'capitalize',
         },
         price: {
           variant: 'text.small',

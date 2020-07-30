@@ -1,8 +1,7 @@
 export const forms = {
   input: {
     p: 3,
-    mb: 2,
-    borderColor: 'gray',
+    borderColor: 'gray.2',
     '&:hover, &:active, &:focus': {
       outline: 'none',
       borderColor: 'primary'
@@ -13,5 +12,8 @@ export const forms = {
   },
   textarea: {
     variant: 'account.forms.input',
+  },
+  fieldGroup: {
+    mb: 2,
   },
 };

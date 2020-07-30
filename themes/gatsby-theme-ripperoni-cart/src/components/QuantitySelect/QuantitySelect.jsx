@@ -1,24 +1,31 @@
 /** @jsx jsx */
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Input, jsx } from 'theme-ui';
+import debounce from 'lodash/debounce';
 
 import { Button, Flex } from '@ripperoni/components';
+import { useCartContext } from '@ripperoni/cart/context/CartContext';
 
 
 export const QuantitySelect = ({
-  quantity,
-  setQuantity,
+  id,
+  quantity: initialQuantity,
   showControls = false,
   ...props
 }) => {
-  const changeByAmount = amount => {
-    const current = parseInt(quantity);
-    const change = parseInt(amount);
-    const newQuantity = current + change;
+  const [quantity, setQuantity] = useState(initialQuantity);
+  const { removeLineItems, updateLineItems } = useCartContext();
+  const debouncedUpdate = debounce(quantity => {
+    updateLineItems([{ id, quantity }]);
+  }, 2000);
 
-    if (newQuantity >= 0) {
-      setQuantity(newQuantity);
-    }
+  const handleChange = event => {
+    setQuantity(parseInt(event.target.value));
+  };
+
+  const handleBlur = event => {
+    updateLineItems();
   };
 
   return (
@@ -31,7 +38,11 @@ export const QuantitySelect = ({
         variant='buttons.plain'
         flex={1}
         outline='none'
-        onClick={() => changeByAmount(-1)}
+        onClick={() => {
+          const newQuantity = parseInt(quantity) - 1;
+          setQuantity(newQuantity);
+          // debouncedUpdate(newQuantity);
+        }}
       >
         -
       </Button>
@@ -41,7 +52,8 @@ export const QuantitySelect = ({
         step='1'
         min='0'
         value={quantity}
-        onChange={event => setQuantity(event.target.value)}
+        onChange={handleChange}
+        onBlur={handleBlur}
         sx={{
           p: 0,
           mb: 0,
@@ -60,7 +72,11 @@ export const QuantitySelect = ({
         variant='buttons.plain'
         flex={1}
         outline='none'
-        onClick={() => changeByAmount(1)}
+        onClick={() => {
+          const newQuantity = parseInt(quantity) + 1;
+          setQuantity(newQuantity);
+          // debouncedUpdate(newQuantity);
+        }}
       >
         +
       </Button>
@@ -75,6 +91,5 @@ QuantitySelect.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
-  setQuantity: PropTypes.func.isRequired,
   showControls: PropTypes.bool,
 };

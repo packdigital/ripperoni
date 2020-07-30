@@ -20,6 +20,7 @@ export const NavigationItem = ({
         data-comp={NavigationItem.displayName}
         activeClassName='active'
         sx={{ variant: variant || 'account.layout.navigation.item' }}
+        animate={false}
         {...props}
       >
         <Flex

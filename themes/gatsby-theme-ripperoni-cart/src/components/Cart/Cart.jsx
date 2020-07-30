@@ -45,7 +45,7 @@ export const Cart = props => {
           >
             <CartHeader />
 
-            <Loader.Hoc loading={lineItems === undefined}>
+            <Loader.Hoc loading={cartState.loading}>
               {lineItems?.length === 0 && (
                 <CartEmptyState />
               )}

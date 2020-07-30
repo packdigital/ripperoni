@@ -19,9 +19,10 @@ export const CartLineItems = ({
       p='22px'
       {...props}
     >
-      {lineItems.map(({ title, quantity, variant, id }) => (
+      {lineItems.map(({ id, title, quantity, variant }) => (
         <CartLineItem
           key={id}
+          id={id}
           title={title}
           quantity={quantity}
           variant={variant}

@@ -15,21 +15,40 @@ export const AccountLayout = ({
   ...props
 }) => {
   return (
-    <Container {...props}>
-      <Container variant='account.layout.inner'>
+    <Container
+      data-comp='Account Layout'
+      {...props}
+    >
+      <Container
+        data-comp='Account Layout Inner'
+        variant='account.layout.inner'
+      >
         {loggedIn
           ? (
-            <Grid variant='account.layout.grid'>
-              <UserMeta gridArea='meta' />
+            <Grid
+              data-comp='Account Layout Grid'
+              variant='account.layout.grid'
+            >
+              <UserMeta
+                data-comp='Account Layout User Meta'
+                gridArea='meta'
+              />
 
               <AccountNavigation
+                data-comp='Account Layout Navigation'
                 path={path}
                 gridArea='navigation'
               />
 
-              <ContactUs gridArea='contact' />
+              <ContactUs
+                data-comp='Account Layout Contact'
+                gridArea='contact'
+              />
 
-              <PageContents gridArea='contents'>
+              <PageContents
+                data-comp='Account Layout Page Contents'
+                gridArea='contents'
+              >
                 {children}
               </PageContents>
             </Grid>

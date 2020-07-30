@@ -19,7 +19,6 @@ export const TableRow = ({
         <Link
           to={`/account/orders/${order.id}`}
           state={{ order }}
-          animate={false}
           sx={{ variant: 'account.text.orders.table.cell.orderNumber' }}
         >
           #{order.id}

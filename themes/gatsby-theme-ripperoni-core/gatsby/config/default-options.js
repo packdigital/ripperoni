@@ -6,52 +6,58 @@
 *     You can provide this image by shadowing the file
 *     in the theme's src/gatsby-theme-ripperoni-core/assets/images/logo.png
 */
+const fs = require('fs');
+
 const { getPluginOptions } = require('@packdigital/ripperoni-utilities');
 
 
-module.exports = themeOptions => {
-  const name = '';
-  const author = '@packdigital';
-  const description = 'Pack Digital made this site.';
-  const color = '#00f7bb';
-  const bgColor = '#252525';
-  const url = 'https://packdigital.com';
-  const logo = 'src/assets/images/logo.png';
-  const favicon = 'src/assets/images/favicon.png';
+const fileExists = path => {
+  try {
+    fs.accessSync(path);
 
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+
+module.exports = themeOptions => {
+  const { meta } = themeOptions;
+  const logoPath = meta.site.logo || 'src/assets/images/logo.png';
+  const logo = fileExists(logoPath) ? logoPath : undefined;
 
   const defaults = {
-    site: {
-      name,
-      author,
-      description,
-      color,
-      bgColor,
-      url,
-      logo,
-      favicon,
-    },
-    social: {
-      facebook: 'https://www.facebook.com/packdig',
-      instagram: 'https://www.instagram.com/packdig',
-      twitter: 'https://twitter.com/packdig',
-    },
-    date: {
-      format: 'mm.dd.yy',
-    },
-    money: {
-      format: '${price}',
-      trimTrailingZeros: false,
+    meta: {
+      site: {
+        name: '',
+        description: '',
+        color: '#333333',
+        bgColor: '#ffffff',
+        logo,
+      },
+      social: {
+        facebook: '',
+        instagram: '',
+        twitter: '',
+      },
+      date: {
+        format: 'mm.dd.yy',
+      },
+      money: {
+        format: '${price}',
+        trimTrailingZeros: false,
+      },
     },
     manifest: {
       enabled: true,
       start_url: '/',
       display: 'minimal-ui',
-      name: name,
-      short_name: name,
-      description: description,
-      theme_color: color,
-      background_color: bgColor,
+      name: meta.site.name || '',
+      short_name: meta.site.name || '',
+      description: meta.site.description || '',
+      theme_color: meta.site.color || '#333333',
+      background_color: meta.site.bgColor || '#ffffff',
       icon: logo,  // [1]
     },
   };
@@ -59,10 +65,7 @@ module.exports = themeOptions => {
   const getOptionsFor = getPluginOptions(defaults, themeOptions);
 
   return {
+    meta: getOptionsFor('meta'),
     manifest: getOptionsFor('manifest'),
-    site: getOptionsFor('site'),
-    social: getOptionsFor('social'),
-    date: getOptionsFor('date'),
-    money: getOptionsFor('money'),
   };
 };

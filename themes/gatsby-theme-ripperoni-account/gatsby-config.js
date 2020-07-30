@@ -1,7 +1,11 @@
 require('dotenv').config();
 
+const withDefaults = require('./gatsby/config/default-options');
 
-module.exports = () => {
+
+module.exports = themeOptions => {
+  const { meta } = withDefaults(themeOptions);
+
   const plugins = [
     'gatsby-plugin-theme-ui',
     {
@@ -12,7 +16,10 @@ module.exports = () => {
     }
   ];
 
+  const siteMetadata = meta;
+
   return {
     plugins,
+    siteMetadata,
   };
 };
