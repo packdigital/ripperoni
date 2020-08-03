@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Input, jsx } from 'theme-ui';
 import debounce from 'lodash/debounce';
@@ -14,18 +14,21 @@ export const QuantitySelect = ({
   showControls = false,
   ...props
 }) => {
-  const [quantity, setQuantity] = useState(initialQuantity);
+  const [quantity, setQuantity] = useState(parseInt(initialQuantity));
   const { removeLineItems, updateLineItems } = useCartContext();
-  const debouncedUpdate = debounce(quantity => {
-    updateLineItems([{ id, quantity }]);
-  }, 2000);
 
-  const handleChange = event => {
-    setQuantity(parseInt(event.target.value));
-  };
+  const debouncedUpdate = debounce(quantity => updateLineItems([{ id, quantity }]), 500);
+  const memoizedDebounceUpdate = useCallback(quantity => debouncedUpdate(quantity), []);
 
-  const handleBlur = event => {
-    updateLineItems();
+  const changeBy = amount => {
+    const newQuantity = quantity + amount;
+    setQuantity(newQuantity);
+
+    if (newQuantity > 0) {
+      memoizedDebounceUpdate(newQuantity);
+    } else {
+      removeLineItems([ id ]);
+    }
   };
 
   return (
@@ -38,11 +41,7 @@ export const QuantitySelect = ({
         variant='buttons.plain'
         flex={1}
         outline='none'
-        onClick={() => {
-          const newQuantity = parseInt(quantity) - 1;
-          setQuantity(newQuantity);
-          // debouncedUpdate(newQuantity);
-        }}
+        onClick={() => changeBy(-1)}
       >
         -
       </Button>
@@ -52,8 +51,8 @@ export const QuantitySelect = ({
         step='1'
         min='0'
         value={quantity}
-        onChange={handleChange}
-        onBlur={handleBlur}
+        onChange={event => setQuantity(parseInt(event.target.value))}
+        onBlur={event => memoizedDebounceUpdate(parseInt(event.target.value))}
         sx={{
           p: 0,
           mb: 0,
@@ -63,7 +62,7 @@ export const QuantitySelect = ({
           outline: 'none',
           '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
             margin: showControls === false && 0,
-            'WebkitAppearance': showControls === false && 'none',
+            WebkitAppearance: showControls === false && 'none',
           },
         }}
       />
@@ -72,11 +71,7 @@ export const QuantitySelect = ({
         variant='buttons.plain'
         flex={1}
         outline='none'
-        onClick={() => {
-          const newQuantity = parseInt(quantity) + 1;
-          setQuantity(newQuantity);
-          // debouncedUpdate(newQuantity);
-        }}
+        onClick={() => changeBy(1)}
       >
         +
       </Button>
