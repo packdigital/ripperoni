@@ -3,7 +3,7 @@ const { isShopifyGid } = require('@packdigital/ripperoni-utilities');
 const { typeDefs } = require('./types');
 const { createClient } = require('./client');
 const { touchUnchangedCachedData, queryAndCreateNewNodes, setupSubscriptions } = require('./source');
-// const { downloadImages } = require('./download-images');
+const { downloadImages } = require('./download-images');
 const { LOG_PREFIX, PLUGIN_NAME } = require('./constants');
 
 
@@ -11,7 +11,7 @@ exports.createSchemaCustomization = ({ actions: { createTypes }}) => createTypes
 
 exports.sourceNodes = async (helpers, options) => {
   const { format, panic, activityTimer } = helpers.reporter;
-  const { accessToken, shopId, backpackUri } = options;
+  const { accessToken, shopId, backpackUri, downloadLocal } = options;
   const timer = activityTimer(format`{${LOG_PREFIX}}`);
 
   if (!accessToken) {
@@ -37,10 +37,10 @@ exports.sourceNodes = async (helpers, options) => {
   timer.setStatus(format`Fetching and creating new nodes`);
     await queryAndCreateNewNodes({ client, shopId, helpers });
 
-  // No longer neccessary because we're using Shopify's cdn instead of gatsby-image + sharps
-  //
-  // timer.setStatus('Downloading images');
-  //   await downloadImages({ helpers });
+  if (downloadLocal === true) {
+    timer.setStatus('Downloading images');
+      await downloadImages({ helpers });
+  }
 
   timer.setStatus(format`Sourced {bold Backpack} nodes from {red {bold Backpack}}`);
 
