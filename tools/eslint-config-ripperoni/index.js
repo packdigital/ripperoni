@@ -32,7 +32,30 @@ module.exports = {
     'import/no-unresolved': ['warn', {
       // because of theme shadowing, any import alias of a gatsby theme needs to
       // included here since we don't know how the module is being resolved
-      'ignore': ['@theme/']
+      'ignore': [
+        '@theme/',
+        '@ripperoni/account',
+        '@ripperoni/cart',
+        '@ripperoni/components/hooks',
+        '@ripperoni/components',
+        '@ripperoni/core',
+        '@ripperoni/debug',
+        '@ripperoni/hooks',
+        '@ripperoni/marketing',
+        '@ripperoni/search',
+        '@ripperoni/store',
+        '@ripperoni/utilities',
+
+        // not sure about these...
+        // '@ripperoni/account/theme',
+        // '@ripperoni/cart/theme',
+        // '@ripperoni/components/theme',
+        // '@ripperoni/core/theme',
+        // '@ripperoni/debug/theme',
+        // '@ripperoni/marketing/theme',
+        // '@ripperoni/search/theme',
+        // '@ripperoni/store/theme',
+      ]
     }],
     'max-lines': ['warn', {
       'max': 125,
@@ -73,9 +96,7 @@ module.exports = {
         // 3. project layouts - @layouts
         // 4. project components - @components
         // 5. project resources - @assets, @images, @static
-        // 6. layout components
-        // 7. components
-        // 8. assets and static files
+        // 6. everything else
         {
           'pattern': '@ripperoni/**',
           'group': 'external',
