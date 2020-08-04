@@ -167,9 +167,9 @@ const imageMiddleware = node => {
 };
 
 module.exports = {
-  product: productMiddleware,
-  productVariant: productVariantMiddleware,
-  productOption: productOptionMiddleware,
-  productOptionValue: productOptionValueMiddleware,
-  image: imageMiddleware
+  [PRODUCT]: productMiddleware,
+  [PRODUCT_VARIANT]: productVariantMiddleware,
+  [PRODUCT_OPTION]: productOptionMiddleware,
+  [PRODUCT_OPTION_VALUE]: productOptionValueMiddleware,
+  [IMAGE]: imageMiddleware
 };

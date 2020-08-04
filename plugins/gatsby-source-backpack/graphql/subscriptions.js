@@ -1,3 +1,6 @@
+"use strict";
+
+/* eslint-disable import/order */
 const gql = require('graphql-tag');
 
 const {
@@ -5,9 +8,16 @@ const {
   PRODUCT_VARIANT_FRAGMENT,
   PRODUCT_OPTION_FRAGMENT,
   PRODUCT_OPTION_VALUE_FRAGMENT,
-  IMAGE_FRAGMENT,
+  IMAGE_FRAGMENT
 } = require('./fragments');
 
+const {
+  PRODUCT,
+  PRODUCT_VARIANT,
+  PRODUCT_OPTION,
+  PRODUCT_OPTION_VALUE,
+  IMAGE
+} = require('../constants');
 /**
  *
  * When adding a new query, make sure you alias the root field of the result to `data`
@@ -16,6 +26,8 @@ const {
  *      result: productOptionValues
  *
 */
+
+
 const PRODUCTS_SUBSCRIPTION = gql`
   subscription ProductsSubscription ($shopId: String) {
     result: products (
@@ -29,7 +41,6 @@ const PRODUCTS_SUBSCRIPTION = gql`
   }
   ${PRODUCT_FRAGMENT}
 `;
-
 const PRODUCT_VARIANTS_SUBSCRIPTION = gql`
   subscription ProductVariantsSubscription ($shopId: String) {
     result: productVariants (
@@ -44,7 +55,6 @@ const PRODUCT_VARIANTS_SUBSCRIPTION = gql`
   }
   ${PRODUCT_VARIANT_FRAGMENT}
 `;
-
 const PRODUCT_OPTIONS_SUBSCRIPTION = gql`
   subscription ProductOptionsSubscription ($shopId: String) {
     result: productOptions (
@@ -59,7 +69,6 @@ const PRODUCT_OPTIONS_SUBSCRIPTION = gql`
   }
   ${PRODUCT_OPTION_FRAGMENT}
 `;
-
 const PRODUCT_OPTION_VALUES_SUBSCRIPTION = gql`
   subscription ProductOptionValuesSubscription ($shopId: citext) {
     result: productOptionValues (
@@ -74,7 +83,6 @@ const PRODUCT_OPTION_VALUES_SUBSCRIPTION = gql`
   }
   ${PRODUCT_OPTION_VALUE_FRAGMENT}
 `;
-
 const IMAGES_SUBSCRIPTION = gql`
   subscription ImagesSubscription ($shopId: String) {
     result: images (
@@ -92,11 +100,10 @@ const IMAGES_SUBSCRIPTION = gql`
   }
   ${IMAGE_FRAGMENT}
 `;
-
 module.exports = {
-  product: PRODUCTS_SUBSCRIPTION,
-  productVariant: PRODUCT_VARIANTS_SUBSCRIPTION,
-  productOption: PRODUCT_OPTIONS_SUBSCRIPTION,
-  productOptionValue: PRODUCT_OPTION_VALUES_SUBSCRIPTION,
-  image: IMAGES_SUBSCRIPTION,
+  [PRODUCT]: PRODUCTS_SUBSCRIPTION,
+  [PRODUCT_VARIANT]: PRODUCT_VARIANTS_SUBSCRIPTION,
+  [PRODUCT_OPTION]: PRODUCT_OPTIONS_SUBSCRIPTION,
+  [PRODUCT_OPTION_VALUE]: PRODUCT_OPTION_VALUES_SUBSCRIPTION,
+  [IMAGE]: IMAGES_SUBSCRIPTION
 };

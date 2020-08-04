@@ -1,18 +1,10 @@
-import { createProductJson } from './gatsby/node/create-store-json';
-import { PRODUCT_TEMPLATE, PRODUCT_VARIANT_TEMPLATE } from './fragments/fragmentTemplates';
-
-const path = require('path');
-
-const fs = require('fs-extra');
-
-
 const { isShopifyGid } = require('@packdigital/ripperoni-utilities');
 
-const { typeDefs } = require('./src/types');
-const { createClient } = require('./src/client');
-const { createContentNodes } = require('./src/nodes');
-const { downloadImages } = require('./src/download-images');
-const { LOG_PREFIX, PLUGIN_NAME } = require('./src/constants');
+const { typeDefs } = require('./types');
+const { createClient } = require('./client');
+const { touchUnchangedCachedData, queryAndCreateNewNodes, setupSubscriptions } = require('./source');
+const { downloadImages } = require('./download-images');
+const { LOG_PREFIX, PLUGIN_NAME } = require('./constants');
 
 
 exports.createSchemaCustomization = ({ actions: { createTypes }}) => createTypes(typeDefs);
@@ -34,17 +26,45 @@ exports.sourceNodes = async (helpers, options) => {
     panic(`Please include a Shopify graphql shop id to ${PLUGIN_NAME}.`);
   }
 
-  const client = createClient({ accessToken, backpackUri });
-
   timer.start();
-  timer.setStatus(format`Fetching data and creating nodes`);
 
-  await createContentNodes({ client, shopId, helpers });
+  timer.setStatus(format`Creating graphql client`);
+    const client = createClient({ accessToken, backpackUri });
+
+  timer.setStatus(format`Restoring cached data`);
+    await touchUnchangedCachedData({ client, shopId, helpers });
+
+  timer.setStatus(format`Fetching and creating new nodes`);
+    await queryAndCreateNewNodes({ client, shopId, helpers });
 
   timer.setStatus('Downloading images');
-
-  await downloadImages({ helpers });
+    await downloadImages({ helpers });
 
   timer.setStatus(format`Sourced {bold Backpack} nodes from {red {bold Backpack}}`);
+
   timer.end();
+
+  return;
+};
+
+exports.onPostBootstrap = async (helpers, options) => {
+  if (process.env.NODE_ENV !== 'production') {
+    const { format, activityTimer } = helpers.reporter;
+    const { accessToken, shopId, backpackUri } = options;
+    const timer = activityTimer(format`{${LOG_PREFIX}}`);
+
+    timer.start();
+
+    timer.setStatus(format`Creating graphql client`);
+      const client = createClient({ accessToken, backpackUri });
+
+    timer.setStatus('Creating graphql subscriptions to {red {bold Backpack}}');
+      await setupSubscriptions({ client, shopId, helpers });
+
+    timer.setStatus(format`Created graphql subscriptions to {red {bold Backpack}}`);
+
+    timer.end();
+  }
+
+  return;
 };

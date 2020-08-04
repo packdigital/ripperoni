@@ -14,7 +14,8 @@
     "gatsby-source-plugin"
   ],
   "scripts": {
-    "build": "babel src --out-dir ."
+    "build": "babel src --out-dir .",
+    "watch": "yarn build -- --watch"
   },
   "peerDependencies": {
     "gatsby": "^2.12.1"

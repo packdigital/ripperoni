@@ -1,5 +1,6 @@
 "use strict";
 
+/* eslint-disable import/order */
 const gql = require('graphql-tag');
 
 const {
@@ -16,7 +17,7 @@ const {
   PRODUCT_OPTION,
   PRODUCT_OPTION_VALUE,
   IMAGE
-} = require('./constants');
+} = require('../constants');
 /**
  *
  * When adding a new query, make sure you alias the root field of the result to `data`
