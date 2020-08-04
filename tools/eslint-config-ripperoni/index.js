@@ -150,6 +150,10 @@ module.exports = {
           ['@ripperoni/store/theme', '@packdigital/gatsby-theme-ripperoni-store/src/gatsby-plugin-theme-ui'],
           ['@ripperoni/store', '@packdigital/gatsby-theme-ripperoni-store/src'],
           ['@ripperoni/utilities', '@packdigital/ripperoni-utilities'],
+          // legacy aliases
+          ['@theme', '@packdigital/gatsby-theme-ripperoni/src'],
+          ['@theme2', '@packdigital/gatsby-theme-ripperoni-components/src'],
+          ['@utils', '@packdigital/ripperoni-utilities']
         ],
         extensions: ['.js', '.jsx']
       },
