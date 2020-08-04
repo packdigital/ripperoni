@@ -5,7 +5,7 @@ const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities
 const withDefaults = require('./gatsby/config/default-options');
 
 
-module.exports = (themeOptions, arg2) => {
+module.exports = themeOptions => {
   const { googleSpreadsheet, redirects } = withDefaults(themeOptions);
 
   const plugins = [
