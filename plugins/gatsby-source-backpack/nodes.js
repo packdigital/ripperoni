@@ -86,7 +86,6 @@ exports.diffAndUpdateNodes = ({
   type,
   helpers
 }) => {
-  console.log('ding');
   return ({
     data
   }) => {
