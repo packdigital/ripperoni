@@ -57,8 +57,6 @@ const _getUpdatedData = (freshData, type, helpers) => {
 };
 
 exports.diffAndUpdateNodes = ({ type, helpers }) => {
-  console.log('ding');
-
   return ({ data }) => {
     const { getNodesByType, reporter, actions: { touchNode }} = helpers;
     const { format, success } = reporter;

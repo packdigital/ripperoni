@@ -76,11 +76,7 @@ exports.setupSubscriptions = async ({ client, shopId, helpers }) => {
           variables: { shopId }
         })
         .subscribe({
-          next: data => {
-            console.log('dong');
-
-            return diffAndUpdateNodes({ type, helpers })(data);
-          },
+          next: diffAndUpdateNodes({ type, helpers }),
           error: error => helpers.reporter.error('Something went wrong while recieving data from Backpack Subscription', error),
         });
     });
