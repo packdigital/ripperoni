@@ -15,7 +15,8 @@
   ],
   "scripts": {
     "build": "babel src --out-dir .",
-    "watch": "yarn build -- --watch"
+    "watch": "yarn build -- --watch",
+    "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
     "gatsby": "^2.12.1"
