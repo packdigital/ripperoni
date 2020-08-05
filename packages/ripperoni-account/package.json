@@ -1,13 +1,13 @@
 {
   "name": "@packdigital/ripperoni-account",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "author": "@packdigital",
   "description": "",
   "repository": "https://github.com/packdigital/ripperoni/tree/master/packages/ripperoni-account",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@packdigital/ripperoni-utilities": "^2.0.46",
+    "@packdigital/ripperoni-utilities": "^2.0.47",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link": "^1.2.14",
