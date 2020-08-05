@@ -1,6 +1,27 @@
 const gql = require('graphql-tag');
 
 
+const SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY = gql`
+  query GetShopifyCollectionsUpdatedAt ($cursor: String) {
+    results: collections (first: 250, after: $cursor, sortKey: UPDATED_AT, reverse: true) {
+      pageInfo {
+        hasNextPage
+      }
+      edges {
+        cursor
+        node {
+          id
+          image {
+            id
+          }
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+
+
 const SHOPIFY_COLLECTIONS_QUERY = gql`
   query GetShopifyCollections ($cursor: String, $query: String) {
     results: collections (first: 250, after: $cursor, query: $query) {
@@ -44,25 +65,6 @@ const SHOPIFY_COLLECTIONS_QUERY = gql`
   }
 `;
 
-const SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY = gql`
-  query GetShopifyCollectionsUpdatedAt ($cursor: String) {
-    results: collections (first: 250, after: $cursor, sortKey: UPDATED_AT, reverse: true) {
-      pageInfo {
-        hasNextPage
-      }
-      edges {
-        cursor
-        node {
-          id
-          image {
-            id
-          }
-          updatedAt
-        }
-      }
-    }
-  }
-`;
 
 const SHOPIFY_COLLECTION_PRODUCTS_QUERY = gql`
   query GetShopifyCollectionsUpdatedAt ($handle: String!, $cursor: String!) {

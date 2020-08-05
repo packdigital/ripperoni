@@ -32,7 +32,7 @@
  */
 export function flattenEdges(data: any): any {
   if (data.edges && Array.isArray(data.edges)) {
-    return data.edges.map((edge: Edge) => edge.node);
+    return data.edges.map((edge: Edge) => ({ ...edge.node, cursor: edge.cursor }));
   }
 
   return data;
@@ -44,4 +44,5 @@ export interface ResponseWithEdges {
 
 export interface Edge {
   node: object;
+  cursor: string;
 }

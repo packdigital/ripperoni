@@ -8,8 +8,7 @@ const {
   convertToGatsbyGraphQLId,
 } = require('@packdigital/ripperoni-utilities');
 
-const { clients } = require('./client');
-const { LOG_PREFIX, TYPE_PREFIX, COLLECTION, IMAGE } = require('./constants');
+const { LOG_PREFIX, TYPE_PREFIX, COLLECTION } = require('./constants');
 const {
   SHOPIFY_COLLECTIONS_QUERY,
   SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY,
@@ -46,56 +45,46 @@ const recursivelyRunQuery = async ({
   return flattenEdges({ edges: [ ...results, ...edges ] });
 };
 
-const findOldestUpdatedCollection = async ({ collectionsMeta, helpers }) => {
-  const { cache, reporter, actions: { touchNode }} = helpers;
-  const { format, success } = reporter;
-  const collection = `${TYPE_PREFIX}${COLLECTION}`;
-  const image = `${TYPE_PREFIX}${IMAGE}`;
-  let touchedCollections = 0;
-  let touchedImages = 0;
+exports.sortUnchangedRemovedAndStaleNodes = async ({ client, helpers }) => {
+  const { cache, getNodesByType } = helpers;
+  const query = SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY;
+  const collectionsMeta = await recursivelyRunQuery({ client, query });
 
-  const oldestTimestamp = await collectionsMeta.reduce(async (oldestTimestamp, { id, image, updatedAt }) => {
-    const backpackCollectionId = convertToGatsbyGraphQLId(id, COLLECTION, TYPE_PREFIX);
-    const cachedData = await cache.get(backpackCollectionId) || {};
-    const hasChanged = cachedData.updatedAt !== updatedAt;
+  const oldNodes = getNodesByType(`${TYPE_PREFIX}${COLLECTION}`);
+  const currentNodeIds = collectionsMeta.map(node => convertToGatsbyGraphQLId(node.id, COLLECTION, TYPE_PREFIX));
+  const removedNodes = oldNodes
+    .filter(oldNode => !currentNodeIds.includes(oldNode.id));
 
-    if (!hasChanged || updatedAt > oldestTimestamp) {
-      touchNode({ nodeId: backpackCollectionId });
-      touchedCollections++;
+  return await collectionsMeta
+    .reduce(async (_nodes, node) => {
+      const nodes = await _nodes;
+      const backpackCollectionId = convertToGatsbyGraphQLId(node.id, COLLECTION, TYPE_PREFIX);
+      const cachedData = await cache.get(backpackCollectionId) || {};
+      const hasChanged = cachedData.updatedAt !== node.updatedAt;
 
-      if (image) {
-        const collectionImageId = convertToGatsbyGraphQLId(image.id, IMAGE, TYPE_PREFIX);
-        touchNode({ nodeId: collectionImageId });
-        touchedImages++;
+      if (hasChanged) {
+        return {
+          ...nodes,
+          staleNodes: [ node, ...nodes.staleNodes ],
+        };
       }
-    }
 
-    return (!hasChanged || updatedAt > oldestTimestamp)
-      ? oldestTimestamp
-      : updatedAt;
-  }, Promise.resolve());
-
-  if (touchedCollections > 0) {
-    success(format`{${LOG_PREFIX}} Load {bold ${collection}} from cache - {bold ${touchedCollections} nodes}`);
-  }
-
-  if (touchedImages > 0) {
-    success(format`{${LOG_PREFIX}} Load {bold ${image}} from cache - {bold ${touchedImages} nodes}`);
-  }
-
-  return oldestTimestamp;
+      return {
+        ...nodes,
+        unchangedNodes: [ node, ...nodes.unchangedNodes ],
+      };
+    }, Promise.resolve({ unchangedNodes: [], removedNodes, staleNodes: [] }));
 };
 
-const fetchUpdatedCollectionData = async ({ client, oldestTimestamp, oldestIndex, helpers, retries = 3 }) => {
+const fetchUpdatedCollectionData = async ({ staleNodes, client, helpers, retries = 3 }) => {
   const { format, createProgress } = helpers.reporter;
+  const collectionCount = staleNodes.length;
+  const oldestTimestamp = staleNodes[0].updatedAt;
+  const progressMessage = format`{${LOG_PREFIX}} Fetch collections from {green {bold Shopify}}`;
+  const progress = createProgress(progressMessage, collectionCount, 0);
+
 
   try {
-    if (oldestIndex === -1) return;
-
-    const collectionCount = oldestIndex + 1;
-    const progressMessage = format`{${LOG_PREFIX}} Fetch collections from {green {bold Shopify}}`;
-    const progress = createProgress(progressMessage, collectionCount, 0);
-
     progress.start();
 
     const collectionData = await recursivelyRunQuery({
@@ -106,24 +95,24 @@ const fetchUpdatedCollectionData = async ({ client, oldestTimestamp, oldestIndex
     });
 
     progress.setStatus(format`{bold ${collectionCount} collections}`);
+
     progress.end();
 
     return collectionData;
   } catch (error) {
     if (retries > 0) {
-      return fetchUpdatedCollectionData({ client, oldestTimestamp, oldestIndex, helpers, retries: retries - 1 });
+      return fetchUpdatedCollectionData({ staleNodes, client, helpers, retries: retries - 1 });
     }
 
     throw new Error(error);
   }
 };
 
-const fetchAdditionalCollectionVariants = async ({ client, collectionsData, helpers }) => {
+const fetchAdditionalCollectionVariants = async ({ collectionsData, client, helpers }) => {
   const { format, activityTimer } = helpers.reporter;
 
-  if (!collectionsData) return;
-
   let addtionalProducts = 0;
+
   const timer = activityTimer(format`{${LOG_PREFIX}} Fetch collection products from {green {bold Shopify}}`);
 
   timer.start();
@@ -154,6 +143,7 @@ const fetchAdditionalCollectionVariants = async ({ client, collectionsData, help
   const resolvedCollectionsWithVariants = await Promise.all(collectionsWithVariants);
 
   timer.setStatus(format`{bold ${addtionalProducts} products}`);
+
   timer.end();
 
   return resolvedCollectionsWithVariants;
@@ -186,17 +176,12 @@ const mapBackpackVariantsToCollection = ({ collectionsWithVariants = [], helpers
   });
 };
 
-exports.fetchAndTransformShopifyData = async ({ options, helpers }) => {
+exports.fetchFreshCollectionData = async ({ staleNodes, client, helpers }) => {
   const { reporter } = helpers;
 
   try {
-    const client = clients.shopify(options);
-    const query = SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY;
-    const collectionsMeta = await recursivelyRunQuery({ client, query });
-    const oldestTimestamp = await findOldestUpdatedCollection({ collectionsMeta, helpers });
-    const oldestIndex = collectionsMeta.findIndex(({ updatedAt }) => updatedAt === oldestTimestamp);
-    const collectionsData = await fetchUpdatedCollectionData({ client, oldestTimestamp, oldestIndex, helpers });
-    const collectionsWithVariants = await fetchAdditionalCollectionVariants({ client, collectionsData, helpers });
+    const collectionsData = await fetchUpdatedCollectionData({ staleNodes, client, helpers });
+    const collectionsWithVariants = await fetchAdditionalCollectionVariants({ collectionsData, client, helpers });
     const collectionsNodeData = mapBackpackVariantsToCollection({ collectionsWithVariants, helpers });
 
     return collectionsNodeData;
