@@ -59,7 +59,7 @@ const runQuery = (graphql, reporter) => {
   });
 };
 
-exports.onPostBuild = async function onPostBuild({ graphql, reporter }, options) {
+exports.onPostBootstrap = async function onPostBuild({ graphql, reporter }, options) {
   try {
     const redirects = await runQuery(graphql, reporter);
 

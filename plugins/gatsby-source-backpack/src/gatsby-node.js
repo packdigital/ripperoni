@@ -51,11 +51,10 @@ exports.sourceNodes = async (helpers, options) => {
 
 exports.onPostBootstrap = async (helpers, options) => {
   const { accessToken, shopId, backpackUri, enableSubscriptions = true } = options;
+  const { format, activityTimer } = helpers.reporter;
+  const timer = activityTimer(format`{${LOG_PREFIX}}`);
 
   if (process.env.NODE_ENV !== 'production' && enableSubscriptions) {
-    const { format, activityTimer } = helpers.reporter;
-    const timer = activityTimer(format`{${LOG_PREFIX}}`);
-
     timer.start();
 
     timer.setStatus(format`Creating graphql client`);
