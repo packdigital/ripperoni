@@ -50,9 +50,10 @@ exports.sourceNodes = async (helpers, options) => {
 };
 
 exports.onPostBootstrap = async (helpers, options) => {
-  if (process.env.NODE_ENV !== 'production') {
+  const { accessToken, shopId, backpackUri, enableSubscriptions = true } = options;
+
+  if (process.env.NODE_ENV !== 'production' && enableSubscriptions) {
     const { format, activityTimer } = helpers.reporter;
-    const { accessToken, shopId, backpackUri } = options;
     const timer = activityTimer(format`{${LOG_PREFIX}}`);
 
     timer.start();

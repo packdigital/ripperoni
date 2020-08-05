@@ -1,4 +1,4 @@
-# 🎒 gatsby-source-backpack
+# 🛒 gatsby-source-backpack-shopify-collection
 
 (from: https://www.gatsbyjs.org/contributing/how-to-write-a-plugin-readme)
 
