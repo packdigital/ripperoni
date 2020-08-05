@@ -7,7 +7,6 @@ module.exports = themeOptions => {
   const defaults = {
     googleSpreadsheet: {
       enabled: true,
-      spreadsheetName: 'redirects',
       credentials: {
         client_email: process.env.REDIRECTS_CLIENT_EMAIL,
         private_key: redirectsPrivateKey && redirectsPrivateKey.replace(/\\n/gm, '\n'),

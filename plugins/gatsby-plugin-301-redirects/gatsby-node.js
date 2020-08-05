@@ -1,18 +1,9 @@
 const fs = require('fs');
 
 
-const query = `{
-  google301Redirects: allGoogleSpreadsheetRedirects301 {
-    redirects: nodes {
-      to
-      from
-    }
-  }
-}`;
-
 const writeFile = (file, data, reporter) => {
   // eslint-disable-next-line no-undef
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     fs.writeFile(file, data, err => {
       if (err) {
         reporter.warn(`301 Redirects: Unable to write to redirects file - ${file}`);
@@ -27,7 +18,7 @@ const writeFile = (file, data, reporter) => {
 
 const readFile = (file, reporter) => {
   // eslint-disable-next-line no-undef
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     fs.readFile(file, 'utf8', (err, data = '') => {
       if (err) {
         reporter.warn(`301 Redirects: Unable to read existing redirects from file - ${file}`);
@@ -42,36 +33,21 @@ const readFile = (file, reporter) => {
   });
 };
 
-const runQuery = (graphql, reporter) => {
-  return graphql(query).then(res => {
-    if (res.errors) {
-      reporter.panic(
-        '301 Redirects: Unable to run query. Check that your sheet has the correct title.',
-        new Error(res.errors)
-      );
-    }
+exports.onPostBootstrap = async function onPostBootstrap(helpers, options) {
+  const { getNodesByType, reporter } = helpers;
+  const { redirectsFilePath, redirectsOutputPath, nodeType = 'GoogleSpreadsheetRedirects301' } = options;
+  const redirectNodes = getNodesByType(nodeType);
 
-    const { redirects } = res.data.google301Redirects;
-
-    reporter.info(`301 Redirects: Found ${redirects.length} additional redirects from Google Sheets.`);
-
-    return redirects;
-  });
-};
-
-exports.onPostBootstrap = async function onPostBuild({ graphql, reporter }, options) {
   try {
-    const redirects = await runQuery(graphql, reporter);
-
-    if (!redirects || !redirects.length) {
+    if (!redirectNodes || !redirectNodes.length) {
       return reporter.warn('301 Redirects: no redirects found');
     }
 
-    const existingRedirects = await readFile(options.redirectsFilePath, reporter);
-    const newRedirects = redirects.reduce((redirects, { to, from }) => `${redirects}\n${from} ${to}`, '');
+    const existingRedirects = await readFile(redirectsFilePath, reporter);
+    const newRedirects = redirectNodes.reduce((redirects, { to, from }) => `${redirects}\n${from} ${to}`, '');
     const data = `${newRedirects}\n${existingRedirects}`;
 
-    return await writeFile(options.redirectsOutputPath, data, reporter);;
+    return await writeFile(redirectsOutputPath, data, reporter);;
   } catch (error) {
     reporter.warn('301 Redirects: Something went wrong');
   }
