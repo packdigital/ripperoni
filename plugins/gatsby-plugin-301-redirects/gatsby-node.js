@@ -35,7 +35,7 @@ const readFile = (file, reporter) => {
 
 exports.onPostBootstrap = async function onPostBootstrap(helpers, options) {
   const { getNodesByType, reporter } = helpers;
-  const { redirectsFilePath, redirectsOutputPath, nodeType = 'GoogleSpreadsheetRedirects301' } = options;
+  const { redirectsFilePath, redirectsOutputPath, nodeType = 'GoogleSpreadsheet301' } = options;
   const redirectNodes = getNodesByType(nodeType);
 
   try {
