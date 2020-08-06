@@ -41,11 +41,7 @@ const countLines = filePath => {
   return new Promise(resolve => {
     const targetFilePath = path.resolve(process.cwd(), filePath);
 
-    countLinesInFile(targetFilePath, (err, numberOfLines) => {
-      console.log('numberOfLines', numberOfLines);
-
-      resolve(numberOfLines);
-    });
+    countLinesInFile(targetFilePath, (err, numberOfLines) => resolve(numberOfLines));
   });
 };
 
