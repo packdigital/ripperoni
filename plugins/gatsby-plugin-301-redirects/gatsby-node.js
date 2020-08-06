@@ -1,4 +1,7 @@
 const fs = require('fs');
+const path = require('path');
+
+const countLinesInFile = require('count-lines-in-file');
 
 
 const writeFile = (file, data, reporter) => {
@@ -33,6 +36,15 @@ const readFile = (file, reporter) => {
   });
 };
 
+const countLines = path => {
+  // eslint-disable-next-line no-undef
+  return new Promise(resolve => {
+    const targetFilePath = path.resolve(__dirname, path);
+
+    countLinesInFile(targetFilePath, (err, numberOfLines) => resolve(numberOfLines));
+  });
+};
+
 exports.onPostBootstrap = async function onPostBootstrap(helpers, options) {
   const { getNodesByType, reporter } = helpers;
   const { redirectsFilePath, redirectsOutputPath, nodeType = 'GoogleSpreadsheet301' } = options;
@@ -43,9 +55,17 @@ exports.onPostBootstrap = async function onPostBootstrap(helpers, options) {
       return reporter.warn('301 Redirects: no redirects found');
     }
 
+
     const existingRedirects = await readFile(redirectsFilePath, reporter);
     const newRedirects = redirectNodes.reduce((redirects, { to, from }) => `${redirects}\n${from} ${to}`, '');
     const data = `${newRedirects}\n${existingRedirects}`;
+
+    const existingRedirectsCount = countLines(redirectsFilePath);
+    const newRedirectsCount = redirectNodes.length;
+
+    reporter.info(`301 Redirects: Found ${existingRedirectsCount} existing redirects`);
+    reporter.info(`301 Redirects: Found ${newRedirectsCount} new redirects`);
+    reporter.info(`301 Redirects: Writing out ${existingRedirectsCount + newRedirectsCount} total redirects`);
 
     return await writeFile(redirectsOutputPath, data, reporter);;
   } catch (error) {
