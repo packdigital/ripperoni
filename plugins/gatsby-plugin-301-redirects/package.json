@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-plugin-301-redirects",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -13,11 +13,7 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "clean": "gatsby clean",
-    "reset": "git clean -dfx && git reset --hard && yarn",
-    "version": "standard-version",
-    "prepare-release": "run-s reset version",
-    "publish-release": "yarn prepare-release && git push --follow-tags origin master && yarn publish --non-interactive"
+    "clean": "gatsby clean"
   },
   "peerDependencies": {
     "gatsby": "^2.23.3",
