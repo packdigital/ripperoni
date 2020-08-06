@@ -22,6 +22,6 @@
   },
   "prettier": "@packdigital/prettier-config-ripperoni",
   "dependencies": {
-    "count-lines-in-file": "^1.1.0"
+    "split": "^1.0.1"
   }
 }

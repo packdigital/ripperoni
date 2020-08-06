@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const countLinesInFile = require('count-lines-in-file');
+const split = require('split');
 
 
 const writeFile = (file, data, reporter) => {
@@ -38,10 +38,18 @@ const readFile = (file, reporter) => {
 
 const countLines = filePath => {
   // eslint-disable-next-line no-undef
-  return new Promise(resolve => {
-    const targetFilePath = path.resolve(process.cwd(), filePath);
+  return new Promise((resolve, reject) => {
+    let lineCount = 0;
 
-    countLinesInFile(targetFilePath, (err, numberOfLines) => resolve(numberOfLines));
+    fs.createReadStream(filePath)
+      .pipe(split())
+      .on('data', line => {
+        const isValidLine = /^[a-zA-Z/]/.test(line);
+
+        if (isValidLine) lineCount++;
+      })
+      .on('end', () => resolve(lineCount))
+      .on('error', error => reject(error));
   });
 };
 
@@ -54,7 +62,6 @@ exports.onPostBuild = async function onPostBuild(helpers, options) {
     if (!redirectNodes || !redirectNodes.length) {
       return reporter.warn('301 Redirects: no redirects found');
     }
-
 
     const existingRedirects = await readFile(redirectsFilePath, reporter);
     const newRedirects = redirectNodes.reduce((redirects, { to, from }) => `${redirects}\n${from} ${to}`, '');

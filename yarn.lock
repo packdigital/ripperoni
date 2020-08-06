@@ -6221,13 +6221,6 @@ cosmiconfig@^6.0.0:
     path-type "^4.0.0"
     yaml "^1.7.2"
 
-count-lines-in-file@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/count-lines-in-file/-/count-lines-in-file-1.1.0.tgz#fff1c7f4ecab9e7974458959782d76313b74fb15"
-  integrity sha1-//HH9Oyrnnl0RYlZeC12MTt0+xU=
-  dependencies:
-    split "^1.0.0"
-
 country-and-province@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/country-and-province/-/country-and-province-1.2.0.tgz#0535407a7fbc383ae81cff210219cf281c559da5"
@@ -16906,7 +16899,7 @@ split2@^2.0.0:
   dependencies:
     through2 "^2.0.2"
 
-split@^1.0.0:
+split@^1.0.0, split@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/split/-/split-1.0.1.tgz#605bd9be303aa59fb35f9229fbea0ddec9ea07d9"
   integrity sha512-mTyOoPbrivtXnwnIxZRFYRrPNtEFKlpB2fvjSnCQUiAA6qAZzqwna5envK4uk6OIeP17CsdF3rSBGYVBsU0Tkg==
