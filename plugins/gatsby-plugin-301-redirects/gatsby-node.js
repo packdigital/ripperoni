@@ -45,7 +45,7 @@ const countLines = filePath => {
   });
 };
 
-exports.onPostBootstrap = async function onPostBootstrap(helpers, options) {
+exports.onPostBuild = async function onPostBuild(helpers, options) {
   const { getNodesByType, reporter } = helpers;
   const { redirectsFilePath, redirectsOutputPath, nodeType = 'GoogleSpreadsheet301' } = options;
   const redirectNodes = getNodesByType(nodeType);
