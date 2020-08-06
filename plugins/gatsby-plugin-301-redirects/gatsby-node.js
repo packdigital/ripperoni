@@ -36,12 +36,16 @@ const readFile = (file, reporter) => {
   });
 };
 
-const countLines = path => {
+const countLines = filePath => {
   // eslint-disable-next-line no-undef
   return new Promise(resolve => {
-    const targetFilePath = path.resolve(__dirname, path);
+    const targetFilePath = path.resolve(process.cwd(), filePath);
 
-    countLinesInFile(targetFilePath, (err, numberOfLines) => resolve(numberOfLines));
+    countLinesInFile(targetFilePath, (err, numberOfLines) => {
+      console.log('numberOfLines', numberOfLines);
+
+      resolve(numberOfLines);
+    });
   });
 };
 
@@ -60,7 +64,7 @@ exports.onPostBootstrap = async function onPostBootstrap(helpers, options) {
     const newRedirects = redirectNodes.reduce((redirects, { to, from }) => `${redirects}\n${from} ${to}`, '');
     const data = `${newRedirects}\n${existingRedirects}`;
 
-    const existingRedirectsCount = countLines(redirectsFilePath);
+    const existingRedirectsCount = await countLines(redirectsFilePath);
     const newRedirectsCount = redirectNodes.length;
 
     reporter.info(`301 Redirects: Found ${existingRedirectsCount} existing redirects`);
