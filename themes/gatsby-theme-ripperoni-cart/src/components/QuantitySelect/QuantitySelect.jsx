@@ -82,6 +82,7 @@ export const QuantitySelect = ({
 QuantitySelect.displayName = 'Quantity Select';
 
 QuantitySelect.propTypes = {
+  id: PropTypes.string.isRequired,
   quantity: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

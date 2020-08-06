@@ -28,6 +28,7 @@ module.exports = themeOptions => {
         '@ripperoni/account': '@packdigital/gatsby-theme-ripperoni-account/src',
         '@ripperoni/cart/theme': '@packdigital/gatsby-theme-ripperoni-cart/src/gatsby-plugin-theme-ui',
         '@ripperoni/cart': '@packdigital/gatsby-theme-ripperoni-cart/src',
+        '@ripperoni/cms': '@packdigital/gatsby-theme-ripperoni-cms/src',
         '@ripperoni/components/theme': '@packdigital/gatsby-theme-ripperoni-components/src/gatsby-plugin-theme-ui',
         '@ripperoni/components/hooks': '@packdigital/gatsby-theme-ripperoni-components/src/hooks',
         '@ripperoni/components': '@packdigital/gatsby-theme-ripperoni-components/src/components',
