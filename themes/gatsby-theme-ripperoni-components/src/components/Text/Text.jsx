@@ -32,7 +32,7 @@ export const Text = forwardRef(({
       sx={sxObject}
       {...props}
     >
-      {children || text || longText.text}
+      {children || text || longText?.text}
     </TextUI>
   );
 });
