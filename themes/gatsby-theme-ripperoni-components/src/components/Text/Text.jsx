@@ -11,7 +11,7 @@ import TextSx from './Text.sx';
 export const Text = forwardRef(({
   children,
   text,
-  longText,
+  longText = {},
   ...incomingProps
 }, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps, TextSx);
