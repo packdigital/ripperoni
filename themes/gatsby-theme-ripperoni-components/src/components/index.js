@@ -14,6 +14,7 @@ export * from './Flex';
 export * from './FieldGroup';
 export * from './Grid';
 export * from './Heading';
+export * from './Hero';
 export * from './Image';
 export * from './InView';
 export * from './Link';

@@ -9,8 +9,9 @@ import TextSx from './Text.sx';
 
 
 export const Text = forwardRef(({
-  text,
   children,
+  text,
+  longText,
   ...incomingProps
 }, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps, TextSx);
@@ -18,6 +19,9 @@ export const Text = forwardRef(({
   Text.propTypes = {
     ...propTypes,
     text: PropTypes.any,
+    longText: PropTypes.shape({
+      text: PropTypes.string
+    }),
     children: PropTypes.any,
   };
 
@@ -28,7 +32,7 @@ export const Text = forwardRef(({
       sx={sxObject}
       {...props}
     >
-      {children || text}
+      {children || text || longText.text}
     </TextUI>
   );
 });

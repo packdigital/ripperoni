@@ -5,12 +5,12 @@ import { jsx } from 'theme-ui';
 import { Heading } from './Heading';
 
 
-export const H6 = forwardRef((props, ref) => {
-  H6.propTypes = Heading.propTypes;
+export const h6 = forwardRef((props, ref) => {
+  h6.propTypes = Heading.propTypes;
 
   return (
     <Heading
-      data-comp={H6.displayName}
+      data-comp={h6.displayName}
       ref={ref}
       variant='h6'
       {...props}
@@ -18,4 +18,4 @@ export const H6 = forwardRef((props, ref) => {
   );
 });
 
-H6.displayName = 'Heading.H6';
+h6.displayName = 'Heading.h6';

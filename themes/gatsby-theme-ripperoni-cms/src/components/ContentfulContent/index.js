@@ -1,1 +1,0 @@
-export { ContentfulContent } from './ContentfulContent';

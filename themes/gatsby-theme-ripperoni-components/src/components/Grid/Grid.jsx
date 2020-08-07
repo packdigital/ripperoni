@@ -20,10 +20,7 @@ export const Grid = forwardRef((incomingProps, ref) => {
     <GridUI
       data-comp={Grid.displayName}
       ref={ref}
-      sx={{
-        ...sxObject,
-        display: 'grid'
-      }}
+      sx={sxObject}
       width={props.uiWidth}
       gap={props.uiGap}
       columns={props.uiColumns}

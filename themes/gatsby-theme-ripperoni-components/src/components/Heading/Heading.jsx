@@ -5,12 +5,12 @@ import { Heading as HeadingUI, jsx } from 'theme-ui';
 
 import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
 
-import { H1 } from './H1';
-import { H2 } from './H2';
-import { H3 } from './H3';
-import { H4 } from './H4';
-import { H5 } from './H5';
-import { H6 } from './H6';
+import { h1 } from './H1';
+import { h2 } from './H2';
+import { h3 } from './H3';
+import { h4 } from './H4';
+import { h5 } from './H5';
+import { h6 } from './H6';
 import { Display } from './Display';
 import HeadingSx from './Heading.sx';
 
@@ -40,11 +40,11 @@ export const Heading = forwardRef(({
   );
 });
 
-Heading.H1 = H1;
-Heading.H2 = H2;
-Heading.H3 = H3;
-Heading.H4 = H4;
-Heading.H5 = H5;
-Heading.H6 = H6;
+Heading.h1 = h1;
+Heading.h2 = h2;
+Heading.h3 = h3;
+Heading.h4 = h4;
+Heading.h5 = h5;
+Heading.h6 = h6;
 Heading.Display = Display;
 Heading.displayName = 'Heading';

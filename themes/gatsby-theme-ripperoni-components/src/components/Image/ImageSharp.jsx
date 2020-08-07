@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 import GatsbyImage from 'gatsby-image';
-import { mutuallyExclusiveProps } from 'airbnb-prop-types';
+// import { mutuallyExclusiveProps } from 'airbnb-prop-types';
 
 
 export const ImageSharp = forwardRef((props, ref) => {
@@ -19,8 +19,10 @@ export const ImageSharp = forwardRef((props, ref) => {
 ImageSharp.displayName = 'Sharp Image';
 
 ImageSharp.propTypes = {
-  fixed: mutuallyExclusiveProps(PropTypes.object, 'fluid'),
-  fluid: mutuallyExclusiveProps(PropTypes.object, 'fixed'),
+  // fixed: mutuallyExclusiveProps(PropTypes.object, 'fluid'),
+  // fluid: mutuallyExclusiveProps(PropTypes.object, 'fixed'),
+  fixed: PropTypes.any,
+  fluid: PropTypes.any,
   fadeIn: PropTypes.bool,
   durationFadeIn: PropTypes.number,
   title: PropTypes.string,

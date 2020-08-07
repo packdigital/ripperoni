@@ -12,11 +12,14 @@ import { LinkButton } from './LinkButton';
 export const Link = forwardRef(({
   to,
   href,
+  url,  // comes from cms
   animate = true,
   ariaLabel,
   activeClassName,
   target,
   newWindow = false,
+  children,
+  text,
   ...incomingProps
 }, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps);
@@ -25,6 +28,7 @@ export const Link = forwardRef(({
     ...propTypes,
     to: PropTypes.string,
     href: PropTypes.string,
+    url: PropTypes.string,
     animate: PropTypes.bool,
     ariaLabel: PropTypes.string,
     activeClassName: PropTypes.string,
@@ -48,22 +52,26 @@ export const Link = forwardRef(({
     ...props
   };
 
-  if (to) {
+  if (to || url[0] === '/') {
     return (
       <GatsbyLink
         data-comp='Internal Link'
-        to={to}
+        to={to || url}
         {...linkProps}
-      />
+      >
+        {children || text}
+      </GatsbyLink>
     );
   }
 
   return (
     <LinkUI
       data-comp='External Link'
-      href={href}
+      href={href || url}
       {...linkProps}
-    />
+    >
+      {children || text}
+    </LinkUI>
   );
 });
 
