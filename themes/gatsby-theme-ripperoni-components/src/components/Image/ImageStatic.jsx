@@ -21,7 +21,7 @@ export const ImageStatic = forwardRef(({
 
   return (
     <ImageUI
-      data-comp={Image.displayName}
+      data-comp={ImageStatic.displayName}
       ref={ref}
       src={src}
       alt={altTxt}
