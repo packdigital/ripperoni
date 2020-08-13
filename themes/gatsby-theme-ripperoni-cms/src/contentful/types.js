@@ -28,19 +28,19 @@ module.exports = `
     contentful_id: String
   }
 
-  union ContentfulAtomButtonImageLinkTextUnion = ContentfulAtomButton | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText
+  union ContentfulMoleculeAtomButtonImageLinkTextUnion = ContentfulAtomButton | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMoleculeTest
 
   type ContentfulMolecule implements Node @infer {
     component: String
-    atoms: [ContentfulAtomButtonImageLinkTextUnion] @link(by: "id", from: "atoms___NODE")
+    atoms: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "atoms___NODE")
   }
 
   type ContentfulMoleculeTest implements Node @infer {
     component: String
     layout: String
-    content: [ContentfulAtomButtonImageLinkTextUnion] @link(by: "id", from: "content___NODE")
-    slots: [ContentfulAtomButtonImageLinkTextUnion] @link(by: "id", from: "slots___NODE")
-    atoms: [ContentfulAtomButtonImageLinkTextUnion] @link(by: "id", from: "atoms___NODE")
+    content: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "content___NODE")
+    slots: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "slots___NODE")
+    atoms: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "atoms___NODE")
   }
 `;
 

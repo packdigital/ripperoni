@@ -20,6 +20,7 @@ export const Link = forwardRef(({
   newWindow = false,
   children,
   text,
+  variant,
   ...incomingProps
 }, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps);
@@ -34,6 +35,7 @@ export const Link = forwardRef(({
     activeClassName: PropTypes.string,
     target: PropTypes.oneOf(['_blank', '_self']),
     newWindow: PropTypes.bool,
+    variant: PropTypes.string,
   };
 
   const linkProps = {
@@ -42,7 +44,7 @@ export const Link = forwardRef(({
     ref: ref,
     target: newWindow && '_blank' || target,
     sx: {
-      variant: 'styles.a',
+      variant: variant || 'styles.a',
       ...sxObject
     },
     state: {
@@ -52,8 +54,7 @@ export const Link = forwardRef(({
     ...props
   };
 
-  // if (to || url[0] === '/') {
-  if (to) {
+  if (to || url[0] === '/') {
     return (
       <GatsbyLink
         data-comp='Internal Link'

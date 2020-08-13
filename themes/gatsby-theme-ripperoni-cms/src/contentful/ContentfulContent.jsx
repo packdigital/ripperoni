@@ -1,8 +1,10 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 
-import { Grid } from '@ripperoni/components';
 import { components } from '@ripperoni/cms/contentful/components';
+
+import { SlottedContent } from './SlottedContent';
 
 
 export const ContentfulContent = ({
@@ -14,6 +16,7 @@ export const ContentfulContent = ({
   slots,
   lookup,
   atoms,
+  _sx,
   ...props
 }) => {
   if (!type) {
@@ -24,45 +27,34 @@ export const ContentfulContent = ({
     ? components[component]
     : components[type];
 
+  const getContent = (entry, group) => {
+    const { id } = entry.value.sys;
+    const normalizedId = id[0] === 'c' ? id.slice(1) : id;
+    const atom = group.find(({ contentful_id }) => contentful_id === normalizedId);
+
+    return (
+      <ContentfulContent
+        key={atom.id}
+        gridArea={entry.name}
+        {...atom}
+      />
+    );
+  };
+
+
   if (type === 'ContentfulMoleculeTest') {
-
-    const getContent = ({ name, value: { sys: { id }}}, group) => {
-      const normalizedId = id[0] === 'c' ? id.slice(1) : id;
-      const atom = group.find(({ contentful_id }) => contentful_id === normalizedId);
-
-      return (
-        <ContentfulContent
-          key={atom.id}
-          gridArea={name}
-          {...atom}
-        />
-      );
-    };
-
-    const rows = layout.split("' '").length;
-    const rowsMobile = layoutMobile.split("' '").length;
-    const columns = layout.split("' '")[0].split(' ').length;
-    const columnsMobile = layoutMobile.split("' '")[0].split(' ').length;
-
     const contentNodes = lookup.content
       .reduce((fields, field) => ({ ...fields, [field.name]: getContent(field, content) }), {});
     const slotsNodes = lookup.slots
       .reduce((slotContent, slot) => [ ...slotContent, getContent(slot, slots) ], []);
-
-    const SlottedContent = () => (
-      <Grid
-        gridTemplateColumns={[`repeat(${columnsMobile}, 1fr)`, null, null, `repeat(${columns}, 1fr)`]}
-        gridTemplateRows={[`repeat(${rowsMobile}, auto)`, null, null, `repeat(${rows}, auto)`]}
-        gridTemplateAreas={[layoutMobile, null, null, layout]}
-      >
-        {slotsNodes}
-      </Grid>
-    );
+    const slottedContentProps = { layout, layoutMobile, lookup, slots, children: slotsNodes };
 
     return (
       <Component
-        _content={<SlottedContent />}
+        _content={<SlottedContent {...slottedContentProps} />}
+        sx={_sx}
         {...contentNodes}
+        {...props}
       />
     );
   }
@@ -75,10 +67,21 @@ export const ContentfulContent = ({
       />
     ));
 
-    return <Component _content={content} />;
+    return (
+      <Component
+        _content={content}
+        sx={_sx}
+        {...props}
+      />
+    );
   }
 
-  return <Component {...props} />;
+  return (
+    <Component
+      sx={_sx}
+      {...props}
+    />
+  );
 };
 
 ContentfulContent.displayName = 'Contentful Content';
@@ -92,4 +95,5 @@ ContentfulContent.propTypes = {
   slots: PropTypes.object,
   lookup: PropTypes.object,
   atoms: PropTypes.arrayOf(PropTypes.object),
+  _sx: PropTypes.object,
 };

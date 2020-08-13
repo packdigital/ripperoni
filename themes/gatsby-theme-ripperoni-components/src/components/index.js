@@ -5,6 +5,7 @@ export * from './Box';
 export * from './Button';
 export * from './Checkbox';
 export * from './ClientSideOnly';
+export * from './CmsContent';
 export * from './Container';
 export * from './Date';
 export * from './Divider';
