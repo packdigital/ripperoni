@@ -9,6 +9,7 @@ export const ContentfulAtomTextFragment = graphql`
     }
     color
     variant
+    contentful_id
     __typename
   }
 `;

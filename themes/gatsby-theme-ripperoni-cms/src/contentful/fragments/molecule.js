@@ -5,6 +5,8 @@ export const ContentfulMoleculeFragment = graphql`
   fragment ContentfulMolecule on ContentfulMolecule {
     id
     component
+    layout
+    layoutMobile
     atoms {
       ... on ContentfulAtomButton {
         ...ContentfulAtomButton
@@ -17,6 +19,72 @@ export const ContentfulMoleculeFragment = graphql`
       }
       ... on ContentfulAtomText {
         ...ContentfulAtomText
+      }
+    }
+    lookup {
+      name
+      value {
+        sys {
+          id
+        }
+      }
+    }
+    __typename
+  }
+`;
+
+export const ContentfulMoleculeTestFragment = graphql`
+  fragment ContentfulMoleculeTest on ContentfulMoleculeTest {
+    id
+    component
+    layout
+    layoutMobile
+    content {
+      ... on ContentfulAtomButton {
+        ...ContentfulAtomButton
+      }
+      ... on ContentfulAtomImage {
+        ...ContentfulAtomImage
+      }
+      ... on ContentfulAtomLink {
+        ...ContentfulAtomLink
+      }
+      ... on ContentfulAtomText {
+        ...ContentfulAtomText
+      }
+      __typename
+    }
+    slots {
+      ... on ContentfulAtomButton {
+        ...ContentfulAtomButton
+      }
+      ... on ContentfulAtomImage {
+        ...ContentfulAtomImage
+      }
+      ... on ContentfulAtomLink {
+        ...ContentfulAtomLink
+      }
+      ... on ContentfulAtomText {
+        ...ContentfulAtomText
+      }
+      __typename
+    }
+    lookup {
+      content {
+        name
+        value {
+          sys {
+            id
+          }
+        }
+      }
+      slots {
+        name
+        value {
+          sys {
+            id
+          }
+        }
       }
     }
     __typename

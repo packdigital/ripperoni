@@ -17,6 +17,7 @@ export const ContentfulAtomImageFragment = graphql`
         ...GatsbyContentfulFluid_withWebp_noBase64
       }
     }
+    contentful_id
     __typename
   }
 `;

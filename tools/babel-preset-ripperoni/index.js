@@ -7,6 +7,7 @@ module.exports = (api, options) => {
 
   const presets = [
     [
+      // consider removing this and making people include it in their project
       'babel-preset-gatsby',
       {
         'targets': {

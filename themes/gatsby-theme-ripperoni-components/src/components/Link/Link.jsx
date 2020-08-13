@@ -52,7 +52,8 @@ export const Link = forwardRef(({
     ...props
   };
 
-  if (to || url[0] === '/') {
+  // if (to || url[0] === '/') {
+  if (to) {
     return (
       <GatsbyLink
         data-comp='Internal Link'
