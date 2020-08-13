@@ -8,6 +8,7 @@ export const ContentfulAtomLinkFragment = graphql`
     url
     color
     variant
+    contentful_id
     __typename
   }
 `;

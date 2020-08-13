@@ -1,21 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Box, Grid } from '@ripperoni/components';
+import { Box } from '@ripperoni/components';
 
 
 export const Hero = ({
-  _content = [],
   image,
   height,
   backgroundColor,
   contentBounds,
   contentBox,
   children,
+  _content,
   ...props
 }) => {
-  const [cmsImage, ...cmsContent] = _content;
-
   return (
     <Box
       data-comp={Hero.displayName}
@@ -28,10 +26,10 @@ export const Hero = ({
         width='full'
         height={height}
       >
-        {image || cmsImage}
+        {image}
       </Box>
 
-      <Grid
+      <Box
         data-comp='Hero Contents Box'
         position='absolute'
         top={contentBounds?.top || 0}
@@ -40,14 +38,13 @@ export const Hero = ({
         right={contentBounds?.right || 0}
         {...contentBox}
       >
-        {children || cmsContent}
-      </Grid>
+        {children || _content}
+      </Box>
     </Box>
   );
 };
 
 Hero.propTypes = {
-  _content: PropTypes.array,
   image: PropTypes.object,
   height: PropTypes.string,
   backgroundColor: PropTypes.string,
@@ -59,6 +56,7 @@ Hero.propTypes = {
   }),
   contentBox: PropTypes.object,
   children: PropTypes.any,
+  _content: PropTypes.array,
 };
 
 Hero.displayName = 'Hero';

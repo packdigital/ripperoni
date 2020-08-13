@@ -8,6 +8,7 @@ export const ContentfulAtomButtonFragment = graphql`
     color
     backgroundColor
     variant
+    contentful_id
     __typename
   }
 `;
