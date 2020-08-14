@@ -1,45 +1,13 @@
 import { graphql } from 'gatsby';
 
 
-export const ContentfulMoleculeFragment = graphql`
-  fragment ContentfulMolecule on ContentfulMolecule {
-    id
-    component
-    layout
-    layoutMobile
-    atoms {
-      ... on ContentfulAtomButton {
-        ...ContentfulAtomButton
-      }
-      ... on ContentfulAtomImage {
-        ...ContentfulAtomImage
-      }
-      ... on ContentfulAtomLink {
-        ...ContentfulAtomLink
-      }
-      ... on ContentfulAtomText {
-        ...ContentfulAtomText
-      }
-    }
-    lookup {
-      name
-      value {
-        sys {
-          id
-        }
-      }
-    }
-    __typename
-  }
-`;
-
 export const ContentfulMoleculeTestFragment = graphql`
   fragment ContentfulMoleculeTest on ContentfulMoleculeTest {
     id
     contentful_id
     component
-    layout
-    layoutMobile
+    gridDesktop
+    gridMobile
     content {
       ... on ContentfulAtomButton {
         ...ContentfulAtomButton
@@ -70,21 +38,19 @@ export const ContentfulMoleculeTestFragment = graphql`
       }
       __typename
     }
-    lookup {
-      content {
-        name
-        value {
-          sys {
-            id
-          }
+    lookupContent {
+      name
+      entries {
+        sys {
+          id
         }
       }
-      slots {
-        name
-        value {
-          sys {
-            id
-          }
+    }
+    lookupSlots {
+      name
+      entries {
+        sys {
+          id
         }
       }
     }
@@ -97,8 +63,8 @@ export const RecursiveContentfulMoleculeTestFragment = graphql`
     id
     contentful_id
     component
-    layout
-    layoutMobile
+    gridDesktop
+    gridMobile
     content {
       ... on ContentfulAtomButton {
         ...ContentfulAtomButton
@@ -135,21 +101,19 @@ export const RecursiveContentfulMoleculeTestFragment = graphql`
       }
       __typename
     }
-    lookup {
-      content {
-        name
-        value {
-          sys {
-            id
-          }
+    lookupContent {
+      name
+      entries {
+        sys {
+          id
         }
       }
-      slots {
-        name
-        value {
-          sys {
-            id
-          }
+    }
+    lookupSlots {
+      name
+      entries {
+        sys {
+          id
         }
       }
     }

@@ -10,11 +10,12 @@ import { SlottedContent } from './SlottedContent';
 export const ContentfulContent = ({
   __typename: type,
   component,
-  layout,
-  layoutMobile,
+  gridDesktop,
+  gridMobile,
   content,
   slots,
-  lookup,
+  lookupContent,
+  lookupSlots,
   atoms,
   _sx,
   ...props
@@ -27,27 +28,29 @@ export const ContentfulContent = ({
     ? components[component]
     : components[type];
 
-  const getContent = (entry, group) => {
-    const { id } = entry.value.sys;
-    const normalizedId = id[0] === 'c' ? id.slice(1) : id;
-    const atom = group.find(({ contentful_id }) => contentful_id === normalizedId);
+  const getContent = ({ name, entries }, group) => {
+    return entries.map(({ sys: { id }}, index) => {
+      const normalizedId = id[0] === 'c' ? id.slice(1) : id;
+      const content = group.find(({ contentful_id }) => contentful_id === normalizedId);
 
-    return (
-      <ContentfulContent
-        key={atom.id}
-        gridArea={entry.name}
-        {...atom}
-      />
-    );
+      return (
+        <ContentfulContent
+          gridArea={name}
+          {...content}
+          key={`${index}+${id}`}
+        />
+      );
+    });
+
   };
 
 
   if (type === 'ContentfulMoleculeTest') {
-    const contentNodes = lookup.content
+    const contentNodes = lookupContent
       .reduce((fields, field) => ({ ...fields, [field.name]: getContent(field, content) }), {});
-    const slotsNodes = lookup.slots
-      .reduce((slotContent, slot) => [ ...slotContent, getContent(slot, slots) ], []);
-    const slottedContentProps = { layout, layoutMobile, lookup, slots, children: slotsNodes };
+    const slotsNodes = lookupSlots
+      .reduce((slotContent, slot) => [ ...slotContent, ...getContent(slot, slots) ], []);
+    const slottedContentProps = { gridDesktop, gridMobile, children: slotsNodes };
 
     return (
       <Component
@@ -89,11 +92,12 @@ ContentfulContent.displayName = 'Contentful Content';
 ContentfulContent.propTypes = {
   __typename: PropTypes.string,
   component: PropTypes.string,
-  layout: PropTypes.string,
-  layoutMobile: PropTypes.string,
-  content: PropTypes.object,
-  slots: PropTypes.object,
-  lookup: PropTypes.object,
+  gridDesktop: PropTypes.string,
+  gridMobile: PropTypes.string,
+  content: PropTypes.array,
+  slots: PropTypes.array,
+  lookupContent: PropTypes.array,
+  lookupSlots: PropTypes.array,
   atoms: PropTypes.arrayOf(PropTypes.object),
   _sx: PropTypes.object,
 };

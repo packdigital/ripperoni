@@ -5,21 +5,21 @@ import PropTypes from 'prop-types';
 import { Grid } from '@ripperoni/components';
 
 
-export const SlottedContent = ({ layout, layoutMobile, children }) => {
-  if (!layout) {
+export const SlottedContent = ({ gridDesktop, gridMobile, children }) => {
+  if (!gridDesktop) {
     return null;
   }
 
-  const rows = layout.split("' '").length;
-  const rowsMobile = layoutMobile.split("' '").length;
-  const columns = layout.split("' '")[0].split(' ').length;
-  const columnsMobile = layoutMobile.split("' '")[0].split(' ').length;
+  const rows = gridDesktop.split("' '").length;
+  const rowsMobile = gridMobile.split("' '").length;
+  const columns = gridDesktop.split("' '")[0].split(' ').length;
+  const columnsMobile = gridMobile.split("' '")[0].split(' ').length;
 
   return (
     <Grid
       gridTemplateColumns={[`repeat(${columnsMobile}, 1fr)`, null, null, `repeat(${columns}, 1fr)`]}
       gridTemplateRows={[`repeat(${rowsMobile}, auto)`, null, null, `repeat(${rows}, auto)`]}
-      gridTemplateAreas={[layoutMobile, null, null, layout]}
+      gridTemplateAreas={[gridMobile, null, null, gridDesktop]}
     >
       {children}
     </Grid>
@@ -29,9 +29,7 @@ export const SlottedContent = ({ layout, layoutMobile, children }) => {
 SlottedContent.displayName = 'SlottedContent';
 
 SlottedContent.propTypes = {
-  layout: PropTypes.string,
-  layoutMobile: PropTypes.string,
-  lookup: PropTypes.object,
-  slots: PropTypes.array,
+  gridDesktop: PropTypes.string,
+  gridMobile: PropTypes.string,
   children: PropTypes.any,
 };

@@ -45,7 +45,10 @@ export const Hero = ({
 };
 
 Hero.propTypes = {
-  image: PropTypes.object,
+  image: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
   height: PropTypes.string,
   backgroundColor: PropTypes.string,
   contentBounds: PropTypes.shape({
@@ -56,7 +59,10 @@ Hero.propTypes = {
   }),
   contentBox: PropTypes.object,
   children: PropTypes.any,
-  _content: PropTypes.array,
+  _content: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
 };
 
 Hero.displayName = 'Hero';

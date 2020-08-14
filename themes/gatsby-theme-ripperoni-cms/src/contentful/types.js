@@ -36,11 +36,10 @@ module.exports = `
   }
 
   type ContentfulMoleculeTest implements Node @infer {
-    component: String
-    layout: String
+    gridDesktop: String
+    gridMobile: String
     content: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "content___NODE")
     slots: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "slots___NODE")
-    atoms: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "atoms___NODE")
   }
 `;
 
