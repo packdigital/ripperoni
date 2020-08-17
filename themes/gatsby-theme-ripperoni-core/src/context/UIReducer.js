@@ -14,6 +14,16 @@ export const reducer = (state, action) => {
         cart: false,
         modal: !state.modal,
       };
+    case 'SHOW_MEGA_NAV':
+      return {
+        ...state,
+        megaNav: action.data,
+      };
+    case 'HIDE_MEGA_NAV':
+      return {
+        ...state,
+        megaNav: null,
+      };
     default:
       throw new Error('No such action type: ${action.type}');
   }

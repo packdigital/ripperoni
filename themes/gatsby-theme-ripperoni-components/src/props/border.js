@@ -31,31 +31,106 @@ const sx = [
 ];
 
 const propTypes = {
-  border: PropTypes.string,
-  borderTop: PropTypes.string,
-  borderRight: PropTypes.string,
-  borderBottom: PropTypes.string,
-  borderLeft: PropTypes.string,
-  borderStyle: PropTypes.string,
-  borderTopStyle: PropTypes.string,
-  borderRightStyle: PropTypes.string,
-  borderBottomStyle: PropTypes.string,
-  borderLeftStyle: PropTypes.string,
-  borderWidth: PropTypes.string,
-  borderTopWidth: PropTypes.string,
-  borderRightWidth: PropTypes.string,
-  borderBottomWidth: PropTypes.string,
-  borderLeftWidth: PropTypes.string,
-  borderColor: PropTypes.string,
-  borderTopColor: PropTypes.string,
-  borderRightColor: PropTypes.string,
-  borderBottomColor: PropTypes.string,
-  borderLeftColor: PropTypes.string,
-  bordrRadius: PropTypes.string,
-  borderTopRightRadius: PropTypes.string,
-  borderBottomRightRadius: PropTypes.string,
-  borderBottomLeftRadius: PropTypes.string,
-  borderTopLeftRadius: PropTypes.string,
+  border: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderTop: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderRight: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderBottom: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderLeft: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderStyle: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderTopStyle: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderRightStyle: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderBottomStyle: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderLeftStyle: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderTopWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderRightWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderBottomWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderLeftWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderColor: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderTopColor: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderRightColor: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderBottomColor: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderLeftColor: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  bordrRadius: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderTopRightRadius: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderBottomRightRadius: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderBottomLeftRadius: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  borderTopLeftRadius: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
 };
 
 export default {
