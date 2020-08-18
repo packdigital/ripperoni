@@ -6,7 +6,7 @@ export const CmsContent = ({
   content,
   ...props
 }) => {
-  if (!children || !content) {
+  if (!children && !content) {
     return null;
   }
 
