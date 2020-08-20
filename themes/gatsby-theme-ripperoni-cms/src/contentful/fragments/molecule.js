@@ -1,8 +1,8 @@
 import { graphql } from 'gatsby';
 
 
-export const ContentfulMoleculeTestDataFragment = graphql`
-  fragment ContentfulMoleculeTestData on ContentfulMoleculeTest {
+export const ContentfulMoleculeDataFragment = graphql`
+  fragment ContentfulMoleculeData on ContentfulMolecule {
     id
     contentful_id
     component
@@ -28,30 +28,30 @@ export const ContentfulMoleculeTestDataFragment = graphql`
   }
 `;
 
-export const RecursiveContentfulMoleculeTestFragment = graphql`
-  fragment RecursiveContentfulMoleculeTest on ContentfulMoleculeTest {
-    ...ContentfulMoleculeTestData
+export const ContentfulMoleculeFragment = graphql`
+  fragment ContentfulMolecule on ContentfulMolecule {
+    ...ContentfulMoleculeData
     content {
       ... on ContentfulAtomButton { ...ContentfulAtomButton }
       ... on ContentfulAtomImage { ...ContentfulAtomImage }
       ... on ContentfulAtomLink { ...ContentfulAtomLink }
       ... on ContentfulAtomText { ...ContentfulAtomText }
-      ... on ContentfulMoleculeTest {
-        ...ContentfulMoleculeTestData
+      ... on ContentfulMolecule {
+        ...ContentfulMoleculeData
         content {
           ... on ContentfulAtomButton { ...ContentfulAtomButton }
           ... on ContentfulAtomImage { ...ContentfulAtomImage }
           ... on ContentfulAtomLink { ...ContentfulAtomLink }
           ... on ContentfulAtomText { ...ContentfulAtomText }
-          ... on ContentfulMoleculeTest {
-            ...ContentfulMoleculeTestData
+          ... on ContentfulMolecule {
+            ...ContentfulMoleculeData
             content {
               ... on ContentfulAtomButton { ...ContentfulAtomButton }
               ... on ContentfulAtomImage { ...ContentfulAtomImage }
               ... on ContentfulAtomLink { ...ContentfulAtomLink }
               ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMoleculeTest {
-                ...ContentfulMoleculeTestData
+              ... on ContentfulMolecule {
+                ...ContentfulMoleculeData
                 content {
                   ... on ContentfulAtomButton { ...ContentfulAtomButton }
                   ... on ContentfulAtomImage { ...ContentfulAtomImage }
@@ -71,8 +71,8 @@ export const RecursiveContentfulMoleculeTestFragment = graphql`
               ... on ContentfulAtomImage { ...ContentfulAtomImage }
               ... on ContentfulAtomLink { ...ContentfulAtomLink }
               ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMoleculeTest {
-                ...ContentfulMoleculeTestData
+              ... on ContentfulMolecule {
+                ...ContentfulMoleculeData
                 content {
                   ... on ContentfulAtomButton { ...ContentfulAtomButton }
                   ... on ContentfulAtomImage { ...ContentfulAtomImage }
@@ -94,15 +94,15 @@ export const RecursiveContentfulMoleculeTestFragment = graphql`
           ... on ContentfulAtomImage { ...ContentfulAtomImage }
           ... on ContentfulAtomLink { ...ContentfulAtomLink }
           ... on ContentfulAtomText { ...ContentfulAtomText }
-          ... on ContentfulMoleculeTest {
-            ...ContentfulMoleculeTestData
+          ... on ContentfulMolecule {
+            ...ContentfulMoleculeData
             content {
               ... on ContentfulAtomButton { ...ContentfulAtomButton }
               ... on ContentfulAtomImage { ...ContentfulAtomImage }
               ... on ContentfulAtomLink { ...ContentfulAtomLink }
               ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMoleculeTest {
-                ...ContentfulMoleculeTestData
+              ... on ContentfulMolecule {
+                ...ContentfulMoleculeData
                 content {
                   ... on ContentfulAtomButton { ...ContentfulAtomButton }
                   ... on ContentfulAtomImage { ...ContentfulAtomImage }
@@ -122,8 +122,8 @@ export const RecursiveContentfulMoleculeTestFragment = graphql`
               ... on ContentfulAtomImage { ...ContentfulAtomImage }
               ... on ContentfulAtomLink { ...ContentfulAtomLink }
               ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMoleculeTest {
-                ...ContentfulMoleculeTestData
+              ... on ContentfulMolecule {
+                ...ContentfulMoleculeData
                 content {
                   ... on ContentfulAtomButton { ...ContentfulAtomButton }
                   ... on ContentfulAtomImage { ...ContentfulAtomImage }
@@ -147,22 +147,22 @@ export const RecursiveContentfulMoleculeTestFragment = graphql`
       ... on ContentfulAtomImage { ...ContentfulAtomImage }
       ... on ContentfulAtomLink { ...ContentfulAtomLink }
       ... on ContentfulAtomText { ...ContentfulAtomText }
-      ... on ContentfulMoleculeTest {
-        ...ContentfulMoleculeTestData
+      ... on ContentfulMolecule {
+        ...ContentfulMoleculeData
         content {
           ... on ContentfulAtomButton { ...ContentfulAtomButton }
           ... on ContentfulAtomImage { ...ContentfulAtomImage }
           ... on ContentfulAtomLink { ...ContentfulAtomLink }
           ... on ContentfulAtomText { ...ContentfulAtomText }
-          ... on ContentfulMoleculeTest {
-            ...ContentfulMoleculeTestData
+          ... on ContentfulMolecule {
+            ...ContentfulMoleculeData
             content {
               ... on ContentfulAtomButton { ...ContentfulAtomButton }
               ... on ContentfulAtomImage { ...ContentfulAtomImage }
               ... on ContentfulAtomLink { ...ContentfulAtomLink }
               ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMoleculeTest {
-                ...ContentfulMoleculeTestData
+              ... on ContentfulMolecule {
+                ...ContentfulMoleculeData
                 content {
                   ... on ContentfulAtomButton { ...ContentfulAtomButton }
                   ... on ContentfulAtomImage { ...ContentfulAtomImage }
@@ -182,8 +182,8 @@ export const RecursiveContentfulMoleculeTestFragment = graphql`
               ... on ContentfulAtomImage { ...ContentfulAtomImage }
               ... on ContentfulAtomLink { ...ContentfulAtomLink }
               ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMoleculeTest {
-                ...ContentfulMoleculeTestData
+              ... on ContentfulMolecule {
+                ...ContentfulMoleculeData
                 content {
                   ... on ContentfulAtomButton { ...ContentfulAtomButton }
                   ... on ContentfulAtomImage { ...ContentfulAtomImage }
@@ -205,15 +205,15 @@ export const RecursiveContentfulMoleculeTestFragment = graphql`
           ... on ContentfulAtomImage { ...ContentfulAtomImage }
           ... on ContentfulAtomLink { ...ContentfulAtomLink }
           ... on ContentfulAtomText { ...ContentfulAtomText }
-          ... on ContentfulMoleculeTest {
-            ...ContentfulMoleculeTestData
+          ... on ContentfulMolecule {
+            ...ContentfulMoleculeData
             content {
               ... on ContentfulAtomButton { ...ContentfulAtomButton }
               ... on ContentfulAtomImage { ...ContentfulAtomImage }
               ... on ContentfulAtomLink { ...ContentfulAtomLink }
               ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMoleculeTest {
-                ...ContentfulMoleculeTestData
+              ... on ContentfulMolecule {
+                ...ContentfulMoleculeData
                 content {
                   ... on ContentfulAtomButton { ...ContentfulAtomButton }
                   ... on ContentfulAtomImage { ...ContentfulAtomImage }
@@ -233,8 +233,8 @@ export const RecursiveContentfulMoleculeTestFragment = graphql`
               ... on ContentfulAtomImage { ...ContentfulAtomImage }
               ... on ContentfulAtomLink { ...ContentfulAtomLink }
               ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMoleculeTest {
-                ...ContentfulMoleculeTestData
+              ... on ContentfulMolecule {
+                ...ContentfulMoleculeData
                 content {
                   ... on ContentfulAtomButton { ...ContentfulAtomButton }
                   ... on ContentfulAtomImage { ...ContentfulAtomImage }

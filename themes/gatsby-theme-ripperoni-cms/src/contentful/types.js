@@ -28,14 +28,9 @@ module.exports = `
     contentful_id: String
   }
 
-  union ContentfulMoleculeAtomButtonImageLinkTextUnion = ContentfulAtomButton | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMoleculeTest
+  union ContentfulMoleculeAtomButtonImageLinkTextUnion = ContentfulAtomButton | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMolecule
 
   type ContentfulMolecule implements Node @infer {
-    component: String
-    atoms: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "atoms___NODE")
-  }
-
-  type ContentfulMoleculeTest implements Node @infer {
     gridDesktop: String
     gridMobile: String
     content: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "content___NODE")

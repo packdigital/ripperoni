@@ -8,7 +8,6 @@ import { SlottedContent } from './SlottedContent';
 
 
 export const ContentfulContent = ({
-  __typename: type,
   component,
   gridDesktop,
   gridMobile,
@@ -16,15 +15,15 @@ export const ContentfulContent = ({
   slots,
   lookupContent,
   lookupSlots,
-  atoms,
   _sx,
+  __typename: type,
   ...props
 }) => {
   if (!type) {
     return null;
   }
 
-  const Component = ['ContentfulMolecule', 'ContentfulMoleculeTest'].includes(type)
+  const Component = type === 'ContentfulMolecule'
     ? components[component]
     : components[type];
 
@@ -45,7 +44,7 @@ export const ContentfulContent = ({
   };
 
 
-  if (type === 'ContentfulMoleculeTest') {
+  if (type === 'ContentfulMolecule') {
     const contentNodes = lookupContent
       .reduce((fields, field) => ({ ...fields, [field.name]: getContent(field, content) }), {});
     const slotsNodes = lookupSlots
@@ -62,23 +61,6 @@ export const ContentfulContent = ({
     );
   }
 
-  if (type === 'ContentfulMolecule') {
-    const content = atoms.map((atom, index) => (
-      <ContentfulContent
-        key={index}
-        {...atom}
-      />
-    ));
-
-    return (
-      <Component
-        _content={content}
-        sx={_sx}
-        {...props}
-      />
-    );
-  }
-
   return (
     <Component
       sx={_sx}
@@ -90,7 +72,6 @@ export const ContentfulContent = ({
 ContentfulContent.displayName = 'Contentful Content';
 
 ContentfulContent.propTypes = {
-  __typename: PropTypes.string,
   component: PropTypes.string,
   gridDesktop: PropTypes.string,
   gridMobile: PropTypes.string,
@@ -100,4 +81,5 @@ ContentfulContent.propTypes = {
   lookupSlots: PropTypes.array,
   atoms: PropTypes.arrayOf(PropTypes.object),
   _sx: PropTypes.object,
+  __typename: PropTypes.string,
 };
