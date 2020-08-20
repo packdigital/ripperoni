@@ -913,6 +913,14 @@
     "@babel/helper-create-regexp-features-plugin" "^7.10.4"
     "@babel/helper-plugin-utils" "^7.10.4"
 
+"@babel/polyfill@^7.7.0":
+  version "7.10.4"
+  resolved "https://registry.yarnpkg.com/@babel/polyfill/-/polyfill-7.10.4.tgz#915e5bfe61490ac0199008e35ca9d7d151a8e45a"
+  integrity sha512-8BYcnVqQ5kMD2HXoHInBH7H1b/uP3KdnwCYXOqFnXqguOyuu443WXusbIUbWEfY3Z0Txk0M1uG/8YuAMhNl6zg==
+  dependencies:
+    core-js "^2.6.5"
+    regenerator-runtime "^0.13.4"
+
 "@babel/preset-env@^7.10.3":
   version "7.11.0"
   resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.11.0.tgz#860ee38f2ce17ad60480c2021ba9689393efb796"
@@ -2831,6 +2839,47 @@
   integrity sha512-GnuPuTRCf+Ih47BoKvGyB+jP8EVWLb04GfbGa5neOrjdp90qrb4zr7pMSL4ZvTsrxt9MRooJA2BhSxs5DbyqCQ==
   dependencies:
     tslib "^2.0.0"
+
+"@react-hook/debounce@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@react-hook/debounce/-/debounce-3.0.0.tgz#9eea8b5d81d4cb67cd72dd8657b3ff724afc7cad"
+  integrity sha512-ir/kPrSfAzY12Gre0sOHkZ2rkEmM4fS5M5zFxCi4BnCeXh2nvx9Ujd+U4IGpKCuPA+EQD0pg1eK2NGLvfWejag==
+  dependencies:
+    "@react-hook/latest" "^1.0.2"
+
+"@react-hook/event@^1.2.1":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@react-hook/event/-/event-1.2.2.tgz#f467b82ae7c2567eff2427d6af98f9487a0a3d5d"
+  integrity sha512-TDPC2zyMnvExp6Brg5pbEt8yFGoiVFcyduW2auqbJ825pmlK91rrC+/k8UZpnPjA6UdmFRX16uY9PYeydpJW1Q==
+  dependencies:
+    "@react-hook/latest" "^1.0.2"
+    "@react-hook/passive-layout-effect" "^1.2.0"
+
+"@react-hook/latest@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@react-hook/latest/-/latest-1.0.2.tgz#767eb6974f91eef353981b8b60a87147dadecb18"
+  integrity sha512-zLtOIToct1EBTbwldkMJsXC2eCsmWOOP7z6UG0M/sCgnPExtIjvVMCpPESvPnMbQzDZytXVy0nvMbUuK2gZs2A==
+
+"@react-hook/passive-layout-effect@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@react-hook/passive-layout-effect/-/passive-layout-effect-1.2.0.tgz#1232f0b08f9bfd9f87a2898a3ae50d5f7731d806"
+  integrity sha512-obGcMHoeiG/qp9djzlxwvlsAzL4a+JFaxTLvJv8GykipmS/TEkfvdcpu6orE1ZL4dAT7OpoGwHDc/LGJbkZzXQ==
+
+"@react-hook/throttle@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@react-hook/throttle/-/throttle-2.2.0.tgz#d0402714a06e1ba0bc1da1fdf5c3c5cd0e08d45a"
+  integrity sha512-LJ5eg+yMV8lXtqK3lR+OtOZ2WH/EfWvuiEEu0M3bhR7dZRfTyEJKxH1oK9uyBxiXPtWXiQggWbZirMCXam51tg==
+  dependencies:
+    "@react-hook/latest" "^1.0.2"
+
+"@react-hook/window-size@^3.0.7":
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/@react-hook/window-size/-/window-size-3.0.7.tgz#00d176e7a8eb55814e161eae34aae20afbcbe35d"
+  integrity sha512-bK5ed/jN+cxy0s1jt2CelCnUt7jZRseUvPQ22ZJkUl/QDOsD+7CA/6wcqC3c0QweM/fPBRP6uI56TJ48SnlVww==
+  dependencies:
+    "@react-hook/debounce" "^3.0.0"
+    "@react-hook/event" "^1.2.1"
+    "@react-hook/throttle" "^2.2.0"
 
 "@sindresorhus/df@^1.0.1":
   version "1.0.1"
@@ -6215,7 +6264,7 @@ core-js-pure@^3.0.0:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.6.5.tgz#c79e75f5e38dbc85a662d91eea52b8256d53b813"
   integrity sha512-lacdXOimsiD0QyNf9BC/mxivNJ/ybBGJXQFKzRekp1WTHoVUWsUHEn+2T8GJAzzIhyOuXA+gOxCVN3l+5PLPUA==
 
-core-js@2.6.11, core-js@^2.0.0, core-js@^2.4.0:
+core-js@2.6.11, core-js@^2.0.0, core-js@^2.4.0, core-js@^2.6.5:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg==
@@ -8585,6 +8634,11 @@ flat-cache@^2.0.1:
     flatted "^2.0.0"
     rimraf "2.6.3"
     write "1.0.3"
+
+flat-combine-reducers@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/flat-combine-reducers/-/flat-combine-reducers-0.1.2.tgz#9eb8862f66a6f39b797d1b50393d4e8e0dcd9df7"
+  integrity sha1-nriGL2am85t5fRtQOT1Ojg3Nnfc=
 
 flatted@^2.0.0:
   version "2.0.2"
@@ -15472,6 +15526,13 @@ react-clientside-effect@^1.2.2:
   dependencies:
     "@babel/runtime" "^7.0.0"
 
+react-combine-reducers@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-combine-reducers/-/react-combine-reducers-1.0.4.tgz#e46861ae77041d88548e34bdb3059bd810e0ebb5"
+  integrity sha512-pMY5ymvbD40tzQA+o0RrsVK6NOPf4Dg/EfVlodKoA0AQH280DEdi+q4zzUmVms/tAp+NfgUMDgF6/gnXQ/BOWg==
+  dependencies:
+    "@babel/polyfill" "^7.7.0"
+
 react-compare-image@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/react-compare-image/-/react-compare-image-3.0.2.tgz#1b9a31f20caa67acc902793815c17a1e417498e9"
@@ -15561,6 +15622,11 @@ react-helmet@^6.1.0:
     prop-types "^15.7.2"
     react-fast-compare "^3.1.1"
     react-side-effect "^2.1.0"
+
+react-hook-dimensions@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-hook-dimensions/-/react-hook-dimensions-1.2.0.tgz#2715db646b39eac65c10ae5d89f639764a195086"
+  integrity sha512-5CF/qWD0aEUkjTpitivq3DZBgD/VL+A+dX6ER0LEv7f8GtOtXnTEtRrjb/OrHW5MWav1oIwiXT3UXWnpZh+Vrg==
 
 react-hot-loader@^4.12.21:
   version "4.12.21"
@@ -15664,6 +15730,11 @@ react-style-singleton@^2.1.0:
     get-nonce "^1.0.0"
     invariant "^2.2.4"
     tslib "^1.0.0"
+
+react-use-dimensions@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-use-dimensions/-/react-use-dimensions-1.2.1.tgz#eb1561db7b06c393209d2bffa449931dd93f7870"
+  integrity sha512-XL+Rup9Hosxx3Ap9xpyQMbVwuUa4BSqiOjfBb2zDuGs4uv2FesFV+m8Z/huRx2BNptMd9ARPqFuSNA62zhCozg==
 
 react@^16.13.1, react@^16.8.0:
   version "16.13.1"

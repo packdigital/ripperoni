@@ -1,5 +1,5 @@
 export const reducer = (state, action) => {
-  console.log('action', action);
+  console.log('action:theme', action);
 
   switch (action.type) {
     case 'TOGGLE_CART':
@@ -14,17 +14,27 @@ export const reducer = (state, action) => {
         cart: false,
         modal: !state.modal,
       };
-    case 'SHOW_MEGA_NAV':
+    case 'SHOW_SECONDARY_NAVIGATION':
       return {
         ...state,
-        megaNav: action.data,
+        secondaryNavigation: action.data,
       };
-    case 'HIDE_MEGA_NAV':
+    case 'HIDE_SECONDARY_NAVIGATION':
       return {
         ...state,
-        megaNav: null,
+        secondaryNavigation: false,
+      };
+    case 'SHOW_MOBILE_NAVIGATION':
+      return {
+        ...state,
+        mobileNavigation: action.data,
+      };
+    case 'HIDE_MOBILE_NAVIGATION':
+      return {
+        ...state,
+        mobileNavigation: false,
       };
     default:
-      throw new Error('No such action type: ${action.type}');
+      throw new Error(`No such action type: ${action.type}`);
   }
 };

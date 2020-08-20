@@ -114,9 +114,9 @@ module.exports = {
           'position': 'before'
         },
         {
-          'pattern': '@{assets,images,static}/**',
-          'group': 'index',
-          'position': 'after'
+          'pattern': '@{assets,hooks,images,static}/**',
+          'group': 'internal',
+          'position': 'before'
         }
       ],
       'newlines-between': 'always',
@@ -150,6 +150,7 @@ module.exports = {
           ['src', './src'],
           ['@assets', './src/assets'],
           ['@components', './src/components'],
+          ['@hooks', './src/hooks'],
           ['@images', './src/assets/images'],
           ['@layouts', './src/layouts'],
           ['@static', './static'],

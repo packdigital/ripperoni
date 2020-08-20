@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable import/no-default-export */
 import PropTypes from 'prop-types';
 

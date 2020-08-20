@@ -21,6 +21,7 @@ module.exports = themeOptions => {
         'src': path.join(process.cwd(), 'src'),
         '@assets': path.join(process.cwd(), 'src/assets'),
         '@components': path.join(process.cwd(), 'src/components'),
+        '@hooks': path.join(process.cwd(), 'src/hooks'),
         '@images': path.join(process.cwd(), 'src/assets/images'),
         '@layouts': path.join(process.cwd(), 'src/layouts'),
         '@static': path.join(process.cwd(), 'static'),

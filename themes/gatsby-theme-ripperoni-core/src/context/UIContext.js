@@ -5,23 +5,20 @@ import { useContextFactory } from '@packdigital/ripperoni-utilities';
 
 import { reducer } from './UIReducer';
 import { createActions } from './UIActions';
+import { initialState } from './initialState';
 
 
 const UIContext = createContext();
 
 export const useUIContext = useContextFactory('UIContext', UIContext);
 
-const initialState = {
-  cart: false,
-  modal: false,
-  megaNav: null,
-};
 
 export const UIContextProvider = React.memo(({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const actions = createActions(dispatch);
 
-  console.log('state', state);
+  // console.log('state', state);
+
   const value = {
     state,
     ...actions,
