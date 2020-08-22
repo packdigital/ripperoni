@@ -76,12 +76,13 @@ exports.sortUnchangedRemovedAndStaleNodes = async ({ client, helpers }) => {
     }, Promise.resolve({ unchangedNodes: [], removedNodes, staleNodes: [] }));
 };
 
-const fetchUpdatedCollectionData = async ({ staleNodes, client, helpers, retries = 3 }) => {
-  const { format, createProgress } = helpers.reporter;
+const fetchUpdatedCollectionData = async ({ staleNodes, client, helpers, retryCount = 0 }) => {
+  const { format, createProgress, info } = helpers.reporter;
   const collectionCount = staleNodes.length;
   const oldestTimestamp = staleNodes[0].updatedAt;
   const progressMessage = format`{${LOG_PREFIX}} Fetch collections from {green {bold Shopify}}`;
   const progress = createProgress(progressMessage, collectionCount, 0);
+  const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 
   try {
@@ -100,8 +101,17 @@ const fetchUpdatedCollectionData = async ({ staleNodes, client, helpers, retries
 
     return collectionData;
   } catch (error) {
-    if (retries > 0) {
-      return fetchUpdatedCollectionData({ staleNodes, client, helpers, retries: retries - 1 });
+    console.log('error', error);
+
+    if (retryCount < 3) {
+      const newCount = retryCount + 1;
+      const waitForMs = newCount * newCount * 1000;
+
+      info(format`{${LOG_PREFIX}} Retrying collections fetch...waiting ${waitForMs}ms`);
+
+      await pause(waitForMs);
+
+      return fetchUpdatedCollectionData({ staleNodes, client, helpers, retryCount: retryCount - 1 });
     }
 
     throw new Error(error);
