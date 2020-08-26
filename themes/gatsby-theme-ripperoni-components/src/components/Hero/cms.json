@@ -1,6 +1,6 @@
 {
   "name": "Hero",
-  "path": "src/components/Hero/Hero.jsx",
+  "path": "themes/gatsby-theme-ripperoni-componenets/src/components/Hero/Hero.jsx",
   "content": {
     "image": {
       "displayName": "Image",
@@ -8,6 +8,19 @@
     }
   },
   "slots": {
+    "A": {
+      "A": {
+        "types": ["atomText"]
+      }
+    },
+    "AB": {
+      "A": {
+        "types": ["atomText"]
+      },
+      "B": {
+        "types": ["atomText", "atomLink"]
+      }
+    },
     "ABC": {
       "A": {
         "types": ["atomText"]
@@ -37,43 +50,111 @@
   "grids": {
     "desktop": [
       {
+        "slots": "A",
+        "grid": [
+          [".", ".", ".", ".", ".", "."],
+          [".", ".", ".", ".", ".", "."],
+          [".", "A", "A", "A", "A", "."],
+          [".", ".", ".", ".", ".", "."],
+          [".", ".", ".", ".", ".", "."]
+        ],
+        "thumbnail": "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 35 35' xml:space='preserve'><g><g><rect x='5' y='13.875' width='11.363' height='2.818'></rect><rect x='5' y='18.307' width='11.363' height='2.818'></rect><rect x='5' y='22.739' width='4.875' height='2.829'></rect><path d='M0,0v35h35V0H0z M33,33H2V2h31V33z'></path></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>"
+      },
+      {
+        "slots": "A",
+        "grid": [
+          [".", ".", ".", ".", ".", "."],
+          [".", ".", ".", ".", ".", "."],
+          ["A", "A", "A", ".", ".", "."],
+          [".", ".", ".", ".", ".", "."],
+          [".", ".", ".", ".", ".", "."]
+        ],
+        "thumbnail": "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 35 35' xml:space='preserve'><g><g><rect x='5' y='13.875' width='11.363' height='2.818'></rect><rect x='5' y='18.307' width='11.363' height='2.818'></rect><rect x='5' y='22.739' width='4.875' height='2.829'></rect><path d='M0,0v35h35V0H0z M33,33H2V2h31V33z'></path></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>"
+      },
+      {
+        "slots": "AB",
+        "grid": [
+          [".", ".", ".", ".", ".", "."],
+          [".", ".", ".", ".", ".", "."],
+          [".", "A", "A", "A", "A", "."],
+          [".", ".", "B", "B", ".", "."],
+          [".", ".", ".", ".", ".", "."],
+          [".", ".", ".", ".", ".", "."]
+        ],
+        "thumbnail": "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 35 35' xml:space='preserve'><g><g><rect x='5' y='13.875' width='11.363' height='2.818'></rect><rect x='5' y='18.307' width='11.363' height='2.818'></rect><rect x='5' y='22.739' width='4.875' height='2.829'></rect><path d='M0,0v35h35V0H0z M33,33H2V2h31V33z'></path></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>"
+      },
+      {
         "slots": "ABC",
         "grid": [
-          ["A", "A", "x", "x"],
-          ["B", "B", "x", "x"],
-          ["C", "y", "x", "x"]
+          ["A", "A", ".", "."],
+          ["B", "B", ".", "."],
+          ["C", "y", ".", "."]
         ],
         "thumbnail": "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 35 35' xml:space='preserve'><g><g><rect x='5' y='13.875' width='11.363' height='2.818'></rect><rect x='5' y='18.307' width='11.363' height='2.818'></rect><rect x='5' y='22.739' width='4.875' height='2.829'></rect><path d='M0,0v35h35V0H0z M33,33H2V2h31V33z'></path></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>"
       },
       {
         "slots": "ABCD",
         "grid": [
-          ["A", "A", "x", "x"],
-          ["B", "B", "x", "x"],
-          ["C", "D", "x", "x"]
+          ["A", "A", ".", "."],
+          ["B", "B", ".", "."],
+          ["C", "D", ".", "."]
         ],
         "thumbnail": "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 35 35' xml:space='preserve'><g><g><rect x='5' y='13.875' width='11.363' height='2.818'></rect><rect x='5' y='18.307' width='11.363' height='2.818'></rect><rect x='5' y='22.739' width='4.875' height='2.829'></rect><rect x='11.488' y='22.739' width='4.875' height='2.829'></rect><path d='M0,0v35h35V0H0z M33,33H2V2h31V33z'></path></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>"
       },
       {
         "slots": "ABC",
         "grid": [
-          ["x", "x", "A", "A"],
-          ["x", "x", "B", "B"],
-          ["x", "x", "C", "y"]
+          [".", ".", "A", "A"],
+          [".", ".", "B", "B"],
+          [".", ".", "C", "y"]
         ],
         "thumbnail": "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 35 35' xml:space='preserve'><g><g><rect x='18.637' y='13.875' width='11.363' height='2.818'></rect><rect x='18.637' y='18.307' width='11.363' height='2.818'></rect><rect x='18.637' y='22.739' width='4.875' height='2.829'></rect><path d='M0,0v35h35V0H0z M33,33H2V2h31V33z'></path></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>"
       },
       {
         "slots": "ABCD",
         "grid": [
-          ["x", "x", "A", "A"],
-          ["x", "x", "B", "B"],
-          ["x", "x", "C", "D"]
+          [".", ".", "A", "A"],
+          [".", ".", "B", "B"],
+          [".", ".", "C", "D"]
         ],
         "thumbnail": "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 35 35' xml:space='preserve'><g><g><rect x='18.637' y='13.875' width='11.363' height='2.818'></rect><rect x='18.637' y='18.307' width='11.363' height='2.818'></rect><rect x='18.637' y='22.739' width='4.875' height='2.829'></rect><rect x='25.125' y='22.739' width='4.875' height='2.829'></rect><path d='M0,0v35h35V0H0z M33,33H2V2h31V33z'></path></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>"
       }
     ],
     "mobile": [
+      {
+        "slots": "A",
+        "grid": [
+          [".", "."],
+          [".", "."],
+          ["A", "A"],
+          [".", "."],
+          [".", "."]
+        ],
+        "thumbnail": "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 35 35' xml:space='preserve'><g><g><path d='M0,0v35h35V0H0z M33,33H2V2h31V33z'></path><rect x='5' y='18.746' width='25' height='4.372'></rect><rect x='5' y='5.002' width='25' height='11.244'></rect><rect x='5' y='25.623' width='25' height='4.379'></rect></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>"
+      },
+      {
+        "slots": "A",
+        "grid": [
+          ["A", "A"],
+          [".", "."],
+          [".", "."],
+          [".", "."],
+          [".", "."]
+        ],
+        "thumbnail": "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 35 35' xml:space='preserve'><g><g><path d='M0,0v35h35V0H0z M33,33H2V2h31V33z'></path><rect x='5' y='18.746' width='25' height='4.372'></rect><rect x='5' y='5.002' width='25' height='11.244'></rect><rect x='5' y='25.623' width='25' height='4.379'></rect></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>"
+      },
+      {
+        "slots": "AB",
+        "grid": [
+          [".", "."],
+          [".", "."],
+          ["A", "A"],
+          ["B", "B"],
+          [".", "."],
+          [".", "."]
+        ],
+        "thumbnail": "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 35 35' xml:space='preserve'><g><g><path d='M0,0v35h35V0H0z M33,33H2V2h31V33z'></path><rect x='5' y='18.746' width='25' height='4.372'></rect><rect x='5' y='5.002' width='25' height='11.244'></rect><rect x='5' y='25.623' width='25' height='4.379'></rect></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>"
+      },
       {
         "slots": "ABC",
         "grid": [
