@@ -1,0 +1,10 @@
+{
+  "name": "Section",
+  "path": "src/components/Container/Container.jsx",
+  "content": {
+    "content": {
+      "displayName": "Content",
+      "types": ["*"]
+    }
+  }
+}

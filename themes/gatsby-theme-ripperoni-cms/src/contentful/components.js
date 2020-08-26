@@ -1,4 +1,11 @@
-import { Button, Hero, Image, Link, Text } from '@ripperoni/components';
+import {
+  Button,
+  Container,
+  Hero,
+  Image,
+  Link,
+  Text
+} from '@ripperoni/components';
 
 
 const atoms = {
@@ -10,6 +17,7 @@ const atoms = {
 
 const molecules = {
   Hero: Hero,
+  Section: Container,
 };
 
 export const components = {
