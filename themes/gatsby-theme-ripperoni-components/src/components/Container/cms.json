@@ -5,19 +5,6 @@
     "propsMarginPadding": {
       "displayName": "Margin/Padding",
       "types": []
-    },
-    "content": {
-      "displayName": "Content",
-      "types": ["*"],
-      "multiple": true
-    },
-    "image": {
-      "displayName": "Image",
-      "types": ["atomText", "atomLink", "molecule"]
-    },
-    "cta": {
-      "displayName": "Image",
-      "types": ["atomLink", "atomButton"]
     }
   },
   "slots": {
