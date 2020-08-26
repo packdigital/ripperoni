@@ -2,6 +2,10 @@
   "name": "Section",
   "path": "src/components/Container/Container.jsx",
   "content": {
+    "propsMarginPadding": {
+      "displayName": "Margin/Padding",
+      "types": []
+    },
     "content": {
       "displayName": "Content",
       "types": ["*"],
