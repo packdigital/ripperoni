@@ -4,7 +4,8 @@
   "content": {
     "content": {
       "displayName": "Content",
-      "types": ["*"]
+      "types": ["*"],
+      "multiple": true
     }
   }
 }
