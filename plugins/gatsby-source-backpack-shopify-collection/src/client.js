@@ -4,13 +4,7 @@ const { InMemoryCache } = require('apollo-cache-inmemory');
 const fetch = require('isomorphic-fetch');
 
 
-const shopifyClient = ({ shopName, accessToken, version = '2020-04' }) => {
-  const uri = `https://${shopName}.myshopify.com/api/${version}/graphql.json`;
-
-  const headers = {
-    'X-Shopify-Storefront-Access-Token': accessToken,
-  };
-
+const shopifyClient = ({ uri, headers }) => {
   const cache = new InMemoryCache();
   const link = new createHttpLink({ uri, headers, fetch });
   const client = new ApolloClient({ link, cache });
@@ -18,8 +12,34 @@ const shopifyClient = ({ shopName, accessToken, version = '2020-04' }) => {
   return client;
 };
 
-module.exports = {
-  clients: {
-    shopify: shopifyClient
+const getClient = (options, logging) => {
+  const { shopName, fetchInBulk, accessToken, apiVersion } = options;
+  const { timer, format } = logging;
+
+  const requiresAdminAPI = fetchInBulk ? true : false;
+
+  let uri = '';
+  let headers = {};
+
+  if (requiresAdminAPI) {
+    uri = `https://${shopName}.myshopify.com/admin/api/${apiVersion}/graphql.json`;
+    headers = {
+      'X-Shopify-Access-Token': accessToken,
+    };
+
+  } else {
+    uri = `https://${shopName}.myshopify.com/api/${apiVersion}/graphql.json`;
+    headers = {
+      'X-Shopify-Storefront-Access-Token': accessToken,
+    };
   }
+
+  timer.setStatus(format`Created graphql ${requiresAdminAPI ? 'Admin API' : 'Storefront'} client`);
+
+  return shopifyClient({ uri, headers });
 };
+
+module.exports = {
+  getClient
+};
+
