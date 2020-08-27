@@ -50,18 +50,13 @@ const sourceWithBulkOperation = async ({ client, excludeTerms, downloadLocal }, 
   timer.setStatus(format`Filtering not excluded collections which contain products`);
     const filteredCollections = await filterCollections({ allCollections, excludeTerms, helpers });
 
-  console.log('First filteredCollections', filteredCollections[0]);
-
   timer.setStatus(format`Fetching unchanged, removed, and stale nodes`);
     const { unchangedNodes, removedNodes, staleNodes, } = await sortCollections({
       filteredCollections,
       helpers
     });
 
-    console.log('unchangedNodes.count', unchangedNodes.length);
-    console.log('removedNodes.count', removedNodes.length);
-    console.log('staleNodes.count', staleNodes.length);
-
+    console.log(`unchangedNodes:${unchangedNodes.length} \n removedNodes:${removedNodes.length} \n staleNodes:${staleNodes.length}`);
   if (unchangedNodes.length > 0) {
     timer.setStatus(format`Loading unchanged nodes from cache`);
       touchUnchangedNodes({ unchangedNodes, helpers });
@@ -73,7 +68,6 @@ const sourceWithBulkOperation = async ({ client, excludeTerms, downloadLocal }, 
   }
 
   if (staleNodes.length > 0) {
-
     const mappedCollections = await mapCollections({ staleCollections: staleNodes, helpers });
 
     timer.setStatus('Creating updated collection nodes');
