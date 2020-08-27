@@ -36,11 +36,7 @@ exports.fetchCollections = async({ client, helpers }) => {
       do {
         bulkOperation = await checkBulkQueryStatus({ client });
 
-        console.log(`
-          Current status: ${bulkOperation.status}
-          Pooling bulk operation for: ${match}
-          Object count: ${bulkOperation.objectCount}
-        `);
+        console.log(`Current status: ${bulkOperation.status} \n Pooling bulk operation for: ${match} \n Object count: ${bulkOperation.objectCount}`);
 
         successState = checkStatus(bulkOperation.status);
 
@@ -53,18 +49,18 @@ exports.fetchCollections = async({ client, helpers }) => {
 
 
   const forQueueStatusTo = bulkPoolingFactory({ client, name: 'Generic pool..' });
-  // seconds
+
 
   const maybeWaitForQueue = async ({ client, cancelExisting = false }) => {
-    console.log('maybeWaitForQueue...');
+    console.log('Maybe wait for queue to clear...');
     // check if we the bulk queue is available
     const { id, status } = await checkBulkQueryStatus({ client });
 
-    const queueIsAvailable = status === 'COMPLETED' || status === 'CANCELED';
+    const queueIsAvailable = (status === 'COMPLETED' || status === 'CANCELED');
 
     // check if theres an active operation, and cancel it
     if (queueIsAvailable) {
-      console.log('Lets go...');
+      console.log('Bulk operation queue is available');
       return true;
     } else {
       console.log('Bulk operation queue not available');
@@ -170,20 +166,35 @@ exports.fetchCollections = async({ client, helpers }) => {
   });
 };
 
-
-exports.parseCollections = ({ allCollectionsJsonlStream }) => {
+exports.parseIncludedCollections = ({ allCollectionsJsonlStream, excludeTerms, helpers }) => {
   /* eslint-disable no-undef */
   return new Promise((resolve, reject) => {
     if (!allCollectionsJsonlStream) reject('Missing JSONL stream');
 
     let nodes = [];
     let nodeIndex = 0;
+    let collectionExcluded = false;
+    let isFirstProductVariant = true;
+
+    const checkIsExcluded = ({collection, excludeTerms}) => {
+      const multiIncludes = (text, values = []) => {
+        const result = new RegExp(values.join('|'));
+        return result.test(text);
+      };
+      const hasProducts = collection.productsCount > 0;
+      const matchesExcludeTermInHandle = excludeTerms.length
+        ? multiIncludes(collection.handle, excludeTerms)
+        : false
+      const matchesExcludeTermInTitle = excludeTerms.length
+        ? multiIncludes(collection.title.toLowerCase(), excludeTerms)
+        : false
+      return (!hasProducts || matchesExcludeTermInHandle || matchesExcludeTermInTitle);
+    }
 
     const addCollection = node => {
       if (nodeIndex > 1) {
         // console.log(nodeIndex, 'new collection created', node.title, 'last collection variants count', nodes[nodes.length - 1].variants.length);
       }
-
       // console.log('Node type is collection')
       node.variants = []; // this will bold the variants needed later in  .mapCollections
       // only collection lines create new parent nodes
@@ -193,21 +204,8 @@ exports.parseCollections = ({ allCollectionsJsonlStream }) => {
       return;
     };
 
-    const addProductToCollection = (node, collectionNode) => {
-      if (!collectionNode) return;
 
-      if (collectionNode && collectionNode.products) {
-        collectionNode.products = [...collectionNode.products, node];
-      } else {
-        collectionNode.products = [node];
-      }
-
-      // overwrite the collection with the updated node
-      nodes[nodeIndex - 1] = collectionNode;
-      return;
-    };
-
-    const addProductVariantToProductAndCollection = (node, collectionNode) => {
+    const addVariantToCollection = (node, collectionNode) => {
       // if (!collectionNode) return;
       // console.log('Node type is collection.product.variant')
       // if (collectionNode && collectionNode.products) {
@@ -241,39 +239,48 @@ exports.parseCollections = ({ allCollectionsJsonlStream }) => {
       ];
     };
 
-    const parseLine = (node) => {
+    const parseLine = node => {
       const isCollection = typeof node.__parentId === 'undefined';
       const isProduct = node.id.includes('/Product/');
       const isProductVariant = node.id.includes('/ProductVariant/');
 
       if (isCollection) {
+        collectionExcluded = checkIsExcluded({collection:node, excludeTerms})
+        if (collectionExcluded) return
         return addCollection(node);
       }
 
       // json line is a nested node (Product or ProductVariant)
-
       // retrieve the last collection node so we can attach products to it
       let collectionNode = nodes[nodeIndex - 1] || nodes[0];
 
       // Product line
       if (isProduct) {
+        // we dont need to parse products but use it as marker to detect the first productVariant
+        if (collectionExcluded) return;
+
+        // collection is included
+        isFirstProductVariant = true;
         return;
-        // return addProductToCollection(node, collectionNode);
       }
 
       // ProductVariant line
       if (isProductVariant) {
-        const updatedVariants = addProductVariantToProductAndCollection(node, collectionNode);
-        nodes[nodes.length - 1].variants = updatedVariants;
+        if (collectionExcluded) return;
+
+        if (isFirstProductVariant) {
+          // parse it
+          const updatedVariants = addVariantToCollection(node, collectionNode);
+          nodes[nodes.length - 1].variants = updatedVariants;
+          isFirstProductVariant = false;
+        } else {
+          // ignore non-first variants all together
+        }
+
         return;
       }
 
       reject('Unexpected jsonl line/node type. Failed to parse stream');
-    };
-
-    const returnParsedCollections = () => {
-      console.log(`Finished parsing JsonL stream. Parsed [${nodes.length}] collection`);
-      resolve(nodes);
     };
 
     // read each line in the stream and parse it as json
@@ -287,71 +294,18 @@ exports.parseCollections = ({ allCollectionsJsonlStream }) => {
   });
 };
 
-exports.filterCollections = async ({ allCollections, excludeTerms, helpers }) => {
-  const { reporter } = helpers;
-  console.log('Filtering collections before count:', allCollections.length, 'first ', allCollections[0], 'excludeTerms', excludeTerms);
-
-  const filterWithProductsNotExcluded = allCollections => new Promise((resolve) => {
-    console.log('filterWithProductsNotExcluded....');
-    let filtered = [];
-    let collectionCount = allCollections.length;
-    console.log('collectionCount', collectionCount);
-    let collectionIndex = 0;
-
-    const multiIncludes = (text, values = []) => {
-      const result = new RegExp(values.join('|'));
-      return result.test(text);
-    };
-
-    do {
-      const collection = allCollections[collectionIndex];
-      const hasProducts = collection.productsCount > 0;
-      const matchesExcludeTermInHandle = multiIncludes(collection.handle, excludeTerms);
-      const matchesExcludeTermInTitle = multiIncludes(collection.title.toLowerCase(), excludeTerms);
-
-      if (collectionIndex < 3) {
-        console.log(collectionIndex, 'filtered.count', filtered.length);
-        console.log(collectionIndex, 'collection', collection);
-        console.log(collectionIndex, 'hasProducts', hasProducts);
-        console.log(collectionIndex, 'matchesExcludeTermInHandle', matchesExcludeTermInHandle);
-        console.log(collectionIndex, 'matchesExcludeTermInTitle', matchesExcludeTermInTitle);
-        console.log(collectionIndex, 'matchesExcludeTermInTitle', matchesExcludeTermInTitle);
-      }
-
-      let isExcluded = (!hasProducts || matchesExcludeTermInHandle || matchesExcludeTermInTitle);
-
-      if (!isExcluded) {
-        filtered = filtered.length
-          ? [...filtered, collection]
-          : [collection];
-      }
-
-      collectionIndex++;
-
-    } while (collectionIndex < collectionCount);
-
-    resolve(filtered);
-  });
-
-  const filteredCollections = await filterWithProductsNotExcluded(allCollections);
-
-  console.log('Filtering collections after count:', filteredCollections.length, 'first ', filteredCollections[0]);
-
-  return filteredCollections;
-};
-
 exports.sortCollections = async ({ filteredCollections, helpers }) => {
-  console.log(`Sorting filtered collection nodes based on caching status... Nodes to sort: [${filteredCollections.length}]`);
   const { cache, getNodesByType } = helpers;
   const oldNodes = getNodesByType(`${TYPE_PREFIX}${COLLECTION}`);
-  const currentNodeIds = filteredCollections.map(node => convertToGatsbyGraphQLId(node.id, COLLECTION, TYPE_PREFIX));
+  const currentNodeIds = filteredCollections
+    .map(node => convertToGatsbyGraphQLId(node.id.split('/').pop(), COLLECTION, TYPE_PREFIX));
   const removedNodes = oldNodes
     .filter(oldNode => !currentNodeIds.includes(oldNode.id));
 
   return await filteredCollections
     .reduce(async (_nodes, node) => {
       const nodes = await _nodes;
-      const backpackCollectionId = convertToGatsbyGraphQLId(node.id, COLLECTION, TYPE_PREFIX);
+      const backpackCollectionId = convertToGatsbyGraphQLId(node.id.split('/').pop(), COLLECTION, TYPE_PREFIX);
       const cachedData = await cache.get(backpackCollectionId) || {};
       const hasChanged = cachedData.updatedAt !== node.updatedAt;
 
@@ -383,6 +337,7 @@ exports.mapCollections = ({ staleCollections = [], helpers }) => {
     }), {});
 
   const firstBpVariantId = Object.keys(shopifyBackpackVariantsMap)[0];
+  console.log(firstBpVariantId, firstBpVariantId)
 
   if (!firstBpVariantId) {
     reporter.panic(`
@@ -413,8 +368,10 @@ exports.mapCollections = ({ staleCollections = [], helpers }) => {
 
 
 const checkBulkQueryStatus = async ({ client }) => {
-  const query = BULK_OPERATION_STATUS_QUERY;
-  const response = await client.query({ query, fetchPolicy: 'network-only' });
+  const response = await client.query({
+    query: BULK_OPERATION_STATUS_QUERY,
+    fetchPolicy: 'network-only'
+  });
   const { data } = response;
   const { currentBulkOperation } = data;
   return currentBulkOperation;
@@ -422,11 +379,9 @@ const checkBulkQueryStatus = async ({ client }) => {
 
 const cancelBulkQuery = async ({ client, id }) => {
   console.log('Cancelling bulk operation', id);
-  const cancelMutation = BULK_OPERATION_CANCEL_MUTATION;
-  const cancelVariables = { 'id': id };
   const cancelResponse = await client.mutate({
-    mutation: cancelMutation,
-    variables: cancelVariables
+    mutation: BULK_OPERATION_CANCEL_MUTATION,
+    variables: { 'id': id }
   });
 
   const { data } = cancelResponse;
