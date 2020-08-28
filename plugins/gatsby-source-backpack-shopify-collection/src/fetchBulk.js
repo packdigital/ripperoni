@@ -52,7 +52,7 @@ exports.fetchCollections = async({ client, helpers }) => {
     // check if we the bulk queue is available
     const { id, status } = await checkBulkQueryStatus({ client });
 
-    const queueIsAvailable = (status === 'COMPLETED' || status === 'CANCELED');
+    const queueIsAvailable = ['HAS_NEVER_RUN', 'COMPLETED', 'CANCELED'].includes(status);
 
     // check if theres an active operation, and cancel it
     if (queueIsAvailable) {
@@ -165,9 +165,7 @@ exports.parseIncludedCollections = ({ allCollectionsJsonlStream, excludeTerms })
   /* eslint-disable no-undef */
   return new Promise((resolve, reject) => {
     if (!allCollectionsJsonlStream) reject('Missing JSONL stream');
-
     let nodes = [];
-    let nodeIndex = 0;
     let collectionExcluded = false;
     let isFirstProductVariant = true;
 
@@ -177,13 +175,17 @@ exports.parseIncludedCollections = ({ allCollectionsJsonlStream, excludeTerms })
         const result = new RegExp(values.join('|'));
         return result.test(text);
       };
+
       const hasProducts = collection.productsCount > 0;
+
       const matchesExcludeTermInHandle = excludeTerms.length
         ? multiIncludes(collection.handle, excludeTerms)
         : false;
+
       const matchesExcludeTermInTitle = excludeTerms.length
         ? multiIncludes(collection.title.toLowerCase(), excludeTerms)
         : false;
+
       return (!hasProducts || matchesExcludeTermInHandle || matchesExcludeTermInTitle);
     };
 
@@ -193,8 +195,6 @@ exports.parseIncludedCollections = ({ allCollectionsJsonlStream, excludeTerms })
 
       // only collection lines create new parent nodes
       nodes = [...nodes, node];
-
-      nodeIndex++;
       return;
     };
 
@@ -329,7 +329,16 @@ const checkBulkQueryStatus = async ({ client }) => {
     fetchPolicy: 'network-only' // important
   });
   const { data } = response;
-  const { currentBulkOperation } = data;
+  let { currentBulkOperation } = data;
+
+  if (!currentBulkOperation) {
+    // this will be null if we have never run a bulk operation
+    return {
+      status: 'HAS_NEVER_RUN',
+      id: ''
+    };
+  }
+
   return currentBulkOperation;
 };
 
