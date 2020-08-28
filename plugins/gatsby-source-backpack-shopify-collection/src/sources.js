@@ -1,7 +1,7 @@
 const { downloadImages } = require('./download-images');
 const { fetchFreshCollectionData, sortUnchangedRemovedAndStaleNodes } = require('./fetch');
 const { touchUnchangedNodes, deleteRemovedNodes, createCollectionNodes, createCollectionImageNodes } = require('./nodes');
-const { fetchCollections, parseCollections, sortCollections, filterCollections, mapCollections } = require('./fetchBulk');
+const { fetchCollections, parseIncludedCollections, sortCollections, mapCollections } = require('./fetchBulk');
 
 
 const sourceRecursively = async ({ client, downloadLocal }, { helpers, timer, format }) => {
@@ -44,11 +44,8 @@ const sourceWithBulkOperation = async ({ client, excludeTerms, downloadLocal }, 
   timer.setStatus(format`Fetching collections with bulk operation`);
     const allCollectionsJsonlStream = await fetchCollections({ client, helpers });
 
-  timer.setStatus(format`Parsing bulk collections jsonl stream`);
-    const allCollections = await parseCollections({ allCollectionsJsonlStream });
-
-  timer.setStatus(format`Filtering not excluded collections which contain products`);
-    const filteredCollections = await filterCollections({ allCollections, excludeTerms, helpers });
+  timer.setStatus(format`Parsing included collections from bulk jsonl stream`);
+    const filteredCollections = await parseIncludedCollections({ allCollectionsJsonlStream, excludeTerms, helpers});
 
   timer.setStatus(format`Fetching unchanged, removed, and stale nodes`);
     const { unchangedNodes, removedNodes, staleNodes, } = await sortCollections({
