@@ -35,13 +35,9 @@ exports.fetchCollections = async({ client, helpers }) => {
 
       do {
         bulkOperation = await checkBulkQueryStatus({ client });
-
         console.log(`Current status: ${bulkOperation.status} \n Pooling bulk operation for: ${match} \n Object count: ${bulkOperation.objectCount}`);
-
         successState = checkStatus(bulkOperation.status);
-
         await pause(checkEvery * 1000);
-
       } while (Date.now() <= endTime && !successState);
 
       return { successState, bulkOperation };
@@ -73,8 +69,8 @@ exports.fetchCollections = async({ client, helpers }) => {
       await cancelBulkQuery({ client, id });
       await forQueueStatusTo({
         match: ['CANCELED'],
-        checkEvery: 5,
-        maxWait: 60, // sec
+        checkEvery: 5, // in sec
+        maxWait: 60, // in sec
       });
 
     } else {
@@ -133,7 +129,6 @@ exports.fetchCollections = async({ client, helpers }) => {
         reporter.panic(`
           There was a problem with the bulk operation query.
           Could not retrieve jsonl url.
-
           bulkOperationPoll: ${bulkOperationPoll}
         `);
       }
@@ -166,7 +161,7 @@ exports.fetchCollections = async({ client, helpers }) => {
   });
 };
 
-exports.parseIncludedCollections = ({ allCollectionsJsonlStream, excludeTerms, helpers }) => {
+exports.parseIncludedCollections = ({ allCollectionsJsonlStream, excludeTerms }) => {
   /* eslint-disable no-undef */
   return new Promise((resolve, reject) => {
     if (!allCollectionsJsonlStream) reject('Missing JSONL stream');
@@ -176,7 +171,8 @@ exports.parseIncludedCollections = ({ allCollectionsJsonlStream, excludeTerms, h
     let collectionExcluded = false;
     let isFirstProductVariant = true;
 
-    const checkIsExcluded = ({collection, excludeTerms}) => {
+    const checkIsExcluded = ({ collection, excludeTerms }) => {
+      // Exclude collection based on passed terms in both (title and handle)
       const multiIncludes = (text, values = []) => {
         const result = new RegExp(values.join('|'));
         return result.test(text);
@@ -184,19 +180,17 @@ exports.parseIncludedCollections = ({ allCollectionsJsonlStream, excludeTerms, h
       const hasProducts = collection.productsCount > 0;
       const matchesExcludeTermInHandle = excludeTerms.length
         ? multiIncludes(collection.handle, excludeTerms)
-        : false
+        : false;
       const matchesExcludeTermInTitle = excludeTerms.length
         ? multiIncludes(collection.title.toLowerCase(), excludeTerms)
-        : false
+        : false;
       return (!hasProducts || matchesExcludeTermInHandle || matchesExcludeTermInTitle);
-    }
+    };
 
     const addCollection = node => {
-      if (nodeIndex > 1) {
-        // console.log(nodeIndex, 'new collection created', node.title, 'last collection variants count', nodes[nodes.length - 1].variants.length);
-      }
-      // console.log('Node type is collection')
-      node.variants = []; // this will bold the variants needed later in  .mapCollections
+      // this will bold the variants needed later in  .mapCollections
+      node.variants = [];
+
       // only collection lines create new parent nodes
       nodes = [...nodes, node];
 
@@ -205,33 +199,7 @@ exports.parseIncludedCollections = ({ allCollectionsJsonlStream, excludeTerms, h
     };
 
 
-    const addVariantToCollection = (node, collectionNode) => {
-      // if (!collectionNode) return;
-      // console.log('Node type is collection.product.variant')
-      // if (collectionNode && collectionNode.products) {
-      //   const variantsProductIndex = collectionNode.products
-      //     .findIndex(p => p.id === node.__parentId) || 0;
-
-      //   const product = collectionNode.products[variantsProductIndex] || null;
-
-      //   if (product && product.variants) {
-      //     collectionNode.products[variantsProductIndex].variants = [
-      //       ...collectionNode.products[variantsProductIndex].variants,
-      //       node
-      //     ];
-
-      //   } else {
-      //     collectionNode.products[variantsProductIndex].variants = [node];
-      //   }
-      // }
-
-      // add the variants to the collection node
-      // if (collectionNode & collectionNode.variants && collectionNode.variants.length) {
-      //   collectionNode.variants = [...collectionNode.variants, node.id];
-      // } else {
-      //   collectionNode.variants = [node.id];
-      // }
-
+    const addVariantToCollection = node => {
       // overwrite the collection with the updated node
       return [
         ...nodes[nodes.length - 1].variants,
@@ -245,18 +213,15 @@ exports.parseIncludedCollections = ({ allCollectionsJsonlStream, excludeTerms, h
       const isProductVariant = node.id.includes('/ProductVariant/');
 
       if (isCollection) {
-        collectionExcluded = checkIsExcluded({collection:node, excludeTerms})
-        if (collectionExcluded) return
+        collectionExcluded = checkIsExcluded({ collection:node, excludeTerms });
+        if (collectionExcluded) return;
         return addCollection(node);
       }
 
       // json line is a nested node (Product or ProductVariant)
-      // retrieve the last collection node so we can attach products to it
-      let collectionNode = nodes[nodeIndex - 1] || nodes[0];
-
       // Product line
       if (isProduct) {
-        // we dont need to parse products but use it as marker to detect the first productVariant
+        // we don't need to parse products but use it as marker to detect the first productVariant
         if (collectionExcluded) return;
 
         // collection is included
@@ -270,7 +235,7 @@ exports.parseIncludedCollections = ({ allCollectionsJsonlStream, excludeTerms, h
 
         if (isFirstProductVariant) {
           // parse it
-          const updatedVariants = addVariantToCollection(node, collectionNode);
+          const updatedVariants = addVariantToCollection(node);
           nodes[nodes.length - 1].variants = updatedVariants;
           isFirstProductVariant = false;
         } else {
@@ -325,7 +290,7 @@ exports.sortCollections = async ({ filteredCollections, helpers }) => {
 
 
 exports.mapCollections = ({ staleCollections = [], helpers }) => {
-  const { getNode, getNodesByType, reporter } = helpers;
+  const { getNode, getNodesByType } = helpers;
   const staleCollectionsCount = staleCollections.length;
 
   if (!staleCollectionsCount) return [];
@@ -336,15 +301,6 @@ exports.mapCollections = ({ staleCollections = [], helpers }) => {
       [foreignId]: getNode(id)
     }), {});
 
-  const firstBpVariantId = Object.keys(shopifyBackpackVariantsMap)[0];
-  console.log(firstBpVariantId, firstBpVariantId)
-
-  if (!firstBpVariantId) {
-    reporter.panic(`
-      There are no backpack products available. Please make sure the
-      backpackSource plugin option is configured and enabled.
-    `);
-  }
 
   return staleCollections
     .map(collection => {
@@ -370,7 +326,7 @@ exports.mapCollections = ({ staleCollections = [], helpers }) => {
 const checkBulkQueryStatus = async ({ client }) => {
   const response = await client.query({
     query: BULK_OPERATION_STATUS_QUERY,
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only' // important
   });
   const { data } = response;
   const { currentBulkOperation } = data;
