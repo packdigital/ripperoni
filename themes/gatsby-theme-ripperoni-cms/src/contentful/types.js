@@ -28,15 +28,18 @@ module.exports = `
     contentful_id: String
   }
 
+  type ContentfulPageContainer implements Node @infer {
+    pageTitle: String
+    variant: String
+  }
+
   union ContentfulMoleculeAtomButtonImageLinkTextUnion = ContentfulAtomButton | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMolecule
 
   type ContentfulMolecule implements Node @infer {
-    gridDesktop: String
-    gridMobile: String
-    content: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "content___NODE")
-    slots: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "slots___NODE")
+    entries: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "entries___NODE")
   }
 `;
+
 
 // missing
 // text - text.text

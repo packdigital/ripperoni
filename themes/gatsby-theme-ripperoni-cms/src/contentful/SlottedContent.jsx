@@ -5,21 +5,36 @@ import PropTypes from 'prop-types';
 import { Grid } from '@ripperoni/components';
 
 
-export const SlottedContent = ({ gridDesktop, gridMobile, children }) => {
-  if (!gridDesktop) {
+export const SlottedContent = ({ desktopGrid, mobileGrid, children }) => {
+  if (!desktopGrid) {
     return null;
   }
 
-  const rows = gridDesktop.split("' '").length;
-  const rowsMobile = gridMobile.split("' '").length;
-  const columns = gridDesktop.split("' '")[0].split(' ').length;
-  const columnsMobile = gridMobile.split("' '")[0].split(' ').length;
+  const rows = desktopGrid.split("' '").length;
+  const rowsMobile = mobileGrid.split("' '").length;
+  const columns = desktopGrid.split("' '")[0].split(' ').length;
+  const columnsMobile = mobileGrid.split("' '")[0].split(' ').length;
 
   return (
     <Grid
-      gridTemplateColumns={[`repeat(${columnsMobile}, 1fr)`, null, null, `repeat(${columns}, 1fr)`]}
-      gridTemplateRows={[`repeat(${rowsMobile}, auto)`, null, null, `repeat(${rows}, auto)`]}
-      gridTemplateAreas={[gridMobile, null, null, gridDesktop]}
+      gridTemplateColumns={[
+        `repeat(${columnsMobile}, 1fr)`,
+        null,
+        null,
+        `repeat(${columns}, 1fr)`
+      ]}
+      gridTemplateRows={[
+        `repeat(${rowsMobile}, 1fr)`,
+        null,
+        null,
+        `repeat(${rows}, 1fr)`
+      ]}
+      gridTemplateAreas={[
+        mobileGrid,
+        null,
+        null,
+        desktopGrid
+      ]}
     >
       {children}
     </Grid>
@@ -29,7 +44,7 @@ export const SlottedContent = ({ gridDesktop, gridMobile, children }) => {
 SlottedContent.displayName = 'SlottedContent';
 
 SlottedContent.propTypes = {
-  gridDesktop: PropTypes.string,
-  gridMobile: PropTypes.string,
+  desktopGrid: PropTypes.string,
+  mobileGrid: PropTypes.string,
   children: PropTypes.any,
 };

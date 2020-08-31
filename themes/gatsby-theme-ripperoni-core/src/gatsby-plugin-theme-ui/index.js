@@ -1,6 +1,5 @@
 /* eslint-disable import/no-default-export */
 import { borders } from '../theme/borders';
-import { breakpoints } from '../theme/breakpoints';
 import { buttons } from '../theme/buttons';
 import { colors } from '../theme/colors';
 import { fonts } from '../theme/fonts';
@@ -15,6 +14,7 @@ import { sizes } from '../theme/sizes';
 import { space } from '../theme/space';
 import { styles } from '../theme/styles';
 import { text } from '../theme/text';
+import breakpoints from '../theme/breakpoints.json';
 
 
 const coreTheme = {

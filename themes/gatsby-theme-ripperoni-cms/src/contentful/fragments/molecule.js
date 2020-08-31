@@ -6,19 +6,20 @@ export const ContentfulMoleculeDataFragment = graphql`
     id
     contentful_id
     component
-    gridDesktop
-    gridMobile
-    lookupContent {
-      name
-      entries {
-        sys {
-          id
-        }
-      }
+    grids {
+      grid
+      viewport
     }
-    lookupSlots {
+    marginPadding {
+      type
+      direction
+      value
+      viewport
+    }
+    lookup {
+      type
       name
-      entries {
+      entry {
         sys {
           id
         }
@@ -31,217 +32,28 @@ export const ContentfulMoleculeDataFragment = graphql`
 export const ContentfulMoleculeFragment = graphql`
   fragment ContentfulMolecule on ContentfulMolecule {
     ...ContentfulMoleculeData
-    content {
+    entries {
       ... on ContentfulAtomButton { ...ContentfulAtomButton }
       ... on ContentfulAtomImage { ...ContentfulAtomImage }
       ... on ContentfulAtomLink { ...ContentfulAtomLink }
       ... on ContentfulAtomText { ...ContentfulAtomText }
       ... on ContentfulMolecule {
         ...ContentfulMoleculeData
-        content {
+        entries {
           ... on ContentfulAtomButton { ...ContentfulAtomButton }
           ... on ContentfulAtomImage { ...ContentfulAtomImage }
           ... on ContentfulAtomLink { ...ContentfulAtomLink }
           ... on ContentfulAtomText { ...ContentfulAtomText }
           ... on ContentfulMolecule {
             ...ContentfulMoleculeData
-            content {
+            entries {
               ... on ContentfulAtomButton { ...ContentfulAtomButton }
               ... on ContentfulAtomImage { ...ContentfulAtomImage }
               ... on ContentfulAtomLink { ...ContentfulAtomLink }
               ... on ContentfulAtomText { ...ContentfulAtomText }
               ... on ContentfulMolecule {
                 ...ContentfulMoleculeData
-                content {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-                slots {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-              }
-            }
-            slots {
-              ... on ContentfulAtomButton { ...ContentfulAtomButton }
-              ... on ContentfulAtomImage { ...ContentfulAtomImage }
-              ... on ContentfulAtomLink { ...ContentfulAtomLink }
-              ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMolecule {
-                ...ContentfulMoleculeData
-                content {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-                slots {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-              }
-            }
-          }
-        }
-        slots {
-          ... on ContentfulAtomButton { ...ContentfulAtomButton }
-          ... on ContentfulAtomImage { ...ContentfulAtomImage }
-          ... on ContentfulAtomLink { ...ContentfulAtomLink }
-          ... on ContentfulAtomText { ...ContentfulAtomText }
-          ... on ContentfulMolecule {
-            ...ContentfulMoleculeData
-            content {
-              ... on ContentfulAtomButton { ...ContentfulAtomButton }
-              ... on ContentfulAtomImage { ...ContentfulAtomImage }
-              ... on ContentfulAtomLink { ...ContentfulAtomLink }
-              ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMolecule {
-                ...ContentfulMoleculeData
-                content {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-                slots {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-              }
-            }
-            slots {
-              ... on ContentfulAtomButton { ...ContentfulAtomButton }
-              ... on ContentfulAtomImage { ...ContentfulAtomImage }
-              ... on ContentfulAtomLink { ...ContentfulAtomLink }
-              ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMolecule {
-                ...ContentfulMoleculeData
-                content {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-                slots {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    slots {
-      ... on ContentfulAtomButton { ...ContentfulAtomButton }
-      ... on ContentfulAtomImage { ...ContentfulAtomImage }
-      ... on ContentfulAtomLink { ...ContentfulAtomLink }
-      ... on ContentfulAtomText { ...ContentfulAtomText }
-      ... on ContentfulMolecule {
-        ...ContentfulMoleculeData
-        content {
-          ... on ContentfulAtomButton { ...ContentfulAtomButton }
-          ... on ContentfulAtomImage { ...ContentfulAtomImage }
-          ... on ContentfulAtomLink { ...ContentfulAtomLink }
-          ... on ContentfulAtomText { ...ContentfulAtomText }
-          ... on ContentfulMolecule {
-            ...ContentfulMoleculeData
-            content {
-              ... on ContentfulAtomButton { ...ContentfulAtomButton }
-              ... on ContentfulAtomImage { ...ContentfulAtomImage }
-              ... on ContentfulAtomLink { ...ContentfulAtomLink }
-              ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMolecule {
-                ...ContentfulMoleculeData
-                content {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-                slots {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-              }
-            }
-            slots {
-              ... on ContentfulAtomButton { ...ContentfulAtomButton }
-              ... on ContentfulAtomImage { ...ContentfulAtomImage }
-              ... on ContentfulAtomLink { ...ContentfulAtomLink }
-              ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMolecule {
-                ...ContentfulMoleculeData
-                content {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-                slots {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-              }
-            }
-          }
-        }
-        slots {
-          ... on ContentfulAtomButton { ...ContentfulAtomButton }
-          ... on ContentfulAtomImage { ...ContentfulAtomImage }
-          ... on ContentfulAtomLink { ...ContentfulAtomLink }
-          ... on ContentfulAtomText { ...ContentfulAtomText }
-          ... on ContentfulMolecule {
-            ...ContentfulMoleculeData
-            content {
-              ... on ContentfulAtomButton { ...ContentfulAtomButton }
-              ... on ContentfulAtomImage { ...ContentfulAtomImage }
-              ... on ContentfulAtomLink { ...ContentfulAtomLink }
-              ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMolecule {
-                ...ContentfulMoleculeData
-                content {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-                slots {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-              }
-            }
-            slots {
-              ... on ContentfulAtomButton { ...ContentfulAtomButton }
-              ... on ContentfulAtomImage { ...ContentfulAtomImage }
-              ... on ContentfulAtomLink { ...ContentfulAtomLink }
-              ... on ContentfulAtomText { ...ContentfulAtomText }
-              ... on ContentfulMolecule {
-                ...ContentfulMoleculeData
-                content {
-                  ... on ContentfulAtomButton { ...ContentfulAtomButton }
-                  ... on ContentfulAtomImage { ...ContentfulAtomImage }
-                  ... on ContentfulAtomLink { ...ContentfulAtomLink }
-                  ... on ContentfulAtomText { ...ContentfulAtomText }
-                }
-                slots {
+                entries {
                   ... on ContentfulAtomButton { ...ContentfulAtomButton }
                   ... on ContentfulAtomImage { ...ContentfulAtomImage }
                   ... on ContentfulAtomLink { ...ContentfulAtomLink }

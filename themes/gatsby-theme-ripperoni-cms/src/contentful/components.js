@@ -16,8 +16,8 @@ const atoms = {
 };
 
 const molecules = {
-  Hero: Hero,
-  Section: Container,
+  hero: Hero,
+  section: Container,
 };
 
 export const components = {
