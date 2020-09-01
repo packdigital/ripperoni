@@ -1,12 +1,6 @@
 {
   "name": "Section",
   "path": "themes/gatsby-theme-ripperoni-componenets/src/components/Container/Container.jsx",
-  "content": {
-    "propsMarginPadding": {
-      "displayName": "Margin/Padding",
-      "types": []
-    }
-  },
   "slots": {
     "A": {
       "A": {
