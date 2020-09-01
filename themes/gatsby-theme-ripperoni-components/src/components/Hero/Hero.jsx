@@ -14,11 +14,11 @@ export const Hero = ({
   _content,
   ...props
 }) => {
-  console.log('contentBounds', contentBounds);
-  console.log('contentBox', contentBox);
-  console.log('children', children);
-  console.log('_content', _content);
-  console.log('props', props);
+  // console.log('contentBounds', contentBounds);
+  // console.log('contentBox', contentBox);
+  // console.log('children', children);
+  // console.log('_content', _content);
+  // console.log('props', props);
   return (
     <Box
       data-comp={Hero.displayName}
