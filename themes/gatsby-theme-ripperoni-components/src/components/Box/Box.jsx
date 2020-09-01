@@ -5,7 +5,11 @@ import { Box as BoxUI, jsx } from 'theme-ui';
 import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
 
 
-export const Box = forwardRef((incomingProps, ref) => {
+export const Box = forwardRef(({
+  children,
+  _content,
+  ...incomingProps
+}, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps);
 
   Box.propTypes = propTypes;
@@ -16,7 +20,9 @@ export const Box = forwardRef((incomingProps, ref) => {
       ref={ref}
       sx={sxObject}
       {...props}
-    />
+    >
+      {_content || children}
+    </BoxUI>
   );
 });
 
