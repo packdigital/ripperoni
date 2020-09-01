@@ -10,7 +10,11 @@ import { ContainerFull } from './ContainerFull';
 import ContainerSx from './Container.sx';
 
 
-export const Container = forwardRef((incomingProps, ref) => {
+export const Container = forwardRef(({
+  children,
+  _content,
+  ...incomingProps
+}, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps, ContainerSx);
 
   Container.propTypes = propTypes;
@@ -22,6 +26,7 @@ export const Container = forwardRef((incomingProps, ref) => {
       sx={sxObject}
       {...props}
     >
+      {_content || children}
     </ContainerUI>
   );
 });

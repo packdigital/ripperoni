@@ -10,7 +10,9 @@ export const Box = forwardRef(({
   _content,
   ...incomingProps
 }, ref) => {
+  // console.log('incomingProps', incomingProps);
   const { sxObject, props, propTypes } = useSxProps(incomingProps);
+  // console.log('props', props);
 
   Box.propTypes = propTypes;
 

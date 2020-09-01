@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Container,
   Hero,
@@ -17,7 +18,8 @@ const atoms = {
 
 const molecules = {
   hero: Hero,
-  section: Container,
+  section: Box,
+  'page-container': Container,
 };
 
 export const components = {

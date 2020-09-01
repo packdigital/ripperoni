@@ -2,11 +2,7 @@
   "name": "Page Container",
   "path": "themes/gatsby-theme-ripperoni-componenets/src/components/Container/Container.jsx",
   "content": {
-    "slug": {
-      "displayName": "Slug",
-      "types": ["atomText"]
-    },
-    "_content": {
+    "pageContent": {
       "displayName": "Page Content",
       "multiple": true,
       "types": ["*"]

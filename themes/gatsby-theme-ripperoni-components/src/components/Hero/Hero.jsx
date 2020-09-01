@@ -14,6 +14,7 @@ export const Hero = ({
   _content,
   ...props
 }) => {
+// console.log('props', props);
   // console.log('contentBounds', contentBounds);
   // console.log('contentBox', contentBox);
   // console.log('children', children);

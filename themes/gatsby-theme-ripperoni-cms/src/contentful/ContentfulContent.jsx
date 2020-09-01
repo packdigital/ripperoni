@@ -14,27 +14,56 @@ import { SlottedContent } from './SlottedContent';
 
 export const ContentfulContent = ({
   component,
-  marginPadding,
+  marginPadding = [],
   grids,
-  entries: entryComponents,
+  entries,
   lookup,
   _sx,
   __typename: type,
   ...props
 }) => {
   if (!type) {
+    console.log('type', type);
+    console.log('props', props);
+    console.log('grids', grids);
+    console.log('entries', entries);
+    console.log('lookup', lookup);
+    console.log('component', component);
+
     return null;
   }
 
+  // console.log('component', component);
   const Component = type === 'ContentfulMolecule'
     ? components[component]
     : components[type];
 
-  const getContent = (name, entries) => {
-    return entries.map(({ sys: { id }}, index) => {
-      const normalizedId = id[0] === 'c' ? id.slice(1) : id;
-      const content = entryComponents.find(({ contentful_id }) => contentful_id === normalizedId);
+  const breakpointMap = {
+    desktop: 5,
+    tablet: 3,
+    mobile: 0,
+    all: 0,
+  };
 
+  const marginPaddingProps = marginPadding
+    .reduce((props, { type, value, direction, viewport }) => {
+      const key = `${type}${direction}`;
+
+      if (!props[key]) {
+        props[key] = [];
+      }
+
+      props[key][breakpointMap[viewport]] = value.replace('theme.space.', '');
+
+      return props;
+    }, {});
+
+  const getContent = (name, ids) => {
+    return ids.map((id, index) => {
+      const normalizedId = id[0] === 'c' ? id.slice(1) : id;
+      const content = entries.find(({ contentful_id }) => contentful_id === normalizedId);
+
+      // return ContentfulContent({ ...content, gridArea: name, key: `${index}+${id}` });
       return (
         <ContentfulContent
           gridArea={name}
@@ -45,61 +74,38 @@ export const ContentfulContent = ({
     });
   };
 
-  const parsedMarginPadding = marginPadding
-    ?.map(({ type, direction, ...rest }) => ({
-      ...rest,
-      key: `${type}${direction}`,
-    }));
-  const groupedMarginPadding = groupBy(parsedMarginPadding, 'key');
-  const marginPaddingProps = mapValues(groupedMarginPadding, group => {
-    return group.reduce((breakpoints, { viewport, value }) => {
-      if (viewport === 'desktop') {
-        breakpoints[5] = value.replace('theme.space.', '');
-      }
-      if (viewport === 'tablet') {
-        breakpoints[3] = value.replace('theme.space.', '');
-      }
-      if (viewport === 'mobile' || viewport === 'all') {
-        breakpoints[0] = value.replace('theme.space.', '');
-      }
-      return breakpoints;
-    }, []);
-  });
-
   if (type === 'ContentfulMolecule') {
     const { content, slots } = groupBy(lookup, 'type');
-    const groupedContent = groupBy(content, 'name');
     const groupedSlots = groupBy(slots, 'name');
-    const contentWithEntries = mapValues(groupedContent, value => map(value, 'entry'));
-    const slotsWithEntries = mapValues(groupedSlots, value => map(value, 'entry'));
+    const groupedContent = groupBy(content, 'name');
+    const slotsWithEntries = mapValues(groupedSlots, value => map(value, 'entry.sys.id'));
+    const contentWithEntries = mapValues(groupedContent, value => map(value, 'entry.sys.id'));
 
-    console.log('grids', grids);
-    const parsedGrids = grids?.reduce((parsedGrids, { viewport, grid }) => {
-      return {
-        ...parsedGrids,
-        [`${viewport}Grid`]: grid
-      };
-    }, {});
+    const contentNodes = Object.entries(contentWithEntries)
+      .reduce((fields, [name, ids]) => ({ ...fields, [name]: getContent(name, ids) }), {});
+    // const contentNodes = mapValues(contentWithEntries, (entries, name) => getContent(name, entries));
 
-    const contentNodes = mapValues(contentWithEntries, (entries, name) => getContent(name, entries));
     const slotsNodes = flatMap(slotsWithEntries, (entries, name) => getContent(name, entries));
+    const slottedContentProps = { grids, children: slotsNodes };
 
-    console.log('contentWithEntries', contentWithEntries);
-
-
-    const slottedContentProps = {
-      ...parsedGrids,
-      children: slotsNodes
+    const componentProps = {
+      sx: _sx,
+      ...(slotsNodes.length ? { _content: <SlottedContent {...slottedContentProps} /> } : {}),
+      ...(Object.keys(contentNodes).length ? contentNodes : {}),
+      ...marginPaddingProps,
+      ...props
     };
-      console.log('slottedContentProps', slottedContentProps);
 
+        // console.log('Component', Component);
+        // console.log('componentProps', componentProps);
     return (
       <Component
-        _content={<SlottedContent {...slottedContentProps} />}
-        sx={_sx}
-        {...contentNodes}
-        {...marginPaddingProps}
-        {...props}
+        // sx={_sx}
+        // _content={<SlottedContent {...slottedContentProps} />}
+        // {...contentNodes}
+        // {...marginPaddingProps}
+        // {...props}
+        {...componentProps}
       />
     );
   }
@@ -125,32 +131,3 @@ ContentfulContent.propTypes = {
   _sx: PropTypes.object,
   __typename: PropTypes.string,
 };
-
-
-// const getContent = ({ name, entries }, group) => {
-//   return entries.map(({ sys: { id }}, index) => {
-//     const normalizedId = id[0] === 'c' ? id.slice(1) : id;
-//     const content = group.find(({ contentful_id }) => contentful_id === normalizedId);
-
-//     return (
-//       <ContentfulContent
-//         gridArea={name}
-//         {...content}
-//         key={`${index}+${id}`}
-//       />
-//     );
-//   });
-// };
-
-
-// const contentNodes = lookupContent
-//   .reduce((fields, field) => ({
-//     ...fields,
-//     [field.name]: getContent(field, content)
-//   }), {});
-
-// const slotsNodes = lookupSlots
-//   .reduce((slotContent, slot) => [
-//     ...slotContent,
-//     ...getContent(slot, slots)
-//   ], []);
