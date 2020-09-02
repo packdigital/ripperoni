@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Box, CmsContent } from '@ripperoni/components';
+import { Box } from '@ripperoni/components';
 
 
 export const Hero = ({
@@ -11,15 +11,9 @@ export const Hero = ({
   contentBounds,
   contentBox,
   children,
-  _content,
   ...props
 }) => {
-// console.log('props', props);
-  // console.log('contentBounds', contentBounds);
-  // console.log('contentBox', contentBox);
-  // console.log('children', children);
-  // console.log('_content', _content);
-  // console.log('props', props);
+
   return (
     <Box
       data-comp={Hero.displayName}
@@ -35,7 +29,7 @@ export const Hero = ({
         {image}
       </Box>
 
-      {/* <Box
+      <Box
         data-comp='Hero Contents Box'
         position='absolute'
         top={contentBounds?.top || 0}
@@ -44,35 +38,9 @@ export const Hero = ({
         right={contentBounds?.right || 0}
         {...contentBox}
       >
-        {children || _content}
-      </Box> */}
+        {children}
+      </Box>
 
-      {_content
-        ? (
-          <CmsContent
-            content={_content}
-            data-comp='Hero Contents Box'
-            position='absolute'
-            top={0}
-            bottom={0}
-            left={0}
-            right={0}
-          />
-        )
-        : (
-          <Box
-            data-comp='Hero Contents Box'
-            position='absolute'
-            top={contentBounds?.top || 0}
-            bottom={contentBounds?.bottom || 0}
-            left={contentBounds?.left || 0}
-            right={contentBounds?.right || 0}
-            {...contentBox}
-          >
-            {children}
-          </Box>
-        )
-      }
     </Box>
   );
 };
@@ -92,10 +60,6 @@ Hero.propTypes = {
   }),
   contentBox: PropTypes.object,
   children: PropTypes.any,
-  _content: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array,
-  ]),
 };
 
 Hero.displayName = 'Hero';

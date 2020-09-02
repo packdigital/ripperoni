@@ -7,12 +7,9 @@ import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
 
 export const Box = forwardRef(({
   children,
-  _content,
   ...incomingProps
 }, ref) => {
-  // console.log('incomingProps', incomingProps);
   const { sxObject, props, propTypes } = useSxProps(incomingProps);
-  // console.log('props', props);
 
   Box.propTypes = propTypes;
 
@@ -23,7 +20,7 @@ export const Box = forwardRef(({
       sx={sxObject}
       {...props}
     >
-      {_content || children}
+      {children}
     </BoxUI>
   );
 });

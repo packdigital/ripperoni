@@ -5,7 +5,11 @@ import { jsx } from 'theme-ui';
 import { Container } from './Container';
 
 
-export const ContainerFull = forwardRef((props, ref) => {
+export const ContainerFull = forwardRef(({
+  children,
+  pageContent,
+  ...props
+}, ref) => {
   ContainerFull.propTypes = Container.propTypes;
 
   return (
@@ -14,7 +18,9 @@ export const ContainerFull = forwardRef((props, ref) => {
       ref={ref}
       variant='layout.container.full'
       {...props}
-    />
+    >
+      {pageContent || children}
+    </Container>
   );
 });
 

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import GatsbyImage from 'gatsby-image';
 
 import { Svg } from '../Svg';
+import { Box } from '../Box';
 
 
 export const ImageContentful = forwardRef(({
@@ -43,12 +44,13 @@ export const ImageContentful = forwardRef(({
   }
 
   return (
-    <GatsbyImage
-      data-comp={ImageContentful.displayName}
-      ref={ref}
-      {...imageProps}
-      {...props}
-    />
+    <Box {...props}>
+      <GatsbyImage
+        data-comp={ImageContentful.displayName}
+        ref={ref}
+        {...imageProps}
+      />
+    </Box>
   );
 });
 

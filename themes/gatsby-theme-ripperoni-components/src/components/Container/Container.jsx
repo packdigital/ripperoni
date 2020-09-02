@@ -11,13 +11,34 @@ import ContainerSx from './Container.sx';
 
 
 export const Container = forwardRef(({
+  bg,
+  backgroundColor,
   children,
   _content,
+  pageContent,
   ...incomingProps
 }, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps, ContainerSx);
 
   Container.propTypes = propTypes;
+
+  if (bg || backgroundColor) {
+    return (
+      <ContainerUI
+        variant='layout.container.full'
+        bg={bg || backgroundColor}
+      >
+        <ContainerUI
+          data-comp={Container.displaName}
+          ref={ref}
+          sx={sxObject}
+          {...props}
+        >
+          {_content || pageContent || children}
+        </ContainerUI>
+      </ContainerUI>
+    );
+  }
 
   return (
     <ContainerUI
@@ -26,7 +47,7 @@ export const Container = forwardRef(({
       sx={sxObject}
       {...props}
     >
-      {_content || children}
+      {_content || pageContent || children}
     </ContainerUI>
   );
 });

@@ -2,8 +2,8 @@
   "name": "Page Container",
   "path": "themes/gatsby-theme-ripperoni-componenets/src/components/Container/Container.jsx",
   "content": {
-    "pageContent": {
-      "displayName": "Page Content",
+    "content": {
+      "displayName": "Content",
       "multiple": true,
       "types": ["*"]
     }
