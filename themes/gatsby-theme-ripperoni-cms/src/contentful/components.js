@@ -19,7 +19,6 @@ const atoms = {
 const molecules = {
   hero: Hero,
   section: Box,
-  'page-container': Container.Full,
 };
 
 const pageContainer = {

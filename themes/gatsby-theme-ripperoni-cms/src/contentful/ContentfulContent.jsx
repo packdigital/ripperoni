@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /** @jsx jsx */
 import { jsx, useThemeUI } from 'theme-ui';
 import PropTypes from 'prop-types';
@@ -36,8 +37,10 @@ const parseProps = props => {
     }, {});
 
   const otherProps = Object.entries(props)
-    .filter(([name, value]) => propsList.includes(name))
+    .filter(([name]) => propsList.includes(name))
+    // eslint-disable-next-line no-unused-vars
     .filter(([name, value]) => Array.isArray(value))
+    // eslint-disable-next-line no-unused-vars
     .filter(([name, value]) => value.some(value => value !== null))
     .reduce((props, [name, value]) => {
 
@@ -65,6 +68,7 @@ export const ContentfulContent = incomingProps => {
     marginPadding,
     grids,
     entries,
+    content,
     _sx,
     ...props
   } = parsedProps;
@@ -86,7 +90,7 @@ export const ContentfulContent = incomingProps => {
   if (type === 'ContentfulPageContainer') {
     return (
       <Component>
-        {props.content.map((section, index) => (
+        {content.map((section, index) => (
           <ContentfulContent
             {...section}
             key={index}
