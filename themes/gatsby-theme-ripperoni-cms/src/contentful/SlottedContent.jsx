@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { forwardRef } from 'react';
 import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 
@@ -21,24 +22,27 @@ const parseGrids = grids => {
   }, {});
 
   if (Object.keys(gridsDetails).length === 1) {
-    return Object.fromEntries(Object.entries(gridsDetails).map(([key, value]) => ['all', value]));
+    return Object.fromEntries(Object.entries(gridsDetails).map(([, value]) => ['all', value]));
   }
 
   return gridsDetails;
 };
 
-export const SlottedContent = ({ grids, children }) => {
+export const SlottedContent = forwardRef(({
+  grids,
+  slotsNodes,
+  ...props
+}, ref) => {
   const parsedGrids = parseGrids(grids);
-
 
   return (
     <Grid
+      ref={ref}
       gridTemplateColumns={[
         parsedGrids?.all?.columns || null,
         parsedGrids?.mobile?.columns || null,
         null,
         parsedGrids?.tablet?.columns || null,
-        null,
         parsedGrids?.desktop?.columns || null,
       ]}
       gridTemplateRows={[
@@ -46,24 +50,24 @@ export const SlottedContent = ({ grids, children }) => {
         parsedGrids?.mobile?.rows || null,
         null,
         parsedGrids?.tablet?.rows || null,
-        null,
         parsedGrids?.desktop?.rows || null,
+
       ]}
       gridTemplateAreas={[
         parsedGrids?.all?.grid || null,
         parsedGrids?.mobile?.grid || null,
         null,
         parsedGrids?.tablet?.grid || null,
-        null,
         parsedGrids?.desktop?.grid || null,
       ]}
       gridRowGap={0}
       gridColumnGap={0}
+      {...props}
     >
-      {children}
+      {slotsNodes}
     </Grid>
   );
-};
+});
 
 SlottedContent.displayName = 'SlottedContent';
 

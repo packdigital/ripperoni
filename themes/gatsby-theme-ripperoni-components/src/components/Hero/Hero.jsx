@@ -1,7 +1,8 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 
-import { Box } from '@ripperoni/components';
+import { Box, CmsContent } from '@ripperoni/components';
 
 
 export const Hero = ({
@@ -11,8 +12,10 @@ export const Hero = ({
   contentBounds,
   contentBox,
   children,
+  fromCms,
   ...props
 }) => {
+  const Component = fromCms ? CmsContent : Box;
 
   return (
     <Box
@@ -29,18 +32,18 @@ export const Hero = ({
         {image}
       </Box>
 
-      <Box
+      <Component
         data-comp='Hero Contents Box'
         position='absolute'
         top={contentBounds?.top || 0}
         bottom={contentBounds?.bottom || 0}
         left={contentBounds?.left || 0}
         right={contentBounds?.right || 0}
+        // content={_children}
+        // eslint-disable-next-line react/no-children-prop
+        children={children}
         {...contentBox}
-      >
-        {children}
-      </Box>
-
+      />
     </Box>
   );
 };
@@ -60,6 +63,7 @@ Hero.propTypes = {
   }),
   contentBox: PropTypes.object,
   children: PropTypes.any,
+  _children: PropTypes.element
 };
 
 Hero.displayName = 'Hero';

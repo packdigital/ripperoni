@@ -38,10 +38,8 @@ const parseProps = props => {
 
   const otherProps = Object.entries(props)
     .filter(([name]) => propsList.includes(name))
-    // eslint-disable-next-line no-unused-vars
-    .filter(([name, value]) => Array.isArray(value))
-    // eslint-disable-next-line no-unused-vars
-    .filter(([name, value]) => value.some(value => value !== null))
+    .filter(([, value]) => Array.isArray(value))
+    .filter(([, value]) => value.some(value => value !== null))
     .reduce((props, [name, value]) => {
 
       return {
@@ -124,18 +122,17 @@ export const ContentfulContent = incomingProps => {
     const contentNodes = Object.entries(contentWithEntries)
       .reduce((fields, [name, ids]) => ({ ...fields, [name]: getContent(name, ids) }), {});
     const slotsNodes = flatMap(slotsWithEntries, (entries, name) => getContent(name, entries));
-    // eslint-disable-next-line
-    const slottedContent = <SlottedContent children={slotsNodes} grids={grids} />
 
     return (
       <Component
         data-comp={`Contentful Content: ${Component.displayName}`}
         sx={_sx}
+        fromCms={true}
         {...marginPadding}
         {...contentNodes}
         {...props}
       >
-        {slottedContent}
+        <SlottedContent {...{ slotsNodes, grids }} />
       </Component>
     );
   }
