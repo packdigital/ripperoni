@@ -6,14 +6,17 @@ export const ContentfulMoleculeDataFragment = graphql`
     id
     contentful_id
     component
-    grids {
-      grid
-      viewport
+    backgroundColor {
+      backgroundColor: content
     }
     marginPadding {
       type
       direction
       value
+      viewport
+    }
+    grids {
+      grid
       viewport
     }
     lookup {
@@ -58,6 +61,24 @@ export const ContentfulMoleculeFragment = graphql`
                   ... on ContentfulAtomImage { ...ContentfulAtomImage }
                   ... on ContentfulAtomLink { ...ContentfulAtomLink }
                   ... on ContentfulAtomText { ...ContentfulAtomText }
+                  ... on ContentfulMolecule {
+                    ...ContentfulMoleculeData
+                    entries {
+                      ... on ContentfulAtomButton { ...ContentfulAtomButton }
+                      ... on ContentfulAtomImage { ...ContentfulAtomImage }
+                      ... on ContentfulAtomLink { ...ContentfulAtomLink }
+                      ... on ContentfulAtomText { ...ContentfulAtomText }
+                      ... on ContentfulMolecule {
+                        ...ContentfulMoleculeData
+                        entries {
+                          ... on ContentfulAtomButton { ...ContentfulAtomButton }
+                          ... on ContentfulAtomImage { ...ContentfulAtomImage }
+                          ... on ContentfulAtomLink { ...ContentfulAtomLink }
+                          ... on ContentfulAtomText { ...ContentfulAtomText }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }

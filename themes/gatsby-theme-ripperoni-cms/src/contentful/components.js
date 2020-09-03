@@ -19,10 +19,15 @@ const atoms = {
 const molecules = {
   hero: Hero,
   section: Box,
-  'page-container': Container,
+  'page-container': Container.Full,
+};
+
+const pageContainer = {
+  ContentfulPageContainer: Container.Full,
 };
 
 export const components = {
   ...atoms,
   ...molecules,
+  ...pageContainer,
 };

@@ -7,8 +7,29 @@ export const ContentfulAtomTextFragment = graphql`
     longText: text {
       text
     }
-    color
+    color {
+      color: content
+    }
+    fontSize {
+      fontSize: content
+    }
+    fontWeight {
+      fontWeight: content
+    }
+    textAlign
+    maxWidth {
+      maxWidth: content
+    }
+    marginPadding {
+      type
+      direction
+      viewport
+      value
+    }
     variant
+    # metaTitle
+    # metaHandle
+    # metaTags
     contentful_id
     __typename
   }

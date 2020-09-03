@@ -4,9 +4,6 @@ import { graphql } from 'gatsby';
 export const ContentfulAtomImageFragment = graphql`
   fragment ContentfulAtomImage on ContentfulAtomImage {
     id
-    alt
-    primaryImageSizes
-    secondaryImageSizes
     primaryImage {
       fluid (maxWidth: 2400) {
         ...GatsbyContentfulFluid_withWebp_noBase64
@@ -17,6 +14,12 @@ export const ContentfulAtomImageFragment = graphql`
         ...GatsbyContentfulFluid_withWebp_noBase64
       }
     }
+    alt
+    primaryImageSizes
+    secondaryImageSizes
+    # metaTitle
+    # metaHandle
+    # metaTags
     contentful_id
     __typename
   }

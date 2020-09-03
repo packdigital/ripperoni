@@ -1,69 +1,106 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import { jsx, useThemeUI } from 'theme-ui';
 import PropTypes from 'prop-types';
 import groupBy from 'lodash/groupBy';
 import mapValues from 'lodash/mapValues';
 import map from 'lodash/map';
 import flatMap from 'lodash/flatMap';
 
-
 import { components } from '@ripperoni/cms/contentful/components';
 
 import { SlottedContent } from './SlottedContent';
 
 
-export const ContentfulContent = ({
-  component,
-  marginPadding = [],
-  grids,
-  entries,
-  lookup,
-  _sx,
-  __typename: type,
-  ...props
-}) => {
-  if (!type) {
-    console.log('type', type);
-    console.log('props', props);
-    console.log('grids', grids);
-    console.log('entries', entries);
-    console.log('lookup', lookup);
-    console.log('component', component);
+const parseProps = props => {
+  const { theme: { breakpoints }} = useThemeUI();
+  const Component = props.__typename === 'ContentfulMolecule'
+    ? components[props.component]
+    : components[props.__typename];
+  const propsList = [
+    'color',
+    'backgroundColor',
+    'fontSize',
+    'fontWeight',
+    'maxWidth',
+  ];
 
+  const marginPadding = props.marginPadding
+    ?.reduce((spacings, { type, direction, value, viewport }) => {
+      const key = `${type}${direction}`;
+
+      return {
+        ...spacings,
+        [key]: (spacings[key] || Array(breakpoints.length + 1).fill(null))
+          .map((item, index) => parseInt(viewport) === index ? parseInt(value) || value : item)
+      };
+    }, {});
+
+  const otherProps = Object.entries(props)
+    .filter(([name, value]) => propsList.includes(name))
+    .filter(([name, value]) => Array.isArray(value))
+    .filter(([name, value]) => value.some(value => value !== null))
+    .reduce((props, [name, value]) => {
+
+      return {
+        ...props,
+        [name]: [null, ...value].map(value => value?.__typename
+          ? parseInt(value[name]) || value[name]
+          : value)
+      };
+    }, props);
+
+  return {
+    type: props.__typename,
+    Component,
+    ...otherProps,
+    marginPadding,
+  };
+};
+
+export const ContentfulContent = incomingProps => {
+  const parsedProps = parseProps(incomingProps);
+  const {
+    type,
+    Component,
+    marginPadding,
+    grids,
+    entries,
+    _sx,
+    ...props
+  } = parsedProps;
+
+  if (!type) {
     return null;
   }
 
-  // console.log('component', component);
-  const Component = type === 'ContentfulMolecule'
-    ? components[component]
-    : components[type];
+  if (type.startsWith('ContentfulAtom')) {
+    return (
+      <Component
+        sx={_sx}
+        {...marginPadding}
+        {...props}
+      />
+    );
+  }
 
-  const breakpointMap = {
-    desktop: 5,
-    tablet: 3,
-    mobile: 0,
-    all: 0,
-  };
-
-  const marginPaddingProps = marginPadding
-    .reduce((props, { type, value, direction, viewport }) => {
-      const key = `${type}${direction}`;
-
-      if (!props[key]) {
-        props[key] = [];
-      }
-
-      props[key][breakpointMap[viewport]] = value.replace('theme.space.', '');
-
-      return props;
-    }, {});
+  if (type === 'ContentfulPageContainer') {
+    return (
+      <Component>
+        {props.content.map((section, index) => (
+          <ContentfulContent
+            {...section}
+            key={index}
+          />
+        ))}
+      </Component>
+    );
+  }
 
   const getContent = (name, ids) => {
     return ids.map((id, index) => {
       const normalizedId = id[0] === 'c' ? id.slice(1) : id;
       const content = entries.find(({ contentful_id }) => contentful_id === normalizedId);
 
-      // return ContentfulContent({ ...content, gridArea: name, key: `${index}+${id}` });
       return (
         <ContentfulContent
           gridArea={name}
@@ -75,48 +112,31 @@ export const ContentfulContent = ({
   };
 
   if (type === 'ContentfulMolecule') {
-    const { content, slots } = groupBy(lookup, 'type');
-    const groupedSlots = groupBy(slots, 'name');
+    const { content, slots } = groupBy(props.lookup, 'type');
     const groupedContent = groupBy(content, 'name');
-    const slotsWithEntries = mapValues(groupedSlots, value => map(value, 'entry.sys.id'));
+    const groupedSlots = groupBy(slots, 'name');
     const contentWithEntries = mapValues(groupedContent, value => map(value, 'entry.sys.id'));
-
+    const slotsWithEntries = mapValues(groupedSlots, value => map(value, 'entry.sys.id'));
     const contentNodes = Object.entries(contentWithEntries)
       .reduce((fields, [name, ids]) => ({ ...fields, [name]: getContent(name, ids) }), {});
-    // const contentNodes = mapValues(contentWithEntries, (entries, name) => getContent(name, entries));
-
     const slotsNodes = flatMap(slotsWithEntries, (entries, name) => getContent(name, entries));
-    const slottedContentProps = { grids, children: slotsNodes };
+    // eslint-disable-next-line
+    const slottedContent = <SlottedContent children={slotsNodes} grids={grids} />
 
-    const componentProps = {
-      sx: _sx,
-      ...(slotsNodes.length ? { _content: <SlottedContent {...slottedContentProps} /> } : {}),
-      ...(Object.keys(contentNodes).length ? contentNodes : {}),
-      ...marginPaddingProps,
-      ...props
-    };
-
-        // console.log('Component', Component);
-        // console.log('componentProps', componentProps);
     return (
       <Component
-        // sx={_sx}
-        // _content={<SlottedContent {...slottedContentProps} />}
-        // {...contentNodes}
-        // {...marginPaddingProps}
-        // {...props}
-        {...componentProps}
-      />
+        data-comp={`Contentful Content: ${Component.displayName}`}
+        sx={_sx}
+        {...marginPadding}
+        {...contentNodes}
+        {...props}
+      >
+        {slottedContent}
+      </Component>
     );
   }
 
-  return (
-    <Component
-      sx={_sx}
-      {...marginPaddingProps}
-      {...props}
-    />
-  );
+  return null;
 };
 
 ContentfulContent.displayName = 'Contentful Content';

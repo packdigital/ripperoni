@@ -5,36 +5,48 @@ import PropTypes from 'prop-types';
 import { Grid } from '@ripperoni/components';
 
 
-export const SlottedContent = ({ desktopGrid, mobileGrid, children }) => {
-  if (!desktopGrid) {
-    return null;
-  }
+const parseGrids = grids => grids.reduce((grids, { grid, viewport }) => {
+  const rows = grid.split("' '").length;
+  const columns = grid.split("' '")[0].split(' ').length;
 
-  const rows = desktopGrid.split("' '").length;
-  const rowsMobile = mobileGrid.split("' '").length;
-  const columns = desktopGrid.split("' '")[0].split(' ').length;
-  const columnsMobile = mobileGrid.split("' '")[0].split(' ').length;
+  return {
+    ...grids,
+    [viewport]: {
+      grid,
+      rows: `repeat(${rows}, 1fr)`,
+      columns: `repeat(${columns}, 1fr)`
+    }
+  };
+}, {});
+
+export const SlottedContent = ({ grids, children }) => {
+  const parsedGrids = parseGrids(grids);
 
   return (
     <Grid
       gridTemplateColumns={[
-        `repeat(${columnsMobile}, 1fr)`,
+        parsedGrids?.mobile?.columns || null,
         null,
+        parsedGrids?.tablet?.columns || null,
         null,
-        `repeat(${columns}, 1fr)`
+        parsedGrids?.desktop?.columns || null,
       ]}
       gridTemplateRows={[
-        `repeat(${rowsMobile}, 1fr)`,
+        parsedGrids?.mobile?.rows || null,
         null,
+        parsedGrids?.tablet?.rows || null,
         null,
-        `repeat(${rows}, 1fr)`
+        parsedGrids?.desktop?.rows || null,
       ]}
       gridTemplateAreas={[
-        mobileGrid,
+        parsedGrids?.mobile?.grid || null,
         null,
+        parsedGrids?.tablet?.grid || null,
         null,
-        desktopGrid
+        parsedGrids?.desktop?.grid || null,
       ]}
+      gridRowGap={0}
+      gridColumnGap={0}
     >
       {children}
     </Grid>
@@ -44,7 +56,6 @@ export const SlottedContent = ({ desktopGrid, mobileGrid, children }) => {
 SlottedContent.displayName = 'SlottedContent';
 
 SlottedContent.propTypes = {
-  desktopGrid: PropTypes.string,
-  mobileGrid: PropTypes.string,
+  grids: PropTypes.arrayOf(PropTypes.object),
   children: PropTypes.any,
 };

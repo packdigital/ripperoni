@@ -6,8 +6,19 @@ export const ContentfulAtomLinkFragment = graphql`
     id
     text
     url
-    color
+    color {
+      color: content
+    }
+    marginPadding {
+      type
+      direction
+      viewport
+      value
+    }
     variant
+    # metaTitle
+    # metaHandle
+    # metaTags
     contentful_id
     __typename
   }
