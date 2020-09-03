@@ -49,6 +49,7 @@ export const Hero = ({
 };
 
 Hero.propTypes = {
+  fromCms: PropTypes.bool,
   image: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array,

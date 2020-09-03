@@ -22,7 +22,10 @@ const parseGrids = grids => {
   }, {});
 
   if (Object.keys(gridsDetails).length === 1) {
-    return Object.fromEntries(Object.entries(gridsDetails).map(([, value]) => ['all', value]));
+    const remappedGrid = Object.entries(gridsDetails)
+      .map(([, value]) => ['all', value]);
+
+    return Object.fromEntries(remappedGrid);
   }
 
   return gridsDetails;

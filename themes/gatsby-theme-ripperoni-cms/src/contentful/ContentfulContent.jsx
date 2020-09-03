@@ -106,10 +106,12 @@ export const ContentfulContent = incomingProps => {
 
       if (inGrid) {
         return (
-          <Box gridArea={name}>
+          <Box
+            gridArea={name}
+            key={`${index}+${id}`}
+          >
             <ContentfulContent
               {...content}
-              key={`${index}+${id}`}
             />
           </Box>
         );
@@ -139,11 +141,14 @@ export const ContentfulContent = incomingProps => {
         data-comp={`Contentful Content: ${Component.displayName}`}
         sx={_sx}
         fromCms={true}
-        {...marginPadding}
         {...contentNodes}
         {...props}
       >
-        <SlottedContent {...{ slotsNodes, grids }} />
+        <SlottedContent
+          {...marginPadding}
+          slotsNodes={slotsNodes}
+          grids={grids}
+        />
       </Component>
     );
   }
