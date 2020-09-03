@@ -7,6 +7,7 @@ import mapValues from 'lodash/mapValues';
 import map from 'lodash/map';
 import flatMap from 'lodash/flatMap';
 
+import { Box } from '@ripperoni/components';
 import { components } from '@ripperoni/cms/contentful/components';
 
 import { SlottedContent } from './SlottedContent';
@@ -98,14 +99,24 @@ export const ContentfulContent = incomingProps => {
     );
   }
 
-  const getContent = (name, ids) => {
+  const getContent = (name, ids, inGrid) => {
     return ids.map((id, index) => {
       const normalizedId = id[0] === 'c' ? id.slice(1) : id;
       const content = entries.find(({ contentful_id }) => contentful_id === normalizedId);
 
+      if (inGrid) {
+        return (
+          <Box gridArea={name}>
+            <ContentfulContent
+              {...content}
+              key={`${index}+${id}`}
+            />
+          </Box>
+        );
+      }
+
       return (
         <ContentfulContent
-          gridArea={name}
           {...content}
           key={`${index}+${id}`}
         />
@@ -121,7 +132,7 @@ export const ContentfulContent = incomingProps => {
     const slotsWithEntries = mapValues(groupedSlots, value => map(value, 'entry.sys.id'));
     const contentNodes = Object.entries(contentWithEntries)
       .reduce((fields, [name, ids]) => ({ ...fields, [name]: getContent(name, ids) }), {});
-    const slotsNodes = flatMap(slotsWithEntries, (entries, name) => getContent(name, entries));
+    const slotsNodes = flatMap(slotsWithEntries, (entries, name) => getContent(name, entries, true));
 
     return (
       <Component
