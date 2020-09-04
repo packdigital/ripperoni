@@ -4,13 +4,13 @@ const { touchUnchangedNodes, deleteRemovedNodes, createCollectionNodes, createCo
 const { fetchCollections, parseIncludedCollections, sortCollections, mapCollections } = require('./fetchBulk');
 
 
-const sourceRecursively = async ({ client, downloadLocal }, { helpers, timer, format }) => {
+const sourceRecursively = async ({ client, downloadLocal, paginationSize }, { helpers, timer, format }) => {
   timer.setStatus(format`Fetching unchanged, removed, and stale nodes`);
     const {
       unchangedNodes,
       removedNodes,
       staleNodes
-    } = await sortUnchangedRemovedAndStaleNodes({ client, helpers });
+    } = await sortUnchangedRemovedAndStaleNodes({ client, paginationSize, helpers });
 
   if (unchangedNodes.length > 0) {
     timer.setStatus(format`Loading unchanged nodes from cache`);
@@ -24,7 +24,7 @@ const sourceRecursively = async ({ client, downloadLocal }, { helpers, timer, fo
 
   if (staleNodes.length > 0) {
     timer.setStatus(format`Fetching fresh colleciton data`);
-      const collections = await fetchFreshCollectionData({ staleNodes, client, helpers });
+      const collections = await fetchFreshCollectionData({ staleNodes, client, paginationSize, helpers });
 
     timer.setStatus('Creating collection nodes');
       await createCollectionNodes({ collections, helpers });

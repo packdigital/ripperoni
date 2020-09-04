@@ -11,7 +11,8 @@ exports.sourceNodes = async (helpers, options) => {
     downloadLocal,
     apiVersion = '2020-04',
     fetchInBulk = false,
-    excludeTerms = []
+    excludeTerms = [],
+    paginationSize = 250,
   } = options;
 
   const { format, panic, activityTimer } = helpers.reporter;
@@ -28,7 +29,7 @@ exports.sourceNodes = async (helpers, options) => {
   if (fetchInBulk) {
     await sourceWithBulkOperation({ client, downloadLocal, excludeTerms }, { helpers, timer, format });
   } else {
-    await sourceRecursively({ client, downloadLocal }, { helpers, timer, format });
+    await sourceRecursively({ client, downloadLocal, paginationSize }, { helpers, timer, format });
   }
 
   timer.setStatus(format`Sourced {bold BackpackCollection} nodes from {green {bold Shopify}}`);

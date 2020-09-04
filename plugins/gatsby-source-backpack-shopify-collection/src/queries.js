@@ -2,8 +2,8 @@ const gql = require('graphql-tag');
 
 
 const SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY = gql`
-  query GetShopifyCollectionsUpdatedAt ($cursor: String) {
-    results: collections (first: 250, after: $cursor, sortKey: UPDATED_AT, reverse: true) {
+  query GetShopifyCollectionsUpdatedAt ($cursor: String, $paginationSize: Int) {
+    results: collections (first: $paginationSize, after: $cursor, sortKey: UPDATED_AT, reverse: true) {
       pageInfo {
         hasNextPage
       }
@@ -23,8 +23,8 @@ const SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY = gql`
 
 
 const SHOPIFY_COLLECTIONS_QUERY = gql`
-  query GetShopifyCollections ($cursor: String, $query: String) {
-    results: collections (first: 250, after: $cursor, query: $query) {
+  query GetShopifyCollections ($cursor: String, $query: String, $paginationSize: Int) {
+    results: collections (first: $paginationSize, after: $cursor, query: $query) {
       pageInfo {
         hasNextPage
         hasPreviousPage
@@ -41,7 +41,7 @@ const SHOPIFY_COLLECTIONS_QUERY = gql`
             src: transformedSrc (preferredContentType: WEBP)
             altText
           }
-          products (first: 250) {
+          products (first: $paginationSize) {
             pageInfo {
               hasNextPage
             }
@@ -67,9 +67,9 @@ const SHOPIFY_COLLECTIONS_QUERY = gql`
 
 
 const SHOPIFY_COLLECTION_PRODUCTS_QUERY = gql`
-  query GetShopifyCollectionsUpdatedAt ($handle: String!, $cursor: String!) {
+  query GetShopifyCollectionsUpdatedAt ($handle: String!, $cursor: String!, $paginationSize: Int) {
     results: collectionByHandle (handle: $handle) {
-      products (first: 250, after: $cursor) {
+      products (first: $paginationSize, after: $cursor) {
         pageInfo {
           hasNextPage
         }

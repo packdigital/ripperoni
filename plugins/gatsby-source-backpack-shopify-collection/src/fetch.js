@@ -45,10 +45,10 @@ const recursivelyRunQuery = async ({
   return flattenEdges({ edges: [ ...results, ...edges ] });
 };
 
-exports.sortUnchangedRemovedAndStaleNodes = async ({ client, helpers }) => {
+exports.sortUnchangedRemovedAndStaleNodes = async ({ client, helpers, paginationSize }) => {
   const { cache, getNodesByType } = helpers;
   const query = SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY;
-  const collectionsMeta = await recursivelyRunQuery({ client, query });
+  const collectionsMeta = await recursivelyRunQuery({ client, query, variables: { paginationSize }});
 
   const oldNodes = getNodesByType(`${TYPE_PREFIX}${COLLECTION}`);
   const currentNodeIds = collectionsMeta.map(node => convertToGatsbyGraphQLId(node.id, COLLECTION, TYPE_PREFIX));
@@ -76,7 +76,7 @@ exports.sortUnchangedRemovedAndStaleNodes = async ({ client, helpers }) => {
     }, Promise.resolve({ unchangedNodes: [], removedNodes, staleNodes: [] }));
 };
 
-const fetchUpdatedCollectionData = async ({ staleNodes, client, helpers, retryCount = 0 }) => {
+const fetchUpdatedCollectionData = async ({ staleNodes, client, paginationSize, helpers, retryCount = 0 }) => {
   const { format, createProgress, info } = helpers.reporter;
   const collectionCount = staleNodes.length;
   const oldestTimestamp = staleNodes[0].updatedAt;
@@ -91,7 +91,7 @@ const fetchUpdatedCollectionData = async ({ staleNodes, client, helpers, retryCo
     const collectionData = await recursivelyRunQuery({
       client,
       query: SHOPIFY_COLLECTIONS_QUERY,
-      variables: { query: `updated_at:>=${oldestTimestamp}` },
+      variables: { query: `updated_at:>=${oldestTimestamp}`, paginationSize: paginationSize },
       callback: result => progress.tick(result.length),
     });
 
@@ -111,14 +111,14 @@ const fetchUpdatedCollectionData = async ({ staleNodes, client, helpers, retryCo
 
       await pause(waitForMs);
 
-      return fetchUpdatedCollectionData({ staleNodes, client, helpers, retryCount: retryCount - 1 });
+      return fetchUpdatedCollectionData({ staleNodes, client, paginationSize, helpers, retryCount: retryCount - 1 });
     }
 
     throw new Error(error);
   }
 };
 
-const fetchAdditionalCollectionVariants = async ({ collectionsData, client, helpers }) => {
+const fetchAdditionalCollectionVariants = async ({ collectionsData, client, paginationSize, helpers }) => {
   const { format, activityTimer } = helpers.reporter;
 
   let addtionalProducts = 0;
@@ -134,7 +134,7 @@ const fetchAdditionalCollectionVariants = async ({ collectionsData, client, help
       const handle = collection.handle;
       const cursor = collection.products.edges.reverse()[0].cursor;
       const query = SHOPIFY_COLLECTION_PRODUCTS_QUERY;
-      const variables = { cursor, handle };
+      const variables = { cursor, handle, paginationSize };
       const results = collection.products.edges;
       const path = 'data.results.products';
 
@@ -186,12 +186,12 @@ const mapBackpackVariantsToCollection = ({ collectionsWithVariants = [], helpers
   });
 };
 
-exports.fetchFreshCollectionData = async ({ staleNodes, client, helpers }) => {
+exports.fetchFreshCollectionData = async ({ staleNodes, client, paginationSize, helpers }) => {
   const { reporter } = helpers;
 
   try {
-    const collectionsData = await fetchUpdatedCollectionData({ staleNodes, client, helpers });
-    const collectionsWithVariants = await fetchAdditionalCollectionVariants({ collectionsData, client, helpers });
+    const collectionsData = await fetchUpdatedCollectionData({ staleNodes, client, paginationSize, helpers });
+    const collectionsWithVariants = await fetchAdditionalCollectionVariants({ collectionsData, client, paginationSize, helpers });
     const collectionsNodeData = mapBackpackVariantsToCollection({ collectionsWithVariants, helpers });
 
     return collectionsNodeData;
