@@ -2,7 +2,7 @@
 import { forwardRef } from 'react';
 import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
-import GatsbyImage from 'gatsby-image';
+import GatsbyImage from 'gatsby-image/withIEPolyfill';
 // import { mutuallyExclusiveProps } from 'airbnb-prop-types';
 
 
