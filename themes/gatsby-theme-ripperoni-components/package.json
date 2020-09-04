@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-theme-ripperoni-components",
-  "version": "1.1.43",
+  "version": "1.1.44",
   "author": "@packdigital",
   "description": "Ripperoni's UI components library",
   "repository": "https://github.com/packdigital/ripperoni",
@@ -29,5 +29,6 @@
     "react-error-boundary": "^2.0.2",
     "react-intersection-observer": "^8.26.2"
   },
-  "prettier": "@packdigital/prettier-config-ripperoni"
+  "prettier": "@packdigital/prettier-config-ripperoni",
+  "gitHead": "dd785154c326e38e3423cc5fdcee4a8548031c0b"
 }

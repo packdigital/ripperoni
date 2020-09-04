@@ -40,5 +40,6 @@
     "@babel/core": "^7.7.5",
     "cross-env": "^5.2.1"
   },
-  "prettier": "@packdigital/prettier-config-ripperoni"
+  "prettier": "@packdigital/prettier-config-ripperoni",
+  "gitHead": "dd785154c326e38e3423cc5fdcee4a8548031c0b"
 }
