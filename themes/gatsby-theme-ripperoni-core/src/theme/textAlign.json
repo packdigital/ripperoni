@@ -1,5 +1,5 @@
-[
-  "left",
-  "right",
-  "center"
-]
+{
+  "left": "left",
+  "right": "right",
+  "center": "center"
+}
