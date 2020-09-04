@@ -73,6 +73,20 @@ module.exports = `
     value: String
   }
 
+  type contentfulMoleculeMarginPaddingContentJsonNode implements Node & ContentfulMarginPadding @infer {
+    type: String
+    direction: String
+    viewport: String
+    value: String
+  }
+
+  type contentfulMoleculeMarginPaddingSlotsJsonNode implements Node & ContentfulMarginPadding @infer {
+    type: String
+    direction: String
+    viewport: String
+    value: String
+  }
+
 
 
 
@@ -135,6 +149,8 @@ module.exports = `
     fontWeight: [ContentfulJson]  @link(by: "id", from: "fontWeight___NODE")
     maxWidth: [ContentfulJson]  @link(by: "id", from: "maxWidth___NODE")
     marginPadding: [ContentfulMarginPadding]  @link(by: "id", from: "marginPadding___NODE")
+    marginPaddingContent: [ContentfulMarginPadding]  @link(by: "id", from: "marginPadding___NODE")
+    marginPaddingSlots: [ContentfulMarginPadding]  @link(by: "id", from: "marginPadding___NODE")
     textAlign: String
     variant: String
     contentful_id: String

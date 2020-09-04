@@ -15,6 +15,7 @@ export const Hero = ({
   fromCms,
   ...props
 }) => {
+  console.log('children', children);
   const Component = fromCms ? CmsContent : Box;
 
   return (

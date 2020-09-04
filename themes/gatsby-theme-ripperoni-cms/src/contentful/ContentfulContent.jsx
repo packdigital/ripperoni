@@ -26,7 +26,7 @@ const parseProps = props => {
     'maxWidth',
   ];
 
-  const marginPadding = props.marginPadding
+  const getMarginPadding = marginPadding => marginPadding
     ?.reduce((spacings, { type, direction, value, viewport }) => {
       const key = `${type}${direction}`;
 
@@ -55,12 +55,17 @@ const parseProps = props => {
     type: props.__typename,
     Component,
     ...otherProps,
-    marginPadding,
+    marginPadding: {
+      atom: getMarginPadding(props.marginPadding),
+      content: getMarginPadding(props.marginPaddingContent),
+      slots: getMarginPadding(props.marginPaddingSlots),
+    },
   };
 };
 
 export const ContentfulContent = incomingProps => {
   const parsedProps = parseProps(incomingProps);
+  console.log('parsedProps', parsedProps);
   const {
     type,
     Component,
@@ -80,7 +85,7 @@ export const ContentfulContent = incomingProps => {
     return (
       <Component
         sx={_sx}
-        {...marginPadding}
+        {...marginPadding.atom}
         {...props}
       />
     );
@@ -108,7 +113,7 @@ export const ContentfulContent = incomingProps => {
         return (
           <Box
             gridArea={name}
-            key={`${index}+${id}`}
+            key={Math.random()}
           >
             <ContentfulContent
               {...content}
@@ -138,14 +143,15 @@ export const ContentfulContent = incomingProps => {
 
     return (
       <Component
-        data-comp={`Contentful Content: ${Component.displayName}`}
+        data-comp={`Contentful Content: ${Component?.displayName || '???'}`}
         sx={_sx}
         fromCms={true}
+        {...marginPadding.content}
         {...contentNodes}
         {...props}
       >
         <SlottedContent
-          {...marginPadding}
+          {...marginPadding.slots}
           slotsNodes={slotsNodes}
           grids={grids}
         />

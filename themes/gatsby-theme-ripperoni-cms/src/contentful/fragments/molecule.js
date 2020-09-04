@@ -9,7 +9,13 @@ export const ContentfulMoleculeDataFragment = graphql`
     backgroundColor {
       backgroundColor: content
     }
-    marginPadding {
+    marginPaddingContent {
+      type
+      direction
+      value
+      viewport
+    }
+    marginPaddingSlots {
       type
       direction
       value
