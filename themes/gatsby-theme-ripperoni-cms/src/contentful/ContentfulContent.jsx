@@ -64,8 +64,9 @@ const parseProps = props => {
 };
 
 export const ContentfulContent = incomingProps => {
+  console.log('components', components);
   const parsedProps = parseProps(incomingProps);
-  console.log('parsedProps', parsedProps);
+  // console.log('parsedProps', parsedProps);
   const {
     type,
     Component,
@@ -140,21 +141,27 @@ export const ContentfulContent = incomingProps => {
     const contentNodes = Object.entries(contentWithEntries)
       .reduce((fields, [name, ids]) => ({ ...fields, [name]: getContent(name, ids) }), {});
     const slotsNodes = flatMap(slotsWithEntries, (entries, name) => getContent(name, entries, true));
+    const slottedContent = (
+      <SlottedContent
+        {...marginPadding.slots}
+        slotsNodes={slotsNodes}
+        grids={grids}
+      />
+    );
+
 
     return (
       <Component
         data-comp={`Contentful Content: ${Component?.displayName || '???'}`}
         sx={_sx}
         fromCms={true}
+        // eslint-disable-next-line react/no-children-prop
+        children={slottedContent}
         {...marginPadding.content}
         {...contentNodes}
         {...props}
       >
-        <SlottedContent
-          {...marginPadding.slots}
-          slotsNodes={slotsNodes}
-          grids={grids}
-        />
+
       </Component>
     );
   }

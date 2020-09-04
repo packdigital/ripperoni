@@ -36,6 +36,8 @@ export const SlottedContent = forwardRef(({
   slotsNodes,
   ...props
 }, ref) => {
+  if (!grids) return null;
+
   const parsedGrids = parseGrids(grids);
 
   return (
