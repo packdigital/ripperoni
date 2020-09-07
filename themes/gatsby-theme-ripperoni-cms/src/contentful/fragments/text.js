@@ -16,7 +16,9 @@ export const ContentfulAtomTextFragment = graphql`
     fontWeight {
       fontWeight: content
     }
-    textAlign
+    textAlign {
+      textAlign: content
+    }
     maxWidth {
       maxWidth: content
     }

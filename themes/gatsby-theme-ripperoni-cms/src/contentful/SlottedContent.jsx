@@ -8,20 +8,23 @@ import { Grid } from '@ripperoni/components';
 
 const parseGrids = grids => {
   const gridsDetails = grids.reduce((grids, { grid, viewport }) => {
-    const originalGrid = grid.split("' '").map(row => row.replace("'", '').split(' '));
-    // const rows = grid.split("' '").length;
-    const columns = grid.split("' '")[0].split(' ').length;
     const minMax = 'minmax(min-content, max-content)';
-    const rows2 = originalGrid
+    const originalGrid = grid
+      .split("' '")
+      .map(row => row.replace("'", '').split(' '));
+    const columns = grid
+      .split("' '")[0]
+      .split(' ')
+      .length;
+    const rows = originalGrid
       .map(row => row.every(cell => cell === '.') ? '1fr' : minMax)
       .join(' ');
-
 
     return {
       ...grids,
       [viewport]: {
         grid,
-        rows: rows2,
+        rows: rows,
         columns: `repeat(${columns}, 1fr)`
       }
     };
@@ -52,14 +55,12 @@ export const SlottedContent = forwardRef(({
       gridTemplateColumns={[
         parsedGrids?.all?.columns || parsedGrids?.mobile?.columns || null,
         parsedGrids?.mobile?.columns || null,
-        null,
         parsedGrids?.tablet?.columns || null,
         parsedGrids?.desktop?.columns || null,
       ]}
       gridTemplateRows={[
         parsedGrids?.all?.rows || parsedGrids?.mobile?.rows || null,
         parsedGrids?.mobile?.rows || null,
-        null,
         parsedGrids?.tablet?.rows || null,
         parsedGrids?.desktop?.rows || null,
 
@@ -67,7 +68,6 @@ export const SlottedContent = forwardRef(({
       gridTemplateAreas={[
         parsedGrids?.all?.grid || parsedGrids?.mobile?.grid || null,
         parsedGrids?.mobile?.grid || null,
-        null,
         parsedGrids?.tablet?.grid || null,
         parsedGrids?.desktop?.grid || null,
       ]}

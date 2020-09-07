@@ -45,6 +45,10 @@ module.exports = `
     content: String
   }
 
+  type contentfulAtomTextTextAlignJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
+
   type contentfulAtomButtonMarginPaddingJsonNode implements Node & ContentfulMarginPadding @infer {
     type: String
     direction: String
@@ -153,7 +157,7 @@ module.exports = `
     marginPadding: [ContentfulMarginPadding]  @link(by: "id", from: "marginPadding___NODE")
     marginPaddingContent: [ContentfulMarginPadding]  @link(by: "id", from: "marginPadding___NODE")
     marginPaddingSlots: [ContentfulMarginPadding]  @link(by: "id", from: "marginPadding___NODE")
-    textAlign: String
+    textAlign: [ContentfulJson]  @link(by: "id", from: "textAlign___NODE")
     variant: String
     contentful_id: String
     metaTitle: String
