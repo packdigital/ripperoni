@@ -69,7 +69,6 @@ const parseProps = props => {
 
 export const ContentfulContent = incomingProps => {
   const parsedProps = parseProps(incomingProps);
-  // console.log('parsedProps', parsedProps);
   const {
     type,
     Component,
@@ -110,27 +109,34 @@ export const ContentfulContent = incomingProps => {
   }
 
   const getContent = ({ name, ids, inGrid }) => {
+
+    if (inGrid) {
+      return (
+        <Box
+          gridArea={name}
+          // {...getMarginPadding(marginPaddingContent)}
+        >
+          {ids.map((id, index) => {
+            const normalizedId = id[0] === 'c' ? id.slice(1) : id;
+            const content = entries.find(({ contentful_id }) => contentful_id === normalizedId);
+            const { marginPaddingContent, ...slottedContent } = content;
+
+            return (
+              <ContentfulContent
+                key={`${index}.${Math.random()}`}
+                inSlot={true}
+                {...slottedContent}
+              />
+            );
+          })}
+        </Box>
+      );
+    }
+
+
     return ids.map((id, index) => {
       const normalizedId = id[0] === 'c' ? id.slice(1) : id;
       const content = entries.find(({ contentful_id }) => contentful_id === normalizedId);
-
-
-      if (inGrid) {
-        const { marginPaddingContent, ...slottedContent } = content;
-
-        return (
-          <Box
-            gridArea={name}
-            key={Math.random()}
-            {...getMarginPadding(marginPaddingContent)}
-          >
-            <ContentfulContent
-              inSlot={true}
-              {...slottedContent}
-            />
-          </Box>
-        );
-      }
 
       return (
         <ContentfulContent
@@ -149,9 +155,17 @@ export const ContentfulContent = incomingProps => {
     const groupedSlots = groupBy(slots, 'name');
     const contentWithEntries = mapValues(groupedContent, value => map(value, 'entry.sys.id'));
     const slotsWithEntries = mapValues(groupedSlots, value => map(value, 'entry.sys.id'));
+    console.log('slotsWithEntries', slotsWithEntries);
     const contentNodes = Object.entries(contentWithEntries)
       .reduce((fields, [name, ids]) => ({ ...fields, [name]: getContent({ name, ids }) }), {});
     const slotsNodes = flatMap(slotsWithEntries, (ids, name) => getContent({ name, ids, inGrid: true }));
+    const slotsNodes2 = Object.entries(slotsWithEntries).map(([name, ids]) => {
+       return getContent({ name, ids, inGrid: true });
+    });
+
+    console.log('slotsNodes', slotsNodes);
+    console.log('slotsNodes2', slotsNodes2);
+
     const slottedContent = (
       <SlottedContent
         {...marginPadding.slots}
