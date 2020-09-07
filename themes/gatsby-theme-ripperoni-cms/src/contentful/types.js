@@ -107,6 +107,8 @@ module.exports = `
     alt: String
     primaryImageSizes: String
     secondaryImageSizes: String
+    objectFit: String
+    objectPosition: String
     contentful_id: String
     metaTitle: String
     metaHandle: String

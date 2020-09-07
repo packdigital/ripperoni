@@ -2,6 +2,7 @@
 import { forwardRef } from 'react';
 import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
+// import GatsbyImage from 'gatsby-image/withIEPolyfill';
 import GatsbyImage from 'gatsby-image';
 
 import { Svg } from '../Svg';
@@ -14,6 +15,7 @@ export const ImageContentful = forwardRef(({
   secondaryImage = {},
   primaryImageSizes,
   secondaryImageSizes,
+  imgProps,
   ...props
 }, ref) => {
   const isSvg = primaryImage.file?.fileName.includes('svg');
@@ -26,7 +28,7 @@ export const ImageContentful = forwardRef(({
   const sources = hasArtDirection
     ? [{ ...primarySharp, ...primaryMedia }, { ...secondarySharp, ...secondaryMedia }]
     : primarySharp;
-  const imageProps = { [sharpType]: sources };
+  const imageProps = { [sharpType]: sources, ...imgProps };
 
   if (!primarySharp && !isSvg) {
     return null;

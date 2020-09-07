@@ -17,6 +17,8 @@ export const ContentfulAtomImageFragment = graphql`
     alt
     primaryImageSizes
     secondaryImageSizes
+    objectFit
+    objectPosition
     # metaTitle
     # metaHandle
     # metaTags

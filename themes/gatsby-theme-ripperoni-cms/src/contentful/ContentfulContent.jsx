@@ -13,8 +13,22 @@ import { components } from '@ripperoni/cms/contentful/components';
 import { SlottedContent } from './SlottedContent';
 
 
-const parseProps = props => {
+const getMarginPadding = marginPadding => {
   const { theme: { breakpoints }} = useThemeUI();
+
+  return marginPadding?.reduce((spacings, { type, direction, value, viewport }) => {
+    const key = `${type}${direction}`;
+
+    return {
+      ...spacings,
+      [key]: (spacings[key] || Array(breakpoints.length + 1).fill(null))
+        .map((item, index) => parseInt(viewport) === index ? parseInt(value) || value : item)
+    };
+  }, {});
+};
+
+
+const parseProps = props => {
   const Component = props.__typename === 'ContentfulMolecule'
     ? components[props.component]
     : components[props.__typename];
@@ -23,19 +37,9 @@ const parseProps = props => {
     'backgroundColor',
     'fontSize',
     'fontWeight',
+    'textAlign',
     'maxWidth',
   ];
-
-  const getMarginPadding = marginPadding => marginPadding
-    ?.reduce((spacings, { type, direction, value, viewport }) => {
-      const key = `${type}${direction}`;
-
-      return {
-        ...spacings,
-        [key]: (spacings[key] || Array(breakpoints.length + 1).fill(null))
-          .map((item, index) => parseInt(viewport) === index ? parseInt(value) || value : item)
-      };
-    }, {});
 
   const otherProps = Object.entries(props)
     .filter(([name]) => propsList.includes(name))
@@ -45,7 +49,7 @@ const parseProps = props => {
 
       return {
         ...props,
-        [name]: [null, ...value].map(value => value?.__typename
+        [name]: value.map(value => value?.__typename
           ? parseInt(value[name]) || value[name]
           : value)
       };
@@ -64,7 +68,6 @@ const parseProps = props => {
 };
 
 export const ContentfulContent = incomingProps => {
-  console.log('components', components);
   const parsedProps = parseProps(incomingProps);
   // console.log('parsedProps', parsedProps);
   const {
@@ -74,6 +77,7 @@ export const ContentfulContent = incomingProps => {
     grids,
     entries,
     content,
+    inSlot,
     _sx,
     ...props
   } = parsedProps;
@@ -105,19 +109,24 @@ export const ContentfulContent = incomingProps => {
     );
   }
 
-  const getContent = (name, ids, inGrid) => {
+  const getContent = ({ name, ids, inGrid }) => {
     return ids.map((id, index) => {
       const normalizedId = id[0] === 'c' ? id.slice(1) : id;
       const content = entries.find(({ contentful_id }) => contentful_id === normalizedId);
 
+
       if (inGrid) {
+        const { marginPaddingContent, ...slottedContent } = content;
+
         return (
           <Box
             gridArea={name}
             key={Math.random()}
+            {...getMarginPadding(marginPaddingContent)}
           >
             <ContentfulContent
-              {...content}
+              inSlot={true}
+              {...slottedContent}
             />
           </Box>
         );
@@ -125,7 +134,9 @@ export const ContentfulContent = incomingProps => {
 
       return (
         <ContentfulContent
+          inSlot={false}
           {...content}
+          {...marginPadding.content}
           key={`${index}+${id}`}
         />
       );
@@ -139,8 +150,8 @@ export const ContentfulContent = incomingProps => {
     const contentWithEntries = mapValues(groupedContent, value => map(value, 'entry.sys.id'));
     const slotsWithEntries = mapValues(groupedSlots, value => map(value, 'entry.sys.id'));
     const contentNodes = Object.entries(contentWithEntries)
-      .reduce((fields, [name, ids]) => ({ ...fields, [name]: getContent(name, ids) }), {});
-    const slotsNodes = flatMap(slotsWithEntries, (entries, name) => getContent(name, entries, true));
+      .reduce((fields, [name, ids]) => ({ ...fields, [name]: getContent({ name, ids }) }), {});
+    const slotsNodes = flatMap(slotsWithEntries, (ids, name) => getContent({ name, ids, inGrid: true }));
     const slottedContent = (
       <SlottedContent
         {...marginPadding.slots}
@@ -155,9 +166,10 @@ export const ContentfulContent = incomingProps => {
         data-comp={`Contentful Content: ${Component?.displayName || '???'}`}
         sx={_sx}
         fromCms={true}
+        {...(inSlot ? {} : marginPadding.content)}
         // eslint-disable-next-line react/no-children-prop
         children={slottedContent}
-        {...marginPadding.content}
+        // {...marginPadding.content}
         {...contentNodes}
         {...props}
       >
