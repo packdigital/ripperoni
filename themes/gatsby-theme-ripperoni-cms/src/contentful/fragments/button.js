@@ -3,25 +3,17 @@ import { graphql } from 'gatsby';
 
 export const ContentfulAtomButtonFragment = graphql`
   fragment ContentfulAtomButton on ContentfulAtomButton {
-    id
     text
-    color {
+    cms_color: color {
       color: content
     }
-    backgroundColor {
+    cms_backgroundColor: backgroundColor {
       backgroundColor: content
     }
-    marginPadding {
-      type
-      direction
-      viewport
-      value
+    cms_width: width {
+      width: content
     }
-    variant
-    # metaTitle
-    # metaHandle
-    # metaTags
-    contentful_id
-    __typename
+    ...ContentfulCommonAtomFields
+    ...ContentfulMeta
   }
 `;

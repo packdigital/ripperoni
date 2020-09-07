@@ -3,36 +3,22 @@ import { graphql } from 'gatsby';
 
 export const ContentfulAtomTextFragment = graphql`
   fragment ContentfulAtomText on ContentfulAtomText {
-    id
     longText: text {
       text
     }
-    color {
+    cms_color: color {
       color: content
     }
-    fontSize {
+    cms_fontSize: fontSize {
       fontSize: content
     }
-    fontWeight {
+    cms_fontWeight: fontWeight {
       fontWeight: content
     }
-    textAlign {
+    cms_textAlign: textAlign {
       textAlign: content
     }
-    maxWidth {
-      maxWidth: content
-    }
-    marginPadding {
-      type
-      direction
-      viewport
-      value
-    }
-    variant
-    # metaTitle
-    # metaHandle
-    # metaTags
-    contentful_id
-    __typename
+    ...ContentfulCommonAtomFields
+    ...ContentfulMeta
   }
 `;

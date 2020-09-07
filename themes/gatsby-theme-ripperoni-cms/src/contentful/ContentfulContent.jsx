@@ -42,34 +42,38 @@ const getContent = (lookup, entries) => {
     }), {});
 };
 
-const parseProps = props => {
-  const lookups = groupBy(props.lookup, 'type');
+const parseProps = ({
+  component,
+  lookup,
+  entries,
+  marginPadding,
+  marginPaddingContent,
+  marginPaddingSlots,
+  __typename,
+  ...props
+}) => {
+  const lookups = groupBy(lookup, 'type');
 
-  const Component = props.__typename === 'ContentfulMolecule'
-    ? components[props.component]
-    : components[props.__typename];
-
-  const cmsStylePropsList = [
-    'color',
-    'backgroundColor',
-    'fontSize',
-    'fontWeight',
-    'textAlign',
-    'maxWidth',
-  ];
+  const Component = __typename === 'ContentfulMolecule'
+    ? components[component]
+    : components[__typename];
 
   const cmsStyleProps = Object.entries(props)
-    .filter(([name]) => cmsStylePropsList.includes(name))
+    .filter(([name]) => name.startsWith('cms_'))
     .filter(([, value]) => Array.isArray(value))
+    .map(([name, value]) => [name.replace('cms_', ''), value])
     .reduce((props, [name, value]) => ({
       ...props,
-      [name]: value.map(value => value?.__typename
-        ? parseInt(value[name]) || value[name]
-        : value)
+      [name]: value.map(value => !(value?.__typename)
+        ? value
+        : isNaN(parseInt(value[name]))
+          ? value[name]
+          : parseInt(value[name])
+      )
     }), {});
 
   const otherProps = Object.entries(props)
-    .filter(([name]) => !cmsStylePropsList.includes(name))
+    .filter(([name]) => !name.startsWith('cms_'))
     .filter(([, value]) => value)
     .filter(([, value]) => Array.isArray(value) ? value.some(value => value !== null) : value)
     .reduce((otherProps, [name, value]) => ({ ...otherProps, [name]: value }), {});
@@ -78,17 +82,17 @@ const parseProps = props => {
     ...otherProps,
     ...cmsStyleProps,
     Component,
-    marginPadding: getMarginPadding(props.marginPadding),
-    marginPaddingContent: getMarginPadding(props.marginPaddingContent),
-    marginPaddingSlots: getMarginPadding(props.marginPaddingSlots),
-    content: getContent(lookups.content, props.entries),
-    slots: getContent(lookups.slots, props.entries),
+    marginPadding: getMarginPadding(marginPadding),
+    marginPaddingContent: getMarginPadding(marginPaddingContent),
+    marginPaddingSlots: getMarginPadding(marginPaddingSlots),
+    content: getContent(lookups.content, entries),
+    slots: getContent(lookups.slots, entries),
+    __typename,
   };
 };
 
 export const ContentfulContent = incomingProps => {
   const parsedProps = parseProps(incomingProps);
-  // console.log('parsedProps', parsedProps);
   const {
     Component,
     marginPadding,
@@ -111,8 +115,8 @@ export const ContentfulContent = incomingProps => {
     return (
       <Component
         {...props}
-        sx={_sx}
         {...marginPadding}
+        sx={_sx}
       />
     );
   }
@@ -131,51 +135,50 @@ export const ContentfulContent = incomingProps => {
   }
 
   if (__typename === 'ContentfulMolecule') {
-    const mapOverContent = (content, index) => {
+    // eslint-disable-next-line
+    const mapOverContent = ({ inSlots }) => ({ marginPaddingContent, ...content }, index) => {
       return (
         <ContentfulContent
-          {...props}
+          // inSlots={inSlots}
           {...content}
+          {...getMarginPadding(marginPaddingContent)}
           key={`${index}.${Math.random()}`}
         />
       );
     };
+
     const contentNodes = Object.entries(content)
       .reduce((fields, [name, contents]) => ({
         ...fields,
-        [name]: contents.map(mapOverContent)
+        [name]: contents.map(mapOverContent({ inSlots: false }))
       }), {});
 
     const slotsNodes = Object.entries(slots)
       .map(([name, contents], index) => (
         // eslint-disable-next-line
         <Box gridArea={name} key={index}>
-          {contents.map(mapOverContent)}
+          {contents.map(mapOverContent({ inSlots: true }))}
         </Box>
       ));
 
-
     const slottedContent = (
       <SlottedContent
-        {...props}
         {...marginPaddingSlots}
         slotsNodes={slotsNodes}
         grids={grids}
       />
     );
-        console.log('Component', Component);
 
     return (
       <Component
         data-comp={`Contentful Content: ${Component?.displayName || '???'}`}
         sx={_sx}
         fromCms={true}
-        // {...(inSlot ? {} : marginPaddingContent)}
-        {...marginPaddingContent}
-        // eslint-disable-next-line react/no-children-prop
+        // eslint-disable-next-line
         children={slottedContent}
         {...contentNodes}
         {...props}
+        {...marginPaddingContent}
       />
     );
   }

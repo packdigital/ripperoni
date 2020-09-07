@@ -1,54 +1,43 @@
+  // union ContentfulAtoms = ContentfulAtomButton | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText
+  // union AllContentful = ContentfulAtomButton | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMolecule | ContentfulPageContainer
 module.exports = `
-  union ContentfulMoleculeAtomButtonImageLinkTextUnion = ContentfulAtomButton | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMolecule
-  union ContentfulPageContainerMoleculeAtomButtonImageLinkTextUnion = ContentfulMolecule | ContentfulAtomButton | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText
+  union ContentfulAtomsAndMolecule = ContentfulAtomButton | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMolecule
+
 
   interface ContentfulJson {
     content: String
   }
-
   interface ContentfulMarginPadding {
     type: String
     direction: String
     viewport: String
     value: String
   }
+  interface ContentfulAtoms {
+    marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
+    variant: String
+  }
+  interface AllContentful {
+    id: ID
+    contentful_id: String
+    metaTitle: String
+    metaHandle: String
+    metaTags: [String]
+  }
+
+
+
+
 
   type contentfulAtomButtonColorJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
-
-  type contentfulAtomLinkColorJsonNode implements Node & ContentfulJson @infer {
-    content: String
-  }
-
-  type contentfulAtomTextColorJsonNode implements Node & ContentfulJson @infer {
-    content: String
-  }
-
   type contentfulAtomButtonBackgroundColorJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
-
-  type contentfulMoleculeBackgroundColorJsonNode implements Node & ContentfulJson @infer {
+  type contentfulAtomButtonWidthJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
-
-  type contentfulAtomTextFontSizeJsonNode implements Node & ContentfulJson @infer {
-    content: String
-  }
-
-  type contentfulAtomTextFontWeightJsonNode implements Node & ContentfulJson @infer {
-    content: String
-  }
-
-  type contentfulAtomTextMaxWidthJsonNode implements Node & ContentfulJson @infer {
-    content: String
-  }
-
-  type contentfulAtomTextTextAlignJsonNode implements Node & ContentfulJson @infer {
-    content: String
-  }
-
   type contentfulAtomButtonMarginPaddingJsonNode implements Node & ContentfulMarginPadding @infer {
     type: String
     direction: String
@@ -56,6 +45,18 @@ module.exports = `
     value: String
   }
 
+
+  type contentfulAtomImageMarginPaddingJsonNode implements Node & ContentfulMarginPadding @infer {
+    type: String
+    direction: String
+    viewport: String
+    value: String
+  }
+
+
+  type contentfulAtomLinkColorJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
   type contentfulAtomLinkMarginPaddingJsonNode implements Node & ContentfulMarginPadding @infer {
     type: String
     direction: String
@@ -63,13 +64,19 @@ module.exports = `
     value: String
   }
 
-  type contentfulMoleculeMarginPaddingJsonNode implements Node & ContentfulMarginPadding @infer {
-    type: String
-    direction: String
-    viewport: String
-    value: String
-  }
 
+  type contentfulAtomTextColorJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
+  type contentfulAtomTextFontSizeJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
+  type contentfulAtomTextFontWeightJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
+  type contentfulAtomTextTextAlignJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
   type contentfulAtomTextMarginPaddingJsonNode implements Node & ContentfulMarginPadding @infer {
     type: String
     direction: String
@@ -77,89 +84,107 @@ module.exports = `
     value: String
   }
 
+
+  type contentfulMoleculeBackgroundColorJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
   type contentfulMoleculeMarginPaddingContentJsonNode implements Node & ContentfulMarginPadding @infer {
     type: String
     direction: String
     viewport: String
     value: String
   }
-
   type contentfulMoleculeMarginPaddingSlotsJsonNode implements Node & ContentfulMarginPadding @infer {
     type: String
     direction: String
     viewport: String
     value: String
   }
+  type contentfulMoleculeExtraPropsJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
 
 
 
 
 
-  type ContentfulAtomButton implements Node @infer {
+  type ContentfulAtomButton implements Node & AllContentful & ContentfulAtoms @infer {
+    id: ID
+    contentful_id: String
     text: String
-    color: [ContentfulJson]  @link(by: "id", from: "color___NODE")
-    backgroundColor: [ContentfulJson]  @link(by: "id", from: "backgroundColor___NODE")
-    marginPadding: [ContentfulMarginPadding]  @link(by: "id", from: "marginPadding___NODE")
+    color: [ContentfulJson] @link(by: "id", from: "color___NODE")
+    backgroundColor: [ContentfulJson] @link(by: "id", from: "backgroundColor___NODE")
+    width: [ContentfulJson] @link(by: "id", from: "width___NODE")
+    marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
     variant: String
     metaTitle: String
     metaHandle: String
     metaTags: [String]
-    contentful_id: String
   }
 
-  type ContentfulAtomImage implements Node @infer {
-    alt: String
+
+  type ContentfulAtomImage implements Node & AllContentful & ContentfulAtoms @infer {
+    id: ID
+    contentful_id: String
     primaryImageSizes: String
     secondaryImageSizes: String
     objectFit: String
     objectPosition: String
-    contentful_id: String
-    metaTitle: String
-    metaHandle: String
-    metaTags: [String]
-  }
-
-  type ContentfulAtomLink implements Node @infer {
-    text: String
-    url: String
-    color: [ContentfulJson]  @link(by: "id", from: "color___NODE")
-    marginPadding: [ContentfulMarginPadding]  @link(by: "id", from: "marginPadding___NODE")
-    variant: String
-    metaTitle: String
-    metaHandle: String
-    metaTags: [String]
-    contentful_id: String
-  }
-
-  type ContentfulMolecule implements Node @infer {
-    backgroundColor: [ContentfulJson]  @link(by: "id", from: "backgroundColor___NODE")
-    marginPadding: [contentfulMoleculeMarginPaddingJsonNode]  @link(by: "id", from: "marginPadding___NODE")
-    entries: [ContentfulMoleculeAtomButtonImageLinkTextUnion] @link(by: "id", from: "entries___NODE")
-    metaTitle: String
-    metaHandle: String
-    metaTags: [String]
-  }
-
-  type ContentfulPageContainer implements Node @infer {
-    slug: String
-    pageContent: [ContentfulPageContainerMoleculeAtomButtonImageLinkTextUnion]  @link(by: "id", from: "pageContent___NODE")
+    marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
     variant: String
     metaTitle: String
     metaHandle: String
     metaTags: [String]
   }
 
-  type ContentfulAtomText implements Node @infer {
-    color: [ContentfulJson]  @link(by: "id", from: "color___NODE")
-    fontSize: [ContentfulJson]  @link(by: "id", from: "fontSize___NODE")
-    fontWeight: [ContentfulJson]  @link(by: "id", from: "fontWeight___NODE")
-    maxWidth: [ContentfulJson]  @link(by: "id", from: "maxWidth___NODE")
-    marginPadding: [ContentfulMarginPadding]  @link(by: "id", from: "marginPadding___NODE")
-    marginPaddingContent: [ContentfulMarginPadding]  @link(by: "id", from: "marginPadding___NODE")
-    marginPaddingSlots: [ContentfulMarginPadding]  @link(by: "id", from: "marginPadding___NODE")
-    textAlign: [ContentfulJson]  @link(by: "id", from: "textAlign___NODE")
-    variant: String
+
+  type ContentfulAtomLink implements Node & AllContentful & ContentfulAtoms @infer {
+    id: ID
     contentful_id: String
+    color: [ContentfulJson] @link(by: "id", from: "color___NODE")
+    marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
+    variant: String
+    metaTitle: String
+    metaHandle: String
+    metaTags: [String]
+  }
+
+
+  type ContentfulAtomText implements Node & AllContentful & ContentfulAtoms @infer {
+    id: ID
+    contentful_id: String
+    color: [ContentfulJson] @link(by: "id", from: "color___NODE")
+    fontSize: [ContentfulJson] @link(by: "id", from: "fontSize___NODE")
+    fontWeight: [ContentfulJson] @link(by: "id", from: "fontWeight___NODE")
+    textAlign: [ContentfulJson] @link(by: "id", from: "textAlign___NODE")
+    marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
+    variant: String
+    metaTitle: String
+    metaHandle: String
+    metaTags: [String]
+  }
+
+
+  type ContentfulMolecule implements Node & AllContentful @infer {
+    id: ID
+    contentful_id: String
+    backgroundColor: [ContentfulJson] @link(by: "id", from: "backgroundColor___NODE")
+    container: String
+    marginPaddingContent: [ContentfulMarginPadding] @link(by: "id", from: "marginPaddingContent___NODE")
+    marginPaddingSlots: [ContentfulMarginPadding] @link(by: "id", from: "marginPaddingSlots___NODE")
+    extraProps: [ContentfulJson] @link(by: "id", from: "extraProps___NODE")
+    entries: [ContentfulAtomsAndMolecule] @link(by: "id", from: "entries___NODE")
+    variant: String
+    metaTitle: String
+    metaHandle: String
+    metaTags: [String]
+  }
+
+
+  type ContentfulPageContainer implements Node & AllContentful @infer {
+    id: ID
+    contentful_id: String
+    pageContent: [ContentfulAtomsAndMolecule] @link(by: "id", from: "pageContent___NODE")
     metaTitle: String
     metaHandle: String
     metaTags: [String]

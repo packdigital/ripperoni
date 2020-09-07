@@ -3,7 +3,6 @@ import { graphql } from 'gatsby';
 
 export const ContentfulPageContainerFragment = graphql`
   fragment ContentfulPageContainer on ContentfulPageContainer {
-    id
     slug
     pageContent {
       ... on ContentfulAtomButton { ...ContentfulAtomButton }
@@ -12,9 +11,6 @@ export const ContentfulPageContainerFragment = graphql`
       ... on ContentfulAtomText { ...ContentfulAtomText }
       ... on ContentfulMolecule { ...ContentfulMolecule }
     }
-    # metaTitle
-    # metaHandle
-    # metaTags
-    __typename
+    ...ContentfulMeta
   }
 `;

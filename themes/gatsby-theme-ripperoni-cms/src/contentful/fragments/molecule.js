@@ -1,14 +1,17 @@
 import { graphql } from 'gatsby';
 
 
-export const ContentfulMoleculeDataFragment = graphql`
-  fragment ContentfulMoleculeData on ContentfulMolecule {
-    id
-    contentful_id
-    component
-    backgroundColor {
+export const ContentfulMoleculeCssFragment = graphql`
+  fragment ContentfulMoleculeCss on ContentfulMolecule {
+    cms_backgroundColor: backgroundColor {
       backgroundColor: content
     }
+    maxWidth: container
+  }
+`;
+
+export const ContentfulMoleculeMarginPaddingsFragment = graphql`
+  fragment ContentfulMoleculeMarginPaddings on ContentfulMolecule {
     marginPaddingContent {
       type
       direction
@@ -20,6 +23,17 @@ export const ContentfulMoleculeDataFragment = graphql`
       direction
       value
       viewport
+    }
+  }
+`;
+
+export const ContentfulMoleculeDataFragment = graphql`
+  fragment ContentfulMoleculeData on ContentfulMolecule {
+    component
+    ...ContentfulMoleculeCss
+    ...ContentfulMoleculeMarginPaddings
+    extraProps {
+      extraProps: content
     }
     grids {
       grid
@@ -34,7 +48,7 @@ export const ContentfulMoleculeDataFragment = graphql`
         }
       }
     }
-    __typename
+    ...ContentfulMeta
   }
 `;
 

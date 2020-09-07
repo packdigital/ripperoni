@@ -1,5 +1,5 @@
 import {
-  Box,
+  // Box,
   Button,
   Container,
   Hero,
@@ -18,7 +18,8 @@ const atoms = {
 
 const molecules = {
   hero: Hero,
-  section: Box,
+  section: Container,
+  // section: Box,
 };
 
 const pageContainer = {
