@@ -29,6 +29,7 @@
         "types": ["atomText"]
       },
       "C": {
+        "multiple": true,
         "types": ["atomLink"]
       }
     }
