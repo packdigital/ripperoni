@@ -159,12 +159,8 @@ export const ContentfulContent = incomingProps => {
     const contentNodes = Object.entries(contentWithEntries)
       .reduce((fields, [name, ids]) => ({ ...fields, [name]: getContent({ name, ids }) }), {});
     const slotsNodes = flatMap(slotsWithEntries, (ids, name) => getContent({ name, ids, inGrid: true }));
-    const slotsNodes2 = Object.entries(slotsWithEntries).map(([name, ids]) => {
-       return getContent({ name, ids, inGrid: true });
-    });
 
     console.log('slotsNodes', slotsNodes);
-    console.log('slotsNodes2', slotsNodes2);
 
     const slottedContent = (
       <SlottedContent
