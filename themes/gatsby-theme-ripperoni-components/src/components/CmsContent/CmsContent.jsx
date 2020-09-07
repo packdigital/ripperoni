@@ -9,7 +9,6 @@ export const CmsContent = ({
   if (!children && !content) {
     return null;
   }
-  console.log('props', props);
 
   return Array.isArray(content)
     ? content.map(content => cloneElement(children || content, props))

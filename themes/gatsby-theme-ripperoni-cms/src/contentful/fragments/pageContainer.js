@@ -5,7 +5,7 @@ export const ContentfulPageContainerFragment = graphql`
   fragment ContentfulPageContainer on ContentfulPageContainer {
     id
     slug
-    content {
+    pageContent {
       ... on ContentfulAtomButton { ...ContentfulAtomButton }
       ... on ContentfulAtomImage { ...ContentfulAtomImage }
       ... on ContentfulAtomLink { ...ContentfulAtomLink }

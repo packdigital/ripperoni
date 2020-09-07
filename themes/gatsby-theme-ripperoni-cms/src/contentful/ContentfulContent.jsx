@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import groupBy from 'lodash/groupBy';
 import mapValues from 'lodash/mapValues';
 import map from 'lodash/map';
-import flatMap from 'lodash/flatMap';
 
 import { Box } from '@ripperoni/components';
 import { components } from '@ripperoni/cms/contentful/components';
@@ -27,12 +26,30 @@ const getMarginPadding = marginPadding => {
   }, {});
 };
 
+const getContent = (lookup, entries) => {
+  if (!lookup || !entries) {
+    return {};
+  }
+
+  const groups = groupBy(lookup, 'name');
+  const groupedEntryIds = mapValues(groups, value => map(value, 'entry.sys.id'));
+
+  return Object.entries(groupedEntryIds)
+    .reduce((content, [name, value]) => ({
+      ...content,
+      // `id` (contentful id) is sometimes prefixed with c if it originally started with a number
+      [name]: value.map(id => entries.find(({ contentful_id }) => id.endsWith(contentful_id)))
+    }), {});
+};
 
 const parseProps = props => {
+  const lookups = groupBy(props.lookup, 'type');
+
   const Component = props.__typename === 'ContentfulMolecule'
     ? components[props.component]
     : components[props.__typename];
-  const propsList = [
+
+  const cmsStylePropsList = [
     'color',
     'backgroundColor',
     'fontSize',
@@ -41,64 +58,69 @@ const parseProps = props => {
     'maxWidth',
   ];
 
-  const otherProps = Object.entries(props)
-    .filter(([name]) => propsList.includes(name))
+  const cmsStyleProps = Object.entries(props)
+    .filter(([name]) => cmsStylePropsList.includes(name))
     .filter(([, value]) => Array.isArray(value))
-    .filter(([, value]) => value.some(value => value !== null))
-    .reduce((props, [name, value]) => {
+    .reduce((props, [name, value]) => ({
+      ...props,
+      [name]: value.map(value => value?.__typename
+        ? parseInt(value[name]) || value[name]
+        : value)
+    }), {});
 
-      return {
-        ...props,
-        [name]: value.map(value => value?.__typename
-          ? parseInt(value[name]) || value[name]
-          : value)
-      };
-    }, props);
+  const otherProps = Object.entries(props)
+    .filter(([name]) => !cmsStylePropsList.includes(name))
+    .filter(([, value]) => value)
+    .filter(([, value]) => Array.isArray(value) ? value.some(value => value !== null) : value)
+    .reduce((otherProps, [name, value]) => ({ ...otherProps, [name]: value }), {});
 
   return {
-    type: props.__typename,
-    Component,
     ...otherProps,
-    marginPadding: {
-      atom: getMarginPadding(props.marginPadding),
-      content: getMarginPadding(props.marginPaddingContent),
-      slots: getMarginPadding(props.marginPaddingSlots),
-    },
+    ...cmsStyleProps,
+    Component,
+    marginPadding: getMarginPadding(props.marginPadding),
+    marginPaddingContent: getMarginPadding(props.marginPaddingContent),
+    marginPaddingSlots: getMarginPadding(props.marginPaddingSlots),
+    content: getContent(lookups.content, props.entries),
+    slots: getContent(lookups.slots, props.entries),
   };
 };
 
 export const ContentfulContent = incomingProps => {
   const parsedProps = parseProps(incomingProps);
+  // console.log('parsedProps', parsedProps);
   const {
-    type,
     Component,
     marginPadding,
-    grids,
-    entries,
+    marginPaddingContent,
+    marginPaddingSlots,
+    pageContent,
     content,
-    inSlot,
+    slots,
+    grids,
     _sx,
+    __typename,
     ...props
   } = parsedProps;
 
-  if (!type) {
+  if (!__typename) {
     return null;
   }
 
-  if (type.startsWith('ContentfulAtom')) {
+  if (__typename.startsWith('ContentfulAtom')) {
     return (
       <Component
-        sx={_sx}
-        {...marginPadding.atom}
         {...props}
+        sx={_sx}
+        {...marginPadding}
       />
     );
   }
 
-  if (type === 'ContentfulPageContainer') {
+  if (__typename === 'ContentfulPageContainer') {
     return (
       <Component>
-        {content.map((section, index) => (
+        {pageContent.map((section, index) => (
           <ContentfulContent
             {...section}
             key={index}
@@ -108,83 +130,53 @@ export const ContentfulContent = incomingProps => {
     );
   }
 
-  const getContent = ({ name, ids, inGrid }) => {
-
-    if (inGrid) {
-      return (
-        <Box
-          gridArea={name}
-          // {...getMarginPadding(marginPaddingContent)}
-        >
-          {ids.map((id, index) => {
-            const normalizedId = id[0] === 'c' ? id.slice(1) : id;
-            const content = entries.find(({ contentful_id }) => contentful_id === normalizedId);
-            const { marginPaddingContent, ...slottedContent } = content;
-
-            return (
-              <ContentfulContent
-                key={`${index}.${Math.random()}`}
-                inSlot={true}
-                {...slottedContent}
-              />
-            );
-          })}
-        </Box>
-      );
-    }
-
-
-    return ids.map((id, index) => {
-      const normalizedId = id[0] === 'c' ? id.slice(1) : id;
-      const content = entries.find(({ contentful_id }) => contentful_id === normalizedId);
-
+  if (__typename === 'ContentfulMolecule') {
+    const mapOverContent = (content, index) => {
       return (
         <ContentfulContent
-          inSlot={false}
+          {...props}
           {...content}
-          {...marginPadding.content}
-          key={`${index}+${id}`}
+          key={`${index}.${Math.random()}`}
         />
       );
-    });
-  };
+    };
+    const contentNodes = Object.entries(content)
+      .reduce((fields, [name, contents]) => ({
+        ...fields,
+        [name]: contents.map(mapOverContent)
+      }), {});
 
-  if (type === 'ContentfulMolecule') {
-    const { content, slots } = groupBy(props.lookup, 'type');
-    const groupedContent = groupBy(content, 'name');
-    const groupedSlots = groupBy(slots, 'name');
-    const contentWithEntries = mapValues(groupedContent, value => map(value, 'entry.sys.id'));
-    const slotsWithEntries = mapValues(groupedSlots, value => map(value, 'entry.sys.id'));
-    console.log('slotsWithEntries', slotsWithEntries);
-    const contentNodes = Object.entries(contentWithEntries)
-      .reduce((fields, [name, ids]) => ({ ...fields, [name]: getContent({ name, ids }) }), {});
-    const slotsNodes = flatMap(slotsWithEntries, (ids, name) => getContent({ name, ids, inGrid: true }));
+    const slotsNodes = Object.entries(slots)
+      .map(([name, contents], index) => (
+        // eslint-disable-next-line
+        <Box gridArea={name} key={index}>
+          {contents.map(mapOverContent)}
+        </Box>
+      ));
 
-    console.log('slotsNodes', slotsNodes);
 
     const slottedContent = (
       <SlottedContent
-        {...marginPadding.slots}
+        {...props}
+        {...marginPaddingSlots}
         slotsNodes={slotsNodes}
         grids={grids}
       />
     );
-
+        console.log('Component', Component);
 
     return (
       <Component
         data-comp={`Contentful Content: ${Component?.displayName || '???'}`}
         sx={_sx}
         fromCms={true}
-        {...(inSlot ? {} : marginPadding.content)}
+        // {...(inSlot ? {} : marginPaddingContent)}
+        {...marginPaddingContent}
         // eslint-disable-next-line react/no-children-prop
         children={slottedContent}
-        // {...marginPadding.content}
         {...contentNodes}
         {...props}
-      >
-
-      </Component>
+      />
     );
   }
 

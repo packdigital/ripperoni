@@ -142,7 +142,7 @@ module.exports = `
 
   type ContentfulPageContainer implements Node @infer {
     slug: String
-    content: [ContentfulPageContainerMoleculeAtomButtonImageLinkTextUnion]  @link(by: "id", from: "content___NODE")
+    pageContent: [ContentfulPageContainerMoleculeAtomButtonImageLinkTextUnion]  @link(by: "id", from: "pageContent___NODE")
     variant: String
     metaTitle: String
     metaHandle: String
