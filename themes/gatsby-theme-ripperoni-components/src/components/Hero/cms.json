@@ -31,20 +31,6 @@
       "C": {
         "types": ["atomLink"]
       }
-    },
-    "ABCD": {
-      "A": {
-        "types": ["atomText"]
-      },
-      "B": {
-        "types": ["atomText"]
-      },
-      "C": {
-        "types": ["atomLink"]
-      },
-      "D": {
-        "types": ["atomLink"]
-      }
     }
   },
   "grids": {
