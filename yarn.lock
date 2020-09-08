@@ -3109,6 +3109,29 @@
     intersection-observer "^0.11.0"
     react-helmet "^6.1.0"
 
+"@packdigital/gatsby-theme-ripperoni-core@^0.0.47":
+  version "0.0.47"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-core/-/gatsby-theme-ripperoni-core-0.0.47.tgz#389c5f111029e987646e67dacde37db6d423acf3"
+  integrity sha512-KCt6PuZnQO2Kuh0EcZyVKzk5AnFvuFEurGn1x6zxh8ACNNtdxAqHYS4Z1UCFmHScehTi68ggAP7XvASDd4q+Og==
+  dependencies:
+    "@lekoarts/gatsby-theme-styleguide" "^1.1.10"
+    abab "^2.0.3"
+    abortcontroller-polyfill "^1.4.0"
+    chalk "^4.1.0"
+    dateformat "^3.0.3"
+    gatsby-plugin-eslint "^2.0.8"
+    gatsby-plugin-loadable-components-ssr "^2.1.0"
+    gatsby-plugin-manifest "^2.4.11"
+    gatsby-plugin-react-helmet "^3.3.10"
+    gatsby-plugin-react-svg "^3.0.0"
+    gatsby-plugin-root-import "^2.0.5"
+    gatsby-plugin-sharp "^2.6.11"
+    gatsby-plugin-theme-ui "^0.3.0"
+    gatsby-source-filesystem "^2.3.11"
+    gatsby-transformer-sharp "^2.5.5"
+    intersection-observer "^0.11.0"
+    react-helmet "^6.1.0"
+
 "@packdigital/gatsby-theme-ripperoni-marketing@^0.0.13":
   version "0.0.13"
   resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-marketing/-/gatsby-theme-ripperoni-marketing-0.0.13.tgz#90ff9382f0da73257c369218f940f2dc10e108c0"
