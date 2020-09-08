@@ -10,9 +10,6 @@ export const ContentfulAtomButtonFragment = graphql`
     cms_backgroundColor: backgroundColor {
       backgroundColor: content
     }
-    cms_width: width {
-      width: content
-    }
     ...ContentfulCommonAtomFields
     ...ContentfulMeta
   }

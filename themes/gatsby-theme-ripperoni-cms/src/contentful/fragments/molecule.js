@@ -6,7 +6,9 @@ export const ContentfulMoleculeCssFragment = graphql`
     cms_backgroundColor: backgroundColor {
       backgroundColor: content
     }
-    maxWidth: container
+    cms_width: width {
+      width: content
+    }
   }
 `;
 

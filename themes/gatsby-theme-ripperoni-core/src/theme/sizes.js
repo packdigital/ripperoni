@@ -1,8 +1,0 @@
-export const sizes = {
-  full: '100%',
-  half: '50%',
-  third: '33.33%',
-  quarter: '25%',
-  twoThirds: '66.66%',
-  threeQuarters: '75%',
-};

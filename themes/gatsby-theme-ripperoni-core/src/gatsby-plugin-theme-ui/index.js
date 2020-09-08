@@ -10,11 +10,12 @@ import { lineHeights } from '../theme/lineHeights';
 import { links } from '../theme/links';
 import { loader } from '../theme/loader';
 import { radii } from '../theme/radii';
-import { sizes } from '../theme/sizes';
-import { space } from '../theme/space';
 import { styles } from '../theme/styles';
 import { text } from '../theme/text';
 import breakpoints from '../theme/breakpoints.json';
+import sizes from '../theme/sizes.json';
+import space from '../theme/space.json';
+import textAlign from '../theme/textAlign.json';
 
 
 const coreTheme = {
@@ -34,6 +35,7 @@ const coreTheme = {
   space,
   styles,
   text,
+  textAlign,
 };
 
 export default coreTheme;

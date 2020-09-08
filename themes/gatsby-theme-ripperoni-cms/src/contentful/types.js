@@ -14,6 +14,7 @@ module.exports = `
     value: String
   }
   interface ContentfulAtoms {
+    width: [ContentfulJson] @link(by: "id", from: "width___NODE")
     marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
     variant: String
   }
@@ -45,7 +46,9 @@ module.exports = `
     value: String
   }
 
-
+  type contentfulAtomImageWidthJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
   type contentfulAtomImageMarginPaddingJsonNode implements Node & ContentfulMarginPadding @infer {
     type: String
     direction: String
@@ -55,6 +58,9 @@ module.exports = `
 
 
   type contentfulAtomLinkColorJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
+  type contentfulAtomLinkWidthJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
   type contentfulAtomLinkMarginPaddingJsonNode implements Node & ContentfulMarginPadding @infer {
@@ -77,6 +83,9 @@ module.exports = `
   type contentfulAtomTextTextAlignJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
+  type contentfulAtomTextWidthJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
   type contentfulAtomTextMarginPaddingJsonNode implements Node & ContentfulMarginPadding @infer {
     type: String
     direction: String
@@ -86,6 +95,9 @@ module.exports = `
 
 
   type contentfulMoleculeBackgroundColorJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
+  type contentfulMoleculeWidthJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
   type contentfulMoleculeMarginPaddingContentJsonNode implements Node & ContentfulMarginPadding @infer {
@@ -130,6 +142,7 @@ module.exports = `
     secondaryImageSizes: String
     objectFit: String
     objectPosition: String
+    width: [ContentfulJson] @link(by: "id", from: "width___NODE")
     marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
     variant: String
     metaTitle: String
@@ -142,6 +155,7 @@ module.exports = `
     id: ID
     contentful_id: String
     color: [ContentfulJson] @link(by: "id", from: "color___NODE")
+    width: [ContentfulJson] @link(by: "id", from: "width___NODE")
     marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
     variant: String
     metaTitle: String
@@ -157,6 +171,7 @@ module.exports = `
     fontSize: [ContentfulJson] @link(by: "id", from: "fontSize___NODE")
     fontWeight: [ContentfulJson] @link(by: "id", from: "fontWeight___NODE")
     textAlign: [ContentfulJson] @link(by: "id", from: "textAlign___NODE")
+    width: [ContentfulJson] @link(by: "id", from: "width___NODE")
     marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
     variant: String
     metaTitle: String
@@ -169,12 +184,10 @@ module.exports = `
     id: ID
     contentful_id: String
     backgroundColor: [ContentfulJson] @link(by: "id", from: "backgroundColor___NODE")
-    container: String
+    width: [ContentfulJson] @link(by: "id", from: "width___NODE")
     marginPaddingContent: [ContentfulMarginPadding] @link(by: "id", from: "marginPaddingContent___NODE")
     marginPaddingSlots: [ContentfulMarginPadding] @link(by: "id", from: "marginPaddingSlots___NODE")
-    extraProps: [ContentfulJson] @link(by: "id", from: "extraProps___NODE")
     entries: [ContentfulAtomsAndMolecule] @link(by: "id", from: "entries___NODE")
-    variant: String
     metaTitle: String
     metaHandle: String
     metaTags: [String]

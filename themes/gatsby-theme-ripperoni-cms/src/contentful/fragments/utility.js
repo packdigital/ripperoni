@@ -14,6 +14,9 @@ export const ContentfulMetaFragment = graphql`
 
 export const ContentfulCommonAtomFieldsFragment = graphql`
   fragment ContentfulCommonAtomFields on ContentfulAtoms {
+    cms_width: width {
+      width: content
+    }
     marginPadding {
       type
       direction
