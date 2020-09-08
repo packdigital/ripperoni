@@ -114,7 +114,6 @@ export const ContentfulContent = incomingProps => {
     __typename,
     ...props
   } = parsedProps;
-    console.log('props', props);
 
   if (!__typename) {
     return null;
