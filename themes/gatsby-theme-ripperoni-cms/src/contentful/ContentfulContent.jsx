@@ -49,6 +49,7 @@ const parseProps = ({
   marginPaddingSlots,
   __typename,
   getMarginPaddingWithBreakpoints,
+  extraProps,
   ...props
 }) => {
   const lookups = groupBy(lookup, 'type');
@@ -78,6 +79,9 @@ const parseProps = ({
     .filter(([, value]) => value)
     .reduce((otherProps, [name, value]) => ({ ...otherProps, [name]: value }), {});
 
+  const extraPropsObject = extraProps
+    ?.reduce((props, { name, value }) => ({ ...props, [name]: value }), {});
+
   return {
     ...cmsStyleProps,
     ...otherProps,
@@ -88,6 +92,7 @@ const parseProps = ({
     content: getContent(lookups.content, entries),
     slots: getContent(lookups.slots, entries),
     __typename,
+    ...extraPropsObject
   };
 };
 
@@ -109,8 +114,8 @@ export const ContentfulContent = incomingProps => {
     __typename,
     ...props
   } = parsedProps;
+    console.log('props', props);
 
-    // console.log('props', props);
   if (!__typename) {
     return null;
   }
@@ -163,6 +168,7 @@ export const ContentfulContent = incomingProps => {
           {contents.map(mapOverContent)}
         </Box>
       ));
+      // .map(([name, contents], index) => contents.map(mapOverContent(name)));
 
     const slottedContent = (
       <SlottedContent
