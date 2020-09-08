@@ -12,9 +12,7 @@ import { components } from '@ripperoni/cms/contentful/components';
 import { SlottedContent } from './SlottedContent';
 
 
-const getMarginPadding = marginPadding => {
-  const { theme: { breakpoints }} = useThemeUI();
-
+const getMarginPadding = breakpoints => marginPadding => {
   return marginPadding?.reduce((spacings, { type, direction, value, viewport }) => {
     const key = `${type}${direction}`;
 
@@ -26,7 +24,7 @@ const getMarginPadding = marginPadding => {
   }, {});
 };
 
-const getContent = (lookup, entries) => {
+export const getContent = (lookup, entries) => {
   if (!lookup || !entries) {
     return {};
   }
@@ -50,6 +48,7 @@ const parseProps = ({
   marginPaddingContent,
   marginPaddingSlots,
   __typename,
+  getMarginPaddingWithBreakpoints,
   ...props
 }) => {
   const lookups = groupBy(lookup, 'type');
@@ -59,6 +58,7 @@ const parseProps = ({
     : components[__typename];
 
   const cmsStyleProps = Object.entries(props)
+    .filter(([, value]) => Array.isArray(value) ? value.some(value => value) : value)
     .filter(([name]) => name.startsWith('cms_'))
     .filter(([, value]) => Array.isArray(value))
     .map(([name, value]) => [name.replace('cms_', ''), value])
@@ -73,18 +73,18 @@ const parseProps = ({
     }), {});
 
   const otherProps = Object.entries(props)
+    .filter(([, value]) => Array.isArray(value) ? value.some(value => value) : value)
     .filter(([name]) => !name.startsWith('cms_'))
     .filter(([, value]) => value)
-    .filter(([, value]) => Array.isArray(value) ? value.some(value => value !== null) : value)
     .reduce((otherProps, [name, value]) => ({ ...otherProps, [name]: value }), {});
 
   return {
-    ...otherProps,
     ...cmsStyleProps,
+    ...otherProps,
     Component,
-    marginPadding: getMarginPadding(marginPadding),
-    marginPaddingContent: getMarginPadding(marginPaddingContent),
-    marginPaddingSlots: getMarginPadding(marginPaddingSlots),
+    marginPadding: getMarginPaddingWithBreakpoints(marginPadding),
+    marginPaddingContent: getMarginPaddingWithBreakpoints(marginPaddingContent),
+    marginPaddingSlots: getMarginPaddingWithBreakpoints(marginPaddingSlots),
     content: getContent(lookups.content, entries),
     slots: getContent(lookups.slots, entries),
     __typename,
@@ -92,7 +92,10 @@ const parseProps = ({
 };
 
 export const ContentfulContent = incomingProps => {
-  const parsedProps = parseProps(incomingProps);
+  const { theme: { breakpoints }} = useThemeUI();
+  const getMarginPaddingWithBreakpoints = getMarginPadding(breakpoints);
+
+  const parsedProps = parseProps({ ...incomingProps, getMarginPaddingWithBreakpoints });
   const {
     Component,
     marginPadding,
@@ -107,6 +110,7 @@ export const ContentfulContent = incomingProps => {
     ...props
   } = parsedProps;
 
+    // console.log('props', props);
   if (!__typename) {
     return null;
   }
@@ -136,12 +140,11 @@ export const ContentfulContent = incomingProps => {
 
   if (__typename === 'ContentfulMolecule') {
     // eslint-disable-next-line
-    const mapOverContent = ({ inSlots }) => ({ marginPaddingContent, ...content }, index) => {
+    const mapOverContent = ({ marginPaddingContent, ...content }, index) => {
       return (
         <ContentfulContent
-          // inSlots={inSlots}
           {...content}
-          {...getMarginPadding(marginPaddingContent)}
+          {...getMarginPaddingWithBreakpoints(marginPaddingContent)}
           key={`${index}.${Math.random()}`}
         />
       );
@@ -150,14 +153,14 @@ export const ContentfulContent = incomingProps => {
     const contentNodes = Object.entries(content)
       .reduce((fields, [name, contents]) => ({
         ...fields,
-        [name]: contents.map(mapOverContent({ inSlots: false }))
+        [name]: contents.map(mapOverContent)
       }), {});
 
     const slotsNodes = Object.entries(slots)
       .map(([name, contents], index) => (
         // eslint-disable-next-line
         <Box gridArea={name} key={index}>
-          {contents.map(mapOverContent({ inSlots: true }))}
+          {contents.map(mapOverContent)}
         </Box>
       ));
 

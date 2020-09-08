@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-theme-ripperoni-cms",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "author": "@packdigital",
   "description": "",
   "repository": "https://github.com/packdigital/ripperoni",
@@ -20,5 +20,6 @@
   "dependencies": {
     "gatsby-source-contentful": "^2.3.15"
   },
-  "prettier": "@packdigital/prettier-config-ripperoni"
+  "prettier": "@packdigital/prettier-config-ripperoni",
+  "gitHead": "8efa33d13b855a068d67beee35eeaf7bfea23b45"
 }

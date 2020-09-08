@@ -1,5 +1,6 @@
 import { useRef, } from 'react';
 import { useThemeUI } from 'theme-ui';
+
 /**
  * Outputs a prop array that mirrors theme-UI's responsive array behavior
  * by filling in all breakpoints/indexes with either a passed index or
@@ -13,7 +14,7 @@ import { useThemeUI } from 'theme-ui';
  */
 export const useResponsiveProp = ({ initItems, fillUntilIndex = 0, falseReturns = null }) => {
   const context = useThemeUI();
-  const breakpointCount = useRef(context.theme?.breakpoints?.length || 1);
+  const breakpointCount = useRef(context.theme?.breakpoints?.length + 1|| 1);
 
   return [...initItems, ...Array(breakpointCount.current).fill()]
     .slice(0, fillUntilIndex === 0  ? breakpointCount.current : fillUntilIndex)

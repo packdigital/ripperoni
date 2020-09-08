@@ -17,8 +17,6 @@ export const UIContextProvider = React.memo(({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const actions = createActions(dispatch);
 
-  // console.log('state', state);
-
   const value = {
     state,
     ...actions,

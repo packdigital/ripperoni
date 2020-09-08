@@ -39,5 +39,6 @@
     "intersection-observer": "^0.11.0",
     "react-helmet": "^6.1.0"
   },
-  "prettier": "@packdigital/prettier-config-ripperoni"
+  "prettier": "@packdigital/prettier-config-ripperoni",
+  "gitHead": "8efa33d13b855a068d67beee35eeaf7bfea23b45"
 }

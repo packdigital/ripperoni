@@ -29,6 +29,7 @@ const variants = {
 
 export const Overlay = forwardRef(({
   animated = true,
+  zIndex = 2,
   ...incomingProps
 }, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps);
@@ -49,7 +50,7 @@ export const Overlay = forwardRef(({
         right={0}
         bottom={0}
         left={0}
-        zIndex={2}
+        zIndex={zIndex}
         sx={sxObject}
         variants={variants}
         initial='initial'
