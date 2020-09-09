@@ -1,3 +1,6 @@
+/**
+ * @prettier
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -5,12 +8,7 @@ import { Box, Flex, Heading, Link, Text } from '@ripperoni/components';
 
 import { Address } from '../Address';
 
-
-export const Addresses = ({
-  shippingAddress,
-  fulfillment,
-  ...props
-}) => (
+export const Addresses = ({ shippingAddress, fulfillment, ...props }) => (
   <Flex
     data-comp={Addresses.displayName}
     variant='account.order.addresses'
