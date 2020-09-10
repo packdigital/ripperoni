@@ -1,9 +1,13 @@
 /* eslint-disable max-lines */
 module.exports = {
   'parser': 'babel-eslint',
+  'globals': {
+    '__PATH_PREFIX__': true
+  },
   'env': {
+    'es6': true,
+    'node': true,
     'browser': true,
-    'node': true
   },
   'parserOptions':  {
     'ecmaVersion':  2018,
@@ -12,22 +16,36 @@ module.exports = {
       'jsx':  true
     }
   },
+  'extends': [
+    'plugin:react/recommended',
+    'plugin:import/recommended',
+    // 1. enables eslint-plugin-prettier,
+    // 2. sets prettier/prettier rule to error
+    // 3. extends eslint-config-prettier configuration
+    'plugin:prettier/recommended',
+    'prettier/react'
+  ],
   'rules': {
+    // disabled
     'strict': 'off',
     'react/no-unescaped-entities': 'off',
-    'react/jsx-max-props-per-line': [2, {
-      'maximum': 1,
-      'when': 'always'
-    }],
-    'react/jsx-indent-props': ['warn', 2],
-    // 'react/jsx-one-expression-per-line': 'warn',
-    'react/jsx-closing-bracket-location': 'warn',
-    'react/jsx-first-prop-new-line': 'warn',
-    'react/jsx-tag-spacing': ['warn', {
-      'beforeSelfClosing': 'always',
-    }],
+
+    // additional rules
     'no-unused-vars': 'warn',
+    'max-lines': ['warn', {
+      'max': 125,
+      'skipBlankLines': true,
+      'skipComments': true
+    }],
+    'sort-imports': ['warn', {
+      'ignoreDeclarationSort': true
+    }],
+
+    // react rules
     'react/prop-types': 'warn',
+    'react/display-name': 'warn',
+
+    // import rules
     'import/no-default-export': 'warn',
     'import/no-unresolved': ['warn', {
       // because of theme shadowing, any import alias of a gatsby theme needs to
@@ -46,43 +64,7 @@ module.exports = {
         '@ripperoni/search',
         '@ripperoni/store',
         '@ripperoni/utilities',
-
-        // not sure about these...
-        // '@ripperoni/account/theme',
-        // '@ripperoni/cart/theme',
-        // '@ripperoni/components/theme',
-        // '@ripperoni/core/theme',
-        // '@ripperoni/debug/theme',
-        // '@ripperoni/marketing/theme',
-        // '@ripperoni/search/theme',
-        // '@ripperoni/store/theme',
       ]
-    }],
-    'max-lines': ['warn', {
-      'max': 125,
-      'skipBlankLines': true,
-      'skipComments': true
-    }],
-    'sort-imports': ['warn', {
-      'ignoreDeclarationSort': true
-    }],
-    'semi': ['warn', 'always', {
-      'omitLastInOneLineBlock': true
-    }],
-    'no-multiple-empty-lines': ['warn', {
-      'max': 2,
-      'maxBOF': 0
-    }],
-    'quotes': ['warn', 'single', {
-      'avoidEscape': true,
-      'allowTemplateLiterals': false
-    }],
-    'import/newline-after-import': ['warn', {
-      'count': 2
-    }],
-    'object-curly-spacing': ['error', 'always', {
-      'objectsInObjects': false,
-      'arraysInObjects': true
     }],
     'import/order': ['error', {
       'groups': [
@@ -96,7 +78,7 @@ module.exports = {
         // 2. ripperoni-themes and modules - @ripperoni
         // 3. project layouts - @layouts
         // 4. project components - @components
-        // 5. project resources - @assets, @images, @static
+        // 5. project resources - @assets, @hooks, @images, @static
         // 6. everything else
         {
           'pattern': '@ripperoni/**',
@@ -123,27 +105,10 @@ module.exports = {
       'pathGroupsExcludedImportTypes': []
     }]
   },
-  'extends': [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:jsx-a11y/recommended',
-    'plugin:import/recommended',
-    // 1. enables eslint-plugin-prettier,
-    // 2. sets prettier/prettier rule to error
-    // 3. extends eslint-config-prettier configuration
-    'prettier',
-    'plugin:prettier/recommended',
-    'prettier/react',
-    'prettier/standard'
-  ],
-  'plugins': [
-    'jsx-a11y'
-  ],
   'settings': {
     'react': {
       'version': 'detect'
     },
-    'import/ignore': [],
     'import/resolver': {
       alias: {
         map: [
@@ -174,6 +139,7 @@ module.exports = {
           ['@ripperoni/store/theme', '@packdigital/gatsby-theme-ripperoni-store/src/gatsby-plugin-theme-ui'],
           ['@ripperoni/store', '@packdigital/gatsby-theme-ripperoni-store/src'],
           ['@ripperoni/utilities', '@packdigital/ripperoni-utilities'],
+
           // legacy aliases
           ['@theme', '@packdigital/gatsby-theme-ripperoni/src'],
           ['@theme2', '@packdigital/gatsby-theme-ripperoni-components/src'],
@@ -183,7 +149,4 @@ module.exports = {
       },
     }
   },
-  'globals': {
-    '__PATH_PREFIX__': true
-  }
 };

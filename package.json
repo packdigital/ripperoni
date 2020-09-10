@@ -22,18 +22,15 @@
   "devDependencies": {
     "@babel/core": "^7.10.4",
     "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-import-resolver-custom-alias": "^1.2.0",
-    "eslint-import-resolver-webpack": "^0.12.2",
-    "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.3",
+    "husky": "^4.3.0",
     "lerna": "^3.22.1",
+    "lint-staged": "^10.3.0",
     "prettier": "^2.0.5"
   }
 }
