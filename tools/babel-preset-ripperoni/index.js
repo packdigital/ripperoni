@@ -5,20 +5,7 @@ module.exports = (api, options) => {
     '@babel/plugin-proposal-optional-chaining',
   ];
 
-  const presets = [
-    [
-      // consider removing this and making people include it in their project
-      'babel-preset-gatsby',
-      {
-        'targets': {
-          'browsers': [
-            '>0.25%',
-            'not dead'
-          ]
-        }
-      }
-    ],
-  ];
+  const presets = [];
 
   return {
     plugins,
