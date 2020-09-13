@@ -1,5 +1,10 @@
+/**
+ * @jsx jsx
+ * @prettier
+ */
+
 /* eslint-disable max-lines */
-/** @jsx jsx */
+
 import { jsx, useThemeUI } from 'theme-ui';
 import PropTypes from 'prop-types';
 import groupBy from 'lodash/groupBy';
@@ -11,17 +16,22 @@ import { components } from '@ripperoni/cms/contentful/components';
 
 import { SlottedContent } from './SlottedContent';
 
+const getMarginPadding = (breakpoints) => (marginPadding) => {
+  return marginPadding?.reduce(
+    (spacings, { type, direction, value, viewport }) => {
+      const key = `${type}${direction}`;
 
-const getMarginPadding = breakpoints => marginPadding => {
-  return marginPadding?.reduce((spacings, { type, direction, value, viewport }) => {
-    const key = `${type}${direction}`;
-
-    return {
-      ...spacings,
-      [key]: (spacings[key] || Array(breakpoints.length + 1).fill(null))
-        .map((item, index) => parseInt(viewport) === index ? parseInt(value) || value : item)
-    };
-  }, {});
+      return {
+        ...spacings,
+        [key]: (
+          spacings[key] || Array(breakpoints.length + 1).fill(null)
+        ).map((item, index) =>
+          parseInt(viewport) === index ? parseInt(value) || value : item
+        ),
+      };
+    },
+    {}
+  );
 };
 
 export const getContent = (lookup, entries) => {
@@ -30,14 +40,20 @@ export const getContent = (lookup, entries) => {
   }
 
   const groups = groupBy(lookup, 'name');
-  const groupedEntryIds = mapValues(groups, value => map(value, 'entry.sys.id'));
+  const groupedEntryIds = mapValues(groups, (value) =>
+    map(value, 'entry.sys.id')
+  );
 
-  return Object.entries(groupedEntryIds)
-    .reduce((content, [name, value]) => ({
+  return Object.entries(groupedEntryIds).reduce(
+    (content, [name, value]) => ({
       ...content,
       // `id` (contentful id) is sometimes prefixed with c if it originally started with a number
-      [name]: value.map(id => entries.find(({ contentful_id }) => id.endsWith(contentful_id)))
-    }), {});
+      [name]: value.map((id) =>
+        entries.find(({ contentful_id }) => id.endsWith(contentful_id))
+      ),
+    }),
+    {}
+  );
 };
 
 const parseProps = ({
@@ -54,33 +70,47 @@ const parseProps = ({
 }) => {
   const lookups = groupBy(lookup, 'type');
 
-  const Component = __typename === 'ContentfulMolecule'
-    ? components[component]
-    : components[__typename];
+  const Component =
+    __typename === 'ContentfulMolecule'
+      ? components[component]
+      : components[__typename];
 
   const cmsStyleProps = Object.entries(props)
-    .filter(([, value]) => Array.isArray(value) ? value.some(value => value) : value)
+    .filter(([, value]) =>
+      Array.isArray(value) ? value.some((value) => value) : value
+    )
     .filter(([name]) => name.startsWith('cms_'))
     .filter(([, value]) => Array.isArray(value))
     .map(([name, value]) => [name.replace('cms_', ''), value])
-    .reduce((props, [name, value]) => ({
-      ...props,
-      [name]: value.map(value => !(value?.__typename)
-        ? value
-        : isNaN(parseInt(value[name]))
-          ? value[name]
-          : parseInt(value[name])
-      )
-    }), {});
+    .reduce(
+      (props, [name, value]) => ({
+        ...props,
+        [name]: value.map((value) =>
+          !value?.__typename
+            ? value
+            : isNaN(parseInt(value[name]))
+            ? value[name]
+            : parseInt(value[name])
+        ),
+      }),
+      {}
+    );
 
   const otherProps = Object.entries(props)
-    .filter(([, value]) => Array.isArray(value) ? value.some(value => value) : value)
+    .filter(([, value]) =>
+      Array.isArray(value) ? value.some((value) => value) : value
+    )
     .filter(([name]) => !name.startsWith('cms_'))
     .filter(([, value]) => value)
-    .reduce((otherProps, [name, value]) => ({ ...otherProps, [name]: value }), {});
+    .reduce(
+      (otherProps, [name, value]) => ({ ...otherProps, [name]: value }),
+      {}
+    );
 
-  const extraPropsObject = extraProps
-    ?.reduce((props, { name, value }) => ({ ...props, [name]: value }), {});
+  const extraPropsObject = extraProps?.reduce(
+    (props, { name, value }) => ({ ...props, [name]: value }),
+    {}
+  );
 
   return {
     ...cmsStyleProps,
@@ -92,15 +122,20 @@ const parseProps = ({
     content: getContent(lookups.content, entries),
     slots: getContent(lookups.slots, entries),
     __typename,
-    ...extraPropsObject
+    ...extraPropsObject,
   };
 };
 
-export const ContentfulContent = incomingProps => {
-  const { theme: { breakpoints }} = useThemeUI();
+export const ContentfulContent = (incomingProps) => {
+  const {
+    theme: { breakpoints },
+  } = useThemeUI();
   const getMarginPaddingWithBreakpoints = getMarginPadding(breakpoints);
 
-  const parsedProps = parseProps({ ...incomingProps, getMarginPaddingWithBreakpoints });
+  const parsedProps = parseProps({
+    ...incomingProps,
+    getMarginPaddingWithBreakpoints,
+  });
   const {
     Component,
     marginPadding,
@@ -120,23 +155,14 @@ export const ContentfulContent = incomingProps => {
   }
 
   if (__typename.startsWith('ContentfulAtom')) {
-    return (
-      <Component
-        {...props}
-        {...marginPadding}
-        sx={_sx}
-      />
-    );
+    return <Component {...props} {...marginPadding} sx={_sx} />;
   }
 
   if (__typename === 'ContentfulPageContainer') {
     return (
       <Component>
         {pageContent.map((section, index) => (
-          <ContentfulContent
-            {...section}
-            key={index}
-          />
+          <ContentfulContent {...section} key={index} />
         ))}
       </Component>
     );
@@ -154,20 +180,21 @@ export const ContentfulContent = incomingProps => {
       );
     };
 
-    const contentNodes = Object.entries(content)
-      .reduce((fields, [name, contents]) => ({
+    const contentNodes = Object.entries(content).reduce(
+      (fields, [name, contents]) => ({
         ...fields,
-        [name]: contents.map(mapOverContent)
-      }), {});
+        [name]: contents.map(mapOverContent),
+      }),
+      {}
+    );
 
-    const slotsNodes = Object.entries(slots)
-      .map(([name, contents], index) => (
-        // eslint-disable-next-line
+    const slotsNodes = Object.entries(slots).map(([name, contents], index) => (
+      // eslint-disable-next-line
         <Box gridArea={name} key={index}>
-          {contents.map(mapOverContent)}
-        </Box>
-      ));
-      // .map(([name, contents], index) => contents.map(mapOverContent(name)));
+        {contents.map(mapOverContent)}
+      </Box>
+    ));
+    // .map(([name, contents], index) => contents.map(mapOverContent(name)));
 
     const slottedContent = (
       <SlottedContent
