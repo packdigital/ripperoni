@@ -3024,6 +3024,14 @@
   dependencies:
     "@types/node" ">= 8"
 
+"@packdigital/babel-preset-ripperoni@^1.0.8", "@packdigital/babel-preset-ripperoni@^1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@packdigital/babel-preset-ripperoni/-/babel-preset-ripperoni-1.0.9.tgz#40f156b57853efc8c5218b6adc3faf0947fc7c5f"
+  integrity sha512-AeRLNgmjiAR2EIpEBmTSB7zLB9j4YNdPNUsfsnk6QWH6dZE49OaW6/RtQeIWJkVfbJUAC1etmOh8cK9W1ltxdw==
+  dependencies:
+    "@babel/plugin-proposal-optional-chaining" "^7.10.1"
+    babel-preset-gatsby "^0.4.9"
+
 "@packdigital/gatsby-theme-ripperoni-account@^0.0.35":
   version "0.0.35"
   resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-account/-/gatsby-theme-ripperoni-account-0.0.35.tgz#23d4987a7d9500a035320538ed10be8bb09d0d8f"
@@ -3054,6 +3062,13 @@
   version "0.0.12"
   resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-cms/-/gatsby-theme-ripperoni-cms-0.0.12.tgz#d7653555954958da060766a5b27042fc12cc9e22"
   integrity sha512-77lVuRz+c05H3pBKB1kS1ExYSVk9Gd48AlW7wa+oZU4s5Kov0heqxdIJK/c5pc/DOPgikY7dzti0B1ZV5Sf6kA==
+  dependencies:
+    gatsby-source-contentful "^2.3.15"
+
+"@packdigital/gatsby-theme-ripperoni-cms@^0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-cms/-/gatsby-theme-ripperoni-cms-0.0.26.tgz#a0d2f155b54a05a79cd054e3cfe95f3e92206b53"
+  integrity sha512-J32EaI8oh4iFAXYbDo9J3++8irF4NOKfTEBvoMMUkR5xAhm46zvhWL3WE7gsQv8SkZVTD8v9rYpQOVl/LFk6lw==
   dependencies:
     gatsby-source-contentful "^2.3.15"
 

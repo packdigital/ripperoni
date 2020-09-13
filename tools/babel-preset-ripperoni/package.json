@@ -9,8 +9,7 @@
     "@babel/core": "^7.10.2"
   },
   "dependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.10.1",
-    "babel-preset-gatsby": "^0.4.9"
+    "@babel/plugin-proposal-optional-chaining": "^7.10.1"
   },
   "prettier": "./prettier.config.js",
   "eslintConfig": {
