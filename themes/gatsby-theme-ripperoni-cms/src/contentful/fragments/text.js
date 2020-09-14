@@ -15,10 +15,7 @@ export const ContentfulAtomTextFragment = graphql`
     cms_fontWeight: fontWeight {
       fontWeight: content
     }
-    cms_textAlign: textAlign {
-      textAlign: content
-    }
-    ...ContentfulCommonAtomFields
+    variant
     ...ContentfulMeta
   }
 `;

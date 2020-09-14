@@ -8,7 +8,7 @@ export const ContentfulAtomLinkFragment = graphql`
     cms_color: color {
       color: content
     }
-    ...ContentfulCommonAtomFields
+    variant
     ...ContentfulMeta
   }
 `;
