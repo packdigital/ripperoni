@@ -16,9 +16,6 @@ export const ContentfulAtomImageFragment = graphql`
     alt
     primaryImageSizes
     secondaryImageSizes
-    objectFit
-    objectPosition
-    ...ContentfulCommonAtomFields
     ...ContentfulMeta
   }
 `;
