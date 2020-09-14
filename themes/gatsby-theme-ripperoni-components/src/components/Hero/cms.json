@@ -18,6 +18,7 @@
         "types": ["atomText"]
       },
       "B": {
+        "multiple": true,
         "types": ["atomText", "atomLink"]
       }
     },
