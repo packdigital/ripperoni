@@ -26,3 +26,4 @@ export * from './Price';
 export * from './Radio';
 export * from './Svg';
 export * from './Text';
+export * from './Video';
