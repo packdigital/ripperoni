@@ -183,7 +183,7 @@ export const ContentfulContent = (incomingProps) => {
     const contentNodes = Object.entries(content).reduce(
       (fields, [name, contents]) => ({
         ...fields,
-        [name]: contents.map(mapOverContent),
+        [name]: contents.filter(Boolean).map(mapOverContent),
       }),
       {}
     );
@@ -191,7 +191,7 @@ export const ContentfulContent = (incomingProps) => {
     const slotsNodes = Object.entries(slots).map(([name, contents], index) => (
       // eslint-disable-next-line
         <Box gridArea={name} key={index}>
-        {contents.map(mapOverContent)}
+        {contents.filter(Boolean).map(mapOverContent)}
       </Box>
     ));
     // .map(([name, contents], index) => contents.map(mapOverContent(name)));
