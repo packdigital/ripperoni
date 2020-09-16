@@ -7,6 +7,7 @@ export const ContentfulPageContainerFragment = graphql`
     pageContent {
       ... on ContentfulAtomButton { ...ContentfulAtomButton }
       ... on ContentfulAtomImage { ...ContentfulAtomImage }
+      ... on ContentfulAtomVideo { ...ContentfulAtomVideo }
       ... on ContentfulAtomLink { ...ContentfulAtomLink }
       ... on ContentfulAtomText { ...ContentfulAtomText }
       ... on ContentfulMolecule { ...ContentfulMolecule }

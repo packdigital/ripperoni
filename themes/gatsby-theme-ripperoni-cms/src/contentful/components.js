@@ -5,7 +5,8 @@ import {
   Hero,
   Image,
   Link,
-  Text
+  Text,
+  Video
 } from '@ripperoni/components';
 
 
@@ -14,6 +15,7 @@ const atoms = {
   ContentfulAtomImage: Image.Contentful,
   ContentfulAtomLink: Link,
   ContentfulAtomText: Text,
+  ContentfulAtomVideo: Video,
 };
 
 const molecules = {
