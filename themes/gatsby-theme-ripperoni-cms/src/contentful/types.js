@@ -188,6 +188,7 @@ module.exports = `
     marginPaddingSlots: [ContentfulMarginPadding] @link(by: "id", from: "marginPaddingSlots___NODE")
     entries: [ContentfulAtomsAndMolecule] @link(by: "id", from: "entries___NODE")
     extraProps: [contentfulMoleculeExtraPropsJsonNode]
+    variant: String
     metaTitle: String
     metaHandle: String
     metaTags: [String]
