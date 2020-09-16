@@ -110,10 +110,6 @@ module.exports = `
     viewport: String
     value: String
   }
-  type contentfulMoleculeExtraPropsJsonNode implements Node @infer {
-    name: String
-    value: String
-  }
 
 
 
@@ -198,7 +194,7 @@ module.exports = `
     marginPaddingContent: [ContentfulMarginPadding] @link(by: "id", from: "marginPaddingContent___NODE")
     marginPaddingSlots: [ContentfulMarginPadding] @link(by: "id", from: "marginPaddingSlots___NODE")
     entries: [ContentfulAtomsAndMolecule] @link(by: "id", from: "entries___NODE")
-    extraProps: [contentfulMoleculeExtraPropsJsonNode]
+
     variant: String
     metaTitle: String
     metaHandle: String
