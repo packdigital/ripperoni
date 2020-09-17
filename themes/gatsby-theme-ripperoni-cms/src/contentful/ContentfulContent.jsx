@@ -47,7 +47,8 @@ export const getContent = (lookup, entries) => {
   return Object.entries(groupedEntryIds).reduce(
     (content, [name, value]) => ({
       ...content,
-      // `id` (contentful id) is sometimes prefixed with c if it originally started with a number
+      // `id` (contentful id) is sometimes prefixed
+      // with c if it originally started with a number
       [name]: value.map((id) =>
         entries.find(({ contentful_id }) => id.endsWith(contentful_id))
       ),
