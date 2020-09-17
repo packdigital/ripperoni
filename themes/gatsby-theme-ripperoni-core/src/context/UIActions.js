@@ -11,8 +11,8 @@ export const createActions = dispatch => {
     toggleCart: () => {
       dispatch({ type: TOGGLE_CART });
     },
-    toggleModal: () => {
-      dispatch({ type: TOGGLE_MODAL });
+    toggleModal: (modalId) => {
+      dispatch({ type: TOGGLE_MODAL, modalId });
     },
     showSecondaryNavigation: data => {
       dispatch({ type: SHOW_SECONDARY_NAVIGATION, data });

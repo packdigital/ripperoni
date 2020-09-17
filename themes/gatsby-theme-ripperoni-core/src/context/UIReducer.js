@@ -12,7 +12,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         cart: false,
-        modal: !state.modal,
+        modal: state.modal ? false : action.modalId,
       };
     case 'SHOW_SECONDARY_NAVIGATION':
       return {

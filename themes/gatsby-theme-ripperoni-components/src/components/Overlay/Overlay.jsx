@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef } from 'react';
+import { forwardRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { jsx } from 'theme-ui';
 import { motion } from 'framer-motion';
@@ -38,6 +38,14 @@ export const Overlay = forwardRef(({
     ...propTypes,
     animate: PropTypes.bool,
   };
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = '';
+    }
+  }, [])
 
   if (animated) {
     return (
