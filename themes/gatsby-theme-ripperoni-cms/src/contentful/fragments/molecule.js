@@ -38,7 +38,6 @@ export const ContentfulMoleculeDataFragment = graphql`
       name
       value
     }
-    variant
     grids {
       grid
       viewport
