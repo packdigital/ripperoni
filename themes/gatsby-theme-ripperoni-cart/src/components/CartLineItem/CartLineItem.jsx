@@ -26,7 +26,7 @@ export const CartLineItem = ({
   return (
     <Flex
       data-comp={CartLineItem.displayName}
-      data-variantId={getLegacyShopifyId(variant.id)}
+      data-variantid={getLegacyShopifyId(variant.id)}
       pb='25px'
       {...props}
     >
