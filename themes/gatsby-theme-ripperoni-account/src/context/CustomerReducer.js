@@ -14,7 +14,8 @@ export const reducer = (state, action) => {
       return {
         ...state,
         loading: {
-          [action.request]: true,
+          ...state.loading,
+          [action.id]: true,
         }
       };
     case 'FINISH_ACCOUNT_REQUEST':
@@ -23,11 +24,11 @@ export const reducer = (state, action) => {
         ...action.data,
         errors: {
           ...state.errors,
-          [action.request]: []
+          [action.id]: []
         },
         loading: {
           ...state.loading,
-          [action.request]: false,
+          [action.id]: false,
         },
       };
     case 'ERROR_ACCOUNT_REQUEST':
@@ -66,7 +67,9 @@ const requestAccount = async ({ request: action, data = {}}, accessToken, signal
 export const asyncActionHandlers = {
   ACCOUNT_REQUEST: ({ dispatch, getState, signal }) => {
     return async action => {
-      dispatch({ type: 'START_ACCOUNT_REQUEST', request: action.request });
+      const id = action?.data?.id || action.request;
+
+      dispatch({ type: 'START_ACCOUNT_REQUEST', id });
 
       try {
         const accessToken = getState().accessToken;
@@ -74,9 +77,9 @@ export const asyncActionHandlers = {
         const loggedIn = data?.customer ? true : false;
 
         if (errors) {
-          dispatch({ type: 'ERROR_ACCOUNT_REQUEST', errors: { [action.request]: errors }});
+          dispatch({ type: 'ERROR_ACCOUNT_REQUEST', errors: { [id]: errors }});
         } else {
-          dispatch({ type: 'FINISH_ACCOUNT_REQUEST', data: { ...data, loggedIn }});
+          dispatch({ type: 'FINISH_ACCOUNT_REQUEST', id, data: { ...data, loggedIn }});
         }
       } catch (error) {
         dispatch({ type: 'LOGOUT', errors: { logout: error }});

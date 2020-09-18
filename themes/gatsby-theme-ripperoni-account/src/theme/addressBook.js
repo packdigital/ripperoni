@@ -6,12 +6,12 @@ export const addressBook = {
     p: t => t.account.space.m,
     mb: t => t.account.space.xxs,
     bg: t => t.account.colors.content,
-    edit: {
-      ml: 'auto',
-    },
-    delete: {
-      ml: t => t.account.space.s,
-    },
+    controls: {
+      edit: {},
+      delete: {
+        ml: t => t.account.space.s,
+      },
+    }
   },
   form: {
     p: t => t.account.space.m,

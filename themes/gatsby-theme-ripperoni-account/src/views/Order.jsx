@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 /* eslint-disable react/prop-types */
 import React from 'react';
 
@@ -9,20 +13,14 @@ import { Totals } from '@ripperoni/account/components/OrderTotals';
 import { OrderHeader } from '@ripperoni/account/components/OrderHeader';
 import { useCustomerContext } from '@ripperoni/account/context/CustomerContext';
 
-
-export const Order = ({
-  location,
-  ...props
-}) => {
+export const Order = ({ location, ...props }) => {
   const { state } = useCustomerContext();
-  const order = location.state?.order || state.customer.orders.find(order => order.id == props.id);
+  const order =
+    location.state?.order ||
+    state.customer.orders.find((order) => order.id == props.id);
 
   return (
-    <AccountLayout
-      variant='account.layout.order'
-      loggedIn={true}
-      {...props}
-    >
+    <AccountLayout variant='account.layout.order' loggedIn={true} {...props}>
       <OrderHeader order={order} />
 
       <Flex.Col variant='account.order.content'>
@@ -31,10 +29,7 @@ export const Order = ({
           fulfillment={order.fulfillments[0]}
         />
 
-        <LineItems
-          statusUrl={order.statusUrl}
-          lineItems={order.lineItems}
-        />
+        <LineItems statusUrl={order.statusUrl} lineItems={order.lineItems} />
 
         <Totals
           subtotal={order.subtotalPrice}

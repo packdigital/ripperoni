@@ -17,11 +17,11 @@ export const TableRow = ({
     >
       <Box variant='account.orders.table.cell.orderNumber'>
         <Link
-          to={`/account/orders/${order.id}`}
+          to={`/account/orders/${order.orderNumber}`}
           state={{ order }}
           sx={{ variant: 'account.text.orders.table.cell.orderNumber' }}
         >
-          #{order.id}
+          {order.name}
         </Link>
       </Box>
 

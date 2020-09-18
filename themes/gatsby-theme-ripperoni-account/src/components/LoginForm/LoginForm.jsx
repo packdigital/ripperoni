@@ -71,6 +71,10 @@ export const LoginForm = ({
           variant='account.forms.login.loader'
           loading={state.loading?.customerLogin}
         >
+          <Button variant='account.forms.login.submit'>
+            Sign In
+          </Button>
+
           {recoverPasswordToggle && (
             <Button
               variant='account.forms.login.recoverPassword'
@@ -82,10 +86,6 @@ export const LoginForm = ({
               Forgot Your Password?
             </Button>
           )}
-
-          <Button variant='account.forms.login.submit'>
-            Sign In
-          </Button>
         </Loader.Hoc>
       </Flex>
     </Flex.Col>

@@ -40,7 +40,7 @@ export const AddressForm = ({
   const [address1, setAddress1] = useState(address.address1 || '');
   const [address2, setAddress2] = useState(address.address2 || '');
   const [city, setCity] = useState(address.city || '');
-  const [province, setProvince] = useState(address.province || '');
+  const [province, setProvince] = useState(address.province || 'AL');
   const [country, setCountry] = useState(address.country || 'united states');
   const [zip, setZip] = useState(address.zip || '');
   const [phone, setPhone] = useState(address.phone || '');
@@ -122,7 +122,6 @@ export const AddressForm = ({
           label='First Name'
           value={firstName}
           onChange={({ target: { value } }) => setFirstName(value)}
-          defaultValue={address.firstName}
           as={Input}
         />
 
@@ -132,7 +131,6 @@ export const AddressForm = ({
           label='Last Name'
           value={lastName}
           onChange={({ target: { value } }) => setLastName(value)}
-          defaultValue={address.lastName}
           as={Input}
         />
 
@@ -142,7 +140,6 @@ export const AddressForm = ({
           label='Address Line 1'
           value={address1}
           onChange={({ target: { value } }) => setAddress1(value)}
-          defaultValue={address.address1}
           as={Input}
         />
 
@@ -152,7 +149,6 @@ export const AddressForm = ({
           label='Address Line 2'
           value={address2}
           onChange={({ target: { value } }) => setAddress2(value)}
-          defaultValue={address.address2}
           as={Input}
         />
 
@@ -162,7 +158,6 @@ export const AddressForm = ({
           label='City'
           value={city}
           onChange={({ target: { value } }) => setCity(value)}
-          defaultValue={address.city}
           as={Input}
         />
 
@@ -172,8 +167,8 @@ export const AddressForm = ({
           label='State'
           value={province}
           onChange={({ target: { value } }) => setProvince(value)}
-          defaultValue={address.province}
-          country={address.country || 'united states'}
+          // country is required to know which provinces to get
+          country={country || 'united states'}
           as={ProvinceSelect}
         />
 
@@ -183,7 +178,6 @@ export const AddressForm = ({
           label='Zip Code'
           value={zip}
           onChange={({ target: { value } }) => setZip(value)}
-          defaultValue={address.zip}
           as={ZipInput}
         />
 
@@ -193,7 +187,7 @@ export const AddressForm = ({
           label='Country'
           value={country}
           onChange={({ target: { value } }) => setCountry(value)}
-          defaultValue={address.country}
+          country={country}
           as={CountrySelect}
         />
 
@@ -203,11 +197,12 @@ export const AddressForm = ({
           label='Phone Number'
           value={phone}
           onChange={({ target: { value } }) => setPhone(value)}
-          defaultValue={address.phone}
           as={PhoneInput}
         />
 
         <Flex center variant='account.forms.address.ctas'>
+          {/* need to be able to display error message */}
+
           <Loader.Hoc loading={isWaiting}>
             <Button variant='account.forms.address.saveAddress'>Save</Button>
 

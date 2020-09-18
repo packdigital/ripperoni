@@ -2,7 +2,7 @@ import React, { createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useReducerAsync } from 'use-reducer-async';
 
-import { isBrowser, useContextFactory } from '@packdigital/ripperoni-utilities';
+import { getLegacyShopifyId, isBrowser, useContextFactory } from '@packdigital/ripperoni-utilities';
 
 import { createActions } from './CustomerActions';
 import { asyncActionHandlers, reducer } from './CustomerReducer';
@@ -38,10 +38,14 @@ export const CustomerContextProvider = React.memo(({ children }) => {
   }, []);
 
   useEffect(() => {
+
     if (!state.accessToken) {
       window.localStorage.removeItem('customer');
     } else {
-      window.localStorage.setItem('customer', JSON.stringify({ accessToken: state.accessToken }));
+      const id = getLegacyShopifyId(state?.customer?.id || '')
+
+      window.localStorage.setItem('customer', JSON.stringify({ id, accessToken: state.accessToken }));
+
     }
   }, [state.accessToken]);
 

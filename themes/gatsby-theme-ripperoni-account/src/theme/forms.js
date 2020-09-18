@@ -70,7 +70,7 @@ export const forms = {
       variant: 'forms.fieldGroup',
     },
     ctas: {
-      flexDirection: 'column',
+      flexDirection: 'column-reverse',
     },
     recoverPassword: {
       variant: 'links.default',

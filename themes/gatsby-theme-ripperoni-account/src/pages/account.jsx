@@ -1,7 +1,13 @@
+/**
+ * @jsx jsx
+ * @prettier
+ */
+
 /* eslint-disable import/namespace */
 /* eslint-disable import/no-default-export */
 import React from 'react';
 import { Router } from '@reach/router';
+import { jsx } from 'theme-ui';
 
 import { Flex, Loader } from '@ripperoni/components';
 import { isBrowser } from '@ripperoni/utilities';
@@ -9,18 +15,28 @@ import { PrivateRoute } from '@ripperoni/account/components/PrivateRoute';
 import * as Views from '@ripperoni/account/views';
 import { useCustomerContext } from '@ripperoni/account/context/CustomerContext';
 
-
-export const AccountPage = React.memo(props => {
+export const AccountPage = React.memo((props) => {
   if (!isBrowser) {
     return null;
   }
 
-  const context = useCustomerContext();
+  const {
+    state: { loggedIn, loading },
+  } = useCustomerContext();
 
-  if (context.state.loggedIn === null || context.state.loading?.customerGet) {
+  if (loggedIn === null && loading?.customerGet) {
     return (
-      // make sure this flex takes up as much height as possible
-      <Flex>
+      <Flex
+        sx={{
+          minHeight: [
+            'calc(100vh - 73px - 658.8px)',
+            null,
+            null,
+            'calc(100vh - 89px - 335px)',
+            'calc(100vh - 89px - 383px)',
+          ],
+        }}
+      >
         <Loader m='auto' />
       </Flex>
     );
@@ -31,7 +47,7 @@ export const AccountPage = React.memo(props => {
       <PrivateRoute
         {...props}
         path='/'
-        condition={context.state.loggedIn}
+        condition={loggedIn}
         private={Views.Orders}
         public={Views.LoginSignup}
       />
@@ -39,36 +55,24 @@ export const AccountPage = React.memo(props => {
       <PrivateRoute
         {...props}
         path='/orders/:id'
-        condition={context.state.loggedIn}
+        condition={loggedIn}
         private={Views.Order}
       />
 
       <PrivateRoute
         {...props}
         path='/addresses'
-        condition={context.state.loggedIn}
+        condition={loggedIn}
         private={Views.AddressBook}
       />
 
-      <Views.Login
-        {...props}
-        path='/login'
-      />
+      <Views.Login {...props} path='/login' />
 
-      <Views.Signup
-        {...props}
-        path='/signup'
-      />
+      <Views.Signup {...props} path='/signup' />
 
-      <Views.RecoverPassword
-        {...props}
-        path='/recover'
-      />
+      <Views.RecoverPassword {...props} path='/recover' />
 
-      <Views.ResetPassword
-        {...props}
-        path='/reset/:customerId/:resetToken'
-      />
+      <Views.ResetPassword {...props} path='/reset/:customerId/:resetToken' />
 
       <Views.AccountActivation
         {...props}
