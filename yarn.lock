@@ -3106,21 +3106,6 @@
     react-intersection-observer "^8.26.2"
     theme-ui "0.3.1"
 
-"@packdigital/gatsby-theme-ripperoni-components@^1.1.52":
-  version "1.1.52"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-components/-/gatsby-theme-ripperoni-components-1.1.52.tgz#2ac81839bfbb95e9ad96be93ba964ce2222fdc36"
-  integrity sha512-q1yypxk2epU8NoQx7bZbXDM6s8OYPlOy+yABhBdqKVU/iYX4rrYmI/ESK79HGQxg9iwd8h++SV4VkhKLpKsOTg==
-  dependencies:
-    "@theme-ui/match-media" "0.3.1"
-    "@theme-ui/presets" "^0.3.0"
-    "@u-wave/react-vimeo" "^0.9.0"
-    airbnb-prop-types "^2.15.0"
-    debug "^4.1.1"
-    gatsby-image "^2.4.0"
-    lodash.uniqueid "^4.0.1"
-    react-error-boundary "^2.0.2"
-    react-intersection-observer "^8.26.2"
-
 "@packdigital/gatsby-theme-ripperoni-core@^0.0.44":
   version "0.0.44"
   resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-core/-/gatsby-theme-ripperoni-core-0.0.44.tgz#57f9e0b99bfc7acfde89ec405128e069599dfdce"
@@ -3167,10 +3152,10 @@
     intersection-observer "^0.11.0"
     react-helmet "^6.1.0"
 
-"@packdigital/gatsby-theme-ripperoni-core@^0.0.52":
-  version "0.0.52"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-core/-/gatsby-theme-ripperoni-core-0.0.52.tgz#3b5b5a2e05f0f340a98433809447a45de20a52ab"
-  integrity sha512-jydp4Sa8MuSkimOxfhfA1WE4Kqzp6YTagsRSGCjHK/qQVroHo+H7sPubpQS/u6cbf00Ug3d5GYZq5iZCifq87A==
+"@packdigital/gatsby-theme-ripperoni-core@^0.0.51":
+  version "0.0.51"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-core/-/gatsby-theme-ripperoni-core-0.0.51.tgz#f353013046fda942b3cbfa777aff58aaa2ad3cad"
+  integrity sha512-0nMDdZpb10jMt2W69jZZoTf714CL2EEOpELcwOVDcXFCR9cCW7spDAr2BhZehOSpEoc8hy6zTM741wj+fR1KeQ==
   dependencies:
     "@lekoarts/gatsby-theme-styleguide" "^1.1.10"
     abab "^2.0.3"

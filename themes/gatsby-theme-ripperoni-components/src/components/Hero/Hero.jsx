@@ -39,7 +39,6 @@ export const Hero = ({
         bottom={contentBounds?.bottom || 0}
         left={contentBounds?.left || 0}
         right={contentBounds?.right || 0}
-        // content={_children}
         // eslint-disable-next-line react/no-children-prop
         children={children}
         {...contentBox}
