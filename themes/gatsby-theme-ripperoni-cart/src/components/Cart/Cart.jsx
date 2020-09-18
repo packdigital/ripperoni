@@ -13,7 +13,7 @@ import { useUIContext } from '@ripperoni/core/context/UIContext';
 
 const AnimatedCart = motion.custom(FlexCol);
 
-export const Cart = props => {
+export const Cart = ({checkoutParams, ...props}) => {
   const { state: cartState } = useCartContext();
   const { state: uiState, toggleCart } = useUIContext();
   const lineItems = cartState?.cart?.lineItems;
@@ -58,7 +58,7 @@ export const Cart = props => {
 
                   <CartTotals
                     subtotal={cartState.cart.subtotalPrice}
-                    checkoutUrl={cartState.cart.webUrl}
+                    checkoutUrl={cartState.cart.webUrl + checkoutParams}
                   />
                 </>
               )}
