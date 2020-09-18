@@ -58,7 +58,6 @@ export const CartLineItem = ({
           mb='10px'
           size='13px'
           weight='bold'
-          letterSpacing='2px'
           variant='cart.text.lineItem.primaryTitle'
         >
           {title}
