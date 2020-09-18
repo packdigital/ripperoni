@@ -119,3 +119,5 @@
   - opacities
   - pages
   - zIndicies
+
+## Observable for Reducer Actions and State Changes

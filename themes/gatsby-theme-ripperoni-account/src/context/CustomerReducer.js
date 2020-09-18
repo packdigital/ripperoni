@@ -1,3 +1,46 @@
+export const reducer = (state, action) => {
+  console.log('action', action);
+
+  switch (action.type) {
+    case 'LOGOUT':
+      return {
+        ...state,
+        accessToken: null,
+        customer: null,
+        loggedIn: false,
+        errors: action.errors,
+      };
+    case 'START_ACCOUNT_REQUEST':
+      return {
+        ...state,
+        loading: {
+          [action.request]: true,
+        }
+      };
+    case 'FINISH_ACCOUNT_REQUEST':
+      return {
+        ...state,
+        ...action.data,
+        errors: {
+          ...state.errors,
+          [action.request]: []
+        },
+        loading: {
+          ...state.loading,
+          [action.request]: false,
+        },
+      };
+    case 'ERROR_ACCOUNT_REQUEST':
+      return {
+        ...state,
+        errors: action.errors,
+        loading: false,
+      };
+    default:
+      throw new Error('No such action type: ${action.type}');
+  }
+};
+
 const requestAccount = async ({ request: action, data = {}}, accessToken, signal) => {
   const url = '/api/account';
 
@@ -18,43 +61,6 @@ const requestAccount = async ({ request: action, data = {}}, accessToken, signal
   const response = await fetch(url, options);
 
   return response.json();
-};
-
-export const reducer = (state, action) => {
-  console.log('action', action);
-
-  switch (action.type) {
-    case 'LOGOUT':
-      return {
-        ...state,
-        accessToken: null,
-        customer: null,
-        loggedIn: false,
-        errors: action.errors,
-      };
-    case 'START_ACCOUNT_REQUEST':
-      return {
-        ...state,
-        loading: {
-          [action.request]: true,
-        },
-      };
-    case 'FINISH_ACCOUNT_REQUEST':
-      return {
-        ...state,
-        ...action.data,
-        errors: {},
-        loading: false,
-      };
-    case 'ERROR_ACCOUNT_REQUEST':
-      return {
-        ...state,
-        errors: action.errors,
-        loading: false,
-      };
-    default:
-      throw new Error('No such action type: ${action.type}');
-  }
 };
 
 export const asyncActionHandlers = {

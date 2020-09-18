@@ -63,9 +63,9 @@ const parseProps = ({
   marginPadding,
   marginPaddingContent,
   marginPaddingSlots,
+  extraProps,
   __typename,
   getMarginPaddingWithBreakpoints,
-  extraProps,
   ...props
 }) => {
   const lookups = groupBy(lookup, 'type');
@@ -107,11 +107,6 @@ const parseProps = ({
       {}
     );
 
-  const extraPropsObject = extraProps?.reduce(
-    (props, { name, value }) => ({ ...props, [name]: value }),
-    {}
-  );
-
   return {
     ...cmsStyleProps,
     ...otherProps,
@@ -122,7 +117,7 @@ const parseProps = ({
     content: getContent(lookups.content, entries),
     slots: getContent(lookups.slots, entries),
     __typename,
-    ...extraPropsObject,
+    ...JSON.parse(extraProps?.internal?.content || '{}'),
   };
 };
 

@@ -1,16 +1,27 @@
+/**
+ * @prettier
+ */
+
 /* eslint-disable max-lines */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { Input } from 'theme-ui';
 
-import { Box, Button, Checkbox, FieldGroup, Flex, Heading, Loader } from '@ripperoni/components';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FieldGroup,
+  Flex,
+  Heading,
+  Loader,
+} from '@ripperoni/components';
 
 import { useCustomerContext } from '../../context/CustomerContext';
 import { CountrySelect } from './AddressFormCountrySelect';
 import { ProvinceSelect } from './AddressFormProvinceSelect';
 import { ZipInput } from './AddressFormZipInput';
 import { PhoneInput } from './AddressFormPhoneInput';
-
 
 export const AddressForm = ({
   title,
@@ -20,14 +31,46 @@ export const AddressForm = ({
   action,
   ...props
 }) => {
-  const { state } = useCustomerContext();
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    state: { loading, errors },
+  } = useCustomerContext();
+  const [isWaiting, setIsWaiting] = useState(false);
+  const [firstName, setFirstName] = useState(address.firstName || '');
+  const [lastName, setLastName] = useState(address.lastName || '');
+  const [address1, setAddress1] = useState(address.address1 || '');
+  const [address2, setAddress2] = useState(address.address2 || '');
+  const [city, setCity] = useState(address.city || '');
+  const [province, setProvince] = useState(address.province || '');
+  const [country, setCountry] = useState(address.country || 'united states');
+  const [zip, setZip] = useState(address.zip || '');
+  const [phone, setPhone] = useState(address.phone || '');
+  const [defaultAddress, setDefaultAddress] = useState(isDefault || false);
+
+  const clearForm = () => {
+    setFirstName('');
+    setLastName('');
+    setAddress1('');
+    setAddress2('');
+    setCity('');
+    setProvince('');
+    setCountry('');
+    setZip('');
+    setPhone('');
+    setDefaultAddress(false);
+  };
 
   useEffect(() => {
-    if (!state.loading) {
-      setIsLoading(false);
+    const hasErrors = errors?.addressCreate?.length;
+    const hasFinished = !loading?.addressCreate;
+
+    if (isWaiting && hasFinished) {
+      setIsWaiting(false);
+
+      if (!hasErrors) {
+        clearForm();
+      }
     }
-  }, [state.loading]);
+  }, [loading, errors]);
 
   return (
     <Box {...props}>
@@ -36,122 +79,137 @@ export const AddressForm = ({
         variant='account.forms.address'
         direction={['column', 'row']}
         wrap={['nowrap', 'wrap']}
-        onSubmit={event => {
+        onSubmit={(event) => {
           event.preventDefault();
-          setIsLoading(true);
 
-          const data = {
-            firstName: event.target.firstName.value,
-            lastName: event.target.lastName.value,
-            address1: event.target.address1.value,
-            address2: event.target.address2.value,
-            city: event.target.city.value,
-            province: event.target.province.value,
-            country: event.target.country.value,
-            zip: event.target.zip.value,
-            phone: event.target.phone.value,
-          };
+          setIsWaiting(true);
 
-          action({ address: data, id: address.id, isDefault: event.target.default.checked });
+          action({
+            id: address.id,
+            isDefault: defaultAddress,
+            address: {
+              firstName,
+              lastName,
+              address1,
+              address2,
+              city,
+              province,
+              country,
+              zip,
+              phone,
+            },
+          });
         }}
       >
-        <Flex
-          variant='account.forms.address.header'
-          between
-        >
+        <Flex variant='account.forms.address.header' between>
           <Heading variant='account.text.addressBook.form.heading'>
             {title}
           </Heading>
 
           <Checkbox
             variant='account.forms.address.default'
-            label='Make Default'
             name='default'
-            defaultChecked={isDefault}
+            label='Make Default'
+            value={defaultAddress}
+            onChange={() => setDefaultAddress(!defaultAddress)}
+            // defaultChecked={isDefault}
           />
         </Flex>
 
         <FieldGroup
           variant='account.forms.address.firstName'
-          defaultValue={address.firstName}
-          label='First Name'
           name='firstName'
+          label='First Name'
+          value={firstName}
+          onChange={({ target: { value } }) => setFirstName(value)}
+          defaultValue={address.firstName}
           as={Input}
         />
 
         <FieldGroup
           variant='account.forms.address.lastName'
-          defaultValue={address.lastName}
-          label='Last Name'
           name='lastName'
+          label='Last Name'
+          value={lastName}
+          onChange={({ target: { value } }) => setLastName(value)}
+          defaultValue={address.lastName}
           as={Input}
         />
 
         <FieldGroup
           variant='account.forms.address.address1'
-          defaultValue={address.address1}
-          label='Address Line 1'
           name='address1'
+          label='Address Line 1'
+          value={address1}
+          onChange={({ target: { value } }) => setAddress1(value)}
+          defaultValue={address.address1}
           as={Input}
         />
 
         <FieldGroup
           variant='account.forms.address.address2'
-          defaultValue={address.address2}
-          label='Address Line 2'
           name='address2'
+          label='Address Line 2'
+          value={address2}
+          onChange={({ target: { value } }) => setAddress2(value)}
+          defaultValue={address.address2}
           as={Input}
         />
 
         <FieldGroup
           variant='account.forms.address.city'
-          defaultValue={address.city}
-          label='City'
           name='city'
+          label='City'
+          value={city}
+          onChange={({ target: { value } }) => setCity(value)}
+          defaultValue={address.city}
           as={Input}
         />
 
         <FieldGroup
           variant='account.forms.address.province'
-          defaultValue={address.province}
-          label='State'
           name='province'
+          label='State'
+          value={province}
+          onChange={({ target: { value } }) => setProvince(value)}
+          defaultValue={address.province}
           country={address.country || 'united states'}
           as={ProvinceSelect}
         />
 
         <FieldGroup
           variant='account.forms.address.zip'
-          defaultValue={address.zip}
-          label='Zip Code'
           name='zip'
+          label='Zip Code'
+          value={zip}
+          onChange={({ target: { value } }) => setZip(value)}
+          defaultValue={address.zip}
           as={ZipInput}
         />
 
         <FieldGroup
           variant='account.forms.address.country'
-          defaultValue={address.country}
-          label='Country'
           name='country'
+          label='Country'
+          value={country}
+          onChange={({ target: { value } }) => setCountry(value)}
+          defaultValue={address.country}
           as={CountrySelect}
         />
 
         <FieldGroup
           variant='account.forms.address.phone'
-          defaultValue={address.phone}
-          label='Phone Number'
           name='phone'
+          label='Phone Number'
+          value={phone}
+          onChange={({ target: { value } }) => setPhone(value)}
+          defaultValue={address.phone}
           as={PhoneInput}
         />
 
-        <Flex
-          center
-          variant='account.forms.address.ctas'
-        >
-          <Loader.Hoc loading={isLoading}>
-            <Button variant='account.forms.address.saveAddress'>
-              Save
-            </Button>
+        <Flex center variant='account.forms.address.ctas'>
+          <Loader.Hoc loading={isWaiting}>
+            <Button variant='account.forms.address.saveAddress'>Save</Button>
 
             {cancelToggle && (
               <Button
