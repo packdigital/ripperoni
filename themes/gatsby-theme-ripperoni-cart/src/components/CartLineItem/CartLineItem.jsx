@@ -5,7 +5,7 @@ import { Box, Button, Flex, Heading, Image, Link, Price, Svg, Text } from '@ripp
 import { QuantitySelect } from '@ripperoni/cart/components/QuantitySelect';
 import Close from '@ripperoni/cart/assets/images/close.svg';
 import { useCartContext } from '@ripperoni/cart/context/CartContext';
-
+import { getLegacyShopifyId, isBrowser } from '@ripperoni/utilities';
 
 export const CartLineItem = ({
   id,
@@ -21,9 +21,12 @@ export const CartLineItem = ({
     .map(({ name, value }) => `${name} - ${value}`)
     .join(' / ');
 
+  if (!isBrowser) return null;
+
   return (
     <Flex
       data-comp={CartLineItem.displayName}
+      data-variantId={getLegacyShopifyId(variant.id)}
       pb='25px'
       {...props}
     >
