@@ -22,7 +22,9 @@ const CUSTOMER_FRAGMENT = gql`
     orders (first: 100) {
       edges {
         node {
-          id: orderNumber
+          id
+          name
+          orderNumber
           statusUrl
           currencyCode
           date: processedAt

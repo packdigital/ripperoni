@@ -1,28 +1,33 @@
+/**
+ * @prettier
+ */
+
 const { flattenEdges } = require('@packdigital/ripperoni-utilities');
 
 const client = require('./client');
 const queries = require('./queries');
 const Token = require('./token');
 
-
-const getCustomer = async inputs => {
+const getCustomer = async (inputs) => {
   const { email, password } = inputs;
-  const accessToken = inputs.accessToken || await Token.get({ email, password });
+  const accessToken =
+    inputs.accessToken || (await Token.get({ email, password }));
   const query = queries.customer.get;
   const variables = { customerAccessToken: accessToken.token };
-  const { data: { customer }} = await client.query({ query, variables });
+  const {
+    data: { customer },
+  } = await client.query({ query, variables });
 
   if (!customer) {
     throw [{ code: 'UNIDENTIFIED_CUSTOMER' }];
   }
 
   const addresses = flattenEdges(customer.addresses);
-  const orders = flattenEdges(customer.orders)
-    .map(order => ({
-      ...order,
-      discounts: flattenEdges(order.discounts),
-      lineItems: flattenEdges(order.lineItems),
-    }));
+  const orders = flattenEdges(customer.orders).map((order) => ({
+    ...order,
+    discounts: flattenEdges(order.discounts),
+    lineItems: flattenEdges(order.lineItems),
+  }));
 
   return {
     accessToken,
@@ -30,13 +35,18 @@ const getCustomer = async inputs => {
       ...customer,
       addresses,
       orders,
-    }
+    },
   };
 };
 
-const createCustomer = async ({ email, password, firstName = '', lastName = '' }) => {
+const createCustomer = async ({
+  email,
+  password,
+  firstName = '',
+  lastName = '',
+}) => {
   const mutation = queries.customer.create;
-  const variables = { input: { email, password, firstName, lastName }};
+  const variables = { input: { email, password, firstName, lastName } };
   const response = await client.mutate({ mutation, variables });
   const errors = response.data.customerCreate.errors || [];
 
@@ -47,7 +57,7 @@ const createCustomer = async ({ email, password, firstName = '', lastName = '' }
   return await getCustomer({ email, password });
 };
 
-const attemptLoginOrCreateAccount = async body => {
+const attemptLoginOrCreateAccount = async (body) => {
   try {
     return await getCustomer(body);
   } catch {
@@ -56,7 +66,6 @@ const attemptLoginOrCreateAccount = async body => {
     return await createCustomer(body);
   }
 };
-
 
 module.exports = {
   get: getCustomer,
