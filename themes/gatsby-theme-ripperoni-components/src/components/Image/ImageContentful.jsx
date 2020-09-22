@@ -50,6 +50,7 @@ export const ImageContentful = forwardRef(({
       <GatsbyImage
         data-comp={ImageContentful.displayName}
         ref={ref}
+        loading='eager'
         {...imageProps}
       />
     </Box>
