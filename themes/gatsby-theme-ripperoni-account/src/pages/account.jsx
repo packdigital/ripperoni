@@ -21,10 +21,10 @@ export const AccountPage = React.memo((props) => {
   }
 
   const {
-    state: { loggedIn, loading },
+    state: { loggedIn },
   } = useCustomerContext();
 
-  if (loggedIn === null && loading?.customerGet) {
+  if (loggedIn === null) {
     return (
       <Flex
         sx={{
