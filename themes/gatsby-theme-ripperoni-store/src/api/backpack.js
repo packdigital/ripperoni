@@ -9,24 +9,23 @@ import fetch from 'isomorphic-fetch';
 
 import { isBrowser } from '@packdigital/ripperoni-utilities';
 
-
 const httpLink = new HttpLink({
-  uri: process.env.BACKPACK_URL,
+  uri: 'https://platform-publicrec.onrender.com/v1/graphql',
   headers: {
     'content-type': 'application/json',
-    'x-hasura-admin-secret': process.env.BACKPACK_SECRET_KEY,
+    'x-hasura-admin-secret': process.env.GATSBY_BACKPACK_SECRET_KEY,
   },
   fetch,
 });
 
 const wsLink = new WebSocketLink({
-  uri: process.env.BACKPACK_URL.replace(/^https?/, 'wss'),
+  uri: 'https://platform-publicrec.onrender.com/v1/graphql'.replace(/^https?/, 'wss'),
   options: {
     lazy: true,
     reconnect: true,
     connectionParams: {
       headers: {
-        'x-hasura-admin-secret': process.env.BACKPACK_SECRET_KEY
+        'x-hasura-admin-secret': process.env.GATSBY_BACKPACK_SECRET_KEY
       }
     }
   },
@@ -42,12 +41,7 @@ const link = split(
   httpLink,
 );
 
-const client = new ApolloClient({
+export default new ApolloClient({
   link,
   cache: new InMemoryCache(),
 });
-
-
-export default {
-  client,
-};
