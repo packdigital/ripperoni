@@ -45,7 +45,7 @@ export const CustomerContextProvider = React.memo(({ children }) => {
       const id = getLegacyShopifyId(state?.customer?.id || '')
 
       window.localStorage.setItem('customer', JSON.stringify({ id, accessToken: state.accessToken }));
-
+      window.localStorage.setItem('customer-id', id);
     }
   }, [state.accessToken]);
 
