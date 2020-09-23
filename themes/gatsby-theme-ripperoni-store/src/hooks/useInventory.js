@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 import client from '../api/backpack';
 
 export const useInventory = (id) => {
-  const [inventory, setInventory] = useState(null);
+  const [inventory, setInventory] = useState({});
 
   useSubscription(GET_INVENTORY, {
     variables: {
