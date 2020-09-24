@@ -17,6 +17,11 @@ export const CartLineItems = ({
     <Box
       data-comp={CartLineItems.displayName}
       p='22px'
+      flex={1}
+      sx={{
+        flex: 1,
+        overflowY: 'scroll',
+      }}
       {...props}
     >
       {lineItems.map(({ id, title, quantity, variant }) => (
