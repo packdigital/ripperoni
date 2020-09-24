@@ -10,6 +10,10 @@ import { Grid } from '@ripperoni/components';
 
 const parseGrids = (grids) => {
   const gridsDetails = grids.reduce((grids, { grid, viewport }) => {
+    if (!grid) {
+      return grids;
+    }
+
     const originalGrid = grid
       .split("' '")
       .map((row) => row.replace("'", '').split(' '));
