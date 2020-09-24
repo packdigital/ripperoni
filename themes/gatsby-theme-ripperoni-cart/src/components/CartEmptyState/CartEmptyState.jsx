@@ -14,7 +14,7 @@ export const CartEmptyState = props => {
         Your cart is currently empty.
       </Text>
 
-      <Link to='collections/all'>
+      <Link to='/collections/all'>
         Browse All
       </Link>
     </Box>
