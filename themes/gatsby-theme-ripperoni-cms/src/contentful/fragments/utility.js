@@ -5,9 +5,9 @@ export const ContentfulMetaFragment = graphql`
   fragment ContentfulMeta on AllContentful {
     id
     contentful_id
-    # metaTitle
-    # metaHandle
-    # metaTags
+    metaTitle
+    metaHandle
+    metaTags
     __typename
   }
 `;
