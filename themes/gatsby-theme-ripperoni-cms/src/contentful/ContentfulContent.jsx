@@ -2,9 +2,6 @@
  * @jsx jsx
  * @prettier
  */
-
-/* eslint-disable max-lines */
-
 import { jsx, useThemeUI } from 'theme-ui';
 import PropTypes from 'prop-types';
 import groupBy from 'lodash/groupBy';
@@ -56,26 +53,8 @@ export const getContent = (lookup, entries) => {
   );
 };
 
-const parseProps = ({
-  component,
-  lookup,
-  entries,
-  marginPadding,
-  marginPaddingContent,
-  marginPaddingSlots,
-  extraProps,
-  __typename,
-  getMarginPaddingWithBreakpoints,
-  ...props
-}) => {
-  const lookups = groupBy(lookup, 'type');
-
-  const Component =
-    __typename === 'ContentfulMolecule'
-      ? components[component]
-      : components[__typename];
-
-  const cmsStyleProps = Object.entries(props)
+const parseCmsProps = (props) => {
+  return Object.entries(props)
     .filter(([, value]) =>
       Array.isArray(value) ? value.some((value) => value) : value
     )
@@ -85,30 +64,57 @@ const parseProps = ({
     .reduce(
       (props, [name, value]) => ({
         ...props,
-        [name]: value.map((value) =>
-          !value?.__typename
-            ? value
-            : isNaN(parseInt(value[name]))
-            ? value[name]
-            : parseInt(value[name])
-        ),
+        [name]: value.map((value) => {
+          if (!value.__typename) return value;
+
+          return parseInt(value[name]) || value[name];
+        }),
       }),
       {}
     );
+};
 
-  const otherProps = Object.entries(props)
+const parseOtherProps = (props) => {
+  return Object.entries(props)
     .filter(([, value]) =>
       Array.isArray(value) ? value.some((value) => value) : value
     )
     .filter(([name]) => !name.startsWith('cms_'))
+    .filter(([name]) => !name.startsWith('meta'))
     .filter(([, value]) => value)
     .reduce(
       (otherProps, [name, value]) => ({ ...otherProps, [name]: value }),
       {}
     );
+};
+
+const parseExtraProps = (extraProps) => {
+  const json = extraProps?.internal?.content;
+
+  if (json) {
+    return JSON.parse(json);
+  }
+};
+
+const parseProps = ({
+  component,
+  entries,
+  extraProps,
+  getMarginPaddingWithBreakpoints,
+  lookup,
+  marginPadding,
+  marginPaddingContent,
+  marginPaddingSlots,
+  __typename,
+  ...props
+}) => {
+  const lookups = groupBy(lookup, 'type');
+  const Component = components[component] || components[__typename];
+  const cmsProps = parseCmsProps(props);
+  const otherProps = parseOtherProps(props);
 
   return {
-    ...cmsStyleProps,
+    ...cmsProps,
     ...otherProps,
     Component,
     marginPadding: getMarginPaddingWithBreakpoints(marginPadding),
@@ -116,21 +122,20 @@ const parseProps = ({
     marginPaddingSlots: getMarginPaddingWithBreakpoints(marginPaddingSlots),
     content: getContent(lookups.content, entries),
     slots: getContent(lookups.slots, entries),
+    ...parseExtraProps(extraProps),
     __typename,
-    ...JSON.parse(extraProps?.internal?.content || '{}'),
   };
 };
 
 export const ContentfulContent = (incomingProps) => {
-  const {
-    theme: { breakpoints },
-  } = useThemeUI();
-  const getMarginPaddingWithBreakpoints = getMarginPadding(breakpoints);
+  const { theme } = useThemeUI();
+  const getMarginPaddingWithBreakpoints = getMarginPadding(theme.breakpoints);
 
   const parsedProps = parseProps({
     ...incomingProps,
     getMarginPaddingWithBreakpoints,
   });
+
   const {
     Component,
     marginPadding,
@@ -185,7 +190,7 @@ export const ContentfulContent = (incomingProps) => {
 
     const slotsNodes = Object.entries(slots).map(([name, contents], index) => (
       // eslint-disable-next-line
-        <Box gridArea={name} key={index}>
+      <Box gridArea={name} key={index}>
         {contents.filter(Boolean).map(mapOverContent)}
       </Box>
     ));

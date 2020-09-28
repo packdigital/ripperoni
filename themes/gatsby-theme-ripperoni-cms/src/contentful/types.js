@@ -1,5 +1,5 @@
 module.exports = `
-  union ContentfulAtomsAndMolecule = ContentfulAtomButton | ContentfulAtomVideo | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMolecule
+  union ContentfulAtomsAndMolecule = ContentfulAtomButton | ContentfulAtomVideo | ContentfulAtomProducts | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMolecule
 
 
   interface ContentfulJson {
@@ -66,6 +66,11 @@ module.exports = `
     direction: String
     viewport: String
     value: String
+  }
+
+
+  type contentfulAtomProductsProductsJsonNode implements Node & ContentfulJson @infer {
+    content: String
   }
 
 
@@ -150,6 +155,19 @@ module.exports = `
     id: ID
     contentful_id: String
     color: [ContentfulJson] @link(by: "id", from: "color___NODE")
+    width: [ContentfulJson] @link(by: "id", from: "width___NODE")
+    marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
+    variant: String
+    metaTitle: String
+    metaHandle: String
+    metaTags: [String]
+  }
+
+
+  type ContentfulAtomProducts implements Node & AllContentful & ContentfulAtoms @infer {
+    id: ID
+    contentful_id: String
+    products: [ContentfulJson] @link(by: "id", from: "products___NODE")
     width: [ContentfulJson] @link(by: "id", from: "width___NODE")
     marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
     variant: String

@@ -23,6 +23,7 @@ export * from './Loader';
 export * from './MQ';
 export * from './Overlay';
 export * from './Price';
+export * from './Products';
 export * from './Radio';
 export * from './Svg';
 export * from './Text';
