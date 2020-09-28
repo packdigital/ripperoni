@@ -1,5 +1,5 @@
 module.exports = `
-  union ContentfulAtomsAndMolecule = ContentfulAtomButton | ContentfulAtomVideo | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMolecule
+  union ContentfulAtomsAndMolecule = ContentfulAtomButton | ContentfulAtomVideo | ContentfulAtomProduct | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMolecule
 
 
   interface ContentfulJson {
@@ -180,6 +180,19 @@ module.exports = `
     type: String
     url: String
     previewUrl: String
+    metaTitle: String
+    metaHandle: String
+    metaTags: [String]
+  }
+
+  type contentfulAtomProductProductsJsonNode implements Node & ContentfulJson @infer {
+    content: ContentfulJson
+  }
+
+  type ContentfulAtomProduct implements Node & AllContentful @infer {
+    id: ID
+    contentful_id: String
+    products: [ContentfulJson] @link(by: "id", from: "products___NODE")
     metaTitle: String
     metaHandle: String
     metaTags: [String]

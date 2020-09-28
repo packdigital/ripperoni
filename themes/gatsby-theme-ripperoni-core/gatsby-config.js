@@ -46,16 +46,16 @@ module.exports = themeOptions => {
         '@ripperoni/utilities': '@packdigital/ripperoni-utilities',
       },
     },
-    {
-      resolve: 'gatsby-plugin-eslint',
-      options: {
-        exclude: /(node_modules|.cache|public|ripperoni-utilities)/,
-        options: {
-          emitWarning: true,
-          failOnError: false
-        }
-      }
-    },
+    // {
+    //   resolve: 'gatsby-plugin-eslint',
+    //   options: {
+    //     exclude: /(node_modules|.cache|public|ripperoni-utilities)/,
+    //     options: {
+    //       emitWarning: true,
+    //       failOnError: false
+    //     }
+    //   }
+    // },
     {
       resolve: 'gatsby-plugin-react-svg',
       options: {

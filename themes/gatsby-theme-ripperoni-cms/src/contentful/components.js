@@ -6,7 +6,8 @@ import {
   Image,
   Link,
   Text,
-  Video
+  Video,
+  Product
 } from '@ripperoni/components';
 
 

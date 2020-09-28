@@ -59,7 +59,7 @@ export const Cart = ({checkoutParams, ...props}) => {
 
                   <CartTotals
                     subtotal={cartState.cart.subtotalPrice}
-                    checkoutUrl={cartState.cart.webUrl + checkoutParams}
+                    checkoutUrl={cartState.cart.webUrl + (checkoutParams || '')}
                   />
                 </>
               )}

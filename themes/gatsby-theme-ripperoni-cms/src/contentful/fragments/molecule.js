@@ -64,6 +64,7 @@ export const ContentfulMoleculeFragment = graphql`
       ... on ContentfulAtomButton { ...ContentfulAtomButton }
       ... on ContentfulAtomImage { ...ContentfulAtomImage }
       ... on ContentfulAtomVideo { ...ContentfulAtomVideo }
+      ... on ContentfulAtomProduct { ...ContentfulAtomProduct }
       ... on ContentfulAtomLink { ...ContentfulAtomLink }
       ... on ContentfulAtomText { ...ContentfulAtomText }
       ... on ContentfulMolecule {
@@ -72,6 +73,7 @@ export const ContentfulMoleculeFragment = graphql`
           ... on ContentfulAtomButton { ...ContentfulAtomButton }
           ... on ContentfulAtomImage { ...ContentfulAtomImage }
           ... on ContentfulAtomVideo { ...ContentfulAtomVideo }
+          ... on ContentfulAtomProduct { ...ContentfulAtomProduct }
           ... on ContentfulAtomLink { ...ContentfulAtomLink }
           ... on ContentfulAtomText { ...ContentfulAtomText }
           ... on ContentfulMolecule {
@@ -80,6 +82,7 @@ export const ContentfulMoleculeFragment = graphql`
               ... on ContentfulAtomButton { ...ContentfulAtomButton }
               ... on ContentfulAtomImage { ...ContentfulAtomImage }
               ... on ContentfulAtomVideo { ...ContentfulAtomVideo }
+              ... on ContentfulAtomProduct { ...ContentfulAtomProduct }
               ... on ContentfulAtomLink { ...ContentfulAtomLink }
               ... on ContentfulAtomText { ...ContentfulAtomText }
               ... on ContentfulMolecule {
@@ -88,6 +91,7 @@ export const ContentfulMoleculeFragment = graphql`
                   ... on ContentfulAtomButton { ...ContentfulAtomButton }
                   ... on ContentfulAtomImage { ...ContentfulAtomImage }
                   ... on ContentfulAtomVideo { ...ContentfulAtomVideo }
+                  ... on ContentfulAtomProduct { ...ContentfulAtomProduct }
                   ... on ContentfulAtomLink { ...ContentfulAtomLink }
                   ... on ContentfulAtomText { ...ContentfulAtomText }
                   ... on ContentfulMolecule {
@@ -96,6 +100,7 @@ export const ContentfulMoleculeFragment = graphql`
                       ... on ContentfulAtomButton { ...ContentfulAtomButton }
                       ... on ContentfulAtomImage { ...ContentfulAtomImage }
                       ... on ContentfulAtomVideo { ...ContentfulAtomVideo }
+                      ... on ContentfulAtomProduct { ...ContentfulAtomProduct }
                       ... on ContentfulAtomLink { ...ContentfulAtomLink }
                       ... on ContentfulAtomText { ...ContentfulAtomText }
                       ... on ContentfulMolecule {
@@ -104,6 +109,7 @@ export const ContentfulMoleculeFragment = graphql`
                           ... on ContentfulAtomButton { ...ContentfulAtomButton }
                           ... on ContentfulAtomImage { ...ContentfulAtomImage }
                           ... on ContentfulAtomVideo { ...ContentfulAtomVideo }
+                          ... on ContentfulAtomProduct { ...ContentfulAtomProduct }
                           ... on ContentfulAtomLink { ...ContentfulAtomLink }
                           ... on ContentfulAtomText { ...ContentfulAtomText }
                         }
