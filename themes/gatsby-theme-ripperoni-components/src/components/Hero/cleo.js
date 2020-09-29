@@ -1,4 +1,6 @@
-{
+/* eslint-disable import/no-default-export */
+
+export default {
   "name": "Hero",
   "path": "themes/gatsby-theme-ripperoni-componenets/src/components/Hero/Hero.jsx",
   "content": {
