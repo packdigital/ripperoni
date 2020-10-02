@@ -87,6 +87,9 @@ i.e: ```{ key: 'link', type: 'backpackUrl', values: ['Color', 'Size'] }```
 
 output: link: ```<g:link>https://www.publicrec.com/products/weekend-full-zip?Color=Heather%20Silver%20Spoon</g:link>```
 
+if no ```values``` passed into ```backpackUrl``` it will default to ```?variantId=LEGACY_ID```
+output: link: ```<g:link>https://www.publicrec.com/products/weekend-full-zip?variant=32884022607906```
+
 --
 
 ##### image_link

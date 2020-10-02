@@ -93,6 +93,11 @@ exports._fieldResolvers = ({ bpVariant, feedOptions }) => ({
 
     switch (type) {
       case 'backpackUrl' : {
+         if (!values) {
+          const legacyVariantId = getLegacyResourceId(bpVariant.foreignId);
+          const backpackUrl = `${publicUrl}/products/${bpVariant.product.handle}?variant=${legacyVariantId}` || '';
+          return backpackUrl
+        }
 
         const queryOptions = _pick(bpVariant.selectedOptionsMap, values);
         const queryOptionsCount = Object.keys(queryOptions).length;
