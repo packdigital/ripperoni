@@ -5,6 +5,7 @@ export const links = {
     textDecoration: 'none',
     backgroundColor: 'transparent',
     fontFamily: 'text',
+    px: 0,
     pb: 1,
     borderRadius: 0,
     borderColor: 'text',
