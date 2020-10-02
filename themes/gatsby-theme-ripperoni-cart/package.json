@@ -20,6 +20,7 @@
   },
   "prettier": "@packdigital/prettier-config-ripperoni",
   "dependencies": {
+    "immutability-helper": "^3.1.1",
     "node-fetch": "^2.6.0",
     "shopify-buy": "^2.10.0"
   }

@@ -17,6 +17,7 @@ export const Cart = ({checkoutParams, ...props}) => {
   const { state: cartState } = useCartContext();
   const { state: uiState, toggleCart } = useUIContext();
   const lineItems = cartState?.cart?.lineItems;
+  const isLoading = Object.values(cartState.loading).some(Boolean)
 
   return (
     <>
@@ -46,7 +47,7 @@ export const Cart = ({checkoutParams, ...props}) => {
           >
             <CartHeader />
 
-            <Loader.Hoc loading={cartState.loading}>
+            <Loader.Hoc loading={isLoading}>
               {lineItems?.length === 0 && (
                 <CartEmptyState />
               )}
