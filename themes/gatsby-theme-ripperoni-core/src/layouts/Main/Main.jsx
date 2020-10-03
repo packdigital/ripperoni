@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 
 export const Layout = props => (
-  <div data-comp={Main.displayName}>{props.children}</div>
+  <div data-comp={Layout.displayName}>{props.children}</div>
 );
 
-Main.displayName = 'Main Layout';
+Layout.displayName = 'Main Layout';
 
-Main.propTypes = {
+Layout.propTypes = {
   children: PropTypes.node,
 };
