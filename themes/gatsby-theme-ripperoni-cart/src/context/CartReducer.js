@@ -99,8 +99,11 @@ const validateGids = ([id, data], name) => {
 const asyncActionWrapper = (asyncAction) => (reducerAsync) => (action) => {
   const { dispatch, getState } = reducerAsync;
   const name = asyncAction.name;
-  const checkoutId = getState().cart.id;
-  const args = [checkoutId, action.data];
+  const checkout = getState().cart;
+
+  if (!checkout) return;
+
+  const args = [checkout.id, action.data];
 
   validateGids(args, name);
 
