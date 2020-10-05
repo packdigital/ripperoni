@@ -1,10 +1,10 @@
 /* eslint-disable */
-const path = require('path');
+// const path = require('path');
 
 const { parseJsConfigPaths } = require('@packdigital/ripperoni-utilities');
 
-const jsconfig = require(path.join(process.cwd() + '/jsconfig.json')) || {};
-const aliases = parseJsConfigPaths(jsconfig, {type: 'array', absolute: false});
+// const jsconfig = require(path.join(process.cwd() + '/jsconfig.json')) || {};
+// const aliases = parseJsConfigPaths(jsconfig, {type: 'array', absolute: false});
 
 module.exports = {
   'parser': 'babel-eslint',

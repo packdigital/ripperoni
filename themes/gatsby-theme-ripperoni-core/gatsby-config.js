@@ -3,7 +3,7 @@ const path = require('path');
 const { conditionallyIncludePlugin, parseJsConfigPaths } = require('@packdigital/ripperoni-utilities');
 
 const withDefaults = require('./gatsby/config/default-options');
-const jsconfig = require(path.join(process.cwd() + '/jsconfig.json')) || {};
+// const jsconfig = require(path.join(process.cwd() + '/jsconfig.json')) || {};
 
 require('./gatsby/config/log-environments');
 
