@@ -11,6 +11,7 @@ export * from './lib/get-plugin-options';
 export * from './lib/is-browser';
 export * from './lib/is-shopify-gid';
 export * from './lib/matches-all-selected-options';
+export * from './lib/parse-jsconfig-paths';
 export * from './lib/sort-variants-by';
 export * from './lib/title-case';
 export * from './lib/use-context-factory';

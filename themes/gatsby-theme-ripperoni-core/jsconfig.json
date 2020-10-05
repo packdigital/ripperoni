@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es6",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "preserve"
+  },
+  "paths": {
+    "*": ["*"],
+    "@ripperoni/components": [
+      "@packdigital/gatsby-theme-ripperoni-components/src/components",
+      "../../node_modules/@packdigital/gatsby-theme-ripperoni-components/src/components"
+    ],
+    "@ripperoni/components/hooks": [
+      "@packdigital/gatsby-theme-ripperoni-components/src/hooks",
+      "../../node_modules/@packdigital/gatsby-theme-ripperoni-components/src/hooks"
+    ],
+    "@ripperoni/core/*": [
+      "@packdigital/gatsby-theme-ripperoni-core/src/*",
+      "../../node_modules/@packdigital/gatsby-theme-ripperoni-core/src/*"
+    ],
+    "@ripperoni/utilities": [
+      "@packdigital/ripperoni-utilities",
+      "../../node_modules/@packdigital/ripperoni-utilities"
+    ]
+  },
+  "include": ["src/**/*"]
+}

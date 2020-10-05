@@ -1,6 +1,5 @@
 /* eslint-disable import/export */
 export * from './AspectRatio';
-export * from './AsyncLoadOnTrigger';
 export * from './Box';
 export * from './Button';
 export * from './Checkbox';
