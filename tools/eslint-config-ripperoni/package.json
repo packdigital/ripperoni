@@ -22,5 +22,8 @@
     "extends": [
       "@packdigital/eslint-config-ripperoni"
     ]
+  },
+  "dependencies": {
+    "@packdigital/ripperoni-utilities": "^2.0.51"
   }
 }

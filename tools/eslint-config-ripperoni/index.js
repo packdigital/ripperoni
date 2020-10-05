@@ -1,4 +1,11 @@
-/* eslint-disable max-lines */
+/* eslint-disable */
+const path = require('path');
+
+const { parseJsConfigPaths } = require('@packdigital/ripperoni-utilities');
+
+const jsconfig = require(path.join(process.cwd() + '/jsconfig.json')) || {};
+const aliases = parseJsConfigPaths(jsconfig, {type: 'array', absolute: false});
+
 module.exports = {
   'parser': 'babel-eslint',
   'globals': {
@@ -99,7 +106,7 @@ module.exports = {
           'pattern': '@{assets,hooks,images,static}/**',
           'group': 'internal',
           'position': 'before'
-        }
+        },
       ],
       'newlines-between': 'always',
       'pathGroupsExcludedImportTypes': []
@@ -110,8 +117,9 @@ module.exports = {
       'version': 'detect'
     },
     'import/resolver': {
-      alias: {
-        map: [
+      'alias': {
+        // 'map': aliases,
+        'map': [
           ['src', './src'],
           ['@assets', './src/assets'],
           ['@components', './src/components'],
@@ -139,14 +147,13 @@ module.exports = {
           ['@ripperoni/store/theme', '@packdigital/gatsby-theme-ripperoni-store/src/gatsby-plugin-theme-ui'],
           ['@ripperoni/store', '@packdigital/gatsby-theme-ripperoni-store/src'],
           ['@ripperoni/utilities', '@packdigital/ripperoni-utilities'],
-
           // legacy aliases
           ['@theme', '@packdigital/gatsby-theme-ripperoni/src'],
           ['@theme2', '@packdigital/gatsby-theme-ripperoni-components/src'],
           ['@utils', '@packdigital/ripperoni-utilities']
         ],
-        extensions: ['.js', '.jsx']
+        'extensions': ['.js', '.jsx', '.json']
       },
     }
   },
-};
+}
