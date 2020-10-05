@@ -30,6 +30,7 @@ export const CartContextProvider = React.memo(({ children }) => {
     initialState,
     asyncActionHandlers
   );
+
   const actions = createActions(dispatch);
 
   useEffect(() => {

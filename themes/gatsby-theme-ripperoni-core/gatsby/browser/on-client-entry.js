@@ -22,6 +22,5 @@ module.exports = async () => {
     window.__devFavicon = devFavicon;
   }
 
-
   loadPolyfillsDynamically();
 };

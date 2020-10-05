@@ -1,22 +1,23 @@
-require('./gatsby/config/log-environments');
-
 const path = require('path');
 
-const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
+const { conditionallyIncludePlugin, parseJsConfigPaths } = require('@packdigital/ripperoni-utilities');
 
 const withDefaults = require('./gatsby/config/default-options');
+const jsconfig = require(path.join(process.cwd() + '/jsconfig.json')) || {};
+
+require('./gatsby/config/log-environments');
 
 
 module.exports = themeOptions => {
   const { meta, manifest } = withDefaults(themeOptions);
 
   const plugins = [
-    // 'gatsby-plugin-loadable-components-ssr',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-theme-ui',
     '@lekoarts/gatsby-theme-styleguide',
     {
       resolve: 'gatsby-plugin-root-import',
+      // options: parseJsConfigPaths(jsconfig) || {},
       options: {
         'src': path.join(process.cwd(), 'src'),
         '@assets': path.join(process.cwd(), 'src/assets'),
@@ -44,18 +45,8 @@ module.exports = themeOptions => {
         '@ripperoni/store/theme': '@packdigital/gatsby-theme-ripperoni-store/src/gatsby-plugin-theme-ui',
         '@ripperoni/store': '@packdigital/gatsby-theme-ripperoni-store/src',
         '@ripperoni/utilities': '@packdigital/ripperoni-utilities',
-      },
+      }
     },
-    // {
-    //   resolve: 'gatsby-plugin-eslint',
-    //   options: {
-    //     exclude: /(node_modules|.cache|public|ripperoni-utilities)/,
-    //     options: {
-    //       emitWarning: true,
-    //       failOnError: false
-    //     }
-    //   }
-    // },
     {
       resolve: 'gatsby-plugin-react-svg',
       options: {
