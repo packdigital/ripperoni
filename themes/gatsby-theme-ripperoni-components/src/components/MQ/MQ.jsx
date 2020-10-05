@@ -1,3 +1,4 @@
+// import React from 'react';
 import { useBreakpointIndex } from '@theme-ui/match-media';
 import PropTypes from 'prop-types';
 
@@ -15,8 +16,8 @@ export const MQ = ({ comps }) => {
   return mqComps[index];
 
 
-  // Below is used because sometimes we render the wrong component initially?
-  //
+  // // Below is used because sometimes we render the wrong component initially?
+  // //
   // const toUniqueDisplaySxArrays = (sxArr, comp, index) => {
   //   sxArr[index] = mqComps.map((mqComp) => {
   //     if (mqComp === comp) return 'inherit';
@@ -39,7 +40,7 @@ export const MQ = ({ comps }) => {
   //   );
   // };
 
-  // eslint-disable-next-line no-undef
+  // // eslint-disable-next-line no-undef
   // const uniqueComps =  [...new Set(mqComps)];
 
   // return uniqueComps
