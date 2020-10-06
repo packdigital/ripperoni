@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-source-backpack-shopify-collection",
-  "version": "0.3.21",
+  "version": "0.3.22",
   "author": "@packdigital",
   "description": "something something whatever who gives a crap.",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "gatsby": "^2.0.0"
   },
   "dependencies": {
-    "@packdigital/ripperoni-utilities": "^2.0.52",
+    "@packdigital/ripperoni-utilities": "^2.0.53",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
     "apollo-link-http": "^1.5.16",
