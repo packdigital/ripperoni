@@ -27,3 +27,15 @@
   },
   "include": ["src/**/*"]
 }
+
+// ```
+// {
+//   allowJs: true,
+//   maxNodeModuleJsDepth: 2,
+//   allowSyntheticDefaultImports: true,
+//   skipLibCheck: true,
+//   noEmit: true,
+//   include: [],
+//   exclude: []
+// }
+// ```

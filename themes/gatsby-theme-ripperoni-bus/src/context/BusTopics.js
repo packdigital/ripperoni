@@ -1,0 +1,14 @@
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const UPDATE_CART = 'UPDATE_CART';
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const OPTION_SELECTION = 'OPTION_SELECTION';
+export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
+export const DECREASE_QUANDITY = 'DECREASE_QUANDITY';
+export const VIEW_CART = 'VIEW_CART';
+export const VIEW_COLLECTION = 'VIEW_COLLECTION';
+export const VIEW_PRODUCT = 'VIEW_PRODUCT';
+export const PAGE_VIEW = 'PAGE_VIEW';
+export const ROUTE_CHANGE = 'ROUTE_CHANGE';
+export const NEW_SESSION = 'NEW_SESSION';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
