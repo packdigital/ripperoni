@@ -1,1 +1,4 @@
-// exports.onCreateWebpackConfig = require('./gatsby/node/on-create-webpack-config');
+const setAliases = require('./gatsby/node/set-aliases');
+
+// Webpack Config
+exports.onCreateWebpackConfig = setAliases;
