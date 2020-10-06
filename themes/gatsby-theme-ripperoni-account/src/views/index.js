@@ -1,9 +1,9 @@
-export * from './AccountActivation';
-export * from './AddressBook';
-export * from './Login';
-export * from './LoginSignup';
-export * from './Order';
-export * from './Orders';
-export * from './RecoverPassword';
-export * from './ResetPassword';
-export * from './Signup';
+export { AccountActivation } from './AccountActivation';
+export { AddressBook } from './AddressBook';
+export { Login } from './Login';
+export { LoginSignup } from './LoginSignup';
+export { Order } from './Order';
+export { Orders } from './Orders';
+export { RecoverPassword } from './RecoverPassword';
+export { ResetPassword } from './ResetPassword';
+export { Signup } from './Signup';

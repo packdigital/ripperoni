@@ -2,11 +2,9 @@
 import { forwardRef } from 'react';
 import { Flex as FlexUI, jsx } from 'theme-ui';
 
-import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
-
-import { FlexCol } from './FlexCol';
-import { FlexRow } from './FlexRow';
 import FlexSx from './Flex.sx';
+import { FlexCol } from './FlexCol';
+import { useSxProps } from '../../hooks/useSxProps';
 
 
 export const Flex = forwardRef((incomingProps, ref) => {
@@ -25,5 +23,4 @@ export const Flex = forwardRef((incomingProps, ref) => {
 });
 
 Flex.Col = FlexCol;
-Flex.Row = FlexRow;
 Flex.displayName = 'Flex';

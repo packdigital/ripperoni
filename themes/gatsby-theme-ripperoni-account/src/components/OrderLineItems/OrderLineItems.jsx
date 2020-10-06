@@ -35,6 +35,8 @@ export const LineItems = ({
   );
 };
 
+export const OrderLineItems = LineItem;
+
 LineItems.displayName = 'Order Line Items';
 
 LineItems.propTypes = {

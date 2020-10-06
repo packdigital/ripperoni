@@ -2,7 +2,8 @@
 import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 
-import { Box, CmsContent } from '@ripperoni/components';
+import { Box } from '../Box';
+import { CmsContent } from '../CmsContent';
 
 
 export const Hero = ({

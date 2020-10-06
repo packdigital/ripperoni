@@ -6,9 +6,9 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Label, Radio as RadioUI, jsx } from 'theme-ui';
 
-import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
-import { Box } from '@ripperoni/components/Box';
-import { Flex } from '@ripperoni/components/Flex';
+import { Box } from '../Box';
+import { Flex } from '../Flex';
+import { useSxProps } from '../../hooks/useSxProps';
 
 export const Radio = forwardRef(
   ({ label, variant, defaultChecked, ...incomingProps }, ref) => {

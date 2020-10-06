@@ -5,8 +5,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Vimeo from '@u-wave/react-vimeo';
 
-import { Box } from '@ripperoni/components/Box';
-
+import { Box } from '../Box';
 import { PlayButton } from './PlayButton';
 
 export const VimeoVideo = ({ previewUrl, url, ...props }) => {

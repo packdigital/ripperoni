@@ -60,6 +60,8 @@ export const Addresses = ({ shippingAddress, fulfillment, ...props }) => (
 
 Addresses.displayName = 'Order Addresses';
 
+export const OrderAddresses = Addresses;
+
 Addresses.propTypes = {
   shippingAddress: PropTypes.object,
   fulfillment: PropTypes.object,

@@ -53,6 +53,8 @@ export const Totals = ({
   </Flex>
 );
 
+export const OrderTotals = Totals;
+
 Totals.displayName = 'Order Totals';
 
 const Line = ({

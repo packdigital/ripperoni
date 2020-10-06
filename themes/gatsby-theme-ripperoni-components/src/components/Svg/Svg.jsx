@@ -2,7 +2,7 @@
 import { forwardRef } from 'react';
 import { Box, jsx } from 'theme-ui';
 
-import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
+import { useSxProps } from '../../hooks/useSxProps';
 
 import { SvgStatic } from './SvgStatic';
 import { SvgBackground } from './SvgBackground';

@@ -1,9 +1,9 @@
 {
-	"compilerOptions": {
-		"baseUrl": "./",
+  "compilerOptions": {
+    "baseUrl": "./",
     "jsx": "preserve",
     "paths": {
-      "*": ["*"],
+      "*": ["*"]
       // "@ripperoni/account/*": [
       //   "themes/gatsby-theme-ripperoni-account/src/*",
       //   "node_modules/@packdigital/gatsby-theme-ripperoni-account/src/*",
@@ -24,21 +24,14 @@
       //   "node_modules/@packdigital/ripperoni-utilities"
       // ]
     }
-	},
-	// Specifies a list of glob patterns that match files to be included in compilation.
-	"include": [
+  },
+  // Specifies a list of glob patterns that match files to be included in compilation.
+  "include": [
     "tools/**/*",
     "packages/**/*",
     "plugins/**/*",
     "projects/**/*",
     "themes/**/*"
   ],
-	"exclude": [
-    "./.cache",
-    "./.netlify",
-    "./.trash",
-    "./public",
-    "./static",
-    "./node_modules"
-  ]
+  "exclude": ["./.cache", "./public", "node_modules"]
 }

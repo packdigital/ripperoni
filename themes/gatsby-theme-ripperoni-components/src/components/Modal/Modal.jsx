@@ -4,8 +4,11 @@ import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 import { AnimatePresence } from 'framer-motion';
 
-import { Box, Overlay } from '@ripperoni/components';
+// Danger!
 import { useUIContext } from '@ripperoni/core/context/UIContext';
+
+import { Box } from '../Box';
+import { Overlay } from '../Overlay';
 
 
 export const Modal = ({modalId, children}) => {

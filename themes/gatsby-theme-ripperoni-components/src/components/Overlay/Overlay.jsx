@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { jsx } from 'theme-ui';
 import { motion } from 'framer-motion';
 
-import { Box } from '@ripperoni/components/Box';
-import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
+import { Box } from '../Box';
+import { useSxProps } from '../../hooks/useSxProps';
 
 
 const AnimatedOverlay = motion.custom(Box);

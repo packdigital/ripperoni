@@ -3,8 +3,7 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Text as TextUI, jsx } from 'theme-ui';
 
-import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
-
+import { useSxProps } from '../../hooks/useSxProps';
 import TextSx from './Text.sx';
 
 

@@ -3090,6 +3090,18 @@
     intersection-observer "^0.11.0"
     react-helmet "^6.1.0"
 
+"@packdigital/gatsby-theme-ripperoni-marketing@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-marketing/-/gatsby-theme-ripperoni-marketing-0.0.16.tgz#29cb59ee7fe78ccf03f2eb112482c6e389405036"
+  integrity sha512-G2t2HNZ5IggpQaz0ofKzO9K8iHyOURgBQejqOwhd+WMcHZKtxslQt/9WMi4cyt4QGszTWtvtAHo373KEhI2QAw==
+  dependencies:
+    gatsby-plugin-facebook-pixel "^1.0.3"
+    gatsby-plugin-google-analytics "^2.3.4"
+    gatsby-plugin-google-tagmanager "^2.3.5"
+    gatsby-plugin-robots-txt "^1.5.1"
+    gatsby-plugin-sitemap "^2.4.5"
+    prop-types "^15.7.2"
+
 "@packdigital/gatsby-theme-ripperoni-store@^0.0.10":
   version "0.0.10"
   resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-store/-/gatsby-theme-ripperoni-store-0.0.10.tgz#c84117a3e16fc95bcbb117a0031b0e77f8477d29"
@@ -9934,11 +9946,6 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
-favicon.js@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/favicon.js/-/favicon.js-1.0.0.tgz#4700ece0404b72127cb35f297b6487f5609d2a9b"
-  integrity sha512-wxSFFH4I1nvCSZVzxOpWYonMMBB1SWMwlJt6PoDtW1cDh887o/fwRKrHUrjbLQQusvbxs4k03nuKbNe3q1FD/Q==
-
 favicons@^5.3.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/favicons/-/favicons-5.5.0.tgz#4badbecac81ddf2793b8149d0823d97c2077445b"
@@ -9958,11 +9965,6 @@ favicons@^5.3.0:
     to-ico "^1.1.5"
     vinyl "^2.2.0"
     xml2js "^0.4.22"
-
-favloader@^0.4.4:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/favloader/-/favloader-0.4.4.tgz#b414d6c01f9e172e1db247ec592ac5459f1a3a14"
-  integrity sha512-CJHbasIuIVkiC9RmSpXYDFKHNvtuQ2QY3NaHB7Hqd4wfMa3xcEL9FEhSEdZpAlfW6E9hl81sJQpUH/DkxWsluA==
 
 faye-websocket@^0.10.0:
   version "0.10.0"

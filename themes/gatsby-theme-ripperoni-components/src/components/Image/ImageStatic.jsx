@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import { Image as ImageUI, jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 
-import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
+import { useSxProps } from '../../hooks/useSxProps';
 
 
 export const ImageStatic = forwardRef(({

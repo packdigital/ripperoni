@@ -3,8 +3,7 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button as ButtonUI, jsx } from 'theme-ui';
 
-import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
-
+import { useSxProps } from '../../hooks/useSxProps';
 import { ButtonLink } from './ButtonLink';
 import { ButtonPlain } from './ButtonPlain';
 

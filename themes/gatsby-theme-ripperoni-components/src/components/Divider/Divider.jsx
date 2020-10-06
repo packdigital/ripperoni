@@ -3,8 +3,8 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Divider as DividerUI, jsx } from 'theme-ui';
 
-import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
-import { Box } from '@ripperoni/components/Box';
+import { Box } from '../Box';
+import { useSxProps } from '../../hooks/useSxProps';
 
 
 export const Divider = forwardRef(({

@@ -14,6 +14,7 @@ import * as BusTopics from './BusTopics';
 const BusContext = createContext();
 
 export * from 'pubsub-js';
+export * as PubSub from 'pubsub-js';
 
 export const useBusContext = useContextFactory('Bus', BusContext);
 

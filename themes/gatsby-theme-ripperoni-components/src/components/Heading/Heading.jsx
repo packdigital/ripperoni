@@ -3,8 +3,7 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Heading as HeadingUI, jsx } from 'theme-ui';
 
-import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
-
+import { useSxProps } from '../../hooks/useSxProps';
 import { h1 } from './H1';
 import { h2 } from './H2';
 import { h3 } from './H3';

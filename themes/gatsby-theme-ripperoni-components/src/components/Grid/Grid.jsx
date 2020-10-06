@@ -3,9 +3,8 @@ import { forwardRef } from 'react';
 import { Grid as GridUI, jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 
-import { useSxProps } from '@ripperoni/components/hooks/useSxProps';
-
 import GridSx from './Grid.sx';
+import { useSxProps } from '../../hooks/useSxProps';
 
 
 export const Grid = forwardRef((incomingProps, ref) => {
