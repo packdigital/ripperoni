@@ -9,9 +9,10 @@
     "@babel/core": "^7.10.2"
   },
   "dependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.10.1"
+    "@babel/plugin-proposal-optional-chaining": "^7.10.1",
+    "@babel/preset-env": "^7.11.5"
   },
-  "prettier": "./prettier.config.js",
+  "prettier": "@packdigital/prettier-config-ripperoni",
   "eslintConfig": {
     "extends": [
       "@packdigital/eslint-config-ripperoni"

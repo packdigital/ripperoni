@@ -35,3 +35,5 @@ export const LoginMessage = ({
     </header>
   );
 };
+
+export const AccountLoginMessage = LoginMessage;

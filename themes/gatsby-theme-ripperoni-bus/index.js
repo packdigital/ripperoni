@@ -1,1 +1,1 @@
-module.exports = require('./src');
+export * as context from './src/context';

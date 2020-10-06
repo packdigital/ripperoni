@@ -5,6 +5,8 @@ import React, { createContext } from 'react';
 import PropTypes from 'prop-types';
 import PubSub from 'pubsub-js';
 
+import { useCartContext } from '@packdigital/gatsby-theme-ripperoni-cart';
+import { useAccountContext } from '@packdigital/gatsby-theme-ripperoni-account';
 import { useContextFactory } from '@packdigital/ripperoni-utilities';
 
 import * as BusTopics from './BusTopics';
