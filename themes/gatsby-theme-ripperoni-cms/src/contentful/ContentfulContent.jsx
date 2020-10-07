@@ -9,8 +9,8 @@ import mapValues from 'lodash/mapValues';
 import map from 'lodash/map';
 
 import { Box } from '@ripperoni/components';
-import { components } from '@ripperoni/cms/contentful/components';
 
+import { components } from './components';
 import { SlottedContent } from './SlottedContent';
 
 const getMarginPadding = (breakpoints) => (marginPadding) => {

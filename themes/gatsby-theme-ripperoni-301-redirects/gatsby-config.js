@@ -1,34 +1,28 @@
-require('dotenv').config();
-
-const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
-
-const withDefaults = require('./gatsby/config/default-options');
-
-
-module.exports = themeOptions => {
-  const { googleSpreadsheet, redirects } = withDefaults(themeOptions);
-
-  const plugins = [
-    ...conditionallyIncludePlugin({
-      theme: 'gatsby-theme-ripperoni-301-redirects',
-      resolve: 'gatsby-source-google-spreadsheet',
-      enabled: googleSpreadsheet.enabled,
-      options: googleSpreadsheet,
-      requiredOptions: [
-        'spreadsheetId',
-        'credentials.client_email',
-        'credentials.private_key',
-      ],
-    }),
-    ...conditionallyIncludePlugin({
-      theme: 'gatsby-theme-ripperoni-301-redirects',
-      resolve: '@packdigital/gatsby-plugin-301-redirects',
-      enabled: redirects.enabled,
-      options: redirects,
-    }),
-  ];
-
+/**
+ * @prettier
+ */
+module.exports = ({ redirects }) => {
   return {
-    plugins,
+    plugins: [
+      {
+        resolve: 'gatsby-source-google-spreadsheet',
+        options: {
+          ...redirects,
+          credentials: {
+            client_email: process.env.REDIRECTS_CLIENT_EMAIL,
+            private_key:
+              process.env.REDIRECTS_PRIVATE_KEY &&
+              process.env.REDIRECTS_PRIVATE_KEY.replace(/\\n/gm, '\n'),
+          },
+        },
+      },
+      {
+        resolve: '@packdigital/gatsby-plugin-301-redirects',
+        options: {
+          redirectsFilePath: './static/_redirects',
+          redirectsOutputPath: './public/_redirects',
+        },
+      },
+    ],
   };
 };

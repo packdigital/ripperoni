@@ -1,0 +1,26 @@
+{
+  "name": "@packdigital/gatsby-theme-ripperoni-dev",
+  "version": "0.0.25",
+  "author": "@packdigital",
+  "description": "",
+  "repository": "https://github.com/packdigital/ripperoni",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "clean": "gatsby clean"
+  },
+  "peerDependencies": {
+    "@packdigital/ripperoni-utilities": "^2.0.21",
+    "gatsby": "^2.23.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "dependencies": {
+    "gatsby-plugin-schema-snapshot": "^1.0.0",
+    "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.10",
+    "gatsby-plugin-webpack-size": "^1.0.0"
+  },
+  "prettier": "@packdigital/prettier-config-ripperoni"
+}

@@ -2,7 +2,7 @@
 import { Box, Heading, Text, jsx } from 'theme-ui';
 
 
-export const LoginMessage = ({
+export const AccountLoginMessage = ({
   messages,
   sentiment = 'bad',
   ...props
@@ -35,5 +35,3 @@ export const LoginMessage = ({
     </header>
   );
 };
-
-export const AccountLoginMessage = LoginMessage;

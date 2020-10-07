@@ -2,8 +2,9 @@ import React from 'react';
 import { navigate } from 'gatsby';
 
 import { Box, Flex, Heading, Link, Text } from '@ripperoni/components';
-import { AccountLayout } from '@ripperoni/account/layout/AccountLayout';
-import { RecoverPasswordForm } from '@ripperoni/account/components/RecoverPasswordForm';
+
+import { AccountLayout } from '../layout/AccountLayout';
+import { RecoverPasswordForm } from '../components/RecoverPasswordForm';
 
 
 export const RecoverPassword = props => {

@@ -4,7 +4,7 @@ import React from 'react';
 import { Flex, Price, Text } from '@ripperoni/components';
 
 
-export const Totals = ({
+export const OrderTotals = ({
   subtotal,
   shipping,
   tax,
@@ -12,7 +12,7 @@ export const Totals = ({
   ...props
 }) => (
   <Flex
-    data-comp={Totals.displayName}
+    data-comp={OrderTotals.displayName}
     variant='account.order.totals'
     right
     {...props}
@@ -53,9 +53,7 @@ export const Totals = ({
   </Flex>
 );
 
-export const OrderTotals = Totals;
-
-Totals.displayName = 'Order Totals';
+OrderTotals.displayName = 'Order Totals';
 
 const Line = ({
   name,

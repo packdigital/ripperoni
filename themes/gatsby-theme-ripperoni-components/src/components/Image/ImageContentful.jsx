@@ -45,12 +45,14 @@ export const ImageContentful = forwardRef(({
     );
   }
 
+  // console.log('imageProps', imageProps);
   return (
     <Box {...props}>
       <GatsbyImage
         data-comp={ImageContentful.displayName}
         ref={ref}
-        {...imageProps}
+        fluid={Array.isArray(imageProps.fluid) ? imageProps.fluid[0] : imageProps.fluid}
+        // {...imageProps}
       />
     </Box>
   );

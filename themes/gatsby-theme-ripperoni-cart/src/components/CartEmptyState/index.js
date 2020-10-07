@@ -1,1 +1,1 @@
-export * from './CartEmptyState';
+export { CartEmptyState } from './CartEmptyState';

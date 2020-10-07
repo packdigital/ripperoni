@@ -61,7 +61,7 @@ export const Image = forwardRef(({
 Image.Sharp = ImageSharp;
 Image.Static = ImageStatic;
 Image.Contentful = ImageContentful;
-Image.displayName = 'Image';
+Image.displayName = 'Fart Image';
 
 Image.propTypes = {
   src: PropTypes.string.isRequired,

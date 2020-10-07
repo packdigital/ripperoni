@@ -1,4 +1,65 @@
 /**
+ * @prettier
+ */
+const utils = require('@packdigital/ripperoni-utilities');
+
+module.exports = ({
+  metadata,
+  googleTagManager,
+  googleAnalytics,
+  facebookPixel,
+}) => {
+  return {
+    siteMetadata: {
+      siteUrl: metadata.site.url || '',
+    },
+    plugins: [
+      ...utils.conditionallyIncludePlugin({
+        // [1][2]
+        resolve: 'gatsby-plugin-google-tagmanager',
+        options: {
+          includeInDevelopment: false,
+          ...googleTagManager,
+        },
+      }),
+      ...utils.conditionallyIncludePlugin({
+        // [3]
+        resolve: 'gatsby-plugin-google-analytics',
+        options: {
+          head: false,
+          ...googleAnalytics,
+        },
+      }),
+      ...utils.conditionallyIncludePlugin({
+        resolve: 'gatsby-plugin-facebook-pixel',
+        options: { ...facebookPixel },
+      }),
+      ...utils.conditionallyIncludePlugin({
+        // [4]
+        resolve: 'gatsby-plugin-sitemap',
+        options: {},
+      }),
+      ...utils.conditionallyIncludePlugin({
+        // [4]
+        resolve: 'gatsby-plugin-robots-txt',
+        options: {
+          env: {
+            production: {
+              policy: [{ userAgent: '*' }],
+            },
+            development: {
+              policy: [{ userAgent: '*', disallow: ['/'] }],
+              sitemap: null,
+              host: null,
+            },
+          },
+        },
+      }),
+    ],
+  };
+};
+
+/**
  * [1] Read more about plugin options here:
  *     https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-google-tagmanager
  *
@@ -9,72 +70,5 @@
  *     https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-google-analytics
  *
  * [4] These plugins need site.siteMetadata.siteUrl to be present in order to work. The siteUrl metadata is
- *     added through themeOptions.siteUrl. If this option is missing, we don't want these plugins to run so
- *     we make siteUrl a required option and pass it in the value of themeOption.siteUrl
+ *     added through themeOptions.siteUrl
  */
-
-require('dotenv').config();
-
-const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
-
-const withDefaults = require('./gatsby/config/default-options');
-
-
-module.exports = themeOptions => {
-  const {
-    meta,
-    googleTagManager,
-    googleAnalytics,
-    facebookPixel,
-    robotsTxt,
-    sitemap,
-  } = withDefaults(themeOptions);
-
-  const plugins = [
-    ...conditionallyIncludePlugin({
-      theme: 'gatsby-theme-ripperoni-marketing',
-      resolve: 'gatsby-plugin-google-tagmanager',
-      enabled: googleTagManager.enabled,
-      options: googleTagManager,  // [1][2]
-      requiredOptions: ['id'],
-    }),
-    ...conditionallyIncludePlugin({
-      theme: 'gatsby-theme-ripperoni-marketing',
-      resolve: 'gatsby-plugin-google-analytics',
-      enabled: googleAnalytics.enabled,
-      options: googleAnalytics,  // [3]
-      requiredOptions: ['trackingId'],
-    }),
-    ...conditionallyIncludePlugin({
-      theme: 'gatsby-theme-ripperoni-marketing',
-      resolve: 'gatsby-plugin-facebook-pixel',
-      enabled: facebookPixel.enabled,
-      options: facebookPixel,
-      requiredOptions: ['pixelId'],
-    }),
-    ...conditionallyIncludePlugin({
-      theme: 'gatsby-theme-ripperoni-marketing',
-      resolve: 'gatsby-plugin-sitemap',
-      enabled: sitemap.enabled,
-      options: sitemap,
-      requiredOptions: [{ 'meta.site.url': meta.site.url }],  // [4]
-    }),
-    ...conditionallyIncludePlugin({
-      theme: 'gatsby-theme-ripperoni-marketing',
-      resolve: 'gatsby-plugin-robots-txt',
-      enabled: robotsTxt.enabled,
-      options: robotsTxt,
-      requiredOptions: [{ 'meta.site.url': meta.site.url }],  // [4]
-    }),
-  ];
-
-  const siteMetadata = {
-    ...meta,
-    siteUrl: meta.site.url,
-  };
-
-  return {
-    plugins,
-    siteMetadata,
-  };
-};

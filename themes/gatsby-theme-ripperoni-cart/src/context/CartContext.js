@@ -7,6 +7,7 @@ import { useReducerAsync } from 'use-reducer-async';
 
 import { isBrowser, useContextFactory } from '@packdigital/ripperoni-utilities';
 
+import { initialState } from './initialState';
 import { createActions } from './CartActions';
 import { asyncActionHandlers, reducer } from './CartReducer';
 
@@ -14,15 +15,6 @@ const CartContext = createContext();
 const persistedCheckoutId = 'ShopifyCheckoutId';
 
 export const useCartContext = useContextFactory('Cart', CartContext);
-
-const initialState = {
-  cart: null,
-  totalItems: null,
-  // associatedWithCustomer: null,
-  loading: {},
-  errors: {},
-  ready: false,
-};
 
 export const CartContextProvider = React.memo(({ children }) => {
   const [state, dispatch] = useReducerAsync(

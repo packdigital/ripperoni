@@ -1,36 +1,78 @@
-require('dotenv').config();
-
+/**
+ * @prettier
+ */
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
-const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
+const utils = require('@packdigital/ripperoni-utilities');
 
-const withDefaults = require('./gatsby/config/default-options');
+// todo: make global util and put in ripperoni-utilities
+const isEmptyObject = (arg) => !Object.keys(arg || 0).length;
 
-
-module.exports = themeOptions => {
-  const { netlify } = withDefaults(themeOptions);
-
-  const plugins = [
-    ...conditionallyIncludePlugin({
-      theme: 'gatsby-theme-ripperoni-host',
-      resolve: 'gatsby-plugin-netlify',
-      enabled: netlify.enabled,
-      options: netlify,
-    }),
-  ];
-
-  const developMiddleware = app => {
-    app.use(
-      '/api/*',
-      createProxyMiddleware({
-        target: 'http://localhost:34567/.netlify/functions/',
-        changeOrigin: true,
-      })
-    );
-  };
-
+module.exports = ({ netlify }) => {
   return {
-    plugins,
-    developMiddleware,
+    developMiddleware: (app) => {
+      app.use(
+        '/api/*',
+        createProxyMiddleware({
+          target: 'http://localhost:34567/.netlify/functions/',
+          changeOrigin: true,
+        })
+      );
+    },
+    plugins: [
+      ...utils.conditionallyIncludePlugin({
+        resolve: 'gatsby-plugin-netlify',
+        enabled: !isEmptyObject(netlify),
+        options: {
+          headers: {
+            '/sw.js': [
+              'cache-control: public',
+              'cache-control: max-age=0',
+              'cache-control: must-revalidate',
+            ],
+            '/public/**/*.html': [
+              'cache-control: public',
+              'cache-control: max-age=0',
+              'cache-control: must-revalidate',
+            ],
+            '/public/page-data/*': [
+              'cache-control: public',
+              'cache-control: max-age=0',
+              'cache-control: must-revalidate',
+            ],
+            '/*.js': [
+              'cache-control: public',
+              'cache-control: max-age=31536000',
+              'cache-control: immutable',
+            ],
+            '/public/**/*.js': [
+              'cache-control: public',
+              'cache-control: max-age=31536000',
+              'cache-control: immutable',
+            ],
+            '/public/**/*.css': [
+              'cache-control: public',
+              'cache-control: max-age=31536000',
+              'cache-control: immutable',
+            ],
+            '/public/swiper/*': [
+              'cache-control: public',
+              'cache-control: max-age=31536000',
+              'cache-control: immutable',
+            ],
+            '/public/static/*': [
+              'cache-control: public',
+              'cache-control: max-age=31536000',
+              'cache-control: immutable',
+            ],
+            '/public/third-parties/*': [
+              'cache-control: public',
+              'cache-control: max-age=31536000',
+              'cache-control: immutable',
+            ],
+          },
+        },
+      }),
+    ],
   };
 };

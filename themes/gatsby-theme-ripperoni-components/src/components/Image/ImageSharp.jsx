@@ -21,8 +21,14 @@ ImageSharp.displayName = 'Sharp Image';
 ImageSharp.propTypes = {
   // fixed: mutuallyExclusiveProps(PropTypes.object, 'fluid'),
   // fluid: mutuallyExclusiveProps(PropTypes.object, 'fixed'),
-  fixed: PropTypes.any,
-  fluid: PropTypes.any,
+  fixed: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.arrayOf(PropTypes.object)
+  ]),
+  fluid: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.arrayOf(PropTypes.object)
+  ]),
   fadeIn: PropTypes.bool,
   durationFadeIn: PropTypes.number,
   title: PropTypes.string,

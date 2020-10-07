@@ -1,1 +1,1 @@
-export * from './UserMeta';
+export { UserMeta } from './UserMeta';

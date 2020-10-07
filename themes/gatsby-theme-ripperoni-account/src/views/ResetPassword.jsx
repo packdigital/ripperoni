@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Box, Flex, Heading } from '@ripperoni/components';
-import { AccountLayout } from '@ripperoni/account/layout/AccountLayout';
-import { ResetPasswordForm } from '@ripperoni/account/components/ResetPasswordForm';
+
+import { AccountLayout } from '../layout/AccountLayout';
+import { ResetPasswordForm } from '../components/ResetPasswordForm';
 
 
 export const ResetPassword = ({

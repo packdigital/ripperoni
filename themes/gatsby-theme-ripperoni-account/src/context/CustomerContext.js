@@ -11,6 +11,7 @@ import {
   useContextFactory,
 } from '@packdigital/ripperoni-utilities';
 
+import { initialState } from './initialState';
 import { createActions } from './CustomerActions';
 import { asyncActionHandlers, reducer } from './CustomerReducer';
 
@@ -21,15 +22,6 @@ export const useCustomerContext = useContextFactory(
   'Customer',
   CustomerContext
 );
-
-const initialState = {
-  accessToken: null,
-  customer: null,
-  loggedIn: false,
-  errors: {},
-  loading: {},
-  ready: false,
-};
 
 export const CustomerContextProvider = React.memo(({ children }) => {
   const [state, dispatch] = useReducerAsync(

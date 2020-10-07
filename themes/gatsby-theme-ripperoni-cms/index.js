@@ -1,3 +1,3 @@
-// noop
+// no-op
 
-export * as contentful from './src/contentful'
+export * from './src/index'

@@ -7,11 +7,12 @@ import React from 'react';
 
 import { Flex } from '@ripperoni/components';
 import { AccountLayout } from '@ripperoni/account/layout/AccountLayout';
-import { Addresses } from '@ripperoni/account/components/OrderAddresses';
-import { LineItems } from '@ripperoni/account/components/OrderLineItems';
-import { Totals } from '@ripperoni/account/components/OrderTotals';
-import { OrderHeader } from '@ripperoni/account/components/OrderHeader';
-import { useCustomerContext } from '@ripperoni/account/context/CustomerContext';
+
+import { OrderAddresses } from '../components/OrderAddresses';
+import { OrderLineItems } from '../components/OrderLineItems';
+import { OrderTotals } from '../components/OrderTotals';
+import { OrderHeader } from '../components/OrderHeader';
+import { useCustomerContext } from '../context/CustomerContext';
 
 export const Order = ({ location, ...props }) => {
   const { state } = useCustomerContext();
@@ -24,14 +25,17 @@ export const Order = ({ location, ...props }) => {
       <OrderHeader order={order} />
 
       <Flex.Col variant='account.order.content'>
-        <Addresses
+        <OrderAddresses
           shippingAddress={order.shippingAddress}
           fulfillment={order.fulfillments[0]}
         />
 
-        <LineItems statusUrl={order.statusUrl} lineItems={order.lineItems} />
+        <OrderLineItems
+          statusUrl={order.statusUrl}
+          lineItems={order.lineItems}
+        />
 
-        <Totals
+        <OrderTotals
           subtotal={order.subtotalPrice}
           shipping={order.shippingPrice}
           tax={order.totalTax}

@@ -1,1 +1,1 @@
-export * from './AddressBookHeader';
+export { AddressBookHeader } from './AddressBookHeader';

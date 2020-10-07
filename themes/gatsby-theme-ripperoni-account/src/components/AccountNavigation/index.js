@@ -1,1 +1,1 @@
-export * from './AccountNavigation';
+export { AccountNavigation } from './AccountNavigation';

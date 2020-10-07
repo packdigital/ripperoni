@@ -2,8 +2,9 @@ import React from 'react';
 import { navigate } from 'gatsby';
 
 import { Box, Flex, Heading, Link, Text } from '@ripperoni/components';
-import { AccountLayout } from '@ripperoni/account/layout/AccountLayout';
-import { LoginForm } from '@ripperoni/account/components/LoginForm';
+
+import { AccountLayout } from '../layout/AccountLayout';
+import { LoginForm } from '../components/LoginForm';
 
 
 export const Login = props => {

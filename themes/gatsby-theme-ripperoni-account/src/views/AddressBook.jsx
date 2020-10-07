@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { Flex } from '@ripperoni/components';
-import { AccountLayout } from '@ripperoni/account/layout/AccountLayout';
-import { AddressForm } from '@ripperoni/account/components/AddressForm';
-import { AddressBookHeader } from '@ripperoni/account/components/AddressBookHeader';
-import { useCustomerContext } from '@ripperoni/account/context/CustomerContext';
-import { AddressBookRow } from '@ripperoni/account/components/AddressBookRow';
+
+import { AccountLayout } from '../layout/AccountLayout';
+import { AddressForm } from '../components/AddressForm';
+import { AddressBookHeader } from '../components/AddressBookHeader';
+import { useCustomerContext } from '../context/CustomerContext';
+import { AddressBookRow } from '../components/AddressBookRow';
 
 
 export const AddressBook = props => {

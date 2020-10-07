@@ -2,7 +2,8 @@
 import React from 'react';
 
 import { isBrowser } from '@ripperoni/utilities';
-import { Login as LoginView } from '@ripperoni/account/views/Login';
+
+import { Login as LoginView } from '../views/Login';
 
 
 export const Login = props => {

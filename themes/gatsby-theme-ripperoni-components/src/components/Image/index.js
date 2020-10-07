@@ -1,3 +1,3 @@
-export * from './Image';
-export * from './ImageSharp';
-export * from './ImageContentful';
+export { Image } from './Image';
+export { ImageSharp } from './ImageSharp';
+export { ImageContentful } from './ImageContentful';

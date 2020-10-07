@@ -1,3 +1,3 @@
-// noop
+// no-op
 
-export * as components from './src/components';
+export * from './src/index';

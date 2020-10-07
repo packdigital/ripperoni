@@ -1,28 +1,19 @@
-require('dotenv').config();
+/**
+ * @prettier
+ */
+const utils = require('@packdigital/ripperoni-utilities');
 
-const { conditionallyIncludePlugin } = require('@packdigital/ripperoni-utilities');
+// todo: make global util and put in ripperoni-utilities
+const isEmptyObject = (arg) => !Object.keys(arg || 0).length;
 
-
-module.exports = ({
-  elasticlunr: {
-    enabled: elasticlunarEnabled = true,
-    ...elasticlunarOptions
-  } = {}
-}) => {
-  const plugins = [
-    ...conditionallyIncludePlugin({
-      enabled: elasticlunarEnabled,
-      theme: 'gatsby-theme-ripperoni-search',
-      resolve: '@gatsby-contrib/gatsby-plugin-elasticlunr-search',
-      options: elasticlunarOptions,
-      requiredOptions: [
-        'fields',
-        'resolvers'
-      ]
-    }),
-  ];
-
+module.exports = ({ search }) => {
   return {
-    plugins,
+    plugins: [
+      ...utils.conditionallyIncludePlugin({
+        resolve: '@gatsby-contrib/gatsby-plugin-elasticlunr-search',
+        options: { ...search },
+        enabled: !isEmptyObject(search),
+      }),
+    ],
   };
 };

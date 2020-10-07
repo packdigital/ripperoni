@@ -1,1 +1,1 @@
-export * from './CmsContent';
+export { CmsContent } from './CmsContent';

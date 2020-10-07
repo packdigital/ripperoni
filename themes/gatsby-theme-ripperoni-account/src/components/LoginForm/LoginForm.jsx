@@ -4,7 +4,8 @@ import { Input } from 'theme-ui';
 import { navigate } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
-import { useCustomerContext } from '@ripperoni/account/context/CustomerContext';
+
+import { useCustomerContext } from '../../context/CustomerContext';
 
 
 export const LoginForm = ({

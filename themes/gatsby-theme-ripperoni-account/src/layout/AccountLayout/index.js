@@ -1,1 +1,1 @@
-export * from './AccountLayout';
+export { AccountLayout } from './AccountLayout';

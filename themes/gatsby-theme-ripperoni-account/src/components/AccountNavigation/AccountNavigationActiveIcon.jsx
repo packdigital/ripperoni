@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { Svg } from '@ripperoni/components';
-import Arrow from '@ripperoni/account/assets/images/arrow.svg';
+
+import Arrow from '../../assets/arrow.svg';
 
 
 export const ActiveIcon = props => {

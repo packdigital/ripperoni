@@ -8,9 +8,9 @@ import { Box, Flex, Heading, Link, Text } from '@ripperoni/components';
 
 import { Address } from '../Address';
 
-export const Addresses = ({ shippingAddress, fulfillment, ...props }) => (
+export const OrderAddresses = ({ shippingAddress, fulfillment, ...props }) => (
   <Flex
-    data-comp={Addresses.displayName}
+    data-comp={OrderAddresses.displayName}
     variant='account.order.addresses'
     between
     {...props}
@@ -58,11 +58,9 @@ export const Addresses = ({ shippingAddress, fulfillment, ...props }) => (
   </Flex>
 );
 
-Addresses.displayName = 'Order Addresses';
+OrderAddresses.displayName = 'Order Addresses';
 
-export const OrderAddresses = Addresses;
-
-Addresses.propTypes = {
+OrderAddresses.propTypes = {
   shippingAddress: PropTypes.object,
   fulfillment: PropTypes.object,
 };

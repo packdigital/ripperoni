@@ -1,1 +1,1 @@
-export * from './ErrorBoundry';
+export { CatchErrors, catchErrors } from './ErrorBoundry';

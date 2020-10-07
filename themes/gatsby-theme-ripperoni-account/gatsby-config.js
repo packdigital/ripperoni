@@ -1,25 +1,21 @@
-require('dotenv').config();
+/**
+ * @prettier
+ */
+const utils = require('@packdigital/ripperoni-utilities');
 
-const withDefaults = require('./gatsby/config/default-options');
-
-
-module.exports = themeOptions => {
-  const { meta } = withDefaults(themeOptions);
-
-  const plugins = [
-    'gatsby-plugin-theme-ui',
-    {
-      resolve: 'gatsby-plugin-create-client-paths',
-      options: {
-        prefixes: ['/account/*']
-      },
-    }
-  ];
-
-  const siteMetadata = meta;
-
+module.exports = ({ metadata }) => {
   return {
-    plugins,
-    siteMetadata,
+    siteMetadata: {
+      supportEmail: metadata.site.supportEmail || '',
+    },
+    plugins: [
+      'gatsby-plugin-theme-ui',
+      ...utils.conditionallyIncludePlugin({
+        resolve: 'gatsby-plugin-create-client-paths',
+        options: {
+          prefixes: ['/account/*'],
+        },
+      }),
+    ],
   };
 };

@@ -2,7 +2,8 @@
 import React from 'react';
 
 import { isBrowser } from '@ripperoni/utilities';
-import { ResetPassword as ResetPasswordView } from '@ripperoni/account/views/ResetPassword';
+
+import { ResetPassword as ResetPasswordView } from '../views/ResetPassword';
 
 
 export const Reset = props => {

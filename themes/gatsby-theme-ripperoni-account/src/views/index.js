@@ -1,9 +1,0 @@
-export { AccountActivation } from './AccountActivation';
-export { AddressBook } from './AddressBook';
-export { Login } from './Login';
-export { LoginSignup } from './LoginSignup';
-export { Order } from './Order';
-export { Orders } from './Orders';
-export { RecoverPassword } from './RecoverPassword';
-export { ResetPassword } from './ResetPassword';
-export { Signup } from './Signup';

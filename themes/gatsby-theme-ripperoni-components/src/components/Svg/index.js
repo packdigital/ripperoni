@@ -1,3 +1,3 @@
-export * from './Svg';
-export * from './SvgStatic';
-export * from './SvgBackground';
+export { Svg } from './Svg';
+export { SvgStatic } from './SvgStatic';
+export { SvgBackground } from './SvgBackground';

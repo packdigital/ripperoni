@@ -1,1 +1,1 @@
-export * from './CartUpsell';
+export { CartUpsell } from './CartUpsell';

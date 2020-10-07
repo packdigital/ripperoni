@@ -7,7 +7,7 @@ import { Flex } from '@ripperoni/components';
 import { LineItem } from './OrderLineItem';
 
 
-export const LineItems = ({
+export const OrderLineItems = ({
   statusUrl,
   lineItems,
   ...props
@@ -35,11 +35,9 @@ export const LineItems = ({
   );
 };
 
-export const OrderLineItems = LineItem;
+OrderLineItems.displayName = 'Order Line Items';
 
-LineItems.displayName = 'Order Line Items';
-
-LineItems.propTypes = {
+OrderLineItems.propTypes = {
   statusUrl: PropTypes.string,
   lineItems: PropTypes.arrayOf(PropTypes.object)
 };

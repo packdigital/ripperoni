@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { Box, Flex, Heading, Link, Text } from '@ripperoni/components';
-import { AccountLayout } from '@ripperoni/account/layout/AccountLayout';
-import { SignupForm } from '@ripperoni/account/components/SignupForm';
+
+import { AccountLayout } from '../layout/AccountLayout';
+import { SignupForm } from '../components/SignupForm';
 
 
 export const Signup = props => {

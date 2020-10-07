@@ -1,18 +1,18 @@
-const atob = require('atob');
+const atob = require("atob");
 
-const { _fieldResolvers } = require('./feed-item-field-resolver');
+const { _fieldResolvers } = require("./feed-item-field-resolver");
 
-
-
-const getLegacyResourceId = gId => {
-  const shopifyId = gId.split('/').pop();
+const getLegacyResourceId = (gId) => {
+  const shopifyId = gId.split("/").pop();
   return shopifyId;
 };
-exports._buildFeedItem = ({ feedOptions, client, reporter }) => async (bpVariant, index) => {
-  const { feedItem } = feedOptions;
+exports._buildFeedItem = ({ feedOptions, client, reporter }) => async (
+  bpVariant,
+  index
+) => {
+  const { verbose, feedItem } = feedOptions;
 
   try {
-
     // const legacyProductId = getLegacyResourceId(bpVariant.productForeignId);
     // const legacyVariantId = getLegacyResourceId(bpVariant.foreignId);
     // console.log('bpVariant.product.title', bpVariant.product.title, 'legacyProductId', legacyProductId)
@@ -27,7 +27,6 @@ exports._buildFeedItem = ({ feedOptions, client, reporter }) => async (bpVariant
 
     // const shopifyVariant = shopifyProduct.variants
     //   .filter(({ id }) => id == legacyVariantId)[0];
-
 
     // if (!shopifyVariant) {
     //   reporter.warn(`
@@ -55,12 +54,12 @@ exports._buildFeedItem = ({ feedOptions, client, reporter }) => async (bpVariant
       // if we couldnt resolve a field value we ignore it
       if (!fieldValue) return item;
 
-      if (['options', 'metadata'].includes(fieldConfig.key)) {
+      if (["options", "metadata"].includes(fieldConfig.key)) {
         // these fieldValue contain multiple subitems
         // we need to spread them as parent fields on the item
-        Object.keys(fieldValue).forEach(subFieldKey => {
+        Object.keys(fieldValue).forEach((subFieldKey) => {
           if (fieldValue[subFieldKey]) {
-            const sanitizedKey = subFieldKey.replace(' ', '_').toLowerCase();
+            const sanitizedKey = subFieldKey.replace(" ", "_").toLowerCase();
             item[sanitizedKey] = fieldValue[subFieldKey];
           }
         });
@@ -69,17 +68,18 @@ exports._buildFeedItem = ({ feedOptions, client, reporter }) => async (bpVariant
         item[fieldConfig.key] = fieldValue;
       }
 
-
       return item;
     }, {});
 
-    if (!feedItemData) reporter.panic(`Problem with feed Item data bpVariant: \n ${bpVariant}`)
+    if (!feedItemData)
+      reporter.panic(`Problem with feed Item data bpVariant: \n ${bpVariant}`);
 
-    reporter.info(`Added ${feedItemData.title} to the feed`)
+    if (verbose) {
+      reporter.info(`Added ${feedItemData.title} to the feed`);
+    }
 
     return feedItemData;
   } catch (error) {
-    reporter.panic('feedItemData ERROR', error)
+    reporter.panic("feedItemData ERROR", error);
   }
-
 };

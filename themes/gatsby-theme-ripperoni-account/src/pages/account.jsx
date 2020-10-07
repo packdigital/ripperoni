@@ -11,9 +11,18 @@ import { jsx } from 'theme-ui';
 
 import { Flex, Loader } from '@ripperoni/components';
 import { isBrowser } from '@ripperoni/utilities';
-import { PrivateRoute } from '@ripperoni/account/components/PrivateRoute';
-import * as Views from '@ripperoni/account/views';
-import { useCustomerContext } from '@ripperoni/account/context/CustomerContext';
+
+import { Orders } from '../views/Orders';
+import { LoginSignup } from '../views/LoginSignup';
+import { Order } from '../views/Order';
+import { AddressBook } from '../views/AddressBook';
+import { Login } from '../views/Login';
+import { Signup } from '../views/Signup';
+import { RecoverPassword } from '../views/RecoverPassword';
+import { ResetPassword } from '../views/ResetPassword';
+import { AccountActivation } from '../views/AccountActivation';
+import { PrivateRoute } from '../components/PrivateRoute';
+import { useCustomerContext } from '../context/CustomerContext';
 
 export const AccountPage = React.memo((props) => {
   if (!isBrowser) {
@@ -48,33 +57,33 @@ export const AccountPage = React.memo((props) => {
         {...props}
         path='/'
         condition={loggedIn}
-        private={Views.Orders}
-        public={Views.LoginSignup}
+        private={Orders}
+        public={LoginSignup}
       />
 
       <PrivateRoute
         {...props}
         path='/orders/:id'
         condition={loggedIn}
-        private={Views.Order}
+        private={Order}
       />
 
       <PrivateRoute
         {...props}
         path='/addresses'
         condition={loggedIn}
-        private={Views.AddressBook}
+        private={AddressBook}
       />
 
-      <Views.Login {...props} path='/login' />
+      <Login {...props} path='/login' />
 
-      <Views.Signup {...props} path='/signup' />
+      <Signup {...props} path='/signup' />
 
-      <Views.RecoverPassword {...props} path='/recover' />
+      <RecoverPassword {...props} path='/recover' />
 
-      <Views.ResetPassword {...props} path='/reset/:customerId/:resetToken' />
+      <ResetPassword {...props} path='/reset/:customerId/:resetToken' />
 
-      <Views.AccountActivation
+      <AccountActivation
         {...props}
         path='/activate/:customerId/:activateToken'
       />

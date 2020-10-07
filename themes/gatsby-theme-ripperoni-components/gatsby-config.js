@@ -1,12 +1,8 @@
-require('dotenv').config();
-
-
-module.exports = () => {
-  const plugins = [
-    'gatsby-plugin-theme-ui',
-  ];
-
+/**
+ * @prettier
+ */
+module.exports = (themeOptions) => {
   return {
-    plugins,
+    plugins: ['gatsby-plugin-theme-ui'],
   };
 };

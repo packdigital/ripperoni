@@ -1,1 +1,1 @@
-export * from './AccountLoginMessage';
+export { AccountLoginMessage } from './AccountLoginMessage';

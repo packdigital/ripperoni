@@ -2,7 +2,8 @@
 import React from 'react';
 
 import { isBrowser } from '@ripperoni/utilities';
-import { RecoverPassword as RecoverPasswordView } from '@ripperoni/account/views/RecoverPassword';
+
+import { RecoverPassword as RecoverPasswordView } from '../views/RecoverPassword';
 
 
 export const Recover = props => {

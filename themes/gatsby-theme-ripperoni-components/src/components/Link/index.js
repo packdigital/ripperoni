@@ -1,2 +1,2 @@
-export * from './Link';
-export * from './LinkButton';
+export { Link } from './Link';
+export { LinkButton } from './LinkButton';

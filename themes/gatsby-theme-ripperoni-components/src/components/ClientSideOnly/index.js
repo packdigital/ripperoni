@@ -1,1 +1,1 @@
-export * from './ClientSideOnly';
+export { ClientSideOnly } from './ClientSideOnly';

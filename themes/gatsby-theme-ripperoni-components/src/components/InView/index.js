@@ -1,1 +1,1 @@
-export * from './InView';
+export { InView } from './InView';

@@ -1,2 +1,2 @@
-export * from './AspectRatio';
-export * from './AspectRatioImage';
+export { AspectRatio } from './AspectRatio';
+export { AspectRatioImage } from './AspectRatioImage';

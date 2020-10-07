@@ -1,1 +1,1 @@
-export * from './Seo';
+export { Seo } from './Seo';

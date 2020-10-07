@@ -1,1 +1,1 @@
-export * from './OrderHeader';
+export { OrderHeader } from './OrderHeader';

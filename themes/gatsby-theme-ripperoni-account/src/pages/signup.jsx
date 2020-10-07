@@ -2,7 +2,8 @@
 import React from 'react';
 
 import { isBrowser } from '@ripperoni/utilities';
-import { Signup as SignupView } from '@ripperoni/account/views/Signup';
+
+import { Signup as SignupView } from '../views/Signup';
 
 
 export const Signup = props => {

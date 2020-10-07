@@ -17,6 +17,11 @@ export const ImageStatic = forwardRef(({
     ...propTypes,
     src: PropTypes.string.isRequired,
     altTxt: PropTypes.string.isRequired,
+    fluid: PropTypes.any,
+    // fluid: PropTypes.oneOfType([
+    //   PropTypes.object,
+    //   PropTypes.arrayOf(PropTypes.object)
+    // ]),
   };
 
   return (

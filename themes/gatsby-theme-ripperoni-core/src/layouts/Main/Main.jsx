@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-export const Layout = props => (
-  <div data-comp={Layout.displayName}>{props.children}</div>
+export const Main = props => (
+  <div data-comp={Main.displayName}>{props.children}</div>
 );
 
-Layout.displayName = 'Main Layout';
+Main.displayName = 'Main Layout';
 
-Layout.propTypes = {
+Main.propTypes = {
   children: PropTypes.node,
 };

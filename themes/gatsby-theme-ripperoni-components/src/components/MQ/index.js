@@ -1,2 +1,2 @@
-export * from './MQ';
-export * from './MQ.Csr';
+export { MQ } from './MQ';
+export { MQCsr } from './MQ.Csr';

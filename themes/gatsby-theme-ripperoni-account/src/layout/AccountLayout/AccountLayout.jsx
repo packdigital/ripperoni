@@ -6,10 +6,11 @@
 import React from 'react';
 
 import { Container, Grid } from '@ripperoni/components';
-import { UserMeta } from '@ripperoni/account/components/UserMeta';
-import { AccountNavigation } from '@ripperoni/account/components/AccountNavigation';
-import { ContactUs } from '@ripperoni/account/components/ContactUs';
-import { PageContents } from '@ripperoni/account/components/PageContents';
+
+import { UserMeta } from '../../components/UserMeta';
+import { AccountNavigation } from '../../components/AccountNavigation';
+import { ContactUs } from '../../components/ContactUs';
+import { PageContents } from '../../components/PageContents';
 
 export const AccountLayout = ({ path, children, loggedIn, ...props }) => {
   return (

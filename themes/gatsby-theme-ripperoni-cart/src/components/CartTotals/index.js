@@ -1,1 +1,1 @@
-export * from './CartTotals';
+export { CartTotals } from './CartTotals';

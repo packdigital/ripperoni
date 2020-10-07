@@ -1,1 +1,1 @@
-export * from './QuantitySelect';
+export { QuantitySelect } from './QuantitySelect';

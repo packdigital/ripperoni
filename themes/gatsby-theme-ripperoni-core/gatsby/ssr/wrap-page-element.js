@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 const React = require('react');
 
-const { Layout } = require('../../src/layouts/Main');
+const { Main: Layout } = require('../../src/layouts/Main');
 
 
 module.exports = ({ element, props }) => {
