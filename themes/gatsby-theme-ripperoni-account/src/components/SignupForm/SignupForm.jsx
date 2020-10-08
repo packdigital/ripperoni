@@ -7,7 +7,10 @@ import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 import { useCustomerContext } from '../../context/CustomerContext';
 
 
-export const SignupForm = props => {
+export const SignupForm = ({
+  placeholders = {},
+  ...props
+}) => {
   const { state, createCustomer } = useCustomerContext();
 
   if (state.customer !== null) {
@@ -52,6 +55,7 @@ export const SignupForm = props => {
           variant='account.forms.signup.firstName'
           label='First Name'
           name='firstName'
+          placeholder={placeholders.firstName}
           as={Input}
           id='signup-first-name'
         />
@@ -60,6 +64,7 @@ export const SignupForm = props => {
           variant='account.forms.signup.lastName'
           label='Last Name'
           name='lastName'
+          placeholder={placeholders.lastName}
           as={Input}
           id='signup-last-name'
         />
@@ -68,6 +73,7 @@ export const SignupForm = props => {
           variant='account.forms.signup.email'
           label='Email'
           name='email'
+          placeholder={placeholders.email}
           as={EmailInput}
           id='signup-email'
         />
@@ -76,6 +82,7 @@ export const SignupForm = props => {
           variant='account.forms.signup.password'
           label='Password'
           name='password'
+          placeholder={placeholders.password}
           as={PasswordInput}
           id='signup-password'
         />
