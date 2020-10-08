@@ -11,6 +11,7 @@ import { useCustomerContext } from '../../context/CustomerContext';
 export const LoginForm = ({
   recoverPasswordToggle = false,
   placeholders = {},
+  forgotPasswordLabel,
   ...props
 }) => {
   const { state, login } = useCustomerContext();
@@ -87,7 +88,7 @@ export const LoginForm = ({
                 recoverPasswordToggle();
               }}
             >
-              Forgot Your Password?
+              {forgotPasswordLabel || 'Forgot Your Password?'}
             </Button>
           )}
         </Loader.Hoc>
@@ -103,5 +104,6 @@ LoginForm.propTypes = {
     PropTypes.func,
     PropTypes.bool,
   ]),
-  placeholders: PropTypes.object
+  placeholders: PropTypes.object,
+  forgotPasswordLabel: PropTypes.string,
 };
