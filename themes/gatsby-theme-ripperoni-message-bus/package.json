@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-theme-ripperoni-message-bus",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": "@packdigital",
   "description": "",
   "repository": "https://github.com/packdigital/ripperoni",
@@ -12,9 +12,9 @@
     "clean": "gatsby clean"
   },
   "peerDependencies": {
-    "@packdigital/ripperoni-utilities": "^2.0.52",
     "@packdigital/gatsby-theme-ripperoni-account": "^0.0.54",
     "@packdigital/gatsby-theme-ripperoni-cart": "^0.0.31",
+    "@packdigital/ripperoni-utilities": "^2.0.52",
     "gatsby": "^2.21.22",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
