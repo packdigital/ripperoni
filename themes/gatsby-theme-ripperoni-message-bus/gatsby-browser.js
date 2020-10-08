@@ -1,6 +1,6 @@
-// Browser API hooks
-const onRouteUpdate = require('./gatsby/browser/on-route-update').onRouteUpdate;
-const wrapRootElement = require('./gatsby/browser/wrap-root-element').wrapRootElement;
+const onRouteUpdate = require('./gatsby/browser/on-route-update');
+const wrapRootElement = require('./gatsby/browser/wrap-root-element');
 
+// Browser API hooks
 exports.onRouteUpdate = onRouteUpdate;
 exports.wrapRootElement = wrapRootElement;

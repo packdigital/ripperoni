@@ -3,6 +3,7 @@
  */
 import React, { createContext } from 'react';
 import PropTypes from 'prop-types';
+import PubSub from 'pubsub-js';
 
 import { useContextFactory } from '@packdigital/ripperoni-utilities';
 

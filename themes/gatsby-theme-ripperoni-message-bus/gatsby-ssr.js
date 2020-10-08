@@ -1,13 +1,4 @@
-const React = require('react');
+const wrapRootElement = require('./gatsby/ssr/wrap-root-element');
 
-const { MessageBusContextProvider } = require('./src/context/MessageBusContext');
-
-const WrappedRoot = ({ element, props }) => {
-  return (
-    <MessageBusContextProvider {...props}>
-      {element}
-    </MessageBusContextProvider>
-  );
-};
-
-exports.wrapRootElement = WrappedRoot;
+// SSR API hooks
+exports.wrapRootElement = wrapRootElement;

@@ -3,7 +3,7 @@
  */
 const messageBus = require('@packdigital/gatsby-theme-ripperoni-message-bus');
 
-exports.onRouteUpdate = ({ location }) => {
+module.exports = ({ location }) => {
   const { publish, topics } = messageBus;
 
   publish(topics.ROUTE_CHANGE, location);

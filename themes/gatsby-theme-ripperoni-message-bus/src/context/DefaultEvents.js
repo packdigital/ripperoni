@@ -17,19 +17,27 @@ export const defaultEvents = (args) => {
   const { ready: cartReady, cart } = args.cart.state;
   const { ready: customerReady, customer } = args.customer.state;
 
+  const setCartReady = () => {
+    if (cartReady && !readyCartRef.current) {
+      PubSub.publish(topics.CART_READY, cart);
+      readyCartRef.current = true;
+    }
+  };
+
+  const setCustomerReady = () => {
+    if (customerReady && !readyCustomerRef.current) {
+      PubSub.publish(topics.CUSTOMER_READY, customer);
+      readyCustomerRef.current = true;
+      customerRef.current = customer;
+    }
+  };
+
   const updateCartRef = () => {
     const updatedAt = cart?.updatedAt;
     const updatedAtRef = cartRef.current?.updatedAt;
 
     if (updatedAt !== updatedAtRef) {
       cartRef.current = cart;
-    }
-  };
-
-  const setCartReady = () => {
-    if (cartReady && !readyCartRef.current) {
-      PubSub.publish(topics.CART_READY, cart);
-      readyCartRef.current = true;
     }
   };
 
@@ -78,14 +86,6 @@ export const defaultEvents = (args) => {
     }
   };
 
-  const setCustomerReady = () => {
-    if (customerReady && !readyCustomerRef.current) {
-      PubSub.publish(topics.CUSTOMER_READY, customer);
-      readyCustomerRef.current = true;
-      customerRef.current = customer;
-    }
-  };
-
   const setLoggedIn = () => {
     if (readyCustomerRef.current && customer && !customerRef) {
       PubSub.publish(topics.CUSTOMER_LOGIN, customer);
@@ -101,12 +101,13 @@ export const defaultEvents = (args) => {
   };
 
   useEffect(setCartReady, [cartReady]);
-  useEffect(updateCartRef, [updatedAt]);
-  useEffect(addToCart, [lineItems]);
-  useEffect(removeToCart, [lineItems]);
-  useEffect(updateCart, [totalItems]);
-  useEffect(addDiscount, [discounts]);
-  useEffect(removeDiscount, [discounts]);
+  useEffect(updateCartRef, [cart]);
+  useEffect(addToCart, [cart]);
+  useEffect(removeToCart, [cart]);
+  useEffect(updateCart, [cart]);
+  useEffect(addDiscount, [cart]);
+  useEffect(removeDiscount, [cart]);
+
   useEffect(setCustomerReady, [customerReady]);
   useEffect(setLoggedIn, [customer]);
   useEffect(setLoggedOut, [customer]);
