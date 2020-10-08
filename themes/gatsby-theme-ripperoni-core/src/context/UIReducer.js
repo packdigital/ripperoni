@@ -1,5 +1,5 @@
 export const reducer = (state, action) => {
-  console.log('action:theme', action);
+  // console.log('action:theme', action);
 
   switch (action.type) {
     case 'TOGGLE_CART':

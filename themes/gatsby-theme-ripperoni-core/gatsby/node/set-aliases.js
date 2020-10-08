@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require('path');
 
 const getPath = p => path.join(process.cwd(), p);
 
@@ -25,22 +25,14 @@ const alias = {
   '@images': getPath('src/assets/images'),
   '@layouts': getPath('src/layouts'),
   '@static': getPath('static'),
-  '@ripperoni/account/theme': '@packdigital/gatsby-theme-ripperoni-account/src/gatsby-plugin-theme-ui',
-  '@ripperoni/cart/theme': '@packdigital/gatsby-theme-ripperoni-cart/src/gatsby-plugin-theme-ui',
-  '@ripperoni/components/theme': '@packdigital/gatsby-theme-ripperoni-components/src/gatsby-plugin-theme-ui',
-  '@ripperoni/core/theme': '@packdigital/gatsby-theme-ripperoni-core/src/gatsby-plugin-theme-ui',
-  '@ripperoni/dev/theme': '@packdigital/gatsby-theme-ripperoni-dev/src/gatsby-plugin-theme-ui',
-  '@ripperoni/marketing/theme': '@packdigital/gatsby-theme-ripperoni-marketing/src/gatsby-plugin-theme-ui',
-  '@ripperoni/search/theme': '@packdigital/gatsby-theme-ripperoni-search/src/gatsby-plugin-theme-ui',
-  '@ripperoni/store/theme': '@packdigital/gatsby-theme-ripperoni-store/src/gatsby-plugin-theme-ui',
   '@ripperoni/account': '@packdigital/gatsby-theme-ripperoni-account/src',
-  '@ripperoni/message-bus': '@packdigital/gatsby-theme-ripperoni-message-bus/src',
   '@ripperoni/cart': '@packdigital/gatsby-theme-ripperoni-cart/src',
   '@ripperoni/cms': '@packdigital/gatsby-theme-ripperoni-cms/src',
   '@ripperoni/components': '@packdigital/gatsby-theme-ripperoni-components/src',
   '@ripperoni/core': '@packdigital/gatsby-theme-ripperoni-core/src',
   '@ripperoni/dev': '@packdigital/gatsby-theme-ripperoni-dev/src',
   '@ripperoni/marketing': '@packdigital/gatsby-theme-ripperoni-marketing/src',
+  '@ripperoni/message-bus': '@packdigital/gatsby-theme-ripperoni-message-bus/src',
   '@ripperoni/search': '@packdigital/gatsby-theme-ripperoni-search/src',
   '@ripperoni/store': '@packdigital/gatsby-theme-ripperoni-store/src',
   '@ripperoni/utilities': '@packdigital/ripperoni-utilities',
@@ -51,7 +43,7 @@ module.exports = ({ actions }) => {
     resolve: {
       alias,
       extensions,
-      modules: ["node_modules", getPath('./src')],
+      modules: ['node_modules', getPath('./src')],
     },
   })
 };

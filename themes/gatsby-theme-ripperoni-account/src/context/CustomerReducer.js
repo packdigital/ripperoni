@@ -4,7 +4,7 @@
 import update from 'immutability-helper';
 
 export const reducer = (state, action) => {
-  console.log('action:account', action);
+  // console.log('action:account', action);
 
   switch (action.type) {
     case 'SET_CUSTOMER_READY':

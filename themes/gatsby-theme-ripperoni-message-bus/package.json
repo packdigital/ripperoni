@@ -18,6 +18,8 @@
     "react-dom": "^16.13.1"
   },
   "dependencies": {
+    "@packdigital/gatsby-theme-ripperoni-account": "^0.0.52",
+    "@packdigital/gatsby-theme-ripperoni-cart": "^0.0.29",
     "pubsub-js": "^1.9.0"
   },
   "prettier": "@packdigital/prettier-config-ripperoni"

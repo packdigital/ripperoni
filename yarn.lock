@@ -3526,6 +3526,21 @@
     gatsby-plugin-sitemap "^2.4.5"
     prop-types "^15.7.2"
 
+"@packdigital/gatsby-theme-ripperoni-netlify@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-netlify/-/gatsby-theme-ripperoni-netlify-0.0.19.tgz#5c1bf12ee47f3dff6eab7c664f787653e0f1cf38"
+  integrity sha512-YIPNIXBoCcQSLMrachWloUcs9r5WlOPSwiY+hVLIicvUe/ygSQODWcz/aK39DTiV2etNxfr+yYk4DjZ20QNNYg==
+  dependencies:
+    gatsby-plugin-netlify "^2.3.10"
+    http-proxy-middleware "^1.0.4"
+
+"@packdigital/gatsby-theme-ripperoni-search@^0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-search/-/gatsby-theme-ripperoni-search-0.0.11.tgz#274d315b61ae64cbcf2aa9bc7e1c17a1c06f047a"
+  integrity sha512-geelW4eDejbb48ueIRMC5DeBhHLsGZmlRV3l14JH6o7thXMzE6Lgolj1WwIPvBv1/Kcb5ir92G6zIo6IkAmZ9Q==
+  dependencies:
+    "@gatsby-contrib/gatsby-plugin-elasticlunr-search" "^2.4.2"
+
 "@packdigital/gatsby-theme-ripperoni-store@^0.0.10":
   version "0.0.10"
   resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-store/-/gatsby-theme-ripperoni-store-0.0.10.tgz#c84117a3e16fc95bcbb117a0031b0e77f8477d29"
@@ -5823,9 +5838,9 @@ ava@^0.25.0:
     update-notifier "^2.3.0"
 
 aws-sdk@^2.689.0:
-  version "2.768.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.768.0.tgz#1b3f2de6537add292b43f88ce348a0790ffea708"
-  integrity sha512-yIY1Fbj8kvyP3cEHOCvvw59IRqcYq84/aB0BGfuWPQzPVRjTYVxA8zP/iytM4Zo+NO8xkCq9Wc9OoMfwZZb+GQ==
+  version "2.769.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.769.0.tgz#492e94e28c5e6aa5378c09e61d33e3263f329b6d"
+  integrity sha512-FZZrxgchLE0VXrd/uhIw2Tmlf82xOYuPK6batUUYz7UoAOL7q1UYUdI8ISNfeCEoN2MuMWAgfTIQiLx/9+NiEw==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -7309,9 +7324,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001135:
-  version "1.0.30001144"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001144.tgz#bca0fffde12f97e1127a351fec3bfc1971aa3b3d"
-  integrity sha512-4GQTEWNMnVZVOFG3BK0xvGeaDAtiPAbG2N8yuMXuXzx/c2Vd4XoMPO8+E918zeXn5IF0FRVtGShBfkfQea2wHQ==
+  version "1.0.30001146"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001146.tgz#c61fcb1474520c1462913689201fb292ba6f447c"
+  integrity sha512-VAy5RHDfTJhpxnDdp2n40GPPLp3KqNrXz1QqFv4J64HvArKs8nuNMOWkB3ICOaBTU/Aj4rYAo/ytdQDDFF/Pug==
 
 canonicalize@^1.0.1:
   version "1.0.3"
@@ -21260,9 +21275,9 @@ rollup-pluginutils@2.8.1:
     estree-walker "^0.6.1"
 
 rollup@^2.23.1:
-  version "2.28.2"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.28.2.tgz#599ec4978144a82d8a8ec3d37670a8440cb04e4b"
-  integrity sha512-8txbsFBFLmm9Xdt4ByTOGa9Muonmc8MfNjnGAR8U8scJlF1ZW7AgNZa7aqBXaKtlvnYP/ab++fQIq9dB9NWUbg==
+  version "2.29.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.29.0.tgz#0c5c5968530b21ca0e32f8b94b7cd9346cfb0eec"
+  integrity sha512-gtU0sjxMpsVlpuAf4QXienPmUAhd6Kc7owQ4f5lypoxBW18fw2UNYZ4NssLGsri6WhUZkE/Ts3EMRebN+gNLiQ==
   optionalDependencies:
     fsevents "~2.1.2"
 

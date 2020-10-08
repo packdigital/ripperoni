@@ -1,13 +1,6 @@
-const React = require('react');
+// Browser API hooks
+const onRouteUpdate = require('./gatsby/browser/on-route-update').onRouteUpdate;
+const wrapRootElement = require('./gatsby/browser/wrap-root-element').wrapRootElement;
 
-const { MessageBusContextProvider } = require('./src/context/MessageBusContext');
-
-const WrappedRoot = ({ element, props }) => {
-  return (
-    <MessageBusContextProvider {...props}>
-      {element}
-    </MessageBusContextProvider>
-  );
-};
-
-exports.wrapRootElement = WrappedRoot;
+exports.onRouteUpdate = onRouteUpdate;
+exports.wrapRootElement = wrapRootElement;

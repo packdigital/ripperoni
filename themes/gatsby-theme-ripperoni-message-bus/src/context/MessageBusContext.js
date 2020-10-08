@@ -3,13 +3,14 @@
  */
 import React, { createContext } from 'react';
 import PropTypes from 'prop-types';
-import PubSub from 'pubsub-js';
 
-import { useCartContext } from '@packdigital/gatsby-theme-ripperoni-cart';
-import { useAccountContext } from '@packdigital/gatsby-theme-ripperoni-account';
 import { useContextFactory } from '@packdigital/ripperoni-utilities';
 
-import * as MessageBusTopics from './MessageBusTopics';
+import { useCartContext } from '@ripperoni/cart';
+import { useCustomerContext } from '@ripperoni/account';
+
+import * as topics from './MessageBusTopics';
+import { defaultEvents } from './defaultEvents';
 
 const MessageBusContext = createContext();
 
@@ -19,12 +20,16 @@ export const useMessageBusContext = useContextFactory(
 );
 
 export const MessageBusContextProvider = React.memo(({ children }) => {
-  PubSub.subscribeAll((message, data) => console.log(message, data));
+  const cart = useCartContext();
+  const customer = useCustomerContext();
+  defaultEvents({ cart, customer });
+
+  // PubSub.subscribeAll((message, data) => console.log(message, data));
 
   const value = {
+    topics,
     PubSub,
     ...PubSub,
-    topics: MessageBusTopics,
   };
 
   return (

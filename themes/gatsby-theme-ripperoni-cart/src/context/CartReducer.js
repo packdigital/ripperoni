@@ -6,7 +6,7 @@ import isBase64 from 'is-base64';
 import update from 'immutability-helper';
 
 export const reducer = (state, action) => {
-  console.log('action:cart', action);
+  // console.log('action:cart', action);
 
   switch (action.type) {
     case 'SET_CART_READY':
