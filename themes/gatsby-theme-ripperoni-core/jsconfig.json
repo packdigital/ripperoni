@@ -4,22 +4,31 @@
     "target": "es6",
     "module": "esnext",
     "moduleResolution": "node",
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "paths": {
+      "*": ["*"],
+      "src/*": ["src/*"],
+      "@analytics/*": ["src/analytics/*"],
+      "@analytics": ["src/analytics/index"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@context/*": ["src/context/*"],
+      "@images/*": ["src/assets/images/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@static/*": ["static/*"],
+      "@ripperoni/account": ["../gatsby-theme-ripperoni-account"],
+      "@ripperoni/message-bus": ["../gatsby-theme-ripperoni-message-bus"],
+      "@ripperoni/cart": ["../gatsby-theme-ripperoni-cart"],
+      "@ripperoni/cms": ["../gatsby-theme-ripperoni-cms"],
+      "@ripperoni/components": ["../gatsby-theme-ripperoni-components"],
+      "@ripperoni/core": ["../gatsby-theme-ripperoni-core"],
+      "@ripperoni/dev": ["../gatsby-theme-ripperoni-dev"],
+      "@ripperoni/marketing": ["../gatsby-theme-ripperoni-marketing"],
+      "@ripperoni/search": ["../gatsby-theme-ripperoni-search"],
+      "@ripperoni/store": ["../gatsby-theme-ripperoni-store"],
+      "@ripperoni/utilities": ["../../packages/ripperoni-utilities"]
+    }
   },
-  "paths": {
-    "*": ["*"]
-  },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
-
-// ```
-// {
-//   allowJs: true,
-//   maxNodeModuleJsDepth: 2,
-//   allowSyntheticDefaultImports: true,
-//   skipLibCheck: true,
-//   noEmit: true,
-//   include: [],
-//   exclude: []
-// }
-// ```

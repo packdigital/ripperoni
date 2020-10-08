@@ -4,28 +4,8 @@
     "jsx": "preserve",
     "paths": {
       "*": ["*"]
-      // "@ripperoni/account/*": [
-      //   "themes/gatsby-theme-ripperoni-account/src/*",
-      //   "node_modules/@packdigital/gatsby-theme-ripperoni-account/src/*",
-      // ],
-      // "@ripperoni/components": [
-      //   "themes/gatsby-theme-ripperoni-components/src/components",
-      //   "node_modules/@packdigital/gatsby-theme-ripperoni-components/src/components",
-      // ],
-      // "@ripperoni/components/*": [
-      //   "themes/gatsby-theme-ripperoni-components/src/*",
-      //   "node_modules/@packdigital/gatsby-theme-ripperoni-components/src/*",
-      // ],
-      // "@ripperoni/hooks": [
-      //   "themes/gatsby-theme-ripperoni-components/src/hooks",
-      //   "node_modules/@packdigital/gatsby-theme-ripperoni-components/src/hooks",
-      // ],
-      // "@ripperoni/utilities": [
-      //   "node_modules/@packdigital/ripperoni-utilities"
-      // ]
     }
   },
-  // Specifies a list of glob patterns that match files to be included in compilation.
   "include": [
     "tools/**/*",
     "packages/**/*",
