@@ -8,7 +8,7 @@ import { useCustomerContext } from '../../context/CustomerContext';
 
 
 export const SignupForm = props => {
-  const { state, create } = useCustomerContext();
+  const { state, createCustomer } = useCustomerContext();
 
   if (state.customer !== null) {
     navigate('/account/');
@@ -43,7 +43,7 @@ export const SignupForm = props => {
           password: { value: password },
         } = event.target;
 
-        create({ firstName, lastName, email, password });
+        createCustomer({ firstName, lastName, email, password });
       }}
       {...props}
     >
