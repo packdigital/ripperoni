@@ -68,11 +68,6 @@ export const MessageBusContextProvider = React.memo(({ children }) => {
     const discounts = cart?.discountApplications.length;
     const discountsRef = cartRef.current?.discountApplications.length;
 
-    console.log('lineItems', lineItems);
-    console.log('lineItemsRef', lineItemsRef);
-    console.log('totalItems', totalItems);
-    console.log('totalItemsRef', totalItemsRef);
-
     if (lineItems > lineItemsRef) {
       PubSub.publish(topics.ADD_TO_CART, cart);
     }
