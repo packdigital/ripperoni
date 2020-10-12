@@ -1,9 +1,12 @@
 import React from 'react';
 
+import { useUIContext } from '@ripperoni/core/context/UIContext';
 import { Box, Link, Text } from '@ripperoni/components';
 
 
 export const CartEmptyState = props => {
+  const { toggleCart } = useUIContext();
+
   return (
     <Box
       data-comp={CartEmptyState.displayName}
@@ -14,7 +17,7 @@ export const CartEmptyState = props => {
         Your cart is currently empty.
       </Text>
 
-      <Link to='/collections/all'>
+      <Link to='/collections/all' onClick={() => toggleCart()}>
         Browse All
       </Link>
     </Box>

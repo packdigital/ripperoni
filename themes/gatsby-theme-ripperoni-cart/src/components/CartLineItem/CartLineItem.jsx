@@ -34,24 +34,36 @@ export const CartLineItem = ({ id, title, quantity, variant, ...props }) => {
       <Flex
         data-comp={CartLineItem.displayName}
         data-variantid={getLegacyShopifyId(variant.id)}
-        pb='25px'
+        pb='12px'
+        mb='12px'
+        sx={{
+          borderBottom: 'thin solid',
+          borderColor: '#efefef',
+        }}
         {...props}
       >
         <Link
           href='#'
           position='relative'
-          width='80px'
+          maxWidth='75px'
+          width='100%'
           mr='22px'
           sx={{ variant: 'links.plain' }}
         >
-          <Image src={image?.src} alt={image?.altText} />
+          <Image
+            src={image?.src}
+            alt={image?.altText}
+            imgStyle={{
+              width: '100%',
+            }}
+          />
         </Link>
 
         <Flex.Col middle>
           <Text
-            mb='4px'
+            mb='8px'
             size='10px'
-            weight='bold'
+            weight='500'
             letterSpacing='1px'
             variant='cart.text.lineItem.secondaryTitle'
           >
@@ -62,6 +74,7 @@ export const CartLineItem = ({ id, title, quantity, variant, ...props }) => {
             mb='10px'
             size='13px'
             weight='bold'
+            textTransform='uppercase'
             variant='cart.text.lineItem.primaryTitle'
           >
             {title}
@@ -80,7 +93,7 @@ export const CartLineItem = ({ id, title, quantity, variant, ...props }) => {
             <Svg as={Close} width='10px' />
           </Button.Plain>
 
-          <Box mb='auto'>
+          <Box mb='0'>
             {compareAtPrice && (
               <Price fontSize='13px' variant='text.sale'>
                 {compareAtPrice}
