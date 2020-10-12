@@ -1,3 +1,3 @@
-const wrapRootElement = require('./gatsby/ssr/wrap-root-element');
+const wrapRootElement = require('./gatsby/browser/wrap-root-element');
 
 exports.wrapRootElement = wrapRootElement;

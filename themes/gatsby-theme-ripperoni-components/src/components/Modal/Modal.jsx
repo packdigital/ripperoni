@@ -4,8 +4,7 @@ import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 import { AnimatePresence } from 'framer-motion';
 
-// Danger!
-import { useUIContext } from '@ripperoni/core/context/UIContext';
+import { useUIContext } from '@ripperoni/core';
 
 import { Box } from '../Box';
 import { Overlay } from '../Overlay';

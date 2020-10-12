@@ -9,9 +9,6 @@ export const CUSTOMER_READY = 'CUSTOMER_READY';
 export const CUSTOMER_LOGIN = 'CUSTOMER_LOGIN';
 export const CUSTOMER_LOGOUT = 'CUSTOMER_LOGOUT';
 
-export const VIEW_CART = 'VIEW_CART';
-export const VIEW_PRODUCT = 'VIEW_PRODUCT';
-export const VIEW_COLLECTION = 'VIEW_COLLECTION';
 export const ROUTE_CHANGE = 'ROUTE_CHANGE';
 
 // ideas:
