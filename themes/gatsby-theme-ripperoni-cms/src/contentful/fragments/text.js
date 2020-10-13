@@ -18,6 +18,11 @@ export const ContentfulAtomTextFragment = graphql`
     cms_textAlign: textAlign {
       textAlign: content
     }
+    extraProps {
+      internal {
+        content
+      }
+    }
     ...ContentfulCommonAtomFields
     ...ContentfulMeta
   }

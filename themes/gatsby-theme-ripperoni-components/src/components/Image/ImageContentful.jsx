@@ -1,33 +1,37 @@
-/** @jsx jsx */
+/**
+ * @jsx jsx
+ * @prettier
+ */
 import { forwardRef } from 'react';
 import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
-// import GatsbyImage from 'gatsby-image/withIEPolyfill';
 import GatsbyImage from 'gatsby-image';
 
 import { Svg } from '../Svg';
 import { Box } from '../Box';
 
-
-export const ImageContentful = forwardRef(({
-  alt,
-  primaryImage = {},
-  secondaryImage = {},
-  primaryImageSizes,
-  secondaryImageSizes,
-  imgProps,
-  ...props
-}, ref) => {
+export const ImageContentful = forwardRef((incomingProps, ref) => {
+  const {
+    alt,
+    primaryImage = {},
+    secondaryImage = {},
+    primaryImageSizes: primarySizes,
+    secondaryImageSizes: secondarySizes,
+    imgProps,
+    ...props
+  } = incomingProps;
   const isSvg = primaryImage.file?.fileName.includes('svg');
   const sharpType = primaryImage.fluid ? 'fluid' : 'fixed';
   const primarySharp = primaryImage[sharpType];
   const secondarySharp = secondaryImage?.[sharpType] || {};
-  const primaryMedia = primaryImageSizes && { media: `(${primaryImageSizes})` };
-  const secondaryMedia = secondaryImageSizes && { media: `(${secondaryImageSizes})` };
+  const primaryMedia = primarySizes && { media: `(${primarySizes})` };
+  const secondaryMedia = secondarySizes && { media: `(${secondarySizes})` };
   const hasArtDirection = secondaryImage && (primaryMedia || secondaryMedia);
-  const sources = hasArtDirection
-    ? [{ ...primarySharp, ...primaryMedia }, { ...secondarySharp, ...secondaryMedia }]
-    : primarySharp;
+  const withArtDireciton = [
+    { ...primarySharp, ...primaryMedia },
+    { ...secondarySharp, ...secondaryMedia },
+  ];
+  const sources = hasArtDirection ? withArtDireciton : primarySharp;
   const imageProps = { [sharpType]: sources, ...imgProps };
 
   if (!primarySharp && !isSvg) {
@@ -45,14 +49,12 @@ export const ImageContentful = forwardRef(({
     );
   }
 
-  // console.log('imageProps', imageProps);
   return (
     <Box {...props}>
       <GatsbyImage
         data-comp={ImageContentful.displayName}
         ref={ref}
-        fluid={Array.isArray(imageProps.fluid) ? imageProps.fluid[0] : imageProps.fluid}
-        // {...imageProps}
+        {...imageProps}
       />
     </Box>
   );
@@ -66,7 +68,7 @@ ImageContentful.propTypes = {
     fluid: PropTypes.object,
     fixed: PropTypes.object,
     svg: PropTypes.shape({
-      content: PropTypes.string
+      content: PropTypes.string,
     }),
   }).isRequired,
   secondaryImage: PropTypes.shape({
