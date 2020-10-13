@@ -75,7 +75,7 @@ yarn-error.log
 
 .trash
 
-projects/
+projects/*
 
 notes.*
 NOTES.*

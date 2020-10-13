@@ -16,6 +16,8 @@
     "theme-ui": "^0.3.1"
   },
   "dependencies": {
+    "@contentful/rich-text-from-markdown": "^14.1.1",
+    "@contentful/rich-text-react-renderer": "^14.1.1",
     "@theme-ui/match-media": "0.3.1",
     "@theme-ui/presets": "^0.3.0",
     "@u-wave/react-vimeo": "^0.9.0",

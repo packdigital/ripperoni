@@ -4,8 +4,9 @@ import {
   Hero,
   Image,
   Link,
+  Markdown,
   Products,
-  Text,
+  // Text,
   Video
 } from '@ripperoni/components';
 
@@ -15,7 +16,8 @@ const atoms = {
   ContentfulAtomImage: Image.Contentful,
   ContentfulAtomLink: Link,
   ContentfulAtomProducts: Products,
-  ContentfulAtomText: Text,
+  // ContentfulAtomText: Text,
+  ContentfulAtomText: Markdown,
   ContentfulAtomVideo: Video,
 };
 

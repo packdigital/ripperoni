@@ -18,6 +18,7 @@ export { Image } from './components/Image';
 export { InView } from './components/InView';
 export { Link } from './components/Link';
 export { Loader } from './components/Loader';
+export { Markdown } from './components/Markdown';
 export { MQ } from './components/MQ';
 export { Overlay } from './components/Overlay';
 export { Price } from './components/Price';

@@ -413,7 +413,7 @@
     "@babel/helper-remap-async-to-generator" "^7.10.4"
     "@babel/plugin-syntax-async-generators" "^7.8.0"
 
-"@babel/plugin-proposal-class-properties@^7.10.1", "@babel/plugin-proposal-class-properties@^7.10.4":
+"@babel/plugin-proposal-class-properties@^7.10.4":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-class-properties/-/plugin-proposal-class-properties-7.10.4.tgz#a33bf632da390a59c7a8c570045d1115cd778807"
   integrity sha512-vhwkEROxzcHGNu2mzUC0OFFNXdZ4M23ib8aRRcJSsW8BZK9pQMD7QB7csl97NBbgGZO7ZyHUyKDnxzOaP4IrCg==
@@ -453,7 +453,7 @@
     "@babel/helper-plugin-utils" "^7.10.4"
     "@babel/plugin-syntax-logical-assignment-operators" "^7.10.4"
 
-"@babel/plugin-proposal-nullish-coalescing-operator@^7.10.1", "@babel/plugin-proposal-nullish-coalescing-operator@^7.10.4":
+"@babel/plugin-proposal-nullish-coalescing-operator@^7.10.4":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-nullish-coalescing-operator/-/plugin-proposal-nullish-coalescing-operator-7.10.4.tgz#02a7e961fc32e6d5b2db0649e01bf80ddee7e04a"
   integrity sha512-wq5n1M3ZUlHl9sqT2ok1T2/MTt6AXE0e1Lz4WzWBr95LsAZ5qDXe4KnFuauYyEyLiohvXFMdbsOTMyLZs91Zlw==
@@ -495,7 +495,7 @@
     "@babel/helper-plugin-utils" "^7.10.4"
     "@babel/plugin-syntax-optional-catch-binding" "^7.8.0"
 
-"@babel/plugin-proposal-optional-chaining@^7.10.1", "@babel/plugin-proposal-optional-chaining@^7.10.3", "@babel/plugin-proposal-optional-chaining@^7.11.0":
+"@babel/plugin-proposal-optional-chaining@^7.10.1", "@babel/plugin-proposal-optional-chaining@^7.11.0":
   version "7.11.0"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-optional-chaining/-/plugin-proposal-optional-chaining-7.11.0.tgz#de5866d0646f6afdaab8a566382fe3a221755076"
   integrity sha512-v9fZIu3Y8562RRwhm1BbMRxtqZNFmFA2EG+pT2diuU8PT3H6T/KXoZ54KgYisfOFZHV6PfvAiBIZ9Rcz+/JCxA==
@@ -881,7 +881,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
 
-"@babel/plugin-transform-runtime@^7.10.3", "@babel/plugin-transform-runtime@^7.11.5":
+"@babel/plugin-transform-runtime@^7.11.5":
   version "7.11.5"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-7.11.5.tgz#f108bc8e0cf33c37da031c097d1df470b3a293fc"
   integrity sha512-9aIoee+EhjySZ6vY5hnLjigHzunBlscx9ANKutkeWTJTx6m5Rbq6Ic01tLvO54lSusR+BxV7u4UDdCmXv5aagg==
@@ -898,7 +898,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
 
-"@babel/plugin-transform-spread@^7.10.1", "@babel/plugin-transform-spread@^7.11.0":
+"@babel/plugin-transform-spread@^7.11.0":
   version "7.11.0"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-spread/-/plugin-transform-spread-7.11.0.tgz#fa84d300f5e4f57752fe41a6d1b3c554f13f17cc"
   integrity sha512-UwQYGOqIdQJe4aWNyS7noqAnN2VbaczPLiEtln+zPowRNlD+79w3oi2TWfYe0eZgd+gjZCbsydN7lzWysDt+gw==
@@ -961,7 +961,7 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.4"
 
-"@babel/preset-env@^7.10.3", "@babel/preset-env@^7.11.5":
+"@babel/preset-env@^7.11.5":
   version "7.11.5"
   resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.11.5.tgz#18cb4b9379e3e92ffea92c07471a99a2914e4272"
   integrity sha512-kXqmW1jVcnB2cdueV+fyBM8estd5mlNfaQi6lwLgRwCby4edpavgbFhiBNjmWA3JpB/yZGSISa7Srf+TwxDQoA==
@@ -1054,7 +1054,7 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/preset-react@^7.10.1", "@babel/preset-react@^7.10.4":
+"@babel/preset-react@^7.10.4":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/preset-react/-/preset-react-7.10.4.tgz#92e8a66d816f9911d11d4cc935be67adfc82dbcf"
   integrity sha512-BrHp4TgOIy4M19JAfO1LhycVXOPWdDbTRep7eVyatf174Hff+6Uk53sDyajqZPu8W1qXRBiYOfIamek6jA7YVw==
@@ -1083,7 +1083,7 @@
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.11.0", "@babel/runtime@^7.11.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.7", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2", "@babel/runtime@^7.9.6":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.0", "@babel/runtime@^7.11.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.7", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2", "@babel/runtime@^7.9.6":
   version "7.11.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
   integrity sha512-TeWkU52so0mPtDcaCTxNBI/IHiz0pZgr8VEFqXFtZWpYD08ZB6FaSwVAS8MKRQAP3bYKiVjwysOJgMFY28o6Tw==
@@ -1215,6 +1215,16 @@
   integrity sha512-huLSkUuM2/P+U0uy2WwlKuixMsTODD8p4JVQBI4VKeopkiN0C7M3N9XYVawb4M+4spN5RrO/eLhk7KoQX6nsfA==
   dependencies:
     arrify "^1.0.1"
+
+"@contentful/rich-text-from-markdown@^14.1.1":
+  version "14.1.1"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-from-markdown/-/rich-text-from-markdown-14.1.1.tgz#91912d4b1f66010e0be438c0b7d326ec173c7848"
+  integrity sha512-PjmbMXJIRj4fJ2l4R+LfJXTYoJNTMSriguMwVAB33Ake7DPzp6dlmwTi+aCYkb+VMKLrRBBxjSWjEFTkt8r9Tw==
+  dependencies:
+    "@contentful/rich-text-types" "^14.1.1"
+    lodash "^4.17.11"
+    remark-parse "^6.0.3"
+    unified "^7.1.0"
 
 "@contentful/rich-text-react-renderer@^14.1.1":
   version "14.1.1"
@@ -3425,63 +3435,6 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@packdigital/babel-preset-ripperoni@^1.0.8":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@packdigital/babel-preset-ripperoni/-/babel-preset-ripperoni-1.0.9.tgz#40f156b57853efc8c5218b6adc3faf0947fc7c5f"
-  integrity sha512-AeRLNgmjiAR2EIpEBmTSB7zLB9j4YNdPNUsfsnk6QWH6dZE49OaW6/RtQeIWJkVfbJUAC1etmOh8cK9W1ltxdw==
-  dependencies:
-    "@babel/plugin-proposal-optional-chaining" "^7.10.1"
-    babel-preset-gatsby "^0.4.9"
-
-"@packdigital/gatsby-theme-ripperoni-account@^0.0.35":
-  version "0.0.35"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-account/-/gatsby-theme-ripperoni-account-0.0.35.tgz#23d4987a7d9500a035320538ed10be8bb09d0d8f"
-  integrity sha512-PfkkQz1WetgtvBQpz+MdaoQnmitl/WDGGXowuGqW18blh2bsSzT7UYQ76E1+ZU5FWVIAJrSamCYNxmjZkshUxg==
-  dependencies:
-    country-and-province "^1.2.0"
-    country-list "^2.2.0"
-    gatsby-plugin-create-client-paths "^2.3.4"
-    react-dropdown "^1.7.0"
-    use-reducer-async "^2.0.1"
-
-"@packdigital/gatsby-theme-ripperoni-cart@^0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-cart/-/gatsby-theme-ripperoni-cart-0.0.15.tgz#b67512ddb683bc63dfaba94054c60921c5de29cb"
-  integrity sha512-8M6UeUKtnWGNI1pHy9VsoQlE7+W+zVRLPklooh2E+5KOwgAbN3I57jx/QPeS7uf7rD9N34scXxSLnUbZAyY3YA==
-  dependencies:
-    node-fetch "^2.6.0"
-    shopify-buy "^2.10.0"
-
-"@packdigital/gatsby-theme-ripperoni-cms@^0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-cms/-/gatsby-theme-ripperoni-cms-0.0.12.tgz#d7653555954958da060766a5b27042fc12cc9e22"
-  integrity sha512-77lVuRz+c05H3pBKB1kS1ExYSVk9Gd48AlW7wa+oZU4s5Kov0heqxdIJK/c5pc/DOPgikY7dzti0B1ZV5Sf6kA==
-  dependencies:
-    gatsby-source-contentful "^2.3.15"
-
-"@packdigital/gatsby-theme-ripperoni-core@^0.0.44":
-  version "0.0.44"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-core/-/gatsby-theme-ripperoni-core-0.0.44.tgz#57f9e0b99bfc7acfde89ec405128e069599dfdce"
-  integrity sha512-nimQ+KcWjZLCZ30z3xuMIcdvNjchN1d4VyoX/+xgC5k45y//w8Z/1hq1qhNz9TQc2PfQNvKWJwKmQHilZcCb3g==
-  dependencies:
-    "@lekoarts/gatsby-theme-styleguide" "^1.1.10"
-    abab "^2.0.3"
-    abortcontroller-polyfill "^1.4.0"
-    chalk "^4.1.0"
-    dateformat "^3.0.3"
-    gatsby-plugin-eslint "^2.0.8"
-    gatsby-plugin-loadable-components-ssr "^2.1.0"
-    gatsby-plugin-manifest "^2.4.11"
-    gatsby-plugin-react-helmet "^3.3.10"
-    gatsby-plugin-react-svg "^3.0.0"
-    gatsby-plugin-root-import "^2.0.5"
-    gatsby-plugin-sharp "^2.6.11"
-    gatsby-plugin-theme-ui "^0.3.0"
-    gatsby-source-filesystem "^2.3.11"
-    gatsby-transformer-sharp "^2.5.5"
-    intersection-observer "^0.11.0"
-    react-helmet "^6.1.0"
-
 "@packdigital/gatsby-theme-ripperoni-core@^0.0.67":
   version "0.0.67"
   resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-core/-/gatsby-theme-ripperoni-core-0.0.67.tgz#bf5c375dfa4f6ddb5edc839a8887fd8e9dbe5eb1"
@@ -3504,72 +3457,6 @@
     gatsby-transformer-sharp "^2.5.5"
     intersection-observer "^0.11.0"
     react-helmet "^6.1.0"
-
-"@packdigital/gatsby-theme-ripperoni-debug@^0.0.24":
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-debug/-/gatsby-theme-ripperoni-debug-0.0.24.tgz#26ae558ffbcdf38124de2558cdfc075d6bc2ad05"
-  integrity sha512-ekj2pJL/imeEoNjd9CYmdZ5NjkYx+jWu54aYIsA/w2rgChkP15QAI7lgvL3I/8z0CU0tLd6dWvVzzUAFyuBPSw==
-  dependencies:
-    gatsby-plugin-schema-snapshot "^1.0.0"
-    gatsby-plugin-webpack-bundle-analyser-v2 "^1.1.10"
-    gatsby-plugin-webpack-size "^1.0.0"
-
-"@packdigital/gatsby-theme-ripperoni-marketing@^0.0.16":
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-marketing/-/gatsby-theme-ripperoni-marketing-0.0.16.tgz#29cb59ee7fe78ccf03f2eb112482c6e389405036"
-  integrity sha512-G2t2HNZ5IggpQaz0ofKzO9K8iHyOURgBQejqOwhd+WMcHZKtxslQt/9WMi4cyt4QGszTWtvtAHo373KEhI2QAw==
-  dependencies:
-    gatsby-plugin-facebook-pixel "^1.0.3"
-    gatsby-plugin-google-analytics "^2.3.4"
-    gatsby-plugin-google-tagmanager "^2.3.5"
-    gatsby-plugin-robots-txt "^1.5.1"
-    gatsby-plugin-sitemap "^2.4.5"
-    prop-types "^15.7.2"
-
-"@packdigital/gatsby-theme-ripperoni-netlify@^0.0.19":
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-netlify/-/gatsby-theme-ripperoni-netlify-0.0.19.tgz#5c1bf12ee47f3dff6eab7c664f787653e0f1cf38"
-  integrity sha512-YIPNIXBoCcQSLMrachWloUcs9r5WlOPSwiY+hVLIicvUe/ygSQODWcz/aK39DTiV2etNxfr+yYk4DjZ20QNNYg==
-  dependencies:
-    gatsby-plugin-netlify "^2.3.10"
-    http-proxy-middleware "^1.0.4"
-
-"@packdigital/gatsby-theme-ripperoni-search@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-search/-/gatsby-theme-ripperoni-search-0.0.11.tgz#274d315b61ae64cbcf2aa9bc7e1c17a1c06f047a"
-  integrity sha512-geelW4eDejbb48ueIRMC5DeBhHLsGZmlRV3l14JH6o7thXMzE6Lgolj1WwIPvBv1/Kcb5ir92G6zIo6IkAmZ9Q==
-  dependencies:
-    "@gatsby-contrib/gatsby-plugin-elasticlunr-search" "^2.4.2"
-
-"@packdigital/gatsby-theme-ripperoni-store@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-store/-/gatsby-theme-ripperoni-store-0.0.10.tgz#c84117a3e16fc95bcbb117a0031b0e77f8477d29"
-  integrity sha512-gT/f6C9wrnPx3Tu7bcob4F210iPWeKJX+MPwrqXEMcF+nk8K9Sv6AhKnmoZv/0CRsCKc8bPb7L2p754wusaF1g==
-  dependencies:
-    "@apollo/react-hooks" "^3.1.5"
-    apollo-cache-inmemory "^1.6.6"
-    apollo-client "^2.6.10"
-    apollo-link "^1.2.14"
-    apollo-link-http "^1.5.17"
-    apollo-link-ws "^1.0.20"
-    apollo-utilities "^1.3.4"
-    isomorphic-fetch "^2.2.1"
-    ws "^7.3.0"
-
-"@packdigital/ripperoni-account@^0.0.23":
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/@packdigital/ripperoni-account/-/ripperoni-account-0.0.23.tgz#a164e1d75104437baa8707e5a877f2d8ed6e78d1"
-  integrity sha512-BpHPgPaU+mXMBYOUHj3Dlc5eCfNGqbbofPWu0iDJTAiKn0HlnA11A6rL8Qrgr+fhO2V8nBdmKoTsKBuYZ1Z8lw==
-  dependencies:
-    "@packdigital/ripperoni-utilities" "^2.0.47"
-    apollo-cache-inmemory "^1.6.6"
-    apollo-client "^2.6.10"
-    apollo-link "^1.2.14"
-    apollo-link-error "^1.1.13"
-    apollo-link-http "^1.5.17"
-    dotenv "^8.2.0"
-    graphql-tag "^2.10.3"
-    isomorphic-fetch "^2.2.1"
 
 "@pieh/friendly-errors-webpack-plugin@1.7.0-chalk-2":
   version "1.7.0-chalk-2"
@@ -6338,25 +6225,6 @@ babel-preset-gatsby-package@^0.5.2:
     "@babel/preset-react" "^7.10.4"
     babel-plugin-dynamic-import-node "^2.3.3"
     core-js "^3.6.5"
-
-babel-preset-gatsby@^0.4.9:
-  version "0.4.12"
-  resolved "https://registry.yarnpkg.com/babel-preset-gatsby/-/babel-preset-gatsby-0.4.12.tgz#f69cbcb5e212761a6a11cd2d7a6032bfc672d22b"
-  integrity sha512-qsrIrZmwFhXyThBopqkhKqLLeKuNwjUA4CGRbW1ZXLdQhkbIcdOhbfmUfVibP1Nxao+l64XkeADdrLIFwfiZOw==
-  dependencies:
-    "@babel/plugin-proposal-class-properties" "^7.10.1"
-    "@babel/plugin-proposal-nullish-coalescing-operator" "^7.10.1"
-    "@babel/plugin-proposal-optional-chaining" "^7.10.3"
-    "@babel/plugin-syntax-dynamic-import" "^7.8.3"
-    "@babel/plugin-transform-runtime" "^7.10.3"
-    "@babel/plugin-transform-spread" "^7.10.1"
-    "@babel/preset-env" "^7.10.3"
-    "@babel/preset-react" "^7.10.1"
-    "@babel/runtime" "^7.10.3"
-    babel-plugin-dynamic-import-node "^2.3.3"
-    babel-plugin-macros "^2.8.0"
-    babel-plugin-transform-react-remove-prop-types "^0.4.24"
-    gatsby-core-utils "^1.3.8"
 
 babel-preset-gatsby@^0.5.10, babel-preset-gatsby@^0.5.12, babel-preset-gatsby@^0.5.13:
   version "0.5.13"
@@ -11653,7 +11521,7 @@ gatsby-cli@^2.12.102, gatsby-cli@^2.12.107:
     yargs "^15.4.1"
     yurnalist "^1.1.2"
 
-gatsby-core-utils@^1.3.23, gatsby-core-utils@^1.3.8:
+gatsby-core-utils@^1.3.23:
   version "1.3.23"
   resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-1.3.23.tgz#5d99e86178b2aa3561f58fde4fdffbebecb0dd0c"
   integrity sha512-H6n6dDeRZ22HAJaBUIt5YjB/BSaE8Jq+kayMUv/YzL1RL2yFZ5lqcLwIL1OE2vWk1mQjMUBZCRxLODU0q1i3bQ==
@@ -23858,7 +23726,7 @@ unified@^6.2.0:
     vfile "^2.0.0"
     x-is-string "^0.1.0"
 
-unified@^7.0.0:
+unified@^7.0.0, unified@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/unified/-/unified-7.1.0.tgz#5032f1c1ee3364bd09da12e27fdd4a7553c7be13"
   integrity sha512-lbk82UOIGuCEsZhPj8rNAkXSDXd6p0QLzIuSsCdxrqnqU56St4eyOB+AlXsVgVeRmetPTYydIuvFfpDIed8mqw==
