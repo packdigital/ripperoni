@@ -10,6 +10,11 @@ import { useCustomerContext } from '../../context/CustomerContext';
 
 export const LoginForm = ({
   recoverPasswordToggle = false,
+  placeholders = {
+    email: 'Email',
+    password: 'Password',
+  },
+  forgotPasswordLabel = 'Forgot Your Password?',
   ...props
 }) => {
   const { state, login } = useCustomerContext();
@@ -54,6 +59,7 @@ export const LoginForm = ({
           variant='account.forms.login.email'
           label='Email'
           name='email'
+          placeholder={placeholders.email}
           as={EmailInput}
           id='login-email'
         />
@@ -62,6 +68,7 @@ export const LoginForm = ({
           variant='account.forms.login.password'
           label='Password'
           name='password'
+          placeholder={placeholders.password}
           as={PasswordInput}
           id='login-password'
         />
@@ -84,7 +91,7 @@ export const LoginForm = ({
                 recoverPasswordToggle();
               }}
             >
-              Forgot Your Password?
+              {forgotPasswordLabel}
             </Button>
           )}
         </Loader.Hoc>
@@ -100,4 +107,6 @@ LoginForm.propTypes = {
     PropTypes.func,
     PropTypes.bool,
   ]),
+  placeholders: PropTypes.object,
+  forgotPasswordLabel: PropTypes.string,
 };
