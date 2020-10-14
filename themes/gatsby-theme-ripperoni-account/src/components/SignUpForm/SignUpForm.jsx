@@ -1,9 +1,13 @@
 import React from 'react';
-import { Input } from 'theme-ui';
 import { navigate } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
+import { Email } from './Email';
+import { Password } from './Password';
+import { FirstName } from './FirstName';
+import { LastName } from './LastName';
+import { AccountFormMessage } from '../AccountFormMessage';
 import { useCustomerContext } from '../../context/CustomerContext';
 
 
@@ -14,20 +18,6 @@ export const SignupForm = props => {
     navigate('/account/');
   }
 
-  const EmailInput = props => (
-    <Input
-      type='email'
-      {...props}
-    />
-  );
-
-  const PasswordInput = props => (
-    <Input
-      type='password'
-      {...props}
-    />
-  );
-
   return (
     <Flex.Col
       data-comp={SignupForm.displayName}
@@ -35,13 +25,10 @@ export const SignupForm = props => {
       as='form'
       onSubmit={event => {
         event.preventDefault();
-
-        const {
-          firstName: { value: firstName },
-          lastName: { value: lastName },
-          email: { value: email },
-          password: { value: password },
-        } = event.target;
+        const firstName = event.target.firstName.value;
+        const lastName = event.target.lastName.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
 
         createCustomer({ firstName, lastName, email, password });
       }}
@@ -52,7 +39,7 @@ export const SignupForm = props => {
           variant='account.forms.signup.firstName'
           label='First Name'
           name='firstName'
-          as={Input}
+          as={FirstName}
           id='signup-first-name'
         />
 
@@ -60,7 +47,7 @@ export const SignupForm = props => {
           variant='account.forms.signup.lastName'
           label='Last Name'
           name='lastName'
-          as={Input}
+          as={LastName}
           id='signup-last-name'
         />
 
@@ -68,7 +55,7 @@ export const SignupForm = props => {
           variant='account.forms.signup.email'
           label='Email'
           name='email'
-          as={EmailInput}
+          as={Email}
           id='signup-email'
         />
 
@@ -76,7 +63,7 @@ export const SignupForm = props => {
           variant='account.forms.signup.password'
           label='Password'
           name='password'
-          as={PasswordInput}
+          as={Password}
           id='signup-password'
         />
       </Flex.Col>
@@ -90,6 +77,8 @@ export const SignupForm = props => {
             Sign Up
           </Button>
         </Loader.Hoc>
+
+        <AccountFormMessage messages={state.errors?.customerCreate} />
       </Flex.Col>
     </Flex.Col>
   );

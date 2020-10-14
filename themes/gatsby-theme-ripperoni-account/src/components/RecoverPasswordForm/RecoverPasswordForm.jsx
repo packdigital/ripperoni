@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input } from 'theme-ui';
 import { navigate } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
+import { Email } from './Email';
 import { useCustomerContext } from '../../context/CustomerContext';
 
 
@@ -18,13 +18,6 @@ export const RecoverPasswordForm = ({
     navigate('/account/');
   }
 
-  const EmailInput = props => (
-    <Input
-      type='email'
-      {...props}
-    />
-  );
-
   return (
     <Flex.Col
       data-comp={RecoverPasswordForm.displayName}
@@ -32,8 +25,7 @@ export const RecoverPasswordForm = ({
       variant='account.forms.recover'
       onSubmit={event => {
         event.preventDefault();
-
-        const { email: { value: email }} = event.target;
+        const email = event.target.email.value;
 
         recover({ email });
       }}
@@ -42,7 +34,7 @@ export const RecoverPasswordForm = ({
       <Flex variant='account.forms.recover.inputs'>
         <FieldGroup
           variant='account.forms.recover.email'
-          as={EmailInput}
+          as={Email}
           label='Email'
           name='email'
           id='recover-password-email'

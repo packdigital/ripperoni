@@ -1,5 +1,5 @@
 export { LoginForm } from './components/LoginForm';
-export { AccountLoginMessage } from './components/AccountLoginMessage';
+export { AccountFormMessage } from './components/AccountFormMessage';
 export { AccountNavigation } from './components/AccountNavigation';
 export { Address } from './components/Address';
 export { AddressBookHeader } from './components/AddressBookHeader';

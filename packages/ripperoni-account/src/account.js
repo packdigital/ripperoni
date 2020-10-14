@@ -31,7 +31,7 @@ const getErrors = error => {
 
   if (error.map) {
     return error.map(({ message, code }) =>
-      message || errorMessages[code] || 'Error! please try again later.');
+      errorMessages[code] || message || 'Error! please try again later.');
   }
 
   return error;
@@ -53,9 +53,10 @@ module.exports = async event => {
       body: JSON.stringify({ data })
     };
   } catch (error) {
-    console.log('error', error);
+    // console.log('error', error);
 
     const errors = getErrors(error);
+    // console.log('errors', errors);
 
     return {
       statusCode: 200,

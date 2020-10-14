@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input } from 'theme-ui';
 import { navigate } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
+import { Password } from './Password';
 import { useCustomerContext } from '../../context/CustomerContext';
 
 
@@ -19,13 +19,6 @@ export const ResetPasswordForm = ({
     navigate('/account/');
   }
 
-  const PasswordInput = props => (
-    <Input
-      type='password'
-      {...props}
-    />
-  );
-
   return (
     <Flex.Col
       data-comp={ResetPasswordForm.displayName}
@@ -33,8 +26,7 @@ export const ResetPasswordForm = ({
       as='form'
       onSubmit={event => {
         event.preventDefault();
-
-        const { password: { value: password }} = event.target;
+        const password = event.target.password.value;
 
         reset({ password, customerId, resetToken });
       }}
@@ -45,7 +37,7 @@ export const ResetPasswordForm = ({
           variant='account.forms.reset.password'
           label='Password'
           name='password'
-          as={PasswordInput}
+          as={Password}
         />
       </Flex>
 

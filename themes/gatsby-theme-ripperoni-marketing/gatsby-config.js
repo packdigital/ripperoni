@@ -17,10 +17,7 @@ module.exports = ({
       ...utils.conditionallyIncludePlugin({
         // [1][2]
         resolve: 'gatsby-plugin-google-tagmanager',
-        options: {
-          includeInDevelopment: false,
-          ...googleTagManager,
-        },
+        options: { ...googleTagManager },
       }),
       ...utils.conditionallyIncludePlugin({
         // [3]

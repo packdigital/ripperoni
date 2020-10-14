@@ -27,7 +27,10 @@ module.exports = `
 
 
 
-
+  type contentfulMoleculeGrids implements Node @infer {
+    grid: String
+    viewport: String
+  }
   type contentfulAtomButtonColorJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
@@ -207,6 +210,7 @@ module.exports = `
   type ContentfulMolecule implements Node & AllContentful @infer {
     id: ID
     contentful_id: String
+    grids: [contentfulMoleculeGrids] @link(by: “id”, from: “grids___NODE”)
     backgroundColor: [ContentfulJson] @link(by: "id", from: "backgroundColor___NODE")
     width: [ContentfulJson] @link(by: "id", from: "width___NODE")
     marginPaddingContent: [ContentfulMarginPadding] @link(by: "id", from: "marginPaddingContent___NODE")

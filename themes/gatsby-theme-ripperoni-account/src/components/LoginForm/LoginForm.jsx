@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input } from 'theme-ui';
 import { navigate } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
+import { Email } from './Email';
+import { Password } from './Password';
+import { AccountFormMessage } from '../AccountFormMessage';
 import { useCustomerContext } from '../../context/CustomerContext';
 
 
@@ -18,20 +20,6 @@ export const LoginForm = ({
     navigate('/account/');
   }
 
-  const EmailInput = props => (
-    <Input
-      type='email'
-      {...props}
-    />
-  );
-
-  const PasswordInput = props => (
-    <Input
-      type='password'
-      {...props}
-    />
-  );
-
   return (
     <Flex.Col
       data-comp={LoginForm.displayName}
@@ -39,11 +27,8 @@ export const LoginForm = ({
       as='form'
       onSubmit={event => {
         event.preventDefault();
-
-        const {
-          email: { value: email },
-          password: { value: password }
-        } = event.target;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
 
         login({ email, password });
       }}
@@ -54,7 +39,7 @@ export const LoginForm = ({
           variant='account.forms.login.email'
           label='Email'
           name='email'
-          as={EmailInput}
+          as={Email}
           id='login-email'
         />
 
@@ -62,7 +47,7 @@ export const LoginForm = ({
           variant='account.forms.login.password'
           label='Password'
           name='password'
-          as={PasswordInput}
+          as={Password}
           id='login-password'
         />
       </Flex>
@@ -88,6 +73,8 @@ export const LoginForm = ({
             </Button>
           )}
         </Loader.Hoc>
+
+        <AccountFormMessage messages={state.errors?.customerLogin} />
       </Flex>
     </Flex.Col>
   );
