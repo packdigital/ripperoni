@@ -11,7 +11,7 @@ import { useCustomerContext } from '../../context/CustomerContext';
 export const RecoverPasswordForm = ({
   cancelToggle = false,
   placeholders = {
-    email: 'email',
+    email: 'Email',
   },
   ...props
 }) => {
@@ -87,5 +87,7 @@ RecoverPasswordForm.propTypes = {
     PropTypes.func,
     PropTypes.bool,
   ]),
-  placeholder: PropTypes.string
+  placeholders: PropTypes.shape({
+    email: PropTypes.string,
+  }),
 };
