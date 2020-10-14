@@ -8,7 +8,12 @@ import { useCustomerContext } from '../../context/CustomerContext';
 
 
 export const SignupForm = ({
-  placeholders = {},
+  placeholders = {
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    email: 'Email',
+    password: 'Password',
+  },
   ...props
 }) => {
   const { state, createCustomer } = useCustomerContext();
