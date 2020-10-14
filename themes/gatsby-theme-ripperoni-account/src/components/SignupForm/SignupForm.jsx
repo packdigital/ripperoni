@@ -11,7 +11,15 @@ import { AccountFormMessage } from '../AccountFormMessage';
 import { useCustomerContext } from '../../context/CustomerContext';
 
 
-export const SignupForm = props => {
+export const SignupForm = ({
+  placeholders = {
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    email: 'Email',
+    password: 'Password',
+  },
+  ...props
+}) => {
   const { state, createCustomer } = useCustomerContext();
 
   if (state.customer !== null) {
@@ -40,6 +48,7 @@ export const SignupForm = props => {
           label='First Name'
           name='firstName'
           as={FirstName}
+          placeholder={placeholders.firstName}
           id='signup-first-name'
         />
 
@@ -48,6 +57,7 @@ export const SignupForm = props => {
           label='Last Name'
           name='lastName'
           as={LastName}
+          placeholder={placeholders.lastName}
           id='signup-last-name'
         />
 
@@ -56,6 +66,7 @@ export const SignupForm = props => {
           label='Email'
           name='email'
           as={Email}
+          placeholder={placeholders.email}
           id='signup-email'
         />
 
@@ -64,6 +75,7 @@ export const SignupForm = props => {
           label='Password'
           name='password'
           as={Password}
+          placeholder={placeholders.password}
           id='signup-password'
         />
       </Flex.Col>
