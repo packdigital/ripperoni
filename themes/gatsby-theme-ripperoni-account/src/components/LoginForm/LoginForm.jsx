@@ -11,8 +11,8 @@ import { useCustomerContext } from '../../context/CustomerContext';
 export const LoginForm = ({
   recoverPasswordToggle = false,
   placeholders = {
-    email: 'email',
-    password: 'password',
+    email: 'Email',
+    password: 'Password',
   },
   forgotPasswordLabel = 'Forgot Your Password?',
   ...props
