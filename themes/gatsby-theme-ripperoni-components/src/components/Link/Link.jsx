@@ -1,4 +1,6 @@
-/** @jsx jsx */
+/**
+ * @jsx jsx
+ */
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link as LinkUI, jsx } from 'theme-ui';
@@ -69,6 +71,7 @@ export const Link = forwardRef(({
     <LinkUI
       data-comp='External Link'
       href={href || url}
+      variant={variant || 'styles.a'}
       {...linkProps}
     >
       {children || text}
