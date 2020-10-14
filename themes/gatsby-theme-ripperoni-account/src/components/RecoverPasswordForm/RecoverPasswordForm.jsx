@@ -10,7 +10,7 @@ import { useCustomerContext } from '../../context/CustomerContext';
 
 export const RecoverPasswordForm = ({
   cancelToggle = false,
-  placeholder = {
+  placeholders = {
     email: 'email',
   },
   ...props
@@ -48,7 +48,7 @@ export const RecoverPasswordForm = ({
           as={EmailInput}
           label='Email'
           name='email'
-          placeholder={placeholder.email}
+          placeholder={placeholders.email}
           id='recover-password-email'
         />
       </Flex>
