@@ -27,7 +27,7 @@
     "dateformat": "^3.0.3",
     "debug": "^4.1.1",
     "framer-motion": "^2.7.7",
-    "gatsby-plugin-theme-ui": "0.3.0",
+    "gatsby-plugin-theme-ui": "^0.3.0",
     "lodash.uniqueid": "^4.0.1",
     "react-error-boundary": "^2.0.2",
     "react-intersection-observer": "^8.26.2"

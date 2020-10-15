@@ -27,10 +27,6 @@ module.exports = `
 
 
 
-  type contentfulMoleculeGrids implements Node @infer {
-    grid: String
-    viewport: String
-  }
   type contentfulAtomButtonColorJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
@@ -98,6 +94,9 @@ module.exports = `
     viewport: String
     value: String
   }
+  type contentfulAtomTextExtraPropsJsonNode implements Node & ContentfulJson @infer {
+    content: String
+  }
 
 
   type contentfulMoleculeBackgroundColorJsonNode implements Node & ContentfulJson @infer {
@@ -117,6 +116,10 @@ module.exports = `
     direction: String
     viewport: String
     value: String
+  }
+  type contentfulMoleculeGrids implements Node @infer {
+    grid: String
+    viewport: String
   }
 
 
@@ -189,6 +192,7 @@ module.exports = `
     textAlign: [ContentfulJson] @link(by: "id", from: "textAlign___NODE")
     width: [ContentfulJson] @link(by: "id", from: "width___NODE")
     marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
+    extraProps: [ContentfulJson] @link(by: "id", from: "extraProps___NODE")
     variant: String
     metaTitle: String
     metaHandle: String

@@ -15,7 +15,7 @@
     "@packdigital/gatsby-theme-ripperoni-components": "^1.1.11",
     "@packdigital/ripperoni-utilities": "^2.0.21",
     "gatsby": "^2.19.5",
-    "gatsby-plugin-theme-ui": "0.3.0",
+    "gatsby-plugin-theme-ui": "^0.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "theme-ui": "^0.3.1"
