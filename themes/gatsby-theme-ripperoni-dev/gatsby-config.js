@@ -3,7 +3,9 @@
  */
 const utils = require('@packdigital/ripperoni-utilities');
 
-module.exports = (themeOptions) => {
+module.exports = ({ dev }) => {
+  console.log('dev', dev);
+
   return {
     plugins: [
       ...utils.conditionallyIncludePlugin({
@@ -11,7 +13,7 @@ module.exports = (themeOptions) => {
         options: {
           development: true,
         },
-        enabled: false,
+        enabled: dev.webpackSize || false,
       }),
       ...utils.conditionallyIncludePlugin({
         resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
@@ -24,12 +26,12 @@ module.exports = (themeOptions) => {
           analyzerMode: 'static',
           logLevel: 'info',
         },
-        enabled: false,
+        enabled: dev.bundleAnalyser || false,
       }),
       ...utils.conditionallyIncludePlugin({
         resolve: 'gatsby-plugin-schema-snapshot',
         options: {},
-        enabled: false,
+        enabled: dev.schemaSnapshot || false,
       }),
     ],
   };

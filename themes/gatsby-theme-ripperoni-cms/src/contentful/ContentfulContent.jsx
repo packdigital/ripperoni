@@ -89,7 +89,7 @@ const parseOtherProps = (props) => {
 };
 
 const parseExtraProps = (extraProps) => {
-  const json = extraProps?.internal?.content;
+  const json = extraProps?.content || extraProps?.internal?.content;
 
   if (json) {
     return JSON.parse(json);
