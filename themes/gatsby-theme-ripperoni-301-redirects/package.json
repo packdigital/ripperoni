@@ -13,7 +13,7 @@
   },
   "peerDependencies": {
     "@packdigital/ripperoni-utilities": "^2.0.21",
-    "gatsby": "^2.20.4",
+    "gatsby": "^2.19.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

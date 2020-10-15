@@ -15,7 +15,7 @@
     "fart"
   ],
   "peerDependencies": {
-    "gatsby": "^2.0.0"
+    "gatsby": "^2.19.5"
   },
   "dependencies": {
     "@packdigital/ripperoni-utilities": "^2.0.54",
