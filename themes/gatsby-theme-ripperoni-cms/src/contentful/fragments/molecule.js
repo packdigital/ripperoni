@@ -36,7 +36,9 @@ export const ContentfulMoleculeDataFragment = graphql`
     ...ContentfulMoleculeMarginPaddings
     variant
     extraProps {
-      content
+      internal {
+        content
+      }
     }
     grids {
       grid

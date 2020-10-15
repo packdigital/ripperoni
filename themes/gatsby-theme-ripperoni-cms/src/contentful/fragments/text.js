@@ -19,7 +19,9 @@ export const ContentfulAtomTextFragment = graphql`
       textAlign: content
     }
     extraProps {
-      content
+      internal {
+        content
+      }
     }
     ...ContentfulCommonAtomFields
     ...ContentfulMeta

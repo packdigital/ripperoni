@@ -24,9 +24,6 @@ module.exports = `
     metaTags: [String]
   }
 
-
-
-
   type contentfulAtomButtonColorJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
@@ -53,7 +50,6 @@ module.exports = `
     value: String
   }
 
-
   type contentfulAtomLinkColorJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
@@ -67,11 +63,9 @@ module.exports = `
     value: String
   }
 
-
   type contentfulAtomProductsProductsJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
-
 
   type contentfulAtomTextColorJsonNode implements Node & ContentfulJson @infer {
     content: String
@@ -96,8 +90,12 @@ module.exports = `
   }
   type contentfulAtomTextExtraPropsJsonNode implements Node @infer {
     content: String
+    internal: contentfulAtomTextExtraPropsInternal
   }
-
+  type contentfulAtomTextExtraPropsInternal {
+    content: String
+    type: String
+  }
 
   type contentfulMoleculeBackgroundColorJsonNode implements Node & ContentfulJson @infer {
     content: String
@@ -121,12 +119,25 @@ module.exports = `
     grid: String
     viewport: String
   }
+  type contentfulMoleculeGridsJsonNode implements Node @infer {
+    grid: String
+    slots: String
+    viewport: String
+    sys: contentfulMoleculeGridsJsonNodeSys
+    thumbnail: String
+    variant: String
+  }
+  type contentfulMoleculeGridsJsonNodeSys {
+    type: String
+  }
   type contentfulMoleculeExtraPropsJsonNode implements Node @infer {
     content: String
+    internal: contentfulMoleculeExtraPropsInternal
   }
-
-
-
+  type contentfulMoleculeExtraPropsInternal {
+    content: String
+    type: String
+  }
 
 
   type ContentfulAtomButton implements Node & AllContentful & ContentfulAtoms @infer {
@@ -213,11 +224,10 @@ module.exports = `
     metaTags: [String]
   }
 
-
   type ContentfulMolecule implements Node & AllContentful @infer {
     id: ID
     contentful_id: String
-    grids: [contentfulMoleculeGrids] @link(by: "id", from: "grids___NODE")
+    grids: [contentfulMoleculeGridsJsonNode] @link(by: "id", from: "grids___NODE")
     backgroundColor: [ContentfulJson] @link(by: "id", from: "backgroundColor___NODE")
     width: [ContentfulJson] @link(by: "id", from: "width___NODE")
     marginPaddingContent: [ContentfulMarginPadding] @link(by: "id", from: "marginPaddingContent___NODE")
@@ -229,7 +239,6 @@ module.exports = `
     metaHandle: String
     metaTags: [String]
   }
-
 
   type ContentfulPageContainer implements Node & AllContentful @infer {
     id: ID
