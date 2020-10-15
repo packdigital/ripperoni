@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-theme-ripperoni-301-redirects",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "author": "@packdigital",
   "description": "",
   "repository": "https://github.com/packdigital/ripperoni",
@@ -18,7 +18,7 @@
     "react-dom": "^16.13.1"
   },
   "dependencies": {
-    "@packdigital/gatsby-plugin-301-redirects": "^1.2.12",
+    "@packdigital/gatsby-plugin-301-redirects": "^1.2.13",
     "gatsby-source-google-spreadsheet": "^2.0.0"
   },
   "prettier": "@packdigital/prettier-config-ripperoni"
