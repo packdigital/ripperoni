@@ -94,7 +94,7 @@ module.exports = `
     viewport: String
     value: String
   }
-  type contentfulAtomTextExtraPropsJsonNode implements Node & ContentfulJson @infer {
+  type contentfulAtomTextExtraPropsJsonNode implements Node @infer {
     content: String
   }
 
@@ -120,6 +120,9 @@ module.exports = `
   type contentfulMoleculeGrids implements Node @infer {
     grid: String
     viewport: String
+  }
+  type contentfulMoleculeExtraPropsJsonNode implements Node @infer {
+    content: String
   }
 
 
@@ -192,7 +195,7 @@ module.exports = `
     textAlign: [ContentfulJson] @link(by: "id", from: "textAlign___NODE")
     width: [ContentfulJson] @link(by: "id", from: "width___NODE")
     marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
-    extraProps: [ContentfulJson] @link(by: "id", from: "extraProps___NODE")
+    extraProps: contentfulAtomTextExtraPropsJsonNode @link(by: "id", from: "extraProps___NODE")
     variant: String
     metaTitle: String
     metaHandle: String
@@ -220,6 +223,7 @@ module.exports = `
     marginPaddingContent: [ContentfulMarginPadding] @link(by: "id", from: "marginPaddingContent___NODE")
     marginPaddingSlots: [ContentfulMarginPadding] @link(by: "id", from: "marginPaddingSlots___NODE")
     entries: [ContentfulAtomsAndMolecule] @link(by: "id", from: "entries___NODE")
+    extraProps: contentfulMoleculeExtraPropsJsonNode @link(by: "id", from: "extraProps___NODE")
     variant: String
     metaTitle: String
     metaHandle: String
