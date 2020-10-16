@@ -149,7 +149,6 @@ export const ContentfulContent = (incomingProps) => {
     __typename,
     ...props
   } = parsedProps;
-  console.log('slots', slots);
 
   if (!__typename) {
     return null;
@@ -204,7 +203,6 @@ export const ContentfulContent = (incomingProps) => {
         grids={grids}
       />
     );
-    console.log('slottedContent', slottedContent);
 
     return (
       <Component

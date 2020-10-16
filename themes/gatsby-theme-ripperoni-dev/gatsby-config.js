@@ -4,8 +4,6 @@
 const utils = require('@packdigital/ripperoni-utilities');
 
 module.exports = ({ dev }) => {
-  console.log('dev', dev);
-
   return {
     plugins: [
       ...utils.conditionallyIncludePlugin({
