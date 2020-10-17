@@ -1,6 +1,8 @@
 /**
  * @prettier
  */
+const { trackCustomEvent } = require('gatsby-plugin-google-analytics');
+
 const utils = require('@packdigital/ripperoni-utilities');
 
 module.exports = ({
@@ -15,9 +17,13 @@ module.exports = ({
     },
     plugins: [
       ...utils.conditionallyIncludePlugin({
-        // [1][2]
-        resolve: 'gatsby-plugin-google-tagmanager',
-        options: { ...googleTagManager },
+        resolve: 'gatsby-plugin-google-marketing-platform',
+        options: {
+          includeInDevelopment: true,
+          tagmanager: {
+            ...googleTagManager,
+          },
+        },
       }),
       ...utils.conditionallyIncludePlugin({
         // [3]
@@ -57,12 +63,6 @@ module.exports = ({
 };
 
 /**
- * [1] Read more about plugin options here:
- *     https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-google-tagmanager
- *
- * [2] Read more about event tracking here:
- *     https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-google-tagmanager#tracking-routes
- *
  * [3] Read more about plugin options here:
  *     https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-google-analytics
  *

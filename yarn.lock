@@ -3458,6 +3458,14 @@
   dependencies:
     gatsby-source-contentful "^2.3.15"
 
+"@packdigital/gatsby-theme-ripperoni-cms@^0.0.47":
+  version "0.0.47"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-cms/-/gatsby-theme-ripperoni-cms-0.0.47.tgz#22ced5d07d5be1cdd03dd4af47822e94d898c0c5"
+  integrity sha512-na7Jvmco1wGjrYJq4cozgujiTu+haJ8Lo8n1Fn+qFZz/L7ijhA644I9dZ0p+zd2Tw5oHo/zF9HO8paLoslaU3A==
+  dependencies:
+    gatsby-plugin-sharp "^2.6.42"
+    gatsby-source-contentful "^2.3.15"
+
 "@packdigital/gatsby-theme-ripperoni-core@^0.0.67":
   version "0.0.67"
   resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-core/-/gatsby-theme-ripperoni-core-0.0.67.tgz#bf5c375dfa4f6ddb5edc839a8887fd8e9dbe5eb1"
@@ -3507,6 +3515,15 @@
   version "0.0.27"
   resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-dev/-/gatsby-theme-ripperoni-dev-0.0.27.tgz#a1efbe2c1a7200c926a81876384af04446753ece"
   integrity sha512-AU8CtWIhWa3CuZAM4x/bfWwjZu8Wd9Vl+QxWJ/DgG826/FgqybynDCiJUWG+Mh+fniwghfFps1yqMhixvzJpEw==
+  dependencies:
+    gatsby-plugin-schema-snapshot "^1.0.0"
+    gatsby-plugin-webpack-bundle-analyser-v2 "^1.1.10"
+    gatsby-plugin-webpack-size "^1.0.0"
+
+"@packdigital/gatsby-theme-ripperoni-dev@^0.0.29":
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-dev/-/gatsby-theme-ripperoni-dev-0.0.29.tgz#3b97e6d3c3de7cb501e9ff2a01e65bbadb641a00"
+  integrity sha512-osatx0FKjgXaoGgA8l8mVRm7g1WnsODx2mMvBHSF2WWT1aWJhgqwcL7qeNVwvJaLAHtJNxvAnsKQSYzqBbOwtw==
   dependencies:
     gatsby-plugin-schema-snapshot "^1.0.0"
     gatsby-plugin-webpack-bundle-analyser-v2 "^1.1.10"
