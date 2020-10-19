@@ -2,11 +2,13 @@
  * @jsx jsx
  * @prettier
  */
+import PropTypes from 'prop-types';
 import { Box, Heading, Text, jsx } from 'theme-ui';
 
 export const AccountFormMessage = ({
+  sentiment = 'error',
+  heading = 'The following errors occured:',
   messages,
-  sentiment = 'bad',
   ...props
 }) => {
   if (!messages) return null;
@@ -16,12 +18,12 @@ export const AccountFormMessage = ({
       sx={{
         my: 5,
         p: '10px',
-        bg: sentiment === 'bad' ? 'error' : 'success',
+        bg: sentiment,
       }}
       {...props}
     >
       <Heading sx={{ fontSize: 3 }} color='white'>
-        {sentiment === 'bad' && 'The following errors occured:'}
+        {heading}
       </Heading>
 
       <Box>
@@ -38,4 +40,10 @@ export const AccountFormMessage = ({
       </Box>
     </header>
   );
+};
+
+AccountFormMessage.propTypes = {
+  messages: PropTypes.arrayOf(PropTypes.string),
+  sentiment: PropTypes.string,
+  heading: PropTypes.string,
 };

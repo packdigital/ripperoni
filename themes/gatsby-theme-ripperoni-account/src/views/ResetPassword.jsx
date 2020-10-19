@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useLocation, useParams } from '@reach/router';
 
 import { Box, Flex, Heading } from '@ripperoni/components';
 
@@ -7,11 +8,10 @@ import { AccountLayout } from '../layout/AccountLayout';
 import { ResetPasswordForm } from '../components/ResetPasswordForm';
 
 
-export const ResetPassword = ({
-  customerId,
-  resetToken,
-  ...props
-}) => {
+export const ResetPassword = (props) => {
+  const { pathname } = useLocation();
+  const { customerId, resetToken } = useParams();
+
   return (
     <AccountLayout
       variant='account.layout.reset'
@@ -33,6 +33,7 @@ export const ResetPassword = ({
           <ResetPasswordForm
             customerId={customerId}
             resetToken={resetToken}
+            pathname={pathname}
           />
         </Box>
       </Flex.Col>

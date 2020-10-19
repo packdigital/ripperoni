@@ -79,9 +79,9 @@ export const LoginForm = ({
               {forgotPasswordLabel}
             </Button>
           )}
-        </Loader.Hoc>
 
-        <AccountFormMessage messages={state.errors?.customerLogin} />
+          <AccountFormMessage messages={state.errors?.customerLogin} />
+        </Loader.Hoc>
       </Flex>
     </Flex.Col>
   );

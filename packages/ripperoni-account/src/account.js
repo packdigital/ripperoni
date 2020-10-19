@@ -18,9 +18,9 @@ const actions = {
 
 const errorMessages = {
   'UNIDENTIFIED_CUSTOMER': 'Incorrect Email or Password',
-  'TOO_SHORT': 'Password is too short (minimum is 5 characters)',
+  'TOO_SHORT': 'Password is too short (minimum is 6 characters)',
   'TAKEN': 'Email has already been taken',
-  'INVALID': 'Email is invalid',
+  // 'INVALID': 'Email is invalid', // can be invalid reset url or email
   'BAD_DOMAIN': 'Email contains an invalid domain name',
 };
 
@@ -47,6 +47,7 @@ module.exports = async event => {
     }
 
     const data = await actions[body.action](body);
+    // console.log('data', data);
 
     return {
       statusCode: 200,

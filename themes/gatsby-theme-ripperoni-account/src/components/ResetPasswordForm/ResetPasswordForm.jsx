@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from 'gatsby';
+import { graphql, navigate, useStaticQuery } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
 import { Password } from './Password';
+import { AccountFormMessage } from '../AccountFormMessage';
 import { useCustomerContext } from '../../context/CustomerContext';
 
 
 export const ResetPasswordForm = ({
   customerId,
   resetToken,
+  pathname = `/account/reset/${customerId}/${resetToken}`,
   ...props
 }) => {
-  const { state, reset } = useCustomerContext();
+  const { site } = useStaticQuery(staticQuery);
+  const { url: origin } = site.siteMetadata.site;
+  const { state, resetPassword } = useCustomerContext();
 
   if (state.customer !== null) {
     navigate('/account/');
@@ -27,8 +31,9 @@ export const ResetPasswordForm = ({
       onSubmit={event => {
         event.preventDefault();
         const password = event.target.password.value;
+        const url = origin + pathname;
 
-        reset({ password, customerId, resetToken });
+        resetPassword({ password, url });
       }}
       {...props}
     >
@@ -49,6 +54,8 @@ export const ResetPasswordForm = ({
           <Button variant='account.forms.reset.submit'>
             Submit
           </Button>
+
+          <AccountFormMessage messages={state.errors?.passwordReset} />
         </Loader.Hoc>
       </Flex>
     </Flex.Col>
@@ -60,4 +67,17 @@ ResetPasswordForm.displayName = 'Reset Password Form';
 ResetPasswordForm.propTypes = {
   customerId: PropTypes.string,
   resetToken: PropTypes.string,
+  pathname: PropTypes.string,
 };
+
+const staticQuery = graphql`
+  query {
+    site {
+      siteMetadata {
+        site {
+          url
+        }
+      }
+    }
+  }
+`;

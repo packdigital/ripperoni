@@ -88,9 +88,9 @@ export const SignupForm = ({
           <Button variant='account.forms.signup.submit'>
             Sign Up
           </Button>
-        </Loader.Hoc>
 
-        <AccountFormMessage messages={state.errors?.customerCreate} />
+          <AccountFormMessage messages={state.errors?.customerCreate} />
+        </Loader.Hoc>
       </Flex.Col>
     </Flex.Col>
   );

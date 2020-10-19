@@ -48,7 +48,7 @@ export const reducer = (state, action) => {
         },
       });
     default:
-      throw new Error('No such action type: ${action.type}');
+      throw new Error(`No such action type: ${action.type}`);
   }
 };
 
@@ -89,8 +89,8 @@ export const asyncActionHandlers = {
   GET_CUSTOMER: asyncActionWrapper('customerGet'),
   LOGIN: asyncActionWrapper('customerLogin'),
   CREATE_CUSTOMER: asyncActionWrapper('customerCreate'),
-  RECOVER_CUSTOMER: asyncActionWrapper('passwordRecover'),
-  RESET_CUSTOMER: asyncActionWrapper('passwordReset'),
+  RECOVER_PASSWORD: asyncActionWrapper('passwordRecover'),
+  RESET_PASSWORD: asyncActionWrapper('passwordReset'),
   CREATE_CUSTOMER_ADDRESS: asyncActionWrapper('addressCreate'),
   DELETE_CUSTOMER_ADDRESS: asyncActionWrapper('addressDelete'),
   UPDATE_CUSTOMER_ADDRESS: asyncActionWrapper('addressUpdate'),

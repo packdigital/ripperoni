@@ -1,6 +1,6 @@
-const Customer = require('./customer');
 const client = require('./client');
 const queries = require('./queries');
+const Customer = require('./customer');
 
 
 const recoverPassword = async ({ email }) => {

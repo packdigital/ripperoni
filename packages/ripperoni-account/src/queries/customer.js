@@ -108,4 +108,5 @@ const GET_CUSTOMER_QUERY = gql`
 module.exports = {
   get: GET_CUSTOMER_QUERY,
   create: CREATE_CUSTOMER_MUTATION,
+  customer: CUSTOMER_FRAGMENT,
 };

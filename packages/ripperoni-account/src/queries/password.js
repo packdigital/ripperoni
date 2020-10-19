@@ -1,5 +1,7 @@
 const gql = require('graphql-tag');
 
+const { customer } = require('./customer');
+
 
 const RECOVER_PASSWORD_MUTATION = gql`
   mutation customerRecover($email: String!) {
@@ -16,6 +18,9 @@ const RECOVER_PASSWORD_MUTATION = gql`
 const RESET_PASSWORD_MUTATION = gql`
   mutation customerResetByUrl($resetUrl: URL!, $password: String!) {
     reset: customerResetByUrl(resetUrl: $resetUrl, password: $password) {
+      customer {
+        ...customer
+      }
       accessToken: customerAccessToken {
         token: accessToken
         expiresAt
@@ -27,6 +32,7 @@ const RESET_PASSWORD_MUTATION = gql`
       }
     }
   }
+  ${customer}
 `;
 
 module.exports = {
