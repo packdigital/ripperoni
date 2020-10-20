@@ -34,7 +34,7 @@ export const MessageBusContextProvider = React.memo(({ children }) => {
   const readyCustomerRef = useRef(null);
 
   const logAll = () => {
-    PubSub.subscribeAll((message, data) => console.log(message, data));
+    // PubSub.subscribeAll((message, data) => console.log(message, data));
   };
 
   const setCartReady = () => {
