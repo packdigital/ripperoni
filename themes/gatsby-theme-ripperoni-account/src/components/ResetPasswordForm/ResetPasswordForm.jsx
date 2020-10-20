@@ -16,7 +16,7 @@ export const ResetPasswordForm = ({
   ...props
 }) => {
   const { site } = useStaticQuery(staticQuery);
-  const { url: origin } = site.siteMetadata.site;
+  const { shopifyUrl: origin } = site.siteMetadata.site;
   const { state, resetPassword } = useCustomerContext();
 
   if (state.customer !== null) {
@@ -75,7 +75,7 @@ const staticQuery = graphql`
     site {
       siteMetadata {
         site {
-          url
+          shopifyUrl
         }
       }
     }
