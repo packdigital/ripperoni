@@ -3,7 +3,7 @@ exports.typeDefs = `
     id: ID!
     src: String!
     altText: String!
-    collection: BackpackCollection! @link
+    collection: BackpackCollection! @link(by: "id", from: "collection___NODE")
     localFile: File @link(by: "id", from: "localFile___NODE")
   }
 
@@ -14,7 +14,7 @@ exports.typeDefs = `
     description: String
     optionValues: JSON
     updatedAt: Date!
-    image: BackpackCollectionImage @link
+    image: BackpackCollectionImage @link(by: "id", from: "image___NODE")
     variants: [BackpackProductVariant] @link(by: "id", from: "variants___NODE")
   }
 `;

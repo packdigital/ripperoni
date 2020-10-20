@@ -38,7 +38,9 @@ exports.touchUnchangedNodes = ({ unchangedNodes, helpers }) => {
 };
 
 exports.deleteRemovedNodes = ({ removedNodes, helpers }) => {
-  const { cache, getNode, reporter: { format, success }, actions: { deleteNode }} = helpers;
+  const { cache, getNode } = helpers;
+  const { deleteNode } = helpers.actions;
+  const { format, success } = helpers.reporter
   const collection = `${TYPE_PREFIX}${COLLECTION}`;
 
   removedNodes.forEach(node => {
@@ -59,7 +61,9 @@ exports.deleteRemovedNodes = ({ removedNodes, helpers }) => {
 };
 
 exports.createCollectionNodes = async ({ collections, helpers }) => {
-  const { cache, reporter: { format, success }, actions: { createNode }} = helpers;
+  const { cache } = helpers;
+  const { createNode } = helpers.actions;
+  const { format, success } = helpers.reporter
   const CollectionNode = createNodeFactory(COLLECTION, middlewares.collection);
 
   const collectionNodes = collections
