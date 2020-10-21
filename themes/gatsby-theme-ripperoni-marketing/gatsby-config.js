@@ -19,7 +19,7 @@ module.exports = ({
       ...utils.conditionallyIncludePlugin({
         resolve: 'gatsby-plugin-google-marketing-platform',
         options: {
-          includeInDevelopment: true,
+          includeInDevelopment: false,
           tagmanager: {
             ...googleTagManager,
           },
