@@ -28,13 +28,16 @@ export const Modal = ({modalId, children}) => {
         </AnimatePresence>
 
         <Box
-          p={8}
+          px='20px'
+          py='80px'
           position='fixed'
           top='50%'
           left='50%'
           transform='translate(-50%, -50%)'
           zIndex='2'
+          overflowY='scroll'
           maxWidth='960px'
+          maxHeight='100vh'
           width='100%'
         >
           <Box

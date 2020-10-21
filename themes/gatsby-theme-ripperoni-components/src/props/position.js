@@ -1,5 +1,5 @@
 /* eslint-disable import/no-default-export */
-import { stringOrArray } from './types';
+import { numberOrStringOrArray, stringOrArray } from './types';
 
 
 const sx = [
@@ -11,6 +11,9 @@ const sx = [
   'right',
   'bottom',
   'left',
+  'overflow',
+  'overflowX',
+  'overflowY',
 ];
 
 const computed = {
@@ -19,6 +22,16 @@ const computed = {
 
 const propTypes = {
   display: stringOrArray,
+  position: stringOrArray,
+  zIndex: numberOrStringOrArray,
+  transform: stringOrArray,
+  top: numberOrStringOrArray,
+  right: numberOrStringOrArray,
+  bottom: numberOrStringOrArray,
+  left: numberOrStringOrArray,
+  overflow: stringOrArray,
+  overflowX: stringOrArray,
+  overflowY: stringOrArray,
 };
 
 export default {
