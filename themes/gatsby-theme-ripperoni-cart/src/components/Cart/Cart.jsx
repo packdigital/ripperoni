@@ -37,12 +37,16 @@ export const Cart = ({checkoutParams, ...props}) => {
             top={0}
             right={0}
             bottom={0}
-            height='100vh'
             zIndex={3}
             variants={variants}
             initial='initial'
             animate='completed'
             exit='initial'
+            sx={{
+              height: '100%',
+              minHeight: '100vh',
+              minHeight: '-webkit-fill-available'
+            }}
             {...props}
           >
             <CartHeader />
