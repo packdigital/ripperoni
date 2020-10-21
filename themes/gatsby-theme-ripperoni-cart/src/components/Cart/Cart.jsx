@@ -2,13 +2,14 @@ import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { FlexCol, Loader, Overlay } from '@ripperoni/components';
-import { CartHeader } from '@ripperoni/cart/components/CartHeader';
-import { CartLineItems } from '@ripperoni/cart/components/CartLineItems';
-import { CartEmptyState } from '@ripperoni/cart/components/CartEmptyState';
-// import { CartUpsell } from '@ripperoni/cart/components/CartUpsell';
-import { CartTotals } from '@ripperoni/cart/components/CartTotals';
-import { useCartContext } from '@ripperoni/cart/context/CartContext';
-import { useUIContext } from '@ripperoni/core/context/UIContext';
+import { useUIContext } from '@ripperoni/core';
+
+// import { CartUpsell } from '../CartUpsell';
+import { CartHeader } from '../CartHeader';
+import { CartTotals } from '../CartTotals';
+import { CartLineItems } from '../CartLineItems';
+import { CartEmptyState } from '../CartEmptyState';
+import { useCartContext } from '../../context/CartContext';
 
 
 const AnimatedCart = motion.custom(FlexCol);
