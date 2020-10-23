@@ -10,7 +10,7 @@ import fetch from 'isomorphic-fetch';
 import { isBrowser } from '@packdigital/ripperoni-utilities';
 
 const httpLink = new HttpLink({
-  uri: 'https://platform-publicrec.onrender.com/v1/graphql',
+  uri: process.env.GATSBY_BACKPACK_URL,
   headers: {
     'content-type': 'application/json',
     'x-hasura-admin-secret': process.env.GATSBY_BACKPACK_SECRET_KEY,
@@ -19,7 +19,7 @@ const httpLink = new HttpLink({
 });
 
 const wsLink = new WebSocketLink({
-  uri: 'https://platform-publicrec.onrender.com/v1/graphql'.replace(/^https?/, 'wss'),
+  uri: process.env.GATSBY_BACKPACK_URL.replace(/^https?/, 'wss'),
   options: {
     lazy: true,
     reconnect: true,
