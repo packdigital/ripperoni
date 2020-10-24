@@ -27,7 +27,7 @@ export const CartHeader = props => {
         />
       </Button.Plain>
 
-      <Heading>Your Shoping Cart</Heading>
+      <Heading>Your Shopping Cart</Heading>
     </Flex>
   );
 };
