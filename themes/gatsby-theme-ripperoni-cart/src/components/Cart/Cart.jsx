@@ -1,31 +1,32 @@
+/**
+ * @prettier
+ */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { FlexCol, Loader, Overlay } from '@ripperoni/components';
 import { useUIContext } from '@ripperoni/core';
+import { FlexCol, Loader, Overlay } from '@ripperoni/components';
 
-// import { CartUpsell } from '../CartUpsell';
+import { CartUpsell } from '../CartUpsell';
 import { CartHeader } from '../CartHeader';
 import { CartTotals } from '../CartTotals';
 import { CartLineItems } from '../CartLineItems';
 import { CartEmptyState } from '../CartEmptyState';
 import { useCartContext } from '../../context/CartContext';
 
-
 const AnimatedCart = motion.custom(FlexCol);
 
-export const Cart = ({checkoutParams, ...props}) => {
+export const Cart = ({ checkoutParams, ...props }) => {
   const { state: cartState } = useCartContext();
   const { state: uiState, toggleCart } = useUIContext();
   const lineItems = cartState?.cart?.lineItems;
-  const isLoading = Object.values(cartState.loading).some(Boolean)
+  const isLoading = Object.values(cartState.loading).some(Boolean);
 
   return (
     <>
       <AnimatePresence>
-        {uiState.cart && (
-          <Overlay onClick={toggleCart} />
-        )}
+        {uiState.cart && <Overlay onClick={toggleCart} />}
       </AnimatePresence>
 
       <AnimatePresence>
@@ -46,22 +47,20 @@ export const Cart = ({checkoutParams, ...props}) => {
             sx={{
               height: '100%',
               minHeight: '100vh',
-              minHeight: '-webkit-fill-available'
+              minHeight: '-webkit-fill-available',
             }}
             {...props}
           >
             <CartHeader />
 
             <Loader.Hoc loading={isLoading}>
-              {lineItems?.length === 0 && (
-                <CartEmptyState />
-              )}
+              {lineItems?.length === 0 && <CartEmptyState />}
 
               {lineItems?.length > 0 && (
                 <>
                   <CartLineItems lineItems={lineItems} />
 
-                  {/* <CartUpsell /> */}
+                  <CartUpsell />
 
                   <CartTotals
                     subtotal={cartState.cart.subtotalPrice}
@@ -79,19 +78,23 @@ export const Cart = ({checkoutParams, ...props}) => {
 
 Cart.displayName = 'Cart';
 
+Cart.propTypes = {
+  checkoutParams: PropTypes.string,
+};
+
 const variants = {
   initial: {
     x: '100%',
     transition: {
       ease: 'linear',
-      duration: 0.2
+      duration: 0.2,
     },
   },
   completed: {
     x: 0,
     transition: {
       ease: 'linear',
-      duration: 0.2
+      duration: 0.2,
     },
   },
 };

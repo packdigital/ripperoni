@@ -1,3 +1,6 @@
+/**
+ * @prettier
+ */
 export const initialState = {
   cart: null,
   totalItems: null,

@@ -1,13 +1,11 @@
-/* eslint-disable import/no-default-export */
+/**
+ * @prettier
+ */
 import React from 'react';
 
-
-const Cart = props => {
-  return (
-    <div {...props}>
-      Cart
-    </div>
-  );
+const Cart = (props) => {
+  return <div {...props}></div>;
 };
 
+// eslint-disable-next-line
 export default Cart;

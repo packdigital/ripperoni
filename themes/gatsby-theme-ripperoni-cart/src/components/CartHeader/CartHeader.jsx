@@ -1,11 +1,14 @@
+/**
+ * @prettier
+ */
 import React from 'react';
 
+import { useUIContext } from '@ripperoni/core';
 import { Button, Flex, Heading, Svg } from '@ripperoni/components';
-import { useUIContext } from '@ripperoni/core/context/UIContext';
-import Arrow from '@ripperoni/cart/assets/images/arrow.svg';
 
+import Arrow from '../../assets/images/arrow.svg';
 
-export const CartHeader = props => {
+export const CartHeader = (props) => {
   const { toggleCart } = useUIContext();
 
   return (
@@ -16,15 +19,8 @@ export const CartHeader = props => {
       borderColor='gray.1'
       {...props}
     >
-      <Button.Plain
-        mr='12px'
-        onClick={toggleCart}
-      >
-        <Svg
-          as={Arrow}
-          height='15px'
-          width='15px'
-        />
+      <Button.Plain mr='12px' onClick={toggleCart}>
+        <Svg as={Arrow} height='15px' width='15px' />
       </Button.Plain>
 
       <Heading>Your Shopping Cart</Heading>
@@ -32,4 +28,4 @@ export const CartHeader = props => {
   );
 };
 
-CartHeader.displayName = 'CartHeader';
+CartHeader.displayName = 'Cart Header';

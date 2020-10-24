@@ -1,12 +1,15 @@
-/** @jsx jsx */
+/**
+ * @jsx jsx
+ * @prettier
+ */
 import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Input, jsx } from 'theme-ui';
 import debounce from 'lodash/debounce';
 
 import { Button, Flex } from '@ripperoni/components';
-import { useCartContext } from '@ripperoni/cart/context/CartContext';
 
+import { useCartContext } from '../../context/CartContext';
 
 export const QuantitySelect = ({
   id,
@@ -17,17 +20,23 @@ export const QuantitySelect = ({
   const [quantity, setQuantity] = useState(parseInt(initialQuantity));
   const { removeLineItems, updateLineItems } = useCartContext();
 
-  const debouncedUpdate = debounce(quantity => updateLineItems([{ id, quantity }]), 500);
-  const memoizedDebounceUpdate = useCallback(quantity => debouncedUpdate(quantity), []);
+  const debouncedUpdate = debounce(
+    (quantity) => updateLineItems([{ id, quantity }]),
+    500
+  );
+  const memoizedDebounceUpdate = useCallback(
+    (quantity) => debouncedUpdate(quantity),
+    []
+  );
 
-  const changeBy = amount => {
+  const changeBy = (amount) => {
     const newQuantity = quantity + amount;
     setQuantity(newQuantity);
 
     if (newQuantity > 0) {
       memoizedDebounceUpdate(newQuantity);
     } else {
-      removeLineItems([ id ]);
+      removeLineItems([id]);
     }
   };
 
@@ -51,8 +60,8 @@ export const QuantitySelect = ({
         step='1'
         min='0'
         value={quantity}
-        onChange={event => setQuantity(parseInt(event.target.value))}
-        onBlur={event => memoizedDebounceUpdate(parseInt(event.target.value))}
+        onChange={(event) => setQuantity(parseInt(event.target.value))}
+        onBlur={(event) => memoizedDebounceUpdate(parseInt(event.target.value))}
         sx={{
           p: 0,
           mb: 0,
@@ -83,9 +92,7 @@ QuantitySelect.displayName = 'Quantity Select';
 
 QuantitySelect.propTypes = {
   id: PropTypes.string.isRequired,
-  quantity: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
+  quantity: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
   showControls: PropTypes.bool,
 };

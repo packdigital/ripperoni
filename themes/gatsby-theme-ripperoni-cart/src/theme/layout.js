@@ -1,3 +1,4 @@
-export const layout = {
-
-};
+/**
+ * @prettier
+ */
+export const layout = {};

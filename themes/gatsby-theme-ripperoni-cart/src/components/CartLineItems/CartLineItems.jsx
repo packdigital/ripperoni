@@ -1,14 +1,14 @@
+/**
+ * @prettier
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Box } from '@ripperoni/components';
-import { CartLineItem } from '@ripperoni/cart/components/CartLineItem';
 
+import { CartLineItem } from '../CartLineItem';
 
-export const CartLineItems = ({
-  lineItems,
-  ...props
-}) => {
+export const CartLineItems = ({ lineItems, ...props }) => {
   if (!lineItems) {
     return null;
   }
@@ -37,8 +37,8 @@ export const CartLineItems = ({
   );
 };
 
-CartLineItems.displayName = 'CartLineItems';
+CartLineItems.displayName = 'Cart Line Items';
 
 CartLineItems.propTypes = {
-  lineItems: PropTypes.arrayOf(PropTypes.object)
+  lineItems: PropTypes.arrayOf(PropTypes.object),
 };

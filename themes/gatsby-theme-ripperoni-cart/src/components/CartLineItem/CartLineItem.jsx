@@ -4,6 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { getLegacyShopifyId } from '@ripperoni/utilities';
 import {
   Box,
   Button,
@@ -16,10 +17,10 @@ import {
   Svg,
   Text,
 } from '@ripperoni/components';
-import { QuantitySelect } from '@ripperoni/cart/components/QuantitySelect';
-import Close from '@ripperoni/cart/assets/images/close.svg';
-import { useCartContext } from '@ripperoni/cart/context/CartContext';
-import { getLegacyShopifyId } from '@ripperoni/utilities';
+
+import Close from '../../assets/images/close.svg';
+import { QuantitySelect } from '../QuantitySelect';
+import { useCartContext } from '../../context/CartContext';
 
 export const CartLineItem = ({ id, title, quantity, variant, ...props }) => {
   const { removeLineItems } = useCartContext();
