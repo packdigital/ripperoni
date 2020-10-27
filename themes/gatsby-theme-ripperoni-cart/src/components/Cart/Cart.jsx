@@ -1,7 +1,7 @@
 /**
  * @prettier
  */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -17,11 +17,23 @@ import { useCartContext } from '../../context/CartContext';
 
 const AnimatedCart = motion.custom(FlexCol);
 
-export const Cart = ({ checkoutParams, ...props }) => {
+export const Cart = ({ checkoutParams, checkoutUrlCallback, ...props }) => {
   const { state: cartState } = useCartContext();
   const { state: uiState, toggleCart } = useUIContext();
   const lineItems = cartState?.cart?.lineItems;
   const isLoading = Object.values(cartState.loading).some(Boolean);
+  const [checkoutUrl, setCheckoutUrl] = useState('');
+
+  useEffect(() => {
+    let checkoutUrl = cartState?.cart?.webUrl;
+
+    if (cartState && checkoutUrlCallback) {
+      checkoutUrl =
+        checkoutUrlCallback(cartState?.cart?.webUrl) || cartState?.cart?.webUrl;
+    }
+
+    setCheckoutUrl(checkoutUrl);
+  }, [cartState]);
 
   return (
     <>
@@ -64,7 +76,7 @@ export const Cart = ({ checkoutParams, ...props }) => {
 
                   <CartTotals
                     subtotal={cartState.cart.subtotalPrice}
-                    checkoutUrl={cartState.cart.webUrl + checkoutParams}
+                    checkoutUrl={checkoutUrl + checkoutParams}
                   />
                 </>
               )}
@@ -80,6 +92,7 @@ Cart.displayName = 'Cart';
 
 Cart.propTypes = {
   checkoutParams: PropTypes.string,
+  checkoutUrlCallback: PropTypes.func,
 };
 
 const variants = {
