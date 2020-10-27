@@ -20,9 +20,9 @@ export const ImageContentful = forwardRef((incomingProps, ref) => {
     imgProps,
     ...props
   } = incomingProps;
-  const isSvg = primaryImage.file?.fileName.includes('svg');
-  const sharpType = primaryImage.fluid ? 'fluid' : 'fixed';
-  const primarySharp = primaryImage[sharpType];
+  const isSvg = primaryImage?.file?.fileName.includes('svg');
+  const sharpType = primaryImage?.fluid ? 'fluid' : 'fixed';
+  const primarySharp = primaryImage && primaryImage[sharpType];
   const secondarySharp = secondaryImage?.[sharpType] || {};
   const primaryMedia = primarySizes && { media: `(${primarySizes})` };
   const secondaryMedia = secondarySizes && { media: `(${secondarySizes})` };
