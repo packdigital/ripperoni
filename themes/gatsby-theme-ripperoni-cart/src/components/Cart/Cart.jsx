@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -14,15 +11,18 @@ import { CartTotals } from '../CartTotals';
 import { CartLineItems } from '../CartLineItems';
 import { CartEmptyState } from '../CartEmptyState';
 import { useCartContext } from '../../context/CartContext';
+import { useCart } from '../../hooks/useCart';
 
 const AnimatedCart = motion.custom(FlexCol);
 
 export const Cart = ({ checkoutParams, checkoutUrlCallback, ...props }) => {
+  const cart = useCart();
+  const [checkoutUrl, setCheckoutUrl] = useState('');
   const { state: cartState } = useCartContext();
   const { state: uiState, toggleCart } = useUIContext();
-  const lineItems = cartState?.cart?.lineItems;
+
+  const lineItems = cart?.lineItems;
   const isLoading = Object.values(cartState.loading).some(Boolean);
-  const [checkoutUrl, setCheckoutUrl] = useState('');
 
   useEffect(() => {
     let checkoutUrl = cartState?.cart?.webUrl;
@@ -75,7 +75,7 @@ export const Cart = ({ checkoutParams, checkoutUrlCallback, ...props }) => {
                   <CartUpsell />
 
                   <CartTotals
-                    subtotal={cartState.cart.subtotalPrice}
+                    subtotal={cart.subtotalPrice}
                     checkoutUrl={checkoutUrl + checkoutParams}
                   />
                 </>

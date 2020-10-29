@@ -4,17 +4,11 @@ import { Box, Button, Flex, Heading, Text } from '@ripperoni/components';
 
 import { useCustomerContext } from '../../context/CustomerContext';
 
-
-export const UserMeta = props => {
-  const { state, logout } = useCustomerContext();
+export const UserMeta = (props) => {
+  const { state, logoutCustomer } = useCustomerContext();
 
   return (
-    <Flex
-      variant='account.layout.meta'
-      between
-      top
-      {...props}
-    >
+    <Flex variant='account.layout.meta' between top {...props}>
       <Box variant='account.layout.meta.content'>
         <Heading variant='account.text.layout.meta.heading'>
           Hey {state.customer.firstName}
@@ -26,7 +20,7 @@ export const UserMeta = props => {
       </Box>
 
       <Button.Link
-        onClick={logout}
+        onClick={logoutCustomer}
         display={[null, null, null, 'none']}
       >
         Sign Out

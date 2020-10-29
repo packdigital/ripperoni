@@ -1,25 +1,13 @@
-/**
- * @prettier
- */
 import update from 'immutability-helper';
 
 export const reducer = (state, action) => {
   // console.log('action:account', action);
 
   switch (action.type) {
-    case 'SET_CUSTOMER_READY':
-      return update(state, {
-        ready: { $set: true },
-      });
-    case 'UPDATE_LOGGED_IN_STATUS':
-      return update(state, {
-        loggedIn: { $set: action.data },
-      });
-    case 'LOGOUT':
+    case 'LOGOUT_CUSTOMER':
       return update(state, {
         accessToken: { $set: null },
-        customer: { $set: null },
-        loggedIn: { $set: false },
+        customer: { $set: false },
         errors: { $set: {} },
       });
     case 'START_ACCOUNT_REQUEST':
@@ -84,10 +72,10 @@ const asyncActionWrapper = (asyncAction) => (reducerAsync) => (action) => {
   requestAccount(body, signal).then(handleResponse).catch(handleError);
 };
 
-export const asyncActionHandlers = {
+export const asyncActions = {
   LOGIN_OR_CREATE_CUSTOMER: asyncActionWrapper('customerLoginOrCreate'),
   GET_CUSTOMER: asyncActionWrapper('customerGet'),
-  LOGIN: asyncActionWrapper('customerLogin'),
+  LOGIN_CUSTOMER: asyncActionWrapper('customerLogin'),
   CREATE_CUSTOMER: asyncActionWrapper('customerCreate'),
   RECOVER_PASSWORD: asyncActionWrapper('passwordRecover'),
   RESET_PASSWORD: asyncActionWrapper('passwordReset'),

@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -20,10 +17,10 @@ import {
 
 import Close from '../../assets/images/close.svg';
 import { QuantitySelect } from '../QuantitySelect';
-import { useCartContext } from '../../context/CartContext';
+import { useRemoveItemFromCart } from '../../hooks/useRemoveItemFromCart';
 
 export const CartLineItem = ({ id, title, quantity, variant, ...props }) => {
-  const { removeLineItems } = useCartContext();
+  const removeItemFromCart = useRemoveItemFromCart();
 
   const { selectedOptions, image, price, compareAtPrice } = variant || {};
   const options = selectedOptions
@@ -90,7 +87,7 @@ export const CartLineItem = ({ id, title, quantity, variant, ...props }) => {
         </Flex.Col>
 
         <Flex.Col right ml='auto' pl='22px'>
-          <Button.Plain mb='auto' onClick={() => removeLineItems([id])}>
+          <Button.Plain mb='auto' onClick={() => removeItemFromCart(id)}>
             <Svg as={Close} width='10px' />
           </Button.Plain>
 

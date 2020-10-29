@@ -1,11 +1,6 @@
-/**
- * @prettier
- */
-const SET_CUSTOMER_READY = 'SET_CUSTOMER_READY';
-const UPDATE_LOGGED_IN_STATUS = 'UPDATE_LOGGED_IN_STATUS';
 const GET_CUSTOMER = 'GET_CUSTOMER';
-const LOGIN = 'LOGIN';
-const LOGOUT = 'LOGOUT';
+const LOGIN_CUSTOMER = 'LOGIN_CUSTOMER';
+const LOGOUT_CUSTOMER = 'LOGOUT_CUSTOMER';
 const CREATE_CUSTOMER = 'CREATE_CUSTOMER';
 const RECOVER_PASSWORD = 'RECOVER_PASSWORD';
 const RESET_PASSWORD = 'RESET_PASSWORD';
@@ -16,20 +11,14 @@ const LOGIN_OR_CREATE_CUSTOMER = 'LOGIN_OR_CREATE_CUSTOMER';
 
 export const createActions = (dispatch) => {
   return {
-    setCustomerReady: () => {
-      dispatch({ type: SET_CUSTOMER_READY });
-    },
-    updateLoggedInStatus: (data) => {
-      dispatch({ type: UPDATE_LOGGED_IN_STATUS, data });
-    },
     getCustomer: (data) => {
       dispatch({ type: GET_CUSTOMER, data });
     },
-    login: (data) => {
-      dispatch({ type: LOGIN, data });
+    logoutCustomer: () => {
+      dispatch({ type: LOGOUT_CUSTOMER });
     },
-    logout: () => {
-      dispatch({ type: LOGOUT });
+    loginCustomer: (data) => {
+      dispatch({ type: LOGIN_CUSTOMER, data });
     },
     createCustomer: (data) => {
       dispatch({ type: CREATE_CUSTOMER, data });

@@ -1,11 +1,6 @@
 /**
  * @jsx jsx
- * @prettier
  */
-
-/* eslint-disable import/namespace */
-/* eslint-disable import/no-default-export */
-import React from 'react';
 import { Router } from '@reach/router';
 import { jsx } from 'theme-ui';
 
@@ -22,18 +17,18 @@ import { RecoverPassword } from '../views/RecoverPassword';
 import { ResetPassword } from '../views/ResetPassword';
 import { AccountActivation } from '../views/AccountActivation';
 import { PrivateRoute } from '../components/PrivateRoute';
-import { useCustomerContext } from '../context/CustomerContext';
+import { useCustomer } from '../hooks/useCustomer';
+import { useCustomerReady } from '../hooks/useCustomerReady';
 
-export const AccountPage = React.memo((props) => {
+export const AccountPage = (props) => {
+  const customer = useCustomer();
+  const customerReady = useCustomerReady();
+
   if (!isBrowser) {
     return null;
   }
 
-  const {
-    state: { loggedIn, ready },
-  } = useCustomerContext();
-
-  if (!ready) {
+  if (!customerReady) {
     return (
       <Flex
         sx={{
@@ -56,7 +51,7 @@ export const AccountPage = React.memo((props) => {
       <PrivateRoute
         {...props}
         path='/'
-        condition={loggedIn}
+        condition={customer}
         private={Orders}
         public={LoginSignup}
       />
@@ -64,14 +59,14 @@ export const AccountPage = React.memo((props) => {
       <PrivateRoute
         {...props}
         path='/orders/:id'
-        condition={loggedIn}
+        condition={customer}
         private={Order}
       />
 
       <PrivateRoute
         {...props}
         path='/addresses'
-        condition={loggedIn}
+        condition={customer}
         private={AddressBook}
       />
 
@@ -89,8 +84,9 @@ export const AccountPage = React.memo((props) => {
       />
     </Router>
   );
-});
+};
 
 AccountPage.displayName = 'Account Router';
 
+// eslint-disable-next-line
 export default AccountPage;

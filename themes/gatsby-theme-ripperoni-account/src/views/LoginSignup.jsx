@@ -9,14 +9,10 @@ import { LoginForm } from '../components/LoginForm';
 import { SignupForm } from '../components/SignupForm';
 import { RecoverPasswordForm } from '../components/RecoverPasswordForm';
 
-
-export const LoginSignup = props => {
+export const LoginSignup = (props) => {
   const [loginActive, setLoginActive] = useState(true);
-  // const [loginMessages, setLoginMessages] = useState({});
   const [recoverPasswordActive, setRecoverActive] = useState(false);
-  // const [recoverPasswordMessages, setRecoverMessages] = useState({});
   const [signupActive, setSignupActive] = useState(false);
-  // const [signupMessages, setSignupMessages] = useState({});
 
   const loginToggle = () => {
     setLoginActive(true);
@@ -87,10 +83,7 @@ export const LoginSignup = props => {
           />
         </Flex.Col>
 
-        <Divider
-          vertical
-          display={['none', null, null, 'block']}
-        />
+        <Divider vertical display={['none', null, null, 'block']} />
 
         <Flex.Col
           variant='account.loginSignup.signup'

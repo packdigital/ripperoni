@@ -1,76 +1,76 @@
-/**
- * @prettier
- */
 import React, { createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useReducerAsync } from 'use-reducer-async';
+import createPersistedState from 'use-persisted-state';
 
 import { isBrowser, useContextFactory } from '@packdigital/ripperoni-utilities';
 
-import { initialState } from './initialState';
+import { UPDATE_CART } from '../constants';
 import { createActions } from './CartActions';
-import { asyncActionHandlers, reducer } from './CartReducer';
+import { asyncActions, reducer } from './CartReducer';
 
+const usePersistedCart = createPersistedState('ShopifyCheckout');
 const CartContext = createContext();
-const persistedCheckoutId = 'ShopifyCheckoutId';
-
 export const useCartContext = useContextFactory('Cart', CartContext);
 
-export const CartContextProvider = React.memo(({ children }) => {
+export const CartContextProvider = ({
+  customer,
+  messageBus,
+  children,
+  ...props
+}) => {
+  const [persistedCart, setPersistedCart] = usePersistedCart(null);
+  const initialState = { cart: persistedCart, loading: {}, errors: {} };
   const [state, dispatch] = useReducerAsync(
     reducer,
     initialState,
-    asyncActionHandlers
+    asyncActions
   );
-
   const actions = createActions(dispatch);
+
+  useEffect(() => {
+    messageBus?.publish(UPDATE_CART, state.cart);
+  }, [state.cart]);
 
   useEffect(() => {
     if (!isBrowser) return;
 
-    const checkoutId = localStorage.getItem(persistedCheckoutId);
-
-    if (!checkoutId) {
+    if (!state.cart?.id || state.cart?.completedAt) {
       actions.createCheckout();
     } else {
-      actions.fetchCheckout(checkoutId);
+      actions.fetchCheckout(state.cart.id);
     }
   }, []);
 
   useEffect(() => {
-    if (!state.cart) return;
+    const staleCart = state.cart?.updatedAt < persistedCart?.updatedAt;
+    const stalePersistedCart = persistedCart?.updatedAt < state.cart?.updatedAt;
+    const missingPersistedCart = !persistedCart && state.cart;
 
-    if (!state.ready) {
-      actions.setCartReady();
+    if (staleCart) {
+      actions.refreshCart(persistedCart);
     }
 
-    const getLineTotals = (totalItems, { quantity }) => totalItems + quantity;
-    const totalQuantity = state.cart.lineItems.reduce(getLineTotals, 0);
-
-    if (totalQuantity !== state.totalItems) {
-      actions.updateTotalItemsCount(totalQuantity);
+    if (stalePersistedCart || missingPersistedCart) {
+      setPersistedCart(state.cart);
     }
-
-    if (!isBrowser) return;
-
-    const newCheckoutId = state.cart.id;
-    const checkoutId = localStorage.getItem(persistedCheckoutId);
-
-    if (checkoutId !== newCheckoutId) {
-      window.localStorage.setItem(persistedCheckoutId, newCheckoutId);
-    }
-  }, [state.cart, state.ready, state.totalItems]);
+  }, [state.cart, persistedCart]);
 
   const value = {
     state,
+    customer,
+    messageBus,
+    ...state,
     ...actions,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
-});
+};
 
 CartContextProvider.displayName = 'Cart Context Provider';
 
 CartContextProvider.propTypes = {
+  customer: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  messageBus: PropTypes.object,
   children: PropTypes.any,
 };
