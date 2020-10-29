@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import React, { createContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import PubSub from 'pubsub-js';
@@ -19,13 +16,10 @@ export const useMessageBusContext = useContextFactory(
   MessageBusContext
 );
 
-const getTotalItems = (items) =>
-  items && items.reduce((total, { quantity }) => total + quantity, 0);
-
 export const MessageBusContextProvider = React.memo(({ children }) => {
   const { state: cartState } = useCartContext();
   const { state: customerState } = useCustomerContext();
-  const { ready: cartReady, cart } = cartState;
+  const { cart } = cartState;
   const { ready: customerReady, customer } = customerState;
 
   const cartRef = useRef(null);
@@ -34,14 +28,7 @@ export const MessageBusContextProvider = React.memo(({ children }) => {
   const readyCustomerRef = useRef(null);
 
   const logAll = () => {
-    // PubSub.subscribeAll((message, data) => console.log(message, data));
-  };
-
-  const setCartReady = () => {
-    if (cartReady && !readyCartRef.current) {
-      PubSub.publish(topics.CART_READY, cart);
-      readyCartRef.current = true;
-    }
+    PubSub.subscribeAll((message, data) => console.log(message, data));
   };
 
   const setCustomerReady = () => {
@@ -53,7 +40,6 @@ export const MessageBusContextProvider = React.memo(({ children }) => {
   };
 
   useEffect(logAll, []);
-  useEffect(setCartReady, [cartReady]);
   useEffect(setCustomerReady, [customerReady]);
 
   useEffect(() => {
@@ -61,24 +47,8 @@ export const MessageBusContextProvider = React.memo(({ children }) => {
 
     const updatedAt = cart?.updatedAt;
     const updatedAtRef = cartRef.current?.updatedAt;
-    const lineItems = cart?.lineItems.length;
-    const lineItemsRef = cartRef.current?.lineItems.length || 0;
-    const totalItems = getTotalItems(cart?.lineItems);
-    const totalItemsRef = getTotalItems(cartRef.current?.lineItems) || 0;
     const discounts = cart?.discountApplications.length;
     const discountsRef = cartRef.current?.discountApplications.length;
-
-    if (lineItems > lineItemsRef) {
-      PubSub.publish(topics.ADD_TO_CART, cart);
-    }
-
-    if (lineItems < lineItemsRef) {
-      PubSub.publish(topics.REMOVE_FROM_CART, cart);
-    }
-
-    if (totalItems !== totalItemsRef) {
-      PubSub.publish(topics.UPDATE_CART, cart);
-    }
 
     if (discounts > discountsRef) {
       PubSub.publish(topics.REMOVE_DISCOUNT, cart);

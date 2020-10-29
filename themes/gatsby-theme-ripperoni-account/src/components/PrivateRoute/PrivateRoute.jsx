@@ -2,7 +2,6 @@
 import React from 'react';
 import { navigate } from 'gatsby';
 
-
 export const PrivateRoute = ({
   wait,
   condition,

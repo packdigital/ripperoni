@@ -19,12 +19,10 @@ export { ResetPasswordForm } from './components/ResetPasswordForm';
 export { SignupForm } from './components/SignupForm';
 export { UserMeta } from './components/UserMeta';
 
-export { initialState } from './context/initialState';
 export { useCustomerContext } from './context/CustomerContext';
 
-export { default as theme } from './gatsby-plugin-theme-ui';
-
-export { AccountLayout } from './layout/AccountLayout';
+export { useCustomer } from './hooks/useCustomer';
+export { useCustomerReady } from './hooks/useCustomerReady';
 
 export { AccountActivation } from './views/AccountActivation';
 export { AddressBook } from './views/AddressBook';
@@ -35,3 +33,7 @@ export { Orders } from './views/Orders';
 export { RecoverPassword } from './views/RecoverPassword';
 export { ResetPassword } from './views/ResetPassword';
 export { Signup } from './views/Signup';
+
+export { AccountLayout } from './layout/AccountLayout';
+
+export { default as theme } from './gatsby-plugin-theme-ui';

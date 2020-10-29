@@ -1,93 +1,92 @@
-/**
- * @prettier
- */
 import React, { createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useReducerAsync } from 'use-reducer-async';
+import createPersistedState from 'use-persisted-state';
 
-import {
-  getLegacyShopifyId,
-  isBrowser,
-  useContextFactory,
-} from '@packdigital/ripperoni-utilities';
+import { isBrowser, useContextFactory } from '@packdigital/ripperoni-utilities';
 
-import { initialState } from './initialState';
 import { createActions } from './CustomerActions';
-import { asyncActionHandlers, reducer } from './CustomerReducer';
+import { asyncActions, reducer } from './CustomerReducer';
+import { usePrevious } from '../hooks/usePrevious';
 
+const usePersistedCustomer = createPersistedState('ShopifyCustomer');
 const CustomerContext = createContext();
-const persistedCustomerId = 'customer';
 
 export const useCustomerContext = useContextFactory(
   'Customer',
   CustomerContext
 );
 
-export const CustomerContextProvider = React.memo(({ children }) => {
+// customer === null   <-- no data yet
+// customer === false  <-- logged out
+export const CustomerContextProvider = ({ children, ...props }) => {
+  const [persistedCustomer, setPersistedCustomer] = usePersistedCustomer(null);
+  const prevPersistedCustomer = usePrevious(persistedCustomer);
+
+  const initialState = {
+    accessToken: persistedCustomer,
+    customer: null,
+    loading: {},
+    errors: {},
+  };
+
   const [state, dispatch] = useReducerAsync(
     reducer,
     initialState,
-    asyncActionHandlers
+    asyncActions
   );
 
+  const prevAccessToken = usePrevious(state.accessToken);
   const actions = createActions(dispatch);
-
-  const getAccessTokenFromLocalStorage = () => {
-    const customerLocalStorage = localStorage.getItem(persistedCustomerId);
-    const customerFromStorage = JSON.parse(customerLocalStorage);
-
-    return customerFromStorage?.accessToken;
-  };
 
   useEffect(() => {
     if (!isBrowser) return;
 
-    const accessToken = getAccessTokenFromLocalStorage();
+    const isValidToken = Date.parse(state.accessToken?.expires) > Date.now();
 
-    if (accessToken) {
-      actions.getCustomer({ accessToken });
+    if (state.accessToken && isValidToken) {
+      actions.getCustomer({ accessToken: state.accessToken });
     } else {
-      actions.setCustomerReady();
+      // log customer out
+      actions.logoutCustomer();
+      setPersistedCustomer(false);
     }
   }, []);
 
   useEffect(() => {
-    if (state.customer && !state.ready) {
-      actions.setCustomerReady();
-    }
-  }, [state.customer, state.ready]);
+    const isLoggedOut = state.customer === false;
+    const persistedCustomerChanged =
+      persistedCustomer?.token !== prevPersistedCustomer?.token;
+    const accessTokenChanged =
+      state.accessToken?.token !== prevAccessToken?.token;
+    const persistedCustomerMissing = persistedCustomer === null;
 
-  useEffect(() => {
-    if (state.customer && !state.loggedIn) {
-      actions.updateLoggedInStatus(true);
-    }
-
-    if (!state.customer && state.loggedIn) {
-      actions.updateLoggedInStatus(false);
-    }
-  }, [state.customer, state.loggedin]);
-
-  useEffect(() => {
-    if (!isBrowser) return;
-
-    const accessToken = state.accessToken;
-    const localStorageAccessToken = getAccessTokenFromLocalStorage();
-
-    if (!accessToken && localStorageAccessToken) {
-      window.localStorage.removeItem(persistedCustomerId);
+    if (!persistedCustomerChanged && isLoggedOut && persistedCustomerMissing) {
+      setPersistedCustomer(false);
     }
 
-    if (accessToken && !localStorageAccessToken) {
-      const id = getLegacyShopifyId(state.customer?.id || '');
-      const accessTokenJson = JSON.stringify({ id, accessToken });
-
-      window.localStorage.setItem(persistedCustomerId, accessTokenJson);
-      window.localStorage.setItem('customer-id', id);
+    if (persistedCustomerChanged && persistedCustomer) {
+      actions.getCustomer({ accessToken: persistedCustomer });
     }
-  }, [state.accessToken, state.customer]);
+
+    if (persistedCustomerChanged && !persistedCustomer) {
+      actions.logoutCustomer();
+    }
+
+    if (!persistedCustomerChanged && accessTokenChanged) {
+      setPersistedCustomer(state.accessToken);
+    }
+  }, [
+    state.customer,
+    state.accessToken,
+    persistedCustomer,
+    prevAccessToken,
+    prevPersistedCustomer,
+  ]);
 
   const value = {
     state,
+    ...state,
     ...actions,
   };
 
@@ -96,7 +95,7 @@ export const CustomerContextProvider = React.memo(({ children }) => {
       {children}
     </CustomerContext.Provider>
   );
-});
+};
 
 CustomerContextProvider.displayName = 'Customer Context';
 

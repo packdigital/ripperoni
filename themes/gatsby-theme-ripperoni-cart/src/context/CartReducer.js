@@ -9,10 +9,11 @@ export const reducer = (state, action) => {
   // console.log('action:cart', action);
 
   switch (action.type) {
-    case 'SET_CART_READY':
+    case 'REFRESH_CART': {
       return update(state, {
-        ready: { $set: true },
+        cart: { $set: action.data },
       });
+    }
     case 'START_CART_ACTION':
       return update(state, {
         loading: {
@@ -45,10 +46,6 @@ export const reducer = (state, action) => {
     case 'DISASSOCIATE_CUSTOMER':
       return update(state, {
         associatedWithCustomer: { $set: '' },
-      });
-    case 'UPDATE_TOTAL_ITEMS_COUNT':
-      return update(state, {
-        totalItems: { $set: action.data },
       });
     default:
       throw new Error('No such action type: ${action.type}');
@@ -115,7 +112,7 @@ const asyncActionWrapper = (asyncAction) => (reducerAsync) => (action) => {
   asyncAction.action(args).then(handleSuccess).catch(handleError);
 };
 
-export const asyncActionHandlers = {
+export const asyncActions = {
   CREATE_CHECKOUT: asyncActionWrapper({
     name: client.checkout.create.name,
     action: (args) => client.checkout.create(...args),

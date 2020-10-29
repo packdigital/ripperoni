@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
@@ -8,7 +7,6 @@ import { Email } from './Email';
 import { Password } from './Password';
 import { AccountFormMessage } from '../AccountFormMessage';
 import { useCustomerContext } from '../../context/CustomerContext';
-
 
 export const LoginForm = ({
   recoverPasswordToggle = false,
@@ -19,23 +17,19 @@ export const LoginForm = ({
   forgotPasswordLabel = 'Forgot Your Password?',
   ...props
 }) => {
-  const { state, login } = useCustomerContext();
-
-  if (state.customer !== null) {
-    navigate('/account/');
-  }
+  const { state, loginCustomer } = useCustomerContext();
 
   return (
     <Flex.Col
       data-comp={LoginForm.displayName}
       variant='account.forms.login'
       as='form'
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
 
-        login({ email, password });
+        loginCustomer({ email, password });
       }}
       {...props}
     >
@@ -64,14 +58,12 @@ export const LoginForm = ({
           variant='account.forms.login.loader'
           loading={state.loading?.customerLogin}
         >
-          <Button variant='account.forms.login.submit'>
-            Sign In
-          </Button>
+          <Button variant='account.forms.login.submit'>Sign In</Button>
 
           {recoverPasswordToggle && (
             <Button
               variant='account.forms.login.recoverPassword'
-              onClick={event => {
+              onClick={(event) => {
                 event.preventDefault();
                 recoverPasswordToggle();
               }}
@@ -90,10 +82,7 @@ export const LoginForm = ({
 LoginForm.displayName = 'Login Form';
 
 LoginForm.propTypes = {
-  recoverPasswordToggle: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.bool,
-  ]),
+  recoverPasswordToggle: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   placeholders: PropTypes.object,
   forgotPasswordLabel: PropTypes.string,
 };

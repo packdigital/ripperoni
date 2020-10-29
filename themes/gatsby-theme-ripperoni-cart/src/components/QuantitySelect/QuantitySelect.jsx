@@ -1,15 +1,12 @@
-/**
- * @jsx jsx
- * @prettier
- */
-import { useCallback, useState } from 'react';
+/** @jsx jsx */
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Input, jsx } from 'theme-ui';
-import debounce from 'lodash/debounce';
 
 import { Button, Flex } from '@ripperoni/components';
 
-import { useCartContext } from '../../context/CartContext';
+import { useRemoveItemFromCart } from '../../hooks/useRemoveItemFromCart';
+import { useUpdateItemQuantity } from '../../hooks/useUpdateItemQuantity';
 
 export const QuantitySelect = ({
   id,
@@ -17,26 +14,18 @@ export const QuantitySelect = ({
   showControls = false,
   ...props
 }) => {
+  const removeItemFromCart = useRemoveItemFromCart();
+  const updateItemQuantity = useUpdateItemQuantity();
   const [quantity, setQuantity] = useState(parseInt(initialQuantity));
-  const { removeLineItems, updateLineItems } = useCartContext();
-
-  const debouncedUpdate = debounce(
-    (quantity) => updateLineItems([{ id, quantity }]),
-    500
-  );
-  const memoizedDebounceUpdate = useCallback(
-    (quantity) => debouncedUpdate(quantity),
-    []
-  );
 
   const changeBy = (amount) => {
     const newQuantity = quantity + amount;
     setQuantity(newQuantity);
 
     if (newQuantity > 0) {
-      memoizedDebounceUpdate(newQuantity);
+      updateItemQuantity(id, newQuantity);
     } else {
-      removeLineItems([id]);
+      removeItemFromCart(id);
     }
   };
 
@@ -61,7 +50,7 @@ export const QuantitySelect = ({
         min='0'
         value={quantity}
         onChange={(event) => setQuantity(parseInt(event.target.value))}
-        onBlur={(event) => memoizedDebounceUpdate(parseInt(event.target.value))}
+        onBlur={(event) => updateItemQuantity(id, parseInt(event.target.value))}
         sx={{
           p: 0,
           mb: 0,

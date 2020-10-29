@@ -9,12 +9,8 @@ import { useCustomerContext } from '../../context/CustomerContext';
 import { navLinks } from './nav-links';
 import { NavigationItem } from './AccountNavigationItem';
 
-
-export const AccountNavigation = ({
-  path,
-  ...props
-}) => {
-  const { logout } = useCustomerContext();
+export const AccountNavigation = ({ path, ...props }) => {
+  const { logoutCustomer } = useCustomerContext();
 
   const desktopNavLinks = [
     ...navLinks,
@@ -22,13 +18,13 @@ export const AccountNavigation = ({
       label: 'Sign Out',
       as: Button.Link,
       variant: 'account.layout.navigation.item',
-      onClick: logout
+      onClick: logoutCustomer,
     },
   ];
 
-  const activeNavLink = navLinks
-    .find(({ to, paths = [] }) =>
-      `/account${path}` === to || paths.includes(path));
+  const activeNavLink = navLinks.find(
+    ({ to, paths = [] }) => `/account${path}` === to || paths.includes(path)
+  );
 
   return (
     <Box
@@ -40,14 +36,11 @@ export const AccountNavigation = ({
         comps={[
           <Select
             key='mobile-navigation'
-            onChange={event => navigate(event.target.value)}
+            onChange={(event) => navigate(event.target.value)}
             defaultValue={activeNavLink.to}
           >
             {navLinks.map(({ to, label }) => (
-              <option
-                key={label}
-                value={to}
-              >
+              <option key={label} value={to}>
                 {label}
               </option>
             ))}
@@ -55,14 +48,14 @@ export const AccountNavigation = ({
           null,
           null,
           <Flex.Col key='desktop-navigation'>
-            {desktopNavLinks.map(link => (
+            {desktopNavLinks.map((link) => (
               <NavigationItem
                 activeLabel={activeNavLink.label}
                 key={link.label}
                 {...link}
               />
             ))}
-          </Flex.Col>
+          </Flex.Col>,
         ]}
       />
     </Box>

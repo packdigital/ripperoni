@@ -1,5 +1,4 @@
 import React from 'react';
-import { navigate } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
@@ -9,7 +8,6 @@ import { FirstName } from './FirstName';
 import { LastName } from './LastName';
 import { AccountFormMessage } from '../AccountFormMessage';
 import { useCustomerContext } from '../../context/CustomerContext';
-
 
 export const SignupForm = ({
   placeholders = {
@@ -22,16 +20,12 @@ export const SignupForm = ({
 }) => {
   const { state, createCustomer } = useCustomerContext();
 
-  if (state.customer !== null) {
-    navigate('/account/');
-  }
-
   return (
     <Flex.Col
       data-comp={SignupForm.displayName}
       variant='account.forms.signup'
       as='form'
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
         const firstName = event.target.firstName.value;
         const lastName = event.target.lastName.value;
@@ -85,9 +79,7 @@ export const SignupForm = ({
           variant='account.forms.signup.loader'
           loading={state.loading?.customerCreate}
         >
-          <Button variant='account.forms.signup.submit'>
-            Sign Up
-          </Button>
+          <Button variant='account.forms.signup.submit'>Sign Up</Button>
 
           <AccountFormMessage messages={state.errors?.customerCreate} />
         </Loader.Hoc>

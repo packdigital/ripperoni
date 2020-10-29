@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -14,13 +11,17 @@ import { CartTotals } from '../CartTotals';
 import { CartLineItems } from '../CartLineItems';
 import { CartEmptyState } from '../CartEmptyState';
 import { useCartContext } from '../../context/CartContext';
+import { useCart } from '../../hooks/useCart';
+import { useCheckoutUrl } from '../../hooks/useCheckoutUrl';
 
 const AnimatedCart = motion.custom(FlexCol);
 
 export const Cart = ({ checkoutParams, ...props }) => {
+  const cart = useCart();
+  const checkoutUrl = useCheckoutUrl();
   const { state: cartState } = useCartContext();
   const { state: uiState, toggleCart } = useUIContext();
-  const lineItems = cartState?.cart?.lineItems;
+  const lineItems = cart?.lineItems;
   const isLoading = Object.values(cartState.loading).some(Boolean);
 
   return (
@@ -63,8 +64,8 @@ export const Cart = ({ checkoutParams, ...props }) => {
                   <CartUpsell />
 
                   <CartTotals
-                    subtotal={cartState.cart.subtotalPrice}
-                    checkoutUrl={cartState.cart.webUrl + checkoutParams}
+                    subtotal={cart.subtotalPrice}
+                    checkoutUrl={checkoutUrl + checkoutParams}
                   />
                 </>
               )}

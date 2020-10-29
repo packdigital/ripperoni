@@ -1,17 +1,12 @@
 import { cloneElement } from 'react';
 
-
-export const CmsContent = ({
-  children,
-  content,
-  ...props
-}) => {
+export const CmsContent = ({ children, content, ...props }) => {
   if (!children && !content) {
     return null;
   }
 
   return Array.isArray(content)
-    ? content.map(content => cloneElement(children || content, props))
+    ? content.map((content) => cloneElement(children || content, props))
     : cloneElement(children || content, props);
 };
 
