@@ -26,7 +26,7 @@
     "gatsby-plugin-create-client-paths": "^2.3.4",
     "graphql": "^15.3.0",
     "react-dropdown": "^1.7.0",
-    "use-persisted-state": "^0.3.0",
+    "use-local-storage-state": "^5.1.0",
     "use-reducer-async": "^2.0.1"
   },
   "prettier": "@packdigital/prettier-config-ripperoni"

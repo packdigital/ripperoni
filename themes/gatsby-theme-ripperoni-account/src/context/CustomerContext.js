@@ -1,7 +1,7 @@
 import React, { createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useReducerAsync } from 'use-reducer-async';
-import createPersistedState from 'use-persisted-state';
+import useLocalStorageState from 'use-local-storage-state';
 
 import { isBrowser, useContextFactory } from '@packdigital/ripperoni-utilities';
 
@@ -9,7 +9,7 @@ import { createActions } from './CustomerActions';
 import { asyncActions, reducer } from './CustomerReducer';
 import { usePrevious } from '../hooks/usePrevious';
 
-const usePersistedCustomer = createPersistedState('ShopifyCustomer');
+// const usePersistedCustomer = createPersistedState('ShopifyCustomer');
 const CustomerContext = createContext();
 
 export const useCustomerContext = useContextFactory(
@@ -20,7 +20,10 @@ export const useCustomerContext = useContextFactory(
 // customer === null   <-- no data yet
 // customer === false  <-- logged out
 export const CustomerContextProvider = ({ children, ...props }) => {
-  const [persistedCustomer, setPersistedCustomer] = usePersistedCustomer(null);
+  const [persistedCustomer, setPersistedCustomer] = useLocalStorageState(
+    'ShopifyCustomer',
+    null
+  );
   const prevPersistedCustomer = usePrevious(persistedCustomer);
 
   const initialState = {

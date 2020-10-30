@@ -1,7 +1,7 @@
 import React, { createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useReducerAsync } from 'use-reducer-async';
-import createPersistedState from 'use-persisted-state';
+import useLocalStorageState from 'use-local-storage-state';
 
 import { isBrowser, useContextFactory } from '@packdigital/ripperoni-utilities';
 
@@ -9,7 +9,6 @@ import { UPDATE_CART } from '../constants';
 import { createActions } from './CartActions';
 import { asyncActions, reducer } from './CartReducer';
 
-const usePersistedCart = createPersistedState('ShopifyCheckout');
 const CartContext = createContext();
 export const useCartContext = useContextFactory('Cart', CartContext);
 
@@ -19,7 +18,10 @@ export const CartContextProvider = ({
   children,
   ...props
 }) => {
-  const [persistedCart, setPersistedCart] = usePersistedCart(null);
+  const [persistedCart, setPersistedCart] = useLocalStorageState(
+    'ShopifyCheckout',
+    null
+  );
   const initialState = { cart: persistedCart, loading: {}, errors: {} };
   const [state, dispatch] = useReducerAsync(
     reducer,
