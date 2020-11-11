@@ -5,10 +5,14 @@ import Client from 'shopify-buy/index.unoptimized.umd';
 import update from 'immutability-helper';
 // import isBase64 from 'is-base64';
 
-const client = Client.buildClient({
-  domain: `${process.env.GATSBY_SHOPIFY_SHOP_NAME}.myshopify.com`,
-  storefrontAccessToken: process.env.GATSBY_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-});
+const {
+  GATSBY_SHOPIFY_SHOP_NAME: shopName,
+  GATSBY_SHOPIFY_CONNECTED_DOMAIN: connectedDomain,
+  GATSBY_SHOPIFY_STOREFRONT_ACCESS_TOKEN: storefrontAccessToken,
+} = process.env;
+
+const domain = connectedDomain || `${shopName}.myshopify.com`;
+const client = Client.buildClient({ domain, storefrontAccessToken });
 
 export const reducer = (state, action) => {
   switch (action.type) {
