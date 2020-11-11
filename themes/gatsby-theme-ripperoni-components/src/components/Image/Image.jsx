@@ -10,36 +10,30 @@ import { ImageSharp } from './ImageSharp';
 import { ImageStatic } from './ImageStatic';
 import { ImageContentful } from './ImageContentful';
 
+export const Image = forwardRef(
+  ({ src, altTxt, imgStyle, imgClassName, ...props }, ref) => {
+    const localRef = useRef();
+    // const [isVisible, setIsVisible] = useState(false);
+    const imageId = useRef(uniqueid('image-'));
 
-export const Image = forwardRef(({
-  src,
-  altTxt,
-  imgStyle,
-  imgClassName,
-  ...props
-}, ref ) => {
-  const localRef = useRef();
-  // const [isVisible, setIsVisible] = useState(false);
-  const imageId = useRef(uniqueid('image-'));
+    useIntersectionObserver({
+      target: localRef,
+      onIntersect: ([{ isIntersecting }], observerElement) => {
+        if (isIntersecting) {
+          // setIsVisible(true);
+          observerElement.unobserve(localRef.current);
+        }
+      },
+    });
 
-  useIntersectionObserver({
-    target: localRef,
-    onIntersect: ([{ isIntersecting }], observerElement) => {
-      if (isIntersecting) {
-        // setIsVisible(true);
-        observerElement.unobserve(localRef.current);
-      }
-    }
-  });
-
-  return (
-    <Box
-      id={imageId.current}
-      ref={ref}
-      data-comp={Image.displayName}
-      {...props}
-    >
-      {/* {isVisible && ( */}
+    return (
+      <Box
+        id={imageId.current}
+        ref={ref}
+        data-comp={Image.displayName}
+        {...props}
+      >
+        {/* {isVisible && ( */}
         <ImageUI
           ref={localRef}
           src={src}
@@ -48,20 +42,20 @@ export const Image = forwardRef(({
           sx={{
             width: '100%',
             maxWidth: '100%',
-            'display': 'block',
-            ...imgStyle
+            display: 'block',
+            ...imgStyle,
           }}
         />
-      {/* )} */}
-    </Box>
-  );
-});
-
+        {/* )} */}
+      </Box>
+    );
+  }
+);
 
 Image.Sharp = ImageSharp;
 Image.Static = ImageStatic;
 Image.Contentful = ImageContentful;
-Image.displayName = 'Fart Image';
+Image.displayName = 'Image';
 
 Image.propTypes = {
   src: PropTypes.string.isRequired,

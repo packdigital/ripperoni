@@ -11,8 +11,7 @@
   "keywords": [
     "gatsby",
     "gatsby-plugin",
-    "gatsby-source-plugin",
-    "fart"
+    "gatsby-source-plugin"
   ],
   "peerDependencies": {
     "gatsby": "^2.19.5"
