@@ -5,6 +5,8 @@ import { useCartContext } from '../context/CartContext';
 export const useAddItemsToCart = () => {
   const cartReady = useCartReady();
   const { addLineItems, cart, customer, messageBus } = useCartContext();
+  console.log('cartReady', cartReady);
+  console.log('cart', cart);
 
   const addItemsToCart = (items) => {
     if (!cart || !cartReady) {

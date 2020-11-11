@@ -12,37 +12,22 @@ import { asyncActions, reducer } from './CartReducer';
 const CartContext = createContext();
 export const useCartContext = useContextFactory('Cart', CartContext);
 
-export const CartContextProvider = ({
-  customer,
-  messageBus,
-  children,
-  ...props
-}) => {
-  const [persistedCart, setPersistedCart] = useLocalStorageState(
-    'ShopifyCheckout',
-    null
-  );
-  const initialState = { cart: persistedCart, loading: {}, errors: {} };
-  const [state, dispatch] = useReducerAsync(
-    reducer,
-    initialState,
-    asyncActions
-  );
+export const CartContextProvider = ({ customer, messageBus, children }) => {
+  // prettier-ignore
+  const [persistedCart, setPersistedCart] = useLocalStorageState('ShopifyCheckout', null);
+  const initial = { cart: persistedCart, loading: {}, errors: {} };
+  const [state, dispatch] = useReducerAsync(reducer, initial, asyncActions);
   const actions = createActions(dispatch);
-
-  useEffect(() => {
-    messageBus?.publish(UPDATE_CART, state.cart);
-  }, [state.cart]);
 
   useEffect(() => {
     if (!isBrowser) return;
 
-    if (!state.cart?.id || state.cart?.completedAt) {
-      actions.createCheckout();
-    } else {
-      actions.fetchCheckout(state.cart.id);
-    }
+    actions.fetchCheckout(state?.cart?.id);
   }, []);
+
+  useEffect(() => {
+    messageBus?.publish(UPDATE_CART, state.cart);
+  }, [state.cart]);
 
   useEffect(() => {
     const staleCart = state.cart?.updatedAt < persistedCart?.updatedAt;

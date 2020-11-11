@@ -2,12 +2,15 @@
  * @prettier
  */
 import Client from 'shopify-buy/index.unoptimized.umd';
-import isBase64 from 'is-base64';
 import update from 'immutability-helper';
+// import isBase64 from 'is-base64';
+
+const client = Client.buildClient({
+  domain: `${process.env.GATSBY_SHOPIFY_SHOP_NAME}.myshopify.com`,
+  storefrontAccessToken: process.env.GATSBY_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+});
 
 export const reducer = (state, action) => {
-  // console.log('action:cart', action);
-
   switch (action.type) {
     case 'REFRESH_CART': {
       return update(state, {
@@ -52,113 +55,73 @@ export const reducer = (state, action) => {
   }
 };
 
-const client = Client.buildClient({
-  domain: `${process.env.GATSBY_SHOPIFY_SHOP_NAME}.myshopify.com`,
-  storefrontAccessToken: process.env.GATSBY_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-});
-
-const validateGids = ([id, data], name) => {
-  // asyncActions can have arity of 0, 1, 2
-
-  // 1. first arg is always base64 id
-  if (id && !isBase64(id)) {
-    throw new Error(`Invalid checkout id provided to ${name}:
-      ${id}
-      \nAll GraphQL IDs need to be base64 encoded before being sent to Shopify Storefront API.`);
-  }
-
-  // 2. second arg can be string, object, or array
-  const isStringOrObject = (data) => ['string', 'object'].includes(typeof data);
-
-  // arrays are the only type containing base64 ids
-  // array indexes can be:
-  //   A. object with key including `id` and a value of base64 id
-  const keyIsId = (key) => key.toLowerCase().endsWith('id');
-  const keyValueIsValid = ([key, value]) => keyIsId(key) && isBase64(value);
-  const hasValidKeyValue = (object) =>
-    Object.entries(object).some(keyValueIsValid);
-
-  //   B. base64 id string
-  const indexIsValid = (index) => isBase64(index) || hasValidKeyValue(index);
-
-  // [2]
-  const dataIsValid = Array.isArray(data)
-    ? data.every(indexIsValid)
-    : isStringOrObject(data);
-
-  if (data && !dataIsValid) {
-    throw new Error(`Invalid data provided to ${name}:
-      ${JSON.stringify(data)}
-      \nAll GraphQL IDs need to be base64 encoded before being sent to Shopify Storefront API.`);
-  }
+const getCheckoutId = async (getState) => {
+  return getState().cart?.id || client.checkout.create().then(({ id }) => id);
 };
 
-const asyncActionWrapper = (asyncAction) => (reducerAsync) => (action) => {
-  const { dispatch, getState } = reducerAsync;
-  const name = asyncAction.name;
-  const checkout = getState().cart;
-  const args = [checkout?.id, action.data];
+const tryRequest = (dispatch) => (fn) => {
+  dispatch({ type: 'START_CART_ACTION', name: fn.name });
 
-  validateGids(args, name);
-
-  dispatch({ type: 'START_CART_ACTION', name });
-
-  const handleSuccess = (data) =>
-    dispatch({ type: 'FINISH_CART_ACTION', name, data });
-
-  const handleError = (error) =>
-    dispatch({ type: 'ERROR_CART_ACTION', name, errors: error.message });
-
-  asyncAction.action(args).then(handleSuccess).catch(handleError);
+  // prettier-ignore
+  return fn()
+    .then((data) => dispatch({ type: 'FINISH_CART_ACTION', name: fn.name, data }))
+    .catch((error) => dispatch({ type: 'ERROR_CART_ACTION', name: fn.name, errors: error.message }));
 };
 
 export const asyncActions = {
-  CREATE_CHECKOUT: asyncActionWrapper({
-    name: client.checkout.create.name,
-    action: (args) => client.checkout.create(...args),
-  }),
-  ADD_LINE_ITEMS: asyncActionWrapper({
-    name: client.checkout.addLineItems.name,
-    action: (args) => client.checkout.addLineItems(...args),
-  }),
-  REMOVE_LINE_ITEMS: asyncActionWrapper({
-    name: client.checkout.removeLineItems.name,
-    action: (args) => client.checkout.removeLineItems(...args),
-  }),
-  UPDATE_LINE_ITEMS: asyncActionWrapper({
-    name: client.checkout.updateLineItems.name,
-    action: (args) => client.checkout.updateLineItems(...args),
-  }),
-  ADD_DISCOUNT: asyncActionWrapper({
-    name: client.checkout.addDiscount.name,
-    action: (args) => client.checkout.addDiscount(...args),
-  }),
-  REMOVE_DISCOUNT: asyncActionWrapper({
-    name: client.checkout.removeDiscount.name,
-    action: (args) => client.checkout.removeDiscount(...args),
-  }),
-  UPDATE_SHIPPING_ADDRESS: asyncActionWrapper({
-    name: client.checkout.updateShippingAddress.name,
-    action: (args) => client.checkout.updateShippingAddress(...args),
-  }),
-  UPDATE_SHIPPING_ADDRESS: asyncActionWrapper({
-    name: client.checkout.updateEmail.name,
-    action: (args) => client.checkout.updateEmail(...args),
-  }),
-  FETCH_CHECKOUT: ({ dispatch }) => async (action) => {
-    const name = client.checkout.fetch.name;
+  ADD_LINE_ITEMS: ({ dispatch, getState }) => async ({ data }) => {
+    const id = await getCheckoutId(getState);
+    const addLineItems = () => client.checkout.addLineItems(id, data);
 
-    try {
-      dispatch({ type: 'START_CART_ACTION', name });
-
-      const data = await client.checkout.fetch(action.data);
-
-      dispatch({ type: 'FINISH_CART_ACTION', name, data });
-    } catch (error) {
-      dispatch({ type: 'ERROR_CART_ACTION', name, errors: error.message });
-      dispatch({ type: 'CREATE_CHECKOUT' });
-    }
+    return tryRequest(dispatch)(addLineItems);
   },
+  REMOVE_LINE_ITEMS: ({ dispatch, getState }) => async ({ data }) => {
+    const id = await getCheckoutId(getState);
+    const removeLineItems = () => client.checkout.removeLineItems(id, data);
+
+    return tryRequest(dispatch)(removeLineItems);
+  },
+  UPDATE_LINE_ITEMS: ({ dispatch, getState }) => async ({ data }) => {
+    const id = await getCheckoutId(getState);
+    const updateLineItems = () => client.checkout.updateLineItems(id, data);
+
+    return tryRequest(dispatch)(updateLineItems);
+  },
+  ADD_DISCOUNT: ({ dispatch, getState }) => async ({ data }) => {
+    const id = await getCheckoutId(getState);
+    const addDiscount = () => client.checkout.addDiscount(id, data);
+
+    return tryRequest(dispatch)(addDiscount);
+  },
+  REMOVE_DISCOUNT: ({ dispatch, getState }) => async ({ data }) => {
+    const id = await getCheckoutId(getState);
+    const removeDiscount = () => client.checkout.removeDiscount(id, data);
+
+    return tryRequest(dispatch)(removeDiscount);
+  },
+  UPDATE_SHIPPING_ADDRESS: ({ dispatch, getState }) => async ({ data }) => {
+    const id = await getCheckoutId(getState);
+    // prettier-ignore
+    const updateShippingAddress = () => client.checkout.updateShippingAddress([id, data]);
+
+    return tryRequest(dispatch)(updateShippingAddress);
+  },
+  UPDATE_SHIPPING_ADDRESS: ({ dispatch, getState }) => async ({ data }) => {
+    const id = await getCheckoutId(getState);
+    const updateEmail = () => client.checkout.updateEmail(id, data);
+
+    return tryRequest(dispatch)(updateEmail);
+  },
+  FETCH_CHECKOUT: ({ dispatch, getState }) => async ({ data }) => {
+    const id = data || (await getCheckoutId(getState));
+    // prettier-ignore
+    const replaceCompletedCart = (cart) => !cart.completedAt ? cart : client.checkout.create();
+    const fetchCheckout = () =>
+      client.checkout.fetch(id).then(replaceCompletedCart);
+
+    return tryRequest(dispatch)(fetchCheckout);
+  },
+  // I don't think these actually work 🤷🏻‍♀️
   ASSOCIATE_CART_WITH_CUSTOMER: ({ dispatch, getState }) => async (action) => {
     const name = 'associateCustomer';
     const checkoutId = getState().cart.id;
@@ -279,12 +242,37 @@ const CheckoutRemoveEmailMutation = (args) => {
   return client.checkout.graphQLClient.send(mutation);
 };
 
+// const asyncActionWrapper = (asyncAction) => (reducerAsync) => (action) => {
+//   const { dispatch, getState } = reducerAsync;
+//   const name = asyncAction.name;
+//   const checkout = getState().cart;
+//   const args = [checkout?.id, action.data];
+
+//   validateGids(args, name);
+
+//   dispatch({ type: 'START_CART_ACTION', name });
+
+//   const handleSuccess = (data) => {
+//     console.log('data', data);
+
+//     return dispatch({ type: 'FINISH_CART_ACTION', name, data });
+//   };
+
+//   const handleError = (error) => {
+//     console.error('error', error);
+
+//     return dispatch({ type: 'ERROR_CART_ACTION', name, errors: error.message });
+//   };
+
+//   asyncAction.action(args).then(handleSuccess).catch(handleError);
+// };
+
 // import { isShopifyGid } from '@packdigital/ripperoni-utilities';
 // let data = action.data;
 
-// // ! graphql ids must be btoa encoded before sending to shopify
-// // allow any type of variant id (legacy, unencoded, encoded) to be passed in addToCart
-// // this probably shouldn't go here...
+// ! graphql ids must be btoa encoded before sending to shopify
+// allow any type of variant id (legacy, unencoded, encoded) to be passed in addToCart
+// this probably shouldn't go here...
 // if (action.request === 'addLineItems') {
 //   const items = Array.isArray(data) ? data : [data];
 
@@ -302,3 +290,37 @@ const CheckoutRemoveEmailMutation = (args) => {
 
 // const checkoutId = getState().cart.id;
 // const cart = await client.checkout[action.request](checkoutId, data);
+
+// const validateGids = ([id, data], name) => {
+//   // 1. first arg is always base64 id
+//   if (id && !isBase64(id)) {
+//     throw new Error(`Invalid checkout id provided to ${name}:
+//       ${id}
+//       \nAll GraphQL IDs need to be base64 encoded before being sent to Shopify Storefront API.`);
+//   }
+
+//   // 2. second arg can be string, object, or array
+//   const isStringOrObject = (data) => ['string', 'object'].includes(typeof data);
+
+//   // arrays are the only type containing base64 ids
+//   // array indexes can be:
+//   //   A. object with key including `id` and a value of base64 id
+//   const keyIsId = (key) => key.toLowerCase().endsWith('id');
+//   const keyValueIsValid = ([key, value]) => keyIsId(key) && isBase64(value);
+//   const hasValidKeyValue = (object) =>
+//     Object.entries(object).some(keyValueIsValid);
+
+//   //   B. base64 id string
+//   const indexIsValid = (index) => isBase64(index) || hasValidKeyValue(index);
+
+//   // [2]
+//   const dataIsValid = Array.isArray(data)
+//     ? data.every(indexIsValid)
+//     : isStringOrObject(data);
+
+//   if (data && !dataIsValid) {
+//     throw new Error(`Invalid data provided to ${name}:
+//       ${JSON.stringify(data)}
+//       \nAll GraphQL IDs need to be base64 encoded before being sent to Shopify Storefront API.`);
+//   }
+// };
