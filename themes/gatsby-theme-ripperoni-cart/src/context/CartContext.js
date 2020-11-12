@@ -7,14 +7,16 @@ import { isBrowser, useContextFactory } from '@packdigital/ripperoni-utilities';
 
 import { UPDATE_CART } from '../constants';
 import { createActions } from './CartActions';
-import { asyncActions, reducer } from './CartReducer';
+import { asyncActions, domain, reducer } from './CartReducer';
 
 const CartContext = createContext();
 export const useCartContext = useContextFactory('Cart', CartContext);
 
 export const CartContextProvider = ({ customer, messageBus, children }) => {
+  const persistedCartKey = `ShopifyCheckout--${domain}`;
+
   // prettier-ignore
-  const [persistedCart, setPersistedCart] = useLocalStorageState('ShopifyCheckout', null);
+  const [persistedCart, setPersistedCart] = useLocalStorageState(persistedCartKey, null);
   const initial = { cart: persistedCart, loading: {}, errors: {} };
   const [state, dispatch] = useReducerAsync(reducer, initial, asyncActions);
   const actions = createActions(dispatch);
@@ -22,7 +24,7 @@ export const CartContextProvider = ({ customer, messageBus, children }) => {
   useEffect(() => {
     if (!isBrowser) return;
 
-    actions.fetchCheckout(state?.cart?.id);
+    actions.fetchCheckout();
   }, []);
 
   useEffect(() => {
