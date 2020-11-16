@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, navigate, useStaticQuery } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
@@ -17,6 +17,11 @@ export const ResetPasswordForm = ({
   const { site } = useStaticQuery(staticQuery);
   const { shopifyUrl: origin } = site.siteMetadata.site;
   const { state, resetPassword } = useCustomerContext();
+  console.log('state', state);
+
+  if (state.customer) {
+    navigate('/account');
+  }
 
   return (
     <Flex.Col

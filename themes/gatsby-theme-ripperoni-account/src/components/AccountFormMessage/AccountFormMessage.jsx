@@ -11,7 +11,7 @@ export const AccountFormMessage = ({
   messages,
   ...props
 }) => {
-  if (!messages) return null;
+  if (!messages || messages.length === 0) return null;
 
   return (
     <header
