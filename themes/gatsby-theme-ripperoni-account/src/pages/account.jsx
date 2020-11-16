@@ -7,18 +7,18 @@ import { jsx } from 'theme-ui';
 import { Flex, Loader } from '@ripperoni/components';
 import { isBrowser } from '@ripperoni/utilities';
 
-import { Orders } from '../views/Orders';
-import { LoginSignup } from '../views/LoginSignup';
-import { Order } from '../views/Order';
-import { AddressBook } from '../views/AddressBook';
 import { Login } from '../views/Login';
+import { Order } from '../views/Order';
+import { Orders } from '../views/Orders';
 import { Signup } from '../views/Signup';
-import { RecoverPassword } from '../views/RecoverPassword';
+import { AddressBook } from '../views/AddressBook';
+import { LoginSignup } from '../views/LoginSignup';
 import { ResetPassword } from '../views/ResetPassword';
+import { RecoverPassword } from '../views/RecoverPassword';
 import { AccountActivation } from '../views/AccountActivation';
-import { PrivateRoute } from '../components/PrivateRoute';
 import { useCustomer } from '../hooks/useCustomer';
 import { useCustomerReady } from '../hooks/useCustomerReady';
+import { PrivateRoute } from '../components/PrivateRoute';
 
 export const AccountPage = (props) => {
   const customer = useCustomer();

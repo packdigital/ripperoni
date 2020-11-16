@@ -5,15 +5,12 @@ import { isBrowser } from '@ripperoni/utilities';
 
 import { RecoverPassword as RecoverPasswordView } from '../views/RecoverPassword';
 
-
-export const Recover = props => {
+export const Recover = (props) => {
   if (!isBrowser) {
     return null;
   }
 
-  return (
-    <RecoverPasswordView {...props} />
-  );
+  return <RecoverPasswordView {...props} />;
 };
 
 export default Recover;

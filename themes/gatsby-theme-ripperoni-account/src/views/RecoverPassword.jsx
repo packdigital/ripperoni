@@ -6,18 +6,13 @@ import { Box, Flex, Heading, Link, Text } from '@ripperoni/components';
 import { AccountLayout } from '../layout/AccountLayout';
 import { RecoverPasswordForm } from '../components/RecoverPasswordForm';
 
-
-export const RecoverPassword = props => {
+export const RecoverPassword = (props) => {
   const cancelToggle = () => {
     navigate('/account/login/');
   };
 
   return (
-    <AccountLayout
-      variant='account.layout.recover'
-      loggedIn={false}
-      {...props}
-    >
+    <AccountLayout variant='account.layout.recover' loggedIn={false} {...props}>
       <Flex.Col
         data-comp={RecoverPassword.displayName}
         center
@@ -33,11 +28,7 @@ export const RecoverPassword = props => {
           <RecoverPasswordForm cancelToggle={cancelToggle} />
         </Box>
 
-        <Flex
-          between
-          middle
-          variant='account.recover.createAccount'
-        >
+        <Flex between middle variant='account.recover.createAccount'>
           <Box variant='account.recover.signupText'>
             <Text variant='account.text.recover.signupText'>
               Don't have an account?

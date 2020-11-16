@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, navigate, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 
 import { Button, FieldGroup, Flex, Loader } from '@ripperoni/components';
 
 import { Password } from './Password';
 import { AccountFormMessage } from '../AccountFormMessage';
 import { useCustomerContext } from '../../context/CustomerContext';
-
 
 export const ResetPasswordForm = ({
   customerId,
@@ -19,16 +18,12 @@ export const ResetPasswordForm = ({
   const { shopifyUrl: origin } = site.siteMetadata.site;
   const { state, resetPassword } = useCustomerContext();
 
-  if (state.customer !== null) {
-    navigate('/account/');
-  }
-
   return (
     <Flex.Col
       data-comp={ResetPasswordForm.displayName}
       variant='account.forms.reset'
       as='form'
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
         const password = event.target.password.value;
         const url = origin + pathname;
@@ -51,9 +46,7 @@ export const ResetPasswordForm = ({
           variant='account.forms.reset.loader'
           loading={state.loading?.passwordReset}
         >
-          <Button variant='account.forms.reset.submit'>
-            Submit
-          </Button>
+          <Button variant='account.forms.reset.submit'>Submit</Button>
 
           <AccountFormMessage messages={state.errors?.passwordReset} />
         </Loader.Hoc>
