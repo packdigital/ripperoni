@@ -17,7 +17,6 @@ export const ResetPasswordForm = ({
   const { site } = useStaticQuery(staticQuery);
   const { shopifyUrl: origin } = site.siteMetadata.site;
   const { state, resetPassword } = useCustomerContext();
-  console.log('state', state);
 
   if (state.customer) {
     navigate('/account');
