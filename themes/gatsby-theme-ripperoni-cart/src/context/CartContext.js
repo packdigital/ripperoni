@@ -32,9 +32,15 @@ export const CartContextProvider = ({ customer, messageBus, children }) => {
   }, [state.cart]);
 
   useEffect(() => {
+    const isCompleted = state.cart?.completedAt || persistedCart?.completedAt;
     const staleCart = state.cart?.updatedAt < persistedCart?.updatedAt;
     const stalePersistedCart = persistedCart?.updatedAt < state.cart?.updatedAt;
     const missingPersistedCart = !persistedCart && state.cart;
+
+    if (isCompleted) {
+      actions.fetchCheckout();
+      return;
+    }
 
     if (staleCart) {
       actions.refreshCart(persistedCart);
