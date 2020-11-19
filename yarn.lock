@@ -3279,13 +3279,6 @@
   dependencies:
     pubsub-js "^1.9.0"
 
-"@packdigital/gatsby-theme-ripperoni-message-bus@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-message-bus/-/gatsby-theme-ripperoni-message-bus-0.0.11.tgz#7dc1f058232e5d83e63a46ac04a4e2c47f43197a"
-  integrity sha512-XelVUUMRdXmZRK55UrLZcoQRviMbfm8vHwLkJTDEL4etc1ZT47H0dPjU5E3GCdzgX7+F0xUf/XuBBTBIrp1OKQ==
-  dependencies:
-    pubsub-js "^1.9.0"
-
 "@packdigital/gatsby-theme-ripperoni-netlify@^0.0.21":
   version "0.0.21"
   resolved "https://registry.yarnpkg.com/@packdigital/gatsby-theme-ripperoni-netlify/-/gatsby-theme-ripperoni-netlify-0.0.21.tgz#9dd08de504d14dfd9ce782bea106811b3ea78e29"
