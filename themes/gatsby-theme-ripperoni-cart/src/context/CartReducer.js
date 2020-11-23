@@ -141,8 +141,12 @@ export const asyncActions = {
   FETCH_CHECKOUT: ({ dispatch, getState }) => async () => {
     const id = await getCheckoutId(getState);
     const currentCheckout = client.checkout.fetch(id);
+    const { completedAt } = await currentCheckout;
 
-    const fetchCheckout = currentCheckout?.completedAt
+    console.log('currentCheckout', currentCheckout);
+    console.log('completedAt', completedAt);
+
+    const fetchCheckout = completedAt
       ? () => client.checkout.create()
       : () => currentCheckout;
 
