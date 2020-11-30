@@ -5,39 +5,42 @@ const Customer = require('./customer');
 const Password = require('./password');
 
 const actions = {
-  'customerGet': Customer.get,
-  'customerLogin': Customer.get,
-  'customerCreate': Customer.create,
-  'passwordRecover': Password.recover,
-  'passwordReset': Password.reset,
-  'addressCreate': Address.create,
-  'addressDelete': Address.delete,
-  'addressUpdate': Address.update,
-  'customerLoginOrCreate': Customer.loginOrCreate,
+  customerGet: Customer.get,
+  customerLogin: Customer.get,
+  customerCreate: Customer.create,
+  passwordRecover: Password.recover,
+  passwordReset: Password.reset,
+  addressCreate: Address.create,
+  addressDelete: Address.delete,
+  addressUpdate: Address.update,
+  customerLoginOrCreate: Customer.loginOrCreate,
 };
 
 const errorMessages = {
-  'UNIDENTIFIED_CUSTOMER': 'Incorrect Email or Password',
-  'TOO_SHORT': 'Password is too short (minimum is 6 characters)',
-  'TAKEN': 'Email has already been taken',
+  UNIDENTIFIED_CUSTOMER: 'Incorrect Email or Password',
+  TOO_SHORT: 'Password is too short (minimum is 6 characters)',
+  TAKEN: 'Email has already been taken',
   // 'INVALID': 'Email is invalid', // can be invalid reset url or email
-  'BAD_DOMAIN': 'Email contains an invalid domain name',
+  BAD_DOMAIN: 'Email contains an invalid domain name',
 };
 
-const getErrors = error => {
+const getErrors = (error) => {
   if (error.graphQLErrors) {
     return error.graphQLErrors.map(({ message }) => message);
   }
 
   if (error.map) {
-    return error.map(({ message, code }) =>
-      errorMessages[code] || message || 'Error! please try again later.');
+    return error.map(
+      ({ message, code }) =>
+        errorMessages[code] || message || 'Error! please try again later.'
+    );
   }
 
   return error;
+  // return [error.message];
 };
 
-module.exports = async event => {
+module.exports = async (event) => {
   try {
     const body = JSON.parse(event.body);
     // console.log('body', body);
@@ -51,21 +54,21 @@ module.exports = async event => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ data })
+      body: JSON.stringify({ data }),
     };
   } catch (error) {
     // console.log('error', error);
 
     const errors = getErrors(error);
+    // const errors = JSON.stringify(getErrors(error));
     // console.log('errors', errors);
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ errors })
+      body: JSON.stringify({ errors }),
     };
   }
 };
-
 
 // if (!accessToken && !hasCredentials) {
 //   return {
@@ -77,7 +80,6 @@ module.exports = async event => {
 //     }]
 //   };
 // }
-
 
 // code: "GRAPHQL_ERROR"
 // field: null
