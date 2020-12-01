@@ -174,6 +174,10 @@ module.exports = `
   type ContentfulAtomLink implements Node & AllContentful & ContentfulAtoms @infer {
     id: ID
     contentful_id: String
+    text: String
+    url: String
+    newWindow: Boolean
+    tagAttributes: [String]
     color: [ContentfulJson] @link(by: "id", from: "color___NODE")
     width: [ContentfulJson] @link(by: "id", from: "width___NODE")
     marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")

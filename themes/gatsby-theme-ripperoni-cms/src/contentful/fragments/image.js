@@ -7,10 +7,18 @@ export const ContentfulAtomImageFragment = graphql`
       fluid (maxWidth: 2400) {
         ...GatsbyContentfulFluid_withWebp_noBase64
       }
+      file {
+        contentType
+        url
+      }
     }
     secondaryImage {
       fluid (maxWidth: 2400) {
         ...GatsbyContentfulFluid_withWebp_noBase64
+      }
+      file {
+        contentType
+        url
       }
     }
     alt

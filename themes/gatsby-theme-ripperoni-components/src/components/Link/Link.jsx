@@ -22,6 +22,7 @@ export const Link = forwardRef(({
   children,
   text,
   variant,
+  tagAttributes,
   ...incomingProps
 }, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps);
@@ -52,6 +53,7 @@ export const Link = forwardRef(({
       animate,
       ...props?.state
     },
+    ...tagAttributes,
     ...props
   };
 
