@@ -9,7 +9,7 @@ import { Link as GatsbyLink } from 'gatsby';
 import { useSxProps } from '../../hooks/useSxProps';
 import { LinkButton } from './LinkButton';
 
-
+// prettier-ignore
 export const Link = forwardRef(({
   to,
   href,
@@ -22,7 +22,7 @@ export const Link = forwardRef(({
   children,
   text,
   variant,
-  tagAttributes,
+  tagAttributes = [],
   ...incomingProps
 }, ref) => {
   const { sxObject, props, propTypes } = useSxProps(incomingProps);
@@ -40,6 +40,16 @@ export const Link = forwardRef(({
     variant: PropTypes.string,
   };
 
+  const parsedTagAttributes = tagAttributes.reduce((attributes, attribute) => {
+    const [key, value = ''] = attribute.split('=');
+    const valueWithoutQuotes = value.replace(/^['"](.*)['"]$/, '$1');
+
+    return {
+      ...attributes,
+      [key]: valueWithoutQuotes,
+    }
+  }, {});
+
   const linkProps = {
     activeClassName,
     'aria-label': ariaLabel,
@@ -53,9 +63,10 @@ export const Link = forwardRef(({
       animate,
       ...props?.state
     },
-    ...tagAttributes,
+    ...parsedTagAttributes,
     ...props
   };
+
 
   if (to || url?.[0] === '/') {
     return (

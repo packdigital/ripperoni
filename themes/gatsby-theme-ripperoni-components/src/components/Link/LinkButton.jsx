@@ -4,11 +4,7 @@ import { jsx } from 'theme-ui';
 
 import { Link } from './Link';
 
-
-export const LinkButton = forwardRef(({
-  sx,
-  ...props
-}, ref) => {
+export const LinkButton = forwardRef(({ sx, ...props }, ref) => {
   LinkButton.propTypes = Link.propTypes;
 
   return (

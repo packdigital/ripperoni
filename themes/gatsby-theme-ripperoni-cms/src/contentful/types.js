@@ -1,7 +1,8 @@
 module.exports = `
+  # Unions
   union ContentfulAtomsAndMolecule = ContentfulAtomButton | ContentfulAtomVideo | ContentfulAtomProducts | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMolecule
 
-
+  # Interfaces
   interface ContentfulJson {
     content: String
   }
@@ -24,6 +25,7 @@ module.exports = `
     metaTags: [String]
   }
 
+  # Atom - Button
   type contentfulAtomButtonColorJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
@@ -40,6 +42,7 @@ module.exports = `
     value: String
   }
 
+  # Atom - Image
   type contentfulAtomImageWidthJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
@@ -50,6 +53,7 @@ module.exports = `
     value: String
   }
 
+  # Atom - Link
   type contentfulAtomLinkColorJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
@@ -63,10 +67,12 @@ module.exports = `
     value: String
   }
 
+  # Atom - Products
   type contentfulAtomProductsProductsJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
 
+  # Atom - Text
   type contentfulAtomTextColorJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
@@ -97,6 +103,7 @@ module.exports = `
     type: String
   }
 
+  # Molecule
   type contentfulMoleculeBackgroundColorJsonNode implements Node & ContentfulJson @infer {
     content: String
   }
