@@ -1,13 +1,11 @@
 import { ADD_TO_CART } from '../constants';
-import { useCartReady } from './useCartReady';
 import { useCartContext } from '../context/CartContext';
 
 export const useAddItemsToCart = () => {
-  const cartReady = useCartReady();
   const { addLineItems, cart, customer, messageBus } = useCartContext();
 
   const addItemsToCart = (items) => {
-    if (!cart || !cartReady) {
+    if (!cart || !cart.ready) {
       throw new Error('Called addItemsToCart too soon');
     }
 

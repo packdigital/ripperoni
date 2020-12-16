@@ -1,15 +1,13 @@
 import { REMOVE_FROM_CART } from '../constants';
-import { useCartReady } from './useCartReady';
 import { useGetLineItem } from './useGetLineItem';
 import { useCartContext } from '../context/CartContext';
 
 export const useRemoveItemsFromCart = () => {
-  const cartReady = useCartReady();
   const getLineItem = useGetLineItem();
   const { removeLineItems, cart, customer, messageBus } = useCartContext();
 
   const removeItemsFromCart = (lineItemIds) => {
-    if (!cart || !cartReady) {
+    if (!cart || !cart.ready) {
       throw new Error('Called removeItemsFromCart too soon');
     }
 

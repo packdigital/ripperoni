@@ -20,5 +20,6 @@ export { useGetLineItem } from './hooks/useGetLineItem';
 export { useRemoveItemFromCart } from './hooks/useRemoveItemFromCart';
 export { useRemoveItemsFromCart } from './hooks/useRemoveItemsFromCart';
 export { useUpdateItemQuantity } from './hooks/useUpdateItemQuantity';
+export { useUpdateCartAttributes } from './hooks/useUpdateCartAttributes';
 
 export { default as theme } from './gatsby-plugin-theme-ui';

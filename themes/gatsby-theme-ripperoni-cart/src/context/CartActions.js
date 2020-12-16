@@ -11,6 +11,7 @@ const UPDATE_EMAIL = 'UPDATE_EMAIL';
 const ASSOCIATE_CUSTOMER = 'ASSOCIATE_CUSTOMER';
 const ASSOCIATE_CART_WITH_CUSTOMER = 'ASSOCIATE_CART_WITH_CUSTOMER';
 const DISASSOCIATE_CART_WITH_CUSTOMER = 'DISASSOCIATE_CART_WITH_CUSTOMER';
+const UPDATE_ATTRIBUTES = 'UPDATE_ATTRIBUTES';
 
 export const createActions = (dispatch) => {
   return {
@@ -52,6 +53,9 @@ export const createActions = (dispatch) => {
     },
     disassociateCustomer: () => {
       dispatch({ type: DISASSOCIATE_CART_WITH_CUSTOMER });
+    },
+    updateAttributes: (data) => {
+      dispatch({ type: UPDATE_ATTRIBUTES, data });
     },
   };
 };

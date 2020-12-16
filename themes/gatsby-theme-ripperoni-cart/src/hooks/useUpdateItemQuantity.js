@@ -1,14 +1,12 @@
 import { useCallback } from 'react';
 import debounce from 'lodash/debounce';
 
-import { useCartReady } from './useCartReady';
 import { useCartContext } from '../context/CartContext';
 import { useGetLineItem } from '../hooks/useGetLineItem';
 import { useRemoveItemFromCart } from './useRemoveItemFromCart';
 import { UPDATE_CART_QUANTITY } from '../constants';
 
 export const useUpdateItemQuantity = () => {
-  const cartReady = useCartReady();
   const getLineItem = useGetLineItem();
   const removeLineItem = useRemoveItemFromCart();
   const { updateLineItems, cart, customer, messageBus } = useCartContext();
@@ -26,7 +24,7 @@ export const useUpdateItemQuantity = () => {
   const updateItemQuantity = (lineItemId, quantity) => {
     const parsedQuantity = parseInt(quantity, 10);
 
-    if (!cart || !cartReady) {
+    if (!cart || !cart.ready) {
       throw new Error('Called updateItemQuantity too soon');
     }
 

@@ -67,10 +67,12 @@ const getCheckoutId = async (getState) => {
   return await client.checkout.create().then(({ id }) => id);
 };
 
-const tryRequest = (dispatch) => async (fn) => {
+const tryRequest = (dispatch, options = {}) => async (fn) => {
   const name = fn.name;
 
-  dispatch({ type: 'START_CART_ACTION', name });
+  if (!options.skipStart) {
+    dispatch({ type: 'START_CART_ACTION', name });
+  }
 
   const successHandler = (data) => {
     dispatch({ type: 'FINISH_CART_ACTION', name, data });
@@ -137,6 +139,12 @@ export const asyncActions = {
     const updateEmail = () => client.checkout.updateEmail(id, data);
 
     tryRequest(dispatch)(updateEmail);
+  },
+  UPDATE_ATTRIBUTES: ({ dispatch, getState }) => async ({ data }) => {
+    const id = await getCheckoutId(getState);
+    const updateAttributes = () => client.checkout.updateAttributes(id, data);
+
+    tryRequest(dispatch, { skipStart: true })(updateAttributes);
   },
   FETCH_CHECKOUT: ({ dispatch, getState }) => async () => {
     const id = await getCheckoutId(getState);

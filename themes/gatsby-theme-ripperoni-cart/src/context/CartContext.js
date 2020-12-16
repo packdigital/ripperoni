@@ -24,8 +24,6 @@ export const CartContextProvider = ({ customer, messageBus, children }) => {
   useEffect(() => {
     if (!isBrowser) return;
 
-    console.log('Initial cart being fetched');
-
     actions.fetchCheckout();
   }, []);
 
@@ -34,7 +32,6 @@ export const CartContextProvider = ({ customer, messageBus, children }) => {
   }, [state.cart]);
 
   useEffect(() => {
-    console.log('state.cart was updated', state.cart);
     const isCompleted = state.cart?.completedAt || persistedCart?.completedAt;
     const staleCart = state.cart?.updatedAt < persistedCart?.updatedAt;
     const stalePersistedCart = persistedCart?.updatedAt < state.cart?.updatedAt;
