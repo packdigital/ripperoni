@@ -148,11 +148,10 @@ export const asyncActions = {
   },
   FETCH_CHECKOUT: ({ dispatch, getState }) => async () => {
     const id = await getCheckoutId(getState);
-    const currentCheckout = client.checkout.fetch(id);
-    const { completedAt } = await currentCheckout;
-    const fetchCheckout = completedAt
+    const currentCheckout = await client.checkout.fetch(id);
+    const fetchCheckout = currentCheckout?.completedAt
       ? () => client.checkout.create()
-      : () => currentCheckout;
+      : () => Promise.resolve(currentCheckout);
 
     tryRequest(dispatch)(fetchCheckout);
   },
