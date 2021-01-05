@@ -149,7 +149,8 @@ export const asyncActions = {
   FETCH_CHECKOUT: ({ dispatch, getState }) => async () => {
     const id = await getCheckoutId(getState);
     const currentCheckout = await client.checkout.fetch(id);
-    const fetchCheckout = currentCheckout?.completedAt
+    const isBadCheckout = !currentCheckout || currentCheckout?.completedAt;
+    const fetchCheckout = isBadCheckout
       ? () => client.checkout.create()
       : () => Promise.resolve(currentCheckout);
 
