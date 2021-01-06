@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 import { useCartContext } from '../context/CartContext';
 
 export const useUpdateCartAttributes = () => {
-  const { updateAttributes, cart } = useCartContext();
+  const { updateAttributes } = useCartContext();
 
   const debouncedUpdate = debounce((input) => updateAttributes(input), 500);
 
@@ -14,10 +14,6 @@ export const useUpdateCartAttributes = () => {
   );
 
   const updateCartAttributes = (customAttributes) => {
-    // if (!cart || !cart.ready) {
-    //   throw new Error('Called updateCartAttributes too soon');
-    // }
-
     if (!Array.isArray(customAttributes)) {
       throw new Error(
         'Cart attributes must be in the form: `[{ key: "MyKey1", value: "MyValue1"}, { key: "MyKey2", value: "MyValue2"}]`'

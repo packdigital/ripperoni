@@ -24,10 +24,6 @@ export const useUpdateItemQuantity = () => {
   const updateItemQuantity = (lineItemId, quantity) => {
     const parsedQuantity = parseInt(quantity, 10);
 
-    // if (!cart || !cart.ready) {
-    //   throw new Error('Called updateItemQuantity too soon');
-    // }
-
     if (!lineItemId) {
       throw new Error('Must provide a variant id');
     }

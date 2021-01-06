@@ -7,10 +7,6 @@ export const useRemoveItemsFromCart = () => {
   const { removeLineItems, cart, customer, messageBus } = useCartContext();
 
   const removeItemsFromCart = (lineItemIds) => {
-    // if (!cart || !cart.ready) {
-    //   throw new Error('Called removeItemsFromCart too soon');
-    // }
-
     if (!Array.isArray(lineItemIds)) {
       throw new Error('lineItemIds must be an array of line item ids');
     }
