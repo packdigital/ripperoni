@@ -14,9 +14,9 @@ export const useUpdateCartAttributes = () => {
   );
 
   const updateCartAttributes = (customAttributes) => {
-    if (!cart || !cart.ready) {
-      throw new Error('Called updateCartAttributes too soon');
-    }
+    // if (!cart || !cart.ready) {
+    //   throw new Error('Called updateCartAttributes too soon');
+    // }
 
     if (!Array.isArray(customAttributes)) {
       throw new Error(

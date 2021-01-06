@@ -5,9 +5,9 @@ export const useAddItemsToCart = () => {
   const { addLineItems, cart, customer, messageBus } = useCartContext();
 
   const addItemsToCart = (items) => {
-    if (!cart || !cart.ready) {
-      throw new Error('Called addItemsToCart too soon');
-    }
+    // if (!cart || !cart.ready) {
+    //   throw new Error('Called addItemsToCart too soon');
+    // }
 
     if (items.length < 1) {
       throw new Error('Must include at least one line item');
