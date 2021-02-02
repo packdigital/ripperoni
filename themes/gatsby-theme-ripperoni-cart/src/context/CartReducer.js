@@ -67,9 +67,7 @@ const getCheckoutId = async (getState) => {
   return await client.checkout.create().then(({ id }) => id);
 };
 
-const tryRequest = (dispatch, options = {}) => async (fn) => {
-  const name = fn.name;
-
+const tryRequest = (dispatch, options = {}) => async (fn, name) => {
   if (!options.skipStart) {
     dispatch({ type: 'START_CART_ACTION', name });
   }
@@ -101,44 +99,44 @@ export const asyncActions = {
     const id = await getCheckoutId(getState);
     const addLineItems = () => client.checkout.addLineItems(id, data);
 
-    tryRequest(dispatch)(addLineItems);
+    tryRequest(dispatch)(addLineItems, 'addLineItems');
   },
   REMOVE_LINE_ITEMS: ({ dispatch, getState }) => async ({ data }) => {
     const id = await getCheckoutId(getState);
     const removeLineItems = () => client.checkout.removeLineItems(id, data);
 
-    tryRequest(dispatch)(removeLineItems);
+    tryRequest(dispatch)(removeLineItems, 'removeLineItems');
   },
   UPDATE_LINE_ITEMS: ({ dispatch, getState }) => async ({ data }) => {
     const id = await getCheckoutId(getState);
     const updateLineItems = () => client.checkout.updateLineItems(id, data);
 
-    tryRequest(dispatch)(updateLineItems);
+    tryRequest(dispatch)(updateLineItems, 'updateLineItems');
   },
   ADD_DISCOUNT: ({ dispatch, getState }) => async ({ data }) => {
     const id = await getCheckoutId(getState);
     const addDiscount = () => client.checkout.addDiscount(id, data);
 
-    tryRequest(dispatch)(addDiscount);
+    tryRequest(dispatch)(addDiscount, 'addDiscount');
   },
   REMOVE_DISCOUNT: ({ dispatch, getState }) => async ({ data }) => {
     const id = await getCheckoutId(getState);
     const removeDiscount = () => client.checkout.removeDiscount(id, data);
 
-    tryRequest(dispatch)(removeDiscount);
+    tryRequest(dispatch)(removeDiscount, 'removeDiscount');
   },
   UPDATE_SHIPPING_ADDRESS: ({ dispatch, getState }) => async ({ data }) => {
     const id = await getCheckoutId(getState);
     // prettier-ignore
     const updateShippingAddress = () => client.checkout.updateShippingAddress([id, data]);
 
-    tryRequest(dispatch)(updateShippingAddress);
+    tryRequest(dispatch)(updateShippingAddress, 'updateShippingAddress');
   },
   UPDATE_SHIPPING_ADDRESS: ({ dispatch, getState }) => async ({ data }) => {
     const id = await getCheckoutId(getState);
     const updateEmail = () => client.checkout.updateEmail(id, data);
 
-    tryRequest(dispatch)(updateEmail);
+    tryRequest(dispatch)(updateEmail, 'updateEmail');
   },
   UPDATE_ATTRIBUTES: ({ dispatch, getState }) => async ({ data }) => {
     const id = await getCheckoutId(getState);
@@ -154,6 +152,6 @@ export const asyncActions = {
       ? () => client.checkout.create()
       : () => Promise.resolve(currentCheckout);
 
-    tryRequest(dispatch)(fetchCheckout);
+    tryRequest(dispatch)(fetchCheckout, 'fetchCheckout');
   },
 };

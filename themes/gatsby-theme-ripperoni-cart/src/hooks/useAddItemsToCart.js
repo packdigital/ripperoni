@@ -14,11 +14,12 @@ export const useAddItemsToCart = () => {
 
     if (wasLoading && finishedLoading) {
       const items = itemsRef.current;
+
       messageBus?.publish(ADD_TO_CART, { items, cart, customer });
     }
 
     addLineItemsLoadingRef.current = state.loading.addLineItems;
-  }, [state.loading.addLineItems]);
+  }, [cart, state.loading.addLineItems]);
 
   const addItemsToCart = (items) => {
     if (items.length < 1) {
