@@ -20,6 +20,7 @@ import { QuantitySelect } from '../QuantitySelect';
 import { useRemoveItemFromCart } from '../../hooks/useRemoveItemFromCart';
 
 export const CartLineItem = ({ id, title, quantity, variant, ...props }) => {
+  console.log('props', props);
   const removeItemFromCart = useRemoveItemFromCart();
 
   const { selectedOptions, image, price, compareAtPrice } = variant || {};
@@ -41,12 +42,12 @@ export const CartLineItem = ({ id, title, quantity, variant, ...props }) => {
         {...props}
       >
         <Link
-          href='#'
+          href={`#`}
           position='relative'
           maxWidth='75px'
           width='100%'
           mr='22px'
-          sx={{ variant: 'links.plain' }}
+          sx={{ variant: 'links.plain', cursor: 'auto' }}
         >
           <Image
             src={image?.src}
