@@ -50,26 +50,22 @@ export const CartLineItem = ({
         }}
         {...props}
       >
-        <Link
-          to={url || '#'}
+        <Box
+          as={url && Link}
+          to={url}
           position='relative'
           maxWidth='75px'
           width='100%'
           mr='22px'
-          sx={{
-            cursor,
-            variant: 'links.plain',
-          }}
+          sx={{ variant: 'links.plain' }}
           onClick={() => url && toggleCart()}
         >
           <Image
             src={image?.src}
             alt={image?.altText}
-            imgStyle={{
-              width: '100%',
-            }}
+            imgStyle={{ width: '100%' }}
           />
-        </Link>
+        </Box>
 
         <Flex.Col middle>
           <Text
@@ -82,27 +78,31 @@ export const CartLineItem = ({
             {options}
           </Text>
 
-          <Link
-            to={url || '#'}
-            position='relative'
-            sx={{
-              cursor,
-              color: 'inherit',
-              textDecoration: 'none',
-              variant: 'links.plain',
-            }}
-            onClick={() => url && toggleCart()}
+          <Heading
+            mb='10px'
+            size='13px'
+            weight='bold'
+            textTransform='uppercase'
+            variant='cart.text.lineItem.primaryTitle'
           >
-            <Heading
-              mb='10px'
-              size='13px'
-              weight='bold'
-              textTransform='uppercase'
-              variant='cart.text.lineItem.primaryTitle'
-            >
-              {title}
-            </Heading>
-          </Link>
+            {url ? (
+              <Link
+                to={url || '#'}
+                position='relative'
+                sx={{
+                  cursor,
+                  color: 'inherit',
+                  textDecoration: 'none',
+                  variant: 'links.plain',
+                }}
+                onClick={() => url && toggleCart()}
+              >
+                {title}
+              </Link>
+            ) : (
+              title
+            )}
+          </Heading>
 
           <QuantitySelect
             width='75px'
