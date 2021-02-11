@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { useUIContext } from '@ripperoni/core';
 import { getLegacyShopifyId } from '@ripperoni/utilities';
 import {
   Box,
@@ -19,14 +20,22 @@ import Close from '../../assets/images/close.svg';
 import { QuantitySelect } from '../QuantitySelect';
 import { useRemoveItemFromCart } from '../../hooks/useRemoveItemFromCart';
 
-export const CartLineItem = ({ id, title, quantity, variant, ...props }) => {
-  console.log('props', props);
+export const CartLineItem = ({
+  id,
+  title,
+  quantity,
+  variant,
+  customAttributes = [],
+  ...props
+}) => {
+  const { toggleCart } = useUIContext();
   const removeItemFromCart = useRemoveItemFromCart();
-
   const { selectedOptions, image, price, compareAtPrice } = variant || {};
   const options = selectedOptions
     .map(({ name, value }) => `${name} - ${value}`)
     .join(' / ');
+  const url = customAttributes.find(({ key }) => key === '_url')?.value;
+  const cursor = url === '#' ? 'auto' : 'pointer';
 
   return (
     <ClientSideOnly>
@@ -42,12 +51,16 @@ export const CartLineItem = ({ id, title, quantity, variant, ...props }) => {
         {...props}
       >
         <Link
-          href={`#`}
+          to={url || '#'}
           position='relative'
           maxWidth='75px'
           width='100%'
           mr='22px'
-          sx={{ variant: 'links.plain', cursor: 'auto' }}
+          sx={{
+            cursor,
+            variant: 'links.plain',
+          }}
+          onClick={() => url && toggleCart()}
         >
           <Image
             src={image?.src}
@@ -69,15 +82,27 @@ export const CartLineItem = ({ id, title, quantity, variant, ...props }) => {
             {options}
           </Text>
 
-          <Heading
-            mb='10px'
-            size='13px'
-            weight='bold'
-            textTransform='uppercase'
-            variant='cart.text.lineItem.primaryTitle'
+          <Link
+            to={url || '#'}
+            position='relative'
+            sx={{
+              cursor,
+              color: 'inherit',
+              textDecoration: 'none',
+              variant: 'links.plain',
+            }}
+            onClick={() => url && toggleCart()}
           >
-            {title}
-          </Heading>
+            <Heading
+              mb='10px'
+              size='13px'
+              weight='bold'
+              textTransform='uppercase'
+              variant='cart.text.lineItem.primaryTitle'
+            >
+              {title}
+            </Heading>
+          </Link>
 
           <QuantitySelect
             width='75px'

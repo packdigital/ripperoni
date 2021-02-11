@@ -21,13 +21,14 @@ export const CartLineItems = ({ lineItems, ...props }) => {
       }}
       {...props}
     >
-      {lineItems.map(({ id, title, quantity, variant }) => (
+      {lineItems.map(({ id, title, quantity, variant, customAttributes }) => (
         <CartLineItem
           key={id}
           id={id}
           title={title}
           quantity={quantity}
           variant={variant}
+          customAttributes={customAttributes}
         />
       ))}
     </Box>
