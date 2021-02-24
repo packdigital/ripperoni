@@ -3,8 +3,8 @@ import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
 
 import { Box } from '../Box';
+import { Link } from '../Link';
 import { CmsContent } from '../CmsContent';
-
 
 export const Hero = ({
   image,
@@ -17,6 +17,7 @@ export const Hero = ({
   ...props
 }) => {
   const Component = fromCms ? CmsContent : Box;
+  console.log('CmsContent', CmsContent);
 
   return (
     <Box
@@ -26,34 +27,30 @@ export const Hero = ({
       position='relative'
       {...props}
     >
-      <Box
-        width='full'
-        height={height}
-      >
+      <Box width='full' height={height}>
         {image}
       </Box>
 
-      <Component
-        data-comp='Hero Contents Box'
-        position='absolute'
-        top={contentBounds?.top || 0}
-        bottom={contentBounds?.bottom || 0}
-        left={contentBounds?.left || 0}
-        right={contentBounds?.right || 0}
-        // eslint-disable-next-line react/no-children-prop
-        children={children}
-        {...contentBox}
-      />
+      <Link href='#'>
+        <Component
+          data-comp='Hero Contents Box'
+          position='absolute'
+          top={contentBounds?.top || 0}
+          bottom={contentBounds?.bottom || 0}
+          left={contentBounds?.left || 0}
+          right={contentBounds?.right || 0}
+          // eslint-disable-next-line react/no-children-prop
+          children={children}
+          {...contentBox}
+        />
+      </Link>
     </Box>
   );
 };
 
 Hero.propTypes = {
   fromCms: PropTypes.bool,
-  image: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array,
-  ]),
+  image: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   height: PropTypes.string,
   backgroundColor: PropTypes.string,
   contentBounds: PropTypes.shape({
@@ -64,7 +61,7 @@ Hero.propTypes = {
   }),
   contentBox: PropTypes.object,
   children: PropTypes.any,
-  _children: PropTypes.element
+  _children: PropTypes.element,
 };
 
 Hero.displayName = 'Hero';

@@ -5,6 +5,11 @@
     "image": {
       "displayName": "Image",
       "types": ["atomImage"]
+    },
+    "url": {
+      "displayName": "Links to (optional)",
+      "required": false,
+      "types": ["atomText"]
     }
   },
   "slots": {
