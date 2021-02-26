@@ -9,7 +9,7 @@
     "url": {
       "displayName": "Links to (optional)",
       "required": false,
-      "types": ["atomText"]
+      "types": ["atomLink"]
     }
   },
   "slots": {
