@@ -1,11 +1,11 @@
 import { graphql } from 'gatsby';
 
-
 export const ContentfulMetaFragment = graphql`
   fragment ContentfulMeta on AllContentful {
     id
     contentful_id
     metaTitle
+    metaUrl
     metaHandle
     metaTags
     __typename

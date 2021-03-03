@@ -21,6 +21,7 @@ module.exports = `
     id: ID
     contentful_id: String
     metaTitle: String
+    metaUrl: String
     metaHandle: String
     metaTags: [String]
   }
@@ -157,6 +158,7 @@ module.exports = `
     marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
     variant: String
     metaTitle: String
+    metaUrl: String
     metaHandle: String
     metaTags: [String]
   }
@@ -173,6 +175,7 @@ module.exports = `
     marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
     variant: String
     metaTitle: String
+    metaUrl: String
     metaHandle: String
     metaTags: [String]
   }
@@ -190,6 +193,7 @@ module.exports = `
     marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
     variant: String
     metaTitle: String
+    metaUrl: String
     metaHandle: String
     metaTags: [String]
   }
@@ -203,6 +207,7 @@ module.exports = `
     marginPadding: [ContentfulMarginPadding] @link(by: "id", from: "marginPadding___NODE")
     variant: String
     metaTitle: String
+    metaUrl: String
     metaHandle: String
     metaTags: [String]
   }
@@ -220,6 +225,7 @@ module.exports = `
     extraProps: contentfulAtomTextExtraPropsJsonNode @link(by: "id", from: "extraProps___NODE")
     variant: String
     metaTitle: String
+    metaUrl: String
     metaHandle: String
     metaTags: [String]
   }
@@ -231,6 +237,7 @@ module.exports = `
     url: String
     previewUrl: String
     metaTitle: String
+    metaUrl: String
     metaHandle: String
     metaTags: [String]
   }
@@ -247,6 +254,7 @@ module.exports = `
     extraProps: contentfulMoleculeExtraPropsJsonNode @link(by: "id", from: "extraProps___NODE")
     variant: String
     metaTitle: String
+    metaUrl: String
     metaHandle: String
     metaTags: [String]
   }
@@ -256,6 +264,7 @@ module.exports = `
     contentful_id: String
     pageContent: [ContentfulAtomsAndMolecule] @link(by: "id", from: "pageContent___NODE")
     metaTitle: String
+    metaUrl: String
     metaHandle: String
     metaTags: [String]
   }

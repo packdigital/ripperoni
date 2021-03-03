@@ -7,7 +7,7 @@
       "types": ["atomImage"]
     },
     "url": {
-      "displayName": "Links to (optional)",
+      "displayName": "Link",
       "required": false,
       "types": ["atomLink"]
     }

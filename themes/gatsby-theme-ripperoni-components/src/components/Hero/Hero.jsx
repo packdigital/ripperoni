@@ -17,7 +17,8 @@ export const Hero = ({
   ...props
 }) => {
   const Component = fromCms ? CmsContent : Box;
-  console.log('CmsContent', CmsContent);
+
+  const url = props.url?.[0]?.props?.url;
 
   return (
     <Box
@@ -31,19 +32,19 @@ export const Hero = ({
         {image}
       </Box>
 
-      <Link href='#'>
-        <Component
-          data-comp='Hero Contents Box'
-          position='absolute'
-          top={contentBounds?.top || 0}
-          bottom={contentBounds?.bottom || 0}
-          left={contentBounds?.left || 0}
-          right={contentBounds?.right || 0}
-          // eslint-disable-next-line react/no-children-prop
-          children={children}
-          {...contentBox}
-        />
-      </Link>
+      <Component
+        as={url ? Link : null}
+        to={url ? url : null}
+        data-comp='Hero Contents Box'
+        position='absolute'
+        top={contentBounds?.top || 0}
+        bottom={contentBounds?.bottom || 0}
+        left={contentBounds?.left || 0}
+        right={contentBounds?.right || 0}
+        // eslint-disable-next-line react/no-children-prop
+        children={children}
+        {...contentBox}
+      />
     </Box>
   );
 };
