@@ -61,6 +61,7 @@ exports.typeDefs = `
     title: String
     handle: String
     description: String
+    descriptionHtml: String
     type: String
     foreignIds: [String]
     updatedAt: Date!

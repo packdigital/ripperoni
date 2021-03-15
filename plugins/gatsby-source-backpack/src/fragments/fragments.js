@@ -1,7 +1,6 @@
 /* eslint-disable max-lines */
 const { graphql } = require('gatsby');
 
-
 export const IMAGE = graphql`
   fragment Image on BackpackImage {
     position
@@ -81,6 +80,7 @@ export const PRODUCT_VARIANT = graphql`
       title
       handle
       description
+      descriptionHtml
       type
       foreignIds
       updatedAt
@@ -158,6 +158,7 @@ export const PRODUCT = graphql`
     title
     handle
     description
+    descriptionHtml
     type
     foreignIds
     updatedAt
@@ -208,6 +209,7 @@ export const PRODUCT = graphql`
         title
         handle
         description
+        descriptionHtml
         type
         foreignIds
         updatedAt
@@ -277,4 +279,3 @@ export const PRODUCT = graphql`
     }
   }
 `;
-

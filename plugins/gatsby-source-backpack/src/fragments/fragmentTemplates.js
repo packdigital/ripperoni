@@ -69,6 +69,7 @@ export const PRODUCT_VARIANT_TEMPLATE = `
     title
     handle
     description
+    descriptionHtml
     type
     foreignIds
     updatedAt
@@ -144,6 +145,7 @@ export const PRODUCT_TEMPLATE = `
   title
   handle
   description
+  descriptionHtml
   type
   foreignIds
   updatedAt
@@ -194,6 +196,7 @@ export const PRODUCT_TEMPLATE = `
       title
       handle
       description
+      descriptionHtml
       type
       foreignIds
       updatedAt

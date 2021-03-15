@@ -1,45 +1,53 @@
 /* eslint-disable max-lines */
 const gql = require('graphql-tag');
 
-
 const PRODUCT_FRAGMENT = gql`
   fragment product on products {
     id
     title
     handle
     description
+    descriptionHtml
     available
     metadata
     type
-    images (order_by: {position: asc}) {
+    images(order_by: { position: asc }) {
       id
       position
     }
-    options (
-      order_by: {position: asc},
-      where: {product: {variants: {foreignProductPublishedAt: {_is_null: false}}}},
+    options(
+      order_by: { position: asc }
+      where: {
+        product: {
+          variants: { foreignProductPublishedAt: { _is_null: false } }
+        }
+      }
     ) {
       id
       title
-      values (
-        order_by: {position: asc},
-        where: {variantOptionValues: {variant: {foreignProductPublishedAt: {_is_null: false}}}},
+      values(
+        order_by: { position: asc }
+        where: {
+          variantOptionValues: {
+            variant: { foreignProductPublishedAt: { _is_null: false } }
+          }
+        }
       ) {
         id
         title
       }
     }
-    variants (
-      order_by: {position: asc},
-      where: {foreignProductPublishedAt: {_is_null: false}},
+    variants(
+      order_by: { position: asc }
+      where: { foreignProductPublishedAt: { _is_null: false } }
     ) {
       id
-      selectedOptions (order_by: {optionPosition: asc}) {
+      selectedOptions(order_by: { optionPosition: asc }) {
         id
         title
         value
       }
-      images (order_by: {position: asc}) {
+      images(order_by: { position: asc }) {
         id
         foreignId
         productVariantId
@@ -67,11 +75,11 @@ const PRODUCT_VARIANT_FRAGMENT = gql`
     compareAtPrice
     metadata
     sku
-    images (order_by: {position: asc}) {
+    images(order_by: { position: asc }) {
       id
       position
     }
-    selectedOptions (order_by: {optionPosition: asc}) {
+    selectedOptions(order_by: { optionPosition: asc }) {
       id
       title
       value
@@ -86,9 +94,13 @@ const PRODUCT_OPTION_FRAGMENT = gql`
     productId
     position
     title
-    values (
-      order_by: {position: asc},
-      where: {variantOptionValues: {variant: {foreignProductPublishedAt: {_is_null: false}}}}
+    values(
+      order_by: { position: asc }
+      where: {
+        variantOptionValues: {
+          variant: { foreignProductPublishedAt: { _is_null: false } }
+        }
+      }
     ) {
       id
       title
@@ -111,24 +123,24 @@ const PRODUCT_OPTION_VALUE_FRAGMENT = gql`
 const IMAGE_FRAGMENT = gql`
   fragment image on images {
     id
-      src
-      altText
-      product {
-        id: productId
-        position
-      }
-      variants: joinVariantImages {
-        id: productVariantId
-        variant: productVariant {
+    src
+    altText
+    product {
+      id: productId
+      position
+    }
+    variants: joinVariantImages {
+      id: productVariantId
+      variant: productVariant {
+        id
+        productId
+        images(order_by: { position: asc }) {
           id
-          productId
-          images (order_by: {position: asc}) {
-            id
-            position
-          }
+          position
         }
       }
-      updatedAt
+    }
+    updatedAt
   }
 `;
 

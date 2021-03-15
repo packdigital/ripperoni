@@ -1,5 +1,7 @@
 /* eslint-disable max-lines */
-const { convertToGatsbyGraphQLId } = require('@packdigital/ripperoni-utilities');
+const {
+  convertToGatsbyGraphQLId,
+} = require('@packdigital/ripperoni-utilities');
 
 const {
   TYPE_PREFIX,
@@ -10,19 +12,27 @@ const {
   IMAGE,
 } = require('./constants');
 
+const byId = (type) => ({ id }) =>
+  convertToGatsbyGraphQLId(id, type, TYPE_PREFIX);
 
-const byId = type => ({ id }) => convertToGatsbyGraphQLId(id, type, TYPE_PREFIX);
+const productMiddleware = (node) => {
+  console.log('running product middleware!!!');
 
-const productMiddleware = node => {
   const foreignIds = node.foreignIds.map(byId());
   const metadata = node.metadata === null ? {} : node.metadata;
-  const optionValues = node.options.reduce((map, { title, values }) => ({
-    ...map,
-    [title]: values
-      .map(value => value.title),
-  }), {});
-  const featuredImage___NODE = (node.variants[0].images.length)
-    ? convertToGatsbyGraphQLId(node.variants[0].images[0].id, IMAGE, TYPE_PREFIX)
+  const optionValues = node.options.reduce(
+    (map, { title, values }) => ({
+      ...map,
+      [title]: values.map((value) => value.title),
+    }),
+    {}
+  );
+  const featuredImage___NODE = node.variants[0].images.length
+    ? convertToGatsbyGraphQLId(
+        node.variants[0].images[0].id,
+        IMAGE,
+        TYPE_PREFIX
+      )
     : node.images.map(byId(IMAGE))[0];
   const images___NODE = node.images.map(byId(IMAGE));
   const options___NODE = node.options.map(byId(PRODUCT_OPTION));
@@ -45,17 +55,33 @@ const productMiddleware = node => {
   };
 };
 
-const productVariantMiddleware = node => {
+const productVariantMiddleware = (node) => {
   const firstImage = node.images.find(({ position }) => position === 1) || {};
   const secondImage = node.images.find(({ position }) => position === 2) || {};
   const metadata = node.metadata === null ? {} : node.metadata;
-  const selectedOptionsMap = node.selectedOptions
-    .reduce((map, { title, value }) =>  ({ ...map, [title]: value }), {});
-  const product___NODE = convertToGatsbyGraphQLId(node.productId, PRODUCT, TYPE_PREFIX);
+  const selectedOptionsMap = node.selectedOptions.reduce(
+    (map, { title, value }) => ({ ...map, [title]: value }),
+    {}
+  );
+  const product___NODE = convertToGatsbyGraphQLId(
+    node.productId,
+    PRODUCT,
+    TYPE_PREFIX
+  );
   const images___NODE = node.images.map(byId(IMAGE));
-  const image___NODE = convertToGatsbyGraphQLId(firstImage.id, IMAGE, TYPE_PREFIX);
-  const hoverImage___NODE = convertToGatsbyGraphQLId(secondImage.id, IMAGE, TYPE_PREFIX);
-  const selectedOptions___NODE = node.selectedOptions.map(byId(PRODUCT_OPTION_VALUE));
+  const image___NODE = convertToGatsbyGraphQLId(
+    firstImage.id,
+    IMAGE,
+    TYPE_PREFIX
+  );
+  const hoverImage___NODE = convertToGatsbyGraphQLId(
+    secondImage.id,
+    IMAGE,
+    TYPE_PREFIX
+  );
+  const selectedOptions___NODE = node.selectedOptions.map(
+    byId(PRODUCT_OPTION_VALUE)
+  );
 
   delete node.product;
   delete node.images;
@@ -75,8 +101,12 @@ const productVariantMiddleware = node => {
   };
 };
 
-const productOptionMiddleware = node => {
-  const product___NODE = convertToGatsbyGraphQLId(node.productId, PRODUCT, TYPE_PREFIX);
+const productOptionMiddleware = (node) => {
+  const product___NODE = convertToGatsbyGraphQLId(
+    node.productId,
+    PRODUCT,
+    TYPE_PREFIX
+  );
   const values___NODE = node.values.map(byId(PRODUCT_OPTION_VALUE));
 
   delete node.product;
@@ -89,8 +119,12 @@ const productOptionMiddleware = node => {
   };
 };
 
-const productOptionValueMiddleware = node => {
-  const option___NODE = convertToGatsbyGraphQLId(node.productOptionId, PRODUCT_OPTION, TYPE_PREFIX);
+const productOptionValueMiddleware = (node) => {
+  const option___NODE = convertToGatsbyGraphQLId(
+    node.productOptionId,
+    PRODUCT_OPTION,
+    TYPE_PREFIX
+  );
 
   delete node.option;
 
@@ -100,17 +134,22 @@ const productOptionValueMiddleware = node => {
   };
 };
 
-const imageMiddleware = node => {
+const imageMiddleware = (node) => {
   const { id, src, altText, updatedAt, parent, children, internal } = node;
 
   if (node.variants && node.variants.length) {
     const { variant: firstVariant } = node.variants && node.variants[0];
-    const match = firstVariant.images.find(({ id }) => id === node.platformId) || {};
+    const match =
+      firstVariant.images.find(({ id }) => id === node.platformId) || {};
     const position = match.position || null;
-    const product = convertToGatsbyGraphQLId(firstVariant.productId, PRODUCT, TYPE_PREFIX);
-    const variants = node.variants
-      .map(({ id }) => convertToGatsbyGraphQLId(id, PRODUCT_VARIANT, TYPE_PREFIX));
-
+    const product = convertToGatsbyGraphQLId(
+      firstVariant.productId,
+      PRODUCT,
+      TYPE_PREFIX
+    );
+    const variants = node.variants.map(({ id }) =>
+      convertToGatsbyGraphQLId(id, PRODUCT_VARIANT, TYPE_PREFIX)
+    );
 
     return {
       id,
@@ -133,7 +172,11 @@ const imageMiddleware = node => {
       altText,
       updatedAt,
       position: node.product.position || null,
-      product___NODE: convertToGatsbyGraphQLId(node.product.id, PRODUCT, TYPE_PREFIX),
+      product___NODE: convertToGatsbyGraphQLId(
+        node.product.id,
+        PRODUCT,
+        TYPE_PREFIX
+      ),
       variants___NODE: [],
       parent,
       children,
