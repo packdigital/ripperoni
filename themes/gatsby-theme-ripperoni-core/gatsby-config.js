@@ -55,6 +55,7 @@ module.exports = ({ metadata }) => {
           path: './src/assets/images',
         },
       },
+      'gatsby-plugin-image',
       'gatsby-plugin-sharp',
       'gatsby-transformer-sharp',
       ...utils.conditionallyIncludePlugin({

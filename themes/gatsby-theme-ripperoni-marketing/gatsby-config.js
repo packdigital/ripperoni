@@ -32,6 +32,7 @@ module.exports = ({
           head: false,
           ...googleAnalytics,
         },
+        requiredOptions: ['trackingId'],
       }),
       ...utils.conditionallyIncludePlugin({
         resolve: 'gatsby-plugin-facebook-pixel',

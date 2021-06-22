@@ -14,8 +14,8 @@
   "peerDependencies": {
     "@packdigital/gatsby-theme-ripperoni-components": "^1.1.11",
     "@packdigital/ripperoni-utilities": "^2.0.21",
-    "gatsby": "^2.19.5",
-    "gatsby-plugin-theme-ui": "^0.3.0",
+    "gatsby": "^2.19.5 || ^3.0.0",
+    "gatsby-plugin-theme-ui": "^0.9.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "theme-ui": "^0.3.1"
@@ -23,8 +23,8 @@
   "dependencies": {
     "country-and-province": "^1.2.0",
     "country-list": "^2.2.0",
-    "gatsby-plugin-create-client-paths": "^2.3.4",
-    "graphql": "^15.3.0",
+    "gatsby-plugin-create-client-paths": "^3.7.1",
+    "graphql": "^15.4.0",
     "react-dropdown": "^1.7.0",
     "use-local-storage-state": "^5.1.0",
     "use-reducer-async": "^2.0.1"

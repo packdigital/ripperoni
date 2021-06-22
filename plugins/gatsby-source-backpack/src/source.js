@@ -32,7 +32,7 @@ exports.touchUnchangedCachedData = async ({ client, shopId, helpers }) => {
           const isChanged = cachedNode.updatedAt !== data.updatedAt;
 
           if (!isChanged) {
-            touchNode({ nodeId: backpackId });
+            touchNode(cachedNode);
             touchedNodes++;
           }
         });
@@ -75,9 +75,9 @@ exports.queryAndCreateNewNodes = async ({ client, shopId, helpers }) => {
 
     timer.end();
 
-    const result = Object.entries(data).map(([type, result]) =>
-      diffAndUpdateNodes({ type, helpers })({ data: { result } })
-    );
+    const result = Object.entries(data).map(([type, result]) => {
+      return diffAndUpdateNodes({ type, helpers })({ data: { result } });
+    });
 
     return Promise.resolve(result);
   } catch (error) {

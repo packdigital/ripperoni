@@ -16,7 +16,7 @@
     "@packdigital/gatsby-theme-ripperoni-message-bus": "^0.0.12",
     "@packdigital/ripperoni-utilities": "^2.0.21",
     "framer-motion": "^2.2.0",
-    "gatsby": "^2.19.5",
+    "gatsby": "^2.19.5 || ^3.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

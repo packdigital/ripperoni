@@ -2,12 +2,16 @@ const { isShopifyGid } = require('@packdigital/ripperoni-utilities');
 
 const { typeDefs } = require('./types');
 const { createClient } = require('./client');
-const { touchUnchangedCachedData, queryAndCreateNewNodes, setupSubscriptions } = require('./source');
+const {
+  touchUnchangedCachedData,
+  queryAndCreateNewNodes,
+  setupSubscriptions,
+} = require('./source');
 const { downloadImages } = require('./download-images');
 const { LOG_PREFIX, PLUGIN_NAME } = require('./constants');
 
-
-exports.createSchemaCustomization = ({ actions: { createTypes }}) => createTypes(typeDefs);
+exports.createSchemaCustomization = ({ actions }) =>
+  actions.createTypes(typeDefs);
 
 exports.sourceNodes = async (helpers, options) => {
   const { format, panic, activityTimer } = helpers.reporter;
@@ -29,20 +33,22 @@ exports.sourceNodes = async (helpers, options) => {
   timer.start();
 
   timer.setStatus(format`Creating graphql client`);
-    const client = createClient({ accessToken, backpackUri });
+  const client = createClient({ accessToken, backpackUri });
 
   timer.setStatus(format`Restoring cached data`);
-    await touchUnchangedCachedData({ client, shopId, helpers });
+  await touchUnchangedCachedData({ client, shopId, helpers });
 
   timer.setStatus(format`Fetching and creating new nodes`);
-    await queryAndCreateNewNodes({ client, shopId, helpers });
+  await queryAndCreateNewNodes({ client, shopId, helpers });
 
   if (downloadLocal === true) {
     timer.setStatus('Downloading images');
-      await downloadImages({ helpers });
+    await downloadImages({ helpers });
   }
 
-  timer.setStatus(format`Sourced {bold Backpack} nodes from {red {bold Backpack}}`);
+  timer.setStatus(
+    format`Sourced {bold Backpack} nodes from {red {bold Backpack}}`
+  );
 
   timer.end();
 
@@ -50,7 +56,12 @@ exports.sourceNodes = async (helpers, options) => {
 };
 
 exports.onPostBootstrap = async (helpers, options) => {
-  const { accessToken, shopId, backpackUri, enableSubscriptions = true } = options;
+  const {
+    accessToken,
+    shopId,
+    backpackUri,
+    enableSubscriptions = true,
+  } = options;
   const { format, activityTimer } = helpers.reporter;
   const timer = activityTimer(format`{${LOG_PREFIX}}`);
 
@@ -58,12 +69,14 @@ exports.onPostBootstrap = async (helpers, options) => {
     timer.start();
 
     timer.setStatus(format`Creating graphql client`);
-      const client = createClient({ accessToken, backpackUri });
+    const client = createClient({ accessToken, backpackUri });
 
     timer.setStatus('Creating graphql subscriptions to {red {bold Backpack}}');
-      await setupSubscriptions({ client, shopId, helpers });
+    await setupSubscriptions({ client, shopId, helpers });
 
-    timer.setStatus(format`Created graphql subscriptions to {red {bold Backpack}}`);
+    timer.setStatus(
+      format`Created graphql subscriptions to {red {bold Backpack}}`
+    );
 
     timer.end();
   }

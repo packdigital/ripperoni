@@ -12,12 +12,12 @@ const {
   IMAGE,
 } = require('./constants');
 
-const byId = (type) => ({ id }) =>
-  convertToGatsbyGraphQLId(id, type, TYPE_PREFIX);
+const byId =
+  (type) =>
+  ({ id }) =>
+    convertToGatsbyGraphQLId(id, type, TYPE_PREFIX);
 
 const productMiddleware = (node) => {
-  console.log('running product middleware!!!');
-
   const foreignIds = node.foreignIds.map(byId());
   const metadata = node.metadata === null ? {} : node.metadata;
   const optionValues = node.options.reduce(

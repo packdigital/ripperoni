@@ -13,13 +13,14 @@
   },
   "peerDependencies": {
     "@packdigital/ripperoni-utilities": "^2.0.21",
-    "gatsby": "^2.19.5",
+    "gatsby": "^2.19.5 || ^3.0.0",
+    "gatsby-plugin-image": "^1.7.1",
+    "gatsby-plugin-sharp": "^3.7.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "dependencies": {
-    "gatsby-plugin-sharp": "^2.6.42",
-    "gatsby-source-contentful": "^2.3.15"
+    "gatsby-source-contentful": "^5.7.1"
   },
   "prettier": "@packdigital/prettier-config-ripperoni",
   "gitHead": "8efa33d13b855a068d67beee35eeaf7bfea23b45"

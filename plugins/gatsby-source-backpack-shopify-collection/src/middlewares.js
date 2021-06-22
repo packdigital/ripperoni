@@ -1,11 +1,17 @@
-const { convertToGatsbyGraphQLId } = require('@packdigital/ripperoni-utilities');
+const {
+  convertToGatsbyGraphQLId,
+} = require('@packdigital/ripperoni-utilities');
 
 const { TYPE_PREFIX, COLLECTION, IMAGE } = require('./constants');
 
+const collection = (node) => {
+  if (!node?.variant) return node;
 
-const collection = node => {
-  const image___NODE = node.image ? convertToGatsbyGraphQLId(node.image.id, IMAGE, TYPE_PREFIX) : null;
-  const variants___NODE = node.variants;
+  const image___NODE = node?.image
+    ? convertToGatsbyGraphQLId(node.image.id, IMAGE, TYPE_PREFIX)
+    : null;
+
+  const variants___NODE = node?.variants;
 
   delete node.image;
   delete node.products;
@@ -18,8 +24,12 @@ const collection = node => {
   };
 };
 
-const image = node => {
-  const collection___NODE = convertToGatsbyGraphQLId(node.collectionId, COLLECTION, TYPE_PREFIX);
+const image = (node) => {
+  const collection___NODE = convertToGatsbyGraphQLId(
+    node.collectionId,
+    COLLECTION,
+    TYPE_PREFIX
+  );
 
   delete node.collectionId;
 

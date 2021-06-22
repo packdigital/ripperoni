@@ -48,7 +48,7 @@ export async function downloadImageAndCreateRemoteFileNode(
     };
 
     return cachedRemoteData
-      ? touchNode({ nodeId: cachedRemoteData.fileNodeID })
+      ? touchNode(cachedRemoteData)
       : await createAndCacheRemoteFileNode();
   } catch (error) {
 

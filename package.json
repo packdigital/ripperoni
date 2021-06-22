@@ -17,12 +17,13 @@
     "start": "yarn start:client",
     "start:client": "yarn workspace @sample/app start",
     "start:server": "yarn workspace @sample/server start",
-    "prettify": "npx prettier \"./**/*.{js,ts,tsx}\" --write"
+    "prettify": "npx prettier \"./**/*.{js,ts,tsx}\" --write",
+    "refresh": "lerna clean --yes && rm -rf node_modules yarn.lock && yarn install"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.28.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.22.0",

@@ -1,7 +1,3 @@
 {
-  "eslint.workingDirectories": [
-    {
-      "pattern": "./projects/*/"
-    }
-  ]
+  "search.useIgnoreFiles": false
 }

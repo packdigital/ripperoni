@@ -14,7 +14,7 @@
     "gatsby-source-plugin"
   ],
   "peerDependencies": {
-    "gatsby": "^2.19.5"
+    "gatsby": "^2.19.5 || ^3.0.0"
   },
   "dependencies": {
     "@packdigital/ripperoni-utilities": "^2.0.54",
@@ -23,9 +23,9 @@
     "apollo-link-http": "^1.5.16",
     "chalk": "^4.0.0",
     "deepmerge": "^4.2.2",
-    "gatsby-node-helpers": "^0.3.0",
-    "gatsby-source-filesystem": "^2.1.48",
-    "graphql": "^14.6.0",
+    "gatsby-node-helpers": "^1.2.1",
+    "gatsby-source-filesystem": "^3.7.1",
+    "graphql": "^15.4.0",
     "graphql-tag": "^2.10.3",
     "isomorphic-fetch": "^2.2.1",
     "lodash.camelcase": "^4.3.0",
