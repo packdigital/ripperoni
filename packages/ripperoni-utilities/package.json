@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/ripperoni-utilities",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "author": "@packdigital",
   "description": "utilities for use with the ripperoni suite of tools",
   "repository": "https://github.com/packdigital/ripperoni/tree/master/packages/ripperoni",
