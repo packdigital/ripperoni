@@ -5,13 +5,13 @@ const {
 const { TYPE_PREFIX, COLLECTION, IMAGE } = require('./constants');
 
 const collection = (node) => {
-  if (!node?.variant) return node;
+  if (!node || !node.variant) return node;
 
-  const image___NODE = node?.image
+  const image___NODE = node.image
     ? convertToGatsbyGraphQLId(node.image.id, IMAGE, TYPE_PREFIX)
     : null;
 
-  const variants___NODE = node?.variants;
+  const variants___NODE = node.variants;
 
   delete node.image;
   delete node.products;
