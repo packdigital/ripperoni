@@ -22,5 +22,5 @@
     "gatsby-source-google-spreadsheet": "^2.0.0"
   },
   "prettier": "@packdigital/prettier-config-ripperoni",
-  "gitHead": "bc978595675269afbf1725cfb9cabb809da1a243"
+  "gitHead": "e2233883130f0c11ce6af9183d7a38a5bc12c16b"
 }
