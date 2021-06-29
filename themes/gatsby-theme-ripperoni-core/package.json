@@ -14,21 +14,22 @@
   "peerDependencies": {
     "@packdigital/ripperoni-utilities": "^2.0.31",
     "gatsby": "^2.19.5 || ^3.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "theme-ui": "^0.3.1"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "theme-ui": "^0.10.0"
   },
   "dependencies": {
-    "@lekoarts/gatsby-theme-styleguide": "^2.0.0",
     "abab": "^2.0.3",
     "abortcontroller-polyfill": "^1.4.0",
     "chalk": "^4.1.0",
     "dateformat": "^3.0.3",
+    "gatsby-image": "^3.8.0",
+    "gatsby-plugin-image": "^1.7.1",
     "gatsby-plugin-manifest": "^3.7.1",
     "gatsby-plugin-react-helmet": "^4.7.1",
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-sharp": "^3.7.1",
-    "gatsby-plugin-theme-ui": "^0.3.0",
+    "gatsby-plugin-theme-ui": "^0.10.1",
     "gatsby-source-filesystem": "^3.7.1",
     "gatsby-transformer-sharp": "^3.7.1",
     "intersection-observer": "^0.11.0",

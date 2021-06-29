@@ -6,9 +6,8 @@ import {
   Link,
   Products,
   Text,
-  Video
+  Video,
 } from '@ripperoni/components';
-
 
 const atoms = {
   ContentfulAtomButton: Button,

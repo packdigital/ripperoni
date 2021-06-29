@@ -7,7 +7,7 @@ exports.typeDefs = `
     localFile: File @link(by: "id", from: "localFile___NODE")
   }
 
-  type BackpackCollection implements Node @infer {
+  type BackpackCollection implements Node {
     id: ID!
     title: String!
     handle: String!

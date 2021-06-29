@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 module.exports = `
   # Unions
   union ContentfulAtomsAndMolecule = ContentfulAtomButton | ContentfulAtomVideo | ContentfulAtomProducts | ContentfulAtomImage | ContentfulAtomLink | ContentfulAtomText | ContentfulMolecule

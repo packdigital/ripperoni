@@ -10,8 +10,9 @@ const {
 const { downloadImages } = require('./download-images');
 const { LOG_PREFIX, PLUGIN_NAME } = require('./constants');
 
-exports.createSchemaCustomization = ({ actions }) =>
+exports.createSchemaCustomization = ({ actions }) => {
   actions.createTypes(typeDefs);
+};
 
 exports.sourceNodes = async (helpers, options) => {
   const { format, panic, activityTimer } = helpers.reporter;

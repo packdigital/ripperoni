@@ -17,8 +17,8 @@
     "@packdigital/ripperoni-utilities": "^2.0.21",
     "framer-motion": "^2.2.0",
     "gatsby": "^2.19.5 || ^3.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "prettier": "@packdigital/prettier-config-ripperoni",
   "dependencies": {

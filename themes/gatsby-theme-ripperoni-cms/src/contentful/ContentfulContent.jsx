@@ -2,6 +2,9 @@
  * @jsx jsx
  * @prettier
  */
+
+/* eslint-disable max-lines */
+
 import { jsx, useThemeUI } from 'theme-ui';
 import PropTypes from 'prop-types';
 import groupBy from 'lodash/groupBy';
@@ -20,10 +23,9 @@ const getMarginPadding = (breakpoints) => (marginPadding) => {
 
       return {
         ...spacings,
-        [key]: (
-          spacings[key] || Array(breakpoints.length + 1).fill(null)
-        ).map((item, index) =>
-          parseInt(viewport) === index ? parseInt(value) || value : item
+        [key]: (spacings[key] || Array(breakpoints.length + 1).fill(null)).map(
+          (item, index) =>
+            parseInt(viewport) === index ? parseInt(value) || value : item
         ),
       };
     },
@@ -37,6 +39,7 @@ export const getContent = (lookup, entries) => {
   }
 
   const groups = groupBy(lookup, 'name');
+
   const groupedEntryIds = mapValues(groups, (value) =>
     map(value, 'entry.sys.id')
   );

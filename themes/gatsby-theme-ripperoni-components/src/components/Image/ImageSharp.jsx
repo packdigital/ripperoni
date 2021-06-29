@@ -2,7 +2,8 @@
 import { forwardRef } from 'react';
 import { jsx } from 'theme-ui';
 import PropTypes from 'prop-types';
-import { GatsbyImage } from 'gatsby-plugin-image';
+import GatsbyImage from 'gatsby-image/withIEPolyfill';
+// import { mutuallyExclusiveProps } from 'airbnb-prop-types';
 
 export const ImageSharp = forwardRef((props, ref) => {
   return (
@@ -13,6 +14,8 @@ export const ImageSharp = forwardRef((props, ref) => {
 ImageSharp.displayName = 'Sharp Image';
 
 ImageSharp.propTypes = {
+  // fixed: mutuallyExclusiveProps(PropTypes.object, 'fluid'),
+  // fluid: mutuallyExclusiveProps(PropTypes.object, 'fixed'),
   fixed: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.arrayOf(PropTypes.object),

@@ -3,9 +3,6 @@
  */
 const utils = require('@packdigital/ripperoni-utilities');
 
-// previewable: false,
-// previewable: false,
-
 module.exports = ({ backpack, shopify }) => {
   return {
     plugins: [

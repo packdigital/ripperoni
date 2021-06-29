@@ -39,7 +39,6 @@ module.exports = ({ metadata }) => {
     plugins: [
       'gatsby-plugin-react-helmet',
       'gatsby-plugin-theme-ui',
-      '@lekoarts/gatsby-theme-styleguide',
       {
         resolve: 'gatsby-plugin-react-svg',
         options: {

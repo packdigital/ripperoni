@@ -1,19 +1,25 @@
 /* eslint-disable max-lines */
 const get = require('lodash.get');
-const abab = require('abab');
+const { atob } = require('abab');
 
-const utils = require('@packdigital/ripperoni-utilities');
+const {
+  flattenEdges,
+  deepMerge,
+  convertToGatsbyGraphQLId,
+} = require('@packdigital/ripperoni-utilities');
 
-const queries = require('./queries');
-const constants = require('./constants');
-
-const { LOG_PREFIX, TYPE_PREFIX, COLLECTION } = constants;
+const { LOG_PREFIX, TYPE_PREFIX, COLLECTION } = require('./constants');
+const {
+  SHOPIFY_COLLECTIONS_QUERY,
+  SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY,
+  SHOPIFY_COLLECTION_PRODUCTS_QUERY,
+} = require('./queries');
 
 const recursivelyRunQuery = async ({
   client,
   query,
-  results = [],
   variables = {},
+  results = [],
   path = 'data.results',
   callback = () => {},
 }) => {
@@ -35,17 +41,17 @@ const recursivelyRunQuery = async ({
     });
   }
 
-  return utils.flattenEdges({ edges: [...results, ...edges] });
+  return flattenEdges({ edges: [...results, ...edges] });
 };
 
 exports.sortUnchangedRemovedAndStaleNodes = async ({ client, helpers }) => {
   const { cache, getNodesByType } = helpers;
-  const query = queries.SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY;
+  const query = SHOPIFY_COLLECTIONS_UPDATED_AT_QUERY;
   const collectionsMeta = await recursivelyRunQuery({ client, query });
 
   const oldNodes = getNodesByType(`${TYPE_PREFIX}${COLLECTION}`);
   const currentNodeIds = collectionsMeta.map((node) =>
-    utils.convertToGatsbyGraphQLId(node.id, COLLECTION, TYPE_PREFIX)
+    convertToGatsbyGraphQLId(node.id, COLLECTION, TYPE_PREFIX)
   );
   const removedNodes = oldNodes.filter(
     (oldNode) => !currentNodeIds.includes(oldNode.id)
@@ -53,7 +59,7 @@ exports.sortUnchangedRemovedAndStaleNodes = async ({ client, helpers }) => {
 
   return await collectionsMeta.reduce(async (_nodes, node) => {
     const nodes = await _nodes;
-    const backpackCollectionId = utils.convertToGatsbyGraphQLId(
+    const backpackCollectionId = convertToGatsbyGraphQLId(
       node.id,
       COLLECTION,
       TYPE_PREFIX
@@ -93,7 +99,7 @@ const fetchUpdatedCollectionData = async ({
 
     const collectionData = await recursivelyRunQuery({
       client,
-      query: queries.SHOPIFY_COLLECTIONS_QUERY,
+      query: SHOPIFY_COLLECTIONS_QUERY,
       variables: { query: `updated_at:>=${oldestTimestamp}` },
       callback: (result) => progress.tick(result.length),
     });
@@ -104,7 +110,7 @@ const fetchUpdatedCollectionData = async ({
 
     return collectionData;
   } catch (error) {
-    console.error('error', error);
+    console.log('error', error);
 
     if (retryCount < 3) {
       const newCount = retryCount + 1;
@@ -144,12 +150,12 @@ const fetchAdditionalCollectionVariants = async ({
   timer.start();
 
   const collectionsWithVariants = collectionsData.map(async (collection) => {
-    let products = utils.flattenEdges(collection.products);
+    let products = flattenEdges(collection.products);
 
     if (collection.products.pageInfo.hasNextPage) {
       const handle = collection.handle;
       const cursor = collection.products.edges.reverse()[0].cursor;
-      const query = queries.SHOPIFY_COLLECTION_PRODUCTS_QUERY;
+      const query = SHOPIFY_COLLECTION_PRODUCTS_QUERY;
       const variables = { cursor, handle };
       const results = collection.products.edges;
       const path = 'data.results.products';
@@ -166,7 +172,7 @@ const fetchAdditionalCollectionVariants = async ({
     }
 
     collection.variants = products.map((product) =>
-      abab.atob(utils.flattenEdges(product.variants)[0].id)
+      atob(flattenEdges(product.variants)[0].id)
     );
 
     return collection;
@@ -184,24 +190,37 @@ const fetchAdditionalCollectionVariants = async ({
   return resolvedCollectionsWithVariants;
 };
 
-const mapBackpackVariantsToCollections = ({ helpers, collections = [] }) => {
+const mapBackpackVariantsToCollection = ({
+  collectionsWithVariants = [],
+  helpers,
+}) => {
   const { getNode, getNodesByType } = helpers;
 
-  const backpackVariants = getNodesByType('BackpackProductVariant');
+  const shopifyBackpackVariantsMap = getNodesByType(
+    'BackpackProductVariant'
+  ).reduce(
+    (productVariantsMap, { id, foreignId }) => ({
+      ...productVariantsMap,
+      [foreignId]: getNode(id),
+    }),
+    {}
+  );
 
-  const getBackpackVariant = (gid) =>
-    backpackVariants.find(({ foreignId }) => foreignId === gid) || [];
+  return collectionsWithVariants.map((collection) => {
+    const variants = collection.variants.reduce((nodes, id) => {
+      return shopifyBackpackVariantsMap[id]
+        ? [...nodes, shopifyBackpackVariantsMap[id]]
+        : nodes;
+    }, []);
 
-  return collections.map((collection) => {
-    const variants = collection.variants.flatMap(getBackpackVariant);
-    const optionValues = variants
-      .map(({ product___NODE }) => getNode(product___NODE))
-      .map(({ optionValues }) => optionValues);
+    const optionValues = new Set(
+      variants.map((variant) => getNode(variant.product___NODE).optionValues)
+    );
 
     return {
       ...collection,
-      variants: variants.map(({ id }) => id),
-      optionValues: utils.deepMerge(...Array.from(optionValues)),
+      variants___NODE: variants.map(({ id }) => id),
+      optionValues: deepMerge(...Array.from(optionValues)),
     };
   });
 };
@@ -215,15 +234,13 @@ exports.fetchFreshCollectionData = async ({ staleNodes, client, helpers }) => {
       client,
       helpers,
     });
-
-    const collections = await fetchAdditionalCollectionVariants({
+    const collectionsWithVariants = await fetchAdditionalCollectionVariants({
       collectionsData,
       client,
       helpers,
     });
-
-    const collectionsNodeData = mapBackpackVariantsToCollections({
-      collections,
+    const collectionsNodeData = mapBackpackVariantsToCollection({
+      collectionsWithVariants,
       helpers,
     });
 
@@ -233,7 +250,6 @@ exports.fetchFreshCollectionData = async ({ staleNodes, client, helpers }) => {
       `
       Something went wrong while sourcing collection data from Shopify.
       Make sure your Backpack products and Shopify collection data are coming from the same place.
-
       Error:`,
       error
     );

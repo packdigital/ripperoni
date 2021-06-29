@@ -1,4 +1,4 @@
-import { useRef, } from 'react';
+import { useRef } from 'react';
 import { useThemeUI } from 'theme-ui';
 
 /**
@@ -12,12 +12,17 @@ import { useThemeUI } from 'theme-ui';
  * @param {*} fillUntilIndex integer: If you don't want to fill all breakpoints
  * @param {*} falseReturns boolean: overwrites the returned value when the item is false
  */
-export const useResponsiveProp = ({ initItems, fillUntilIndex = 0, falseReturns = null }) => {
+export const useResponsiveProp = ({
+  initItems,
+  fillUntilIndex = 0,
+  falseReturns = null,
+}) => {
   const context = useThemeUI();
-  const breakpointCount = useRef(context.theme?.breakpoints?.length + 1|| 1);
+
+  const breakpointCount = useRef(context.theme?.breakpoints?.length + 1 || 1);
 
   return [...initItems, ...Array(breakpointCount.current).fill()]
-    .slice(0, fillUntilIndex === 0  ? breakpointCount.current : fillUntilIndex)
+    .slice(0, fillUntilIndex === 0 ? breakpointCount.current : fillUntilIndex)
     .reduce((items, item, index) => {
       // false returns null component
       /* eslint-disable-next-line */

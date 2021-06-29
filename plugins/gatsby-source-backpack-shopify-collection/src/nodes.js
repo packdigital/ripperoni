@@ -74,11 +74,13 @@ exports.createCollectionNodes = async ({ collections, helpers }) => {
   const collectionNodes = collections.map((data) => {
     const withMiddleware = middlewares.collection(data);
     const node = CollectionNode(withMiddleware);
+
     const id = convertToGatsbyGraphQLId(
-      node._id || node.backpackId | node.id,
+      node.backpackId || node._id || node.id,
       COLLECTION,
       TYPE_PREFIX
     );
+
     createNode({ ...node, id });
     cache.set(id, { ...node, id });
     return { ...node, id };
@@ -114,7 +116,7 @@ exports.createCollectionImageNodes = async ({ collections, helpers }) => {
       const withMiddleware = middlewares.image({ ...data.image, id: data.id });
       const node = ImageNode(withMiddleware);
       const id = convertToGatsbyGraphQLId(
-        node._id || node.backpackId | node.id,
+        node.backpackId || node._id || node.id,
         IMAGE,
         TYPE_PREFIX
       );
@@ -126,7 +128,6 @@ exports.createCollectionImageNodes = async ({ collections, helpers }) => {
   if (imageNodes.length > 0) {
     const createImagesMessage = format`{${LOG_PREFIX}} Create {bold BackpackCollectionImage} nodes`;
     const createImagesResultMessage = format`{bold ${imageNodes.length} nodes}`;
-
     success(`${createImagesMessage} - ${createImagesResultMessage}`);
   }
 };
