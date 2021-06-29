@@ -24,5 +24,5 @@
     "gatsby-source-contentful": "^5.7.1"
   },
   "prettier": "@packdigital/prettier-config-ripperoni",
-  "gitHead": "8efa33d13b855a068d67beee35eeaf7bfea23b45"
+  "gitHead": "bc978595675269afbf1725cfb9cabb809da1a243"
 }

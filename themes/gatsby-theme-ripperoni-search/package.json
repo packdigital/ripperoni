@@ -20,5 +20,6 @@
   "dependencies": {
     "@gatsby-contrib/gatsby-plugin-elasticlunr-search": "^3.0.2"
   },
-  "prettier": "@packdigital/prettier-config-ripperoni"
+  "prettier": "@packdigital/prettier-config-ripperoni",
+  "gitHead": "bc978595675269afbf1725cfb9cabb809da1a243"
 }

@@ -45,5 +45,6 @@
     "@babel/cli": "^7.8.4",
     "babel-plugin-import-graphql": "^2.7.0"
   },
-  "prettier": "@packdigital/prettier-config-ripperoni"
+  "prettier": "@packdigital/prettier-config-ripperoni",
+  "gitHead": "bc978595675269afbf1725cfb9cabb809da1a243"
 }

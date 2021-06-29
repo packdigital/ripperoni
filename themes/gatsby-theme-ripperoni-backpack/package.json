@@ -21,5 +21,6 @@
     "@packdigital/gatsby-source-backpack": "^1.0.1",
     "@packdigital/gatsby-source-backpack-shopify-collection": "^1.0.1"
   },
-  "prettier": "@packdigital/prettier-config-ripperoni"
+  "prettier": "@packdigital/prettier-config-ripperoni",
+  "gitHead": "bc978595675269afbf1725cfb9cabb809da1a243"
 }

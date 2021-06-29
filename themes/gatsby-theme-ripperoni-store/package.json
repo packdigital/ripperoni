@@ -30,5 +30,6 @@
     "subscriptions-transport-ws": "^0.9.18",
     "ws": "^7.3.0"
   },
-  "prettier": "@packdigital/prettier-config-ripperoni"
+  "prettier": "@packdigital/prettier-config-ripperoni",
+  "gitHead": "bc978595675269afbf1725cfb9cabb809da1a243"
 }

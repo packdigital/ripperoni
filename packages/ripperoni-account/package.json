@@ -17,5 +17,6 @@
     "graphql-tag": "^2.10.3",
     "isomorphic-fetch": "^2.2.1"
   },
-  "prettier": "@packdigital/prettier-config-ripperoni"
+  "prettier": "@packdigital/prettier-config-ripperoni",
+  "gitHead": "bc978595675269afbf1725cfb9cabb809da1a243"
 }

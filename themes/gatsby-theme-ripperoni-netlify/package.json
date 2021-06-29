@@ -24,5 +24,6 @@
   "devDependencies": {
     "netlify-plugin-gatsby-cache": "^0.3.2"
   },
-  "prettier": "@packdigital/prettier-config-ripperoni"
+  "prettier": "@packdigital/prettier-config-ripperoni",
+  "gitHead": "bc978595675269afbf1725cfb9cabb809da1a243"
 }

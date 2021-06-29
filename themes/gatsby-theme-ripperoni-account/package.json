@@ -29,5 +29,6 @@
     "use-local-storage-state": "^5.1.0",
     "use-reducer-async": "^2.0.1"
   },
-  "prettier": "@packdigital/prettier-config-ripperoni"
+  "prettier": "@packdigital/prettier-config-ripperoni",
+  "gitHead": "bc978595675269afbf1725cfb9cabb809da1a243"
 }
