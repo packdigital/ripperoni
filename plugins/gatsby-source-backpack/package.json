@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-source-backpack",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "@packdigital",
   "description": "something something whatever who gives a crap.",
   "license": "MIT",
@@ -19,7 +19,7 @@
     "gatsby": "^2.19.5 || ^3.0.0"
   },
   "dependencies": {
-    "@packdigital/ripperoni-utilities": "^3.0.1",
+    "@packdigital/ripperoni-utilities": "^3.0.2",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
     "apollo-link": "^1.2.14",

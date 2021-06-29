@@ -1,6 +1,6 @@
 {
   "name": "@packdigital/gatsby-theme-ripperoni-backpack",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "@packdigital",
   "description": "",
   "repository": "https://github.com/packdigital/ripperoni",
@@ -18,8 +18,8 @@
     "react-dom": "^17.0.2"
   },
   "dependencies": {
-    "@packdigital/gatsby-source-backpack": "^1.0.1",
-    "@packdigital/gatsby-source-backpack-shopify-collection": "^1.0.1"
+    "@packdigital/gatsby-source-backpack": "^1.0.2",
+    "@packdigital/gatsby-source-backpack-shopify-collection": "^1.0.2"
   },
   "prettier": "@packdigital/prettier-config-ripperoni",
   "gitHead": "bc978595675269afbf1725cfb9cabb809da1a243"
