@@ -40,5 +40,5 @@
     "cross-env": "^5.2.1"
   },
   "prettier": "@packdigital/prettier-config-ripperoni",
-  "gitHead": "e2233883130f0c11ce6af9183d7a38a5bc12c16b"
+  "gitHead": "ba94484492bad34031ccb35692e861739fafe9e7"
 }
