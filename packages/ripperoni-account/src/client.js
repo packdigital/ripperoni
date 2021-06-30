@@ -3,9 +3,13 @@ const { ApolloLink } = require('apollo-link');
 const { onError } = require('apollo-link-error');
 const { ApolloClient } = require('apollo-client');
 const { createHttpLink } = require('apollo-link-http');
-const { InMemoryCache, IntrospectionFragmentMatcher } = require('apollo-cache-inmemory');
+const {
+  InMemoryCache,
+  IntrospectionFragmentMatcher,
+} = require('apollo-cache-inmemory');
 const fetch = require('isomorphic-fetch');
 
+const version = process.env.SHOPIFY_API_VERSION || '2020-04';
 
 const getErrorCode = ({ message, path = [] }) => {
   switch (path[0]) {
@@ -14,7 +18,9 @@ const getErrorCode = ({ message, path = [] }) => {
         return 'TOO_MANY_LOGIN_ATTEMPTS';
       }
     case 'customerCreate':
-      if (message === 'Creating Customer Limit exceeded. Please try again later.') {
+      if (
+        message === 'Creating Customer Limit exceeded. Please try again later.'
+      ) {
         return 'TOO_MANY_CREATE_ATTEMPTS';
       }
     default:
@@ -24,10 +30,10 @@ const getErrorCode = ({ message, path = [] }) => {
 
 const errorLink = onError(({ response, graphQLErrors }) => {
   if (graphQLErrors) {
-    response.errors = graphQLErrors.map(error => ({
+    response.errors = graphQLErrors.map((error) => ({
       code: getErrorCode(error),
       field: null,
-      message: error.message
+      message: error.message,
     }));
   }
 });
@@ -41,18 +47,16 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 });
 
 const httpLink = new createHttpLink({
-  uri: `https://${process.env.GATSBY_SHOPIFY_SHOP_NAME}.myshopify.com/api/2020-04/graphql.json`,
+  uri: `https://${process.env.GATSBY_SHOPIFY_SHOP_NAME}.myshopify.com/api/${version}/graphql.json`,
   headers: {
     'Content-Type': 'application/json',
-    'X-Shopify-Storefront-Access-Token': process.env.GATSBY_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+    'X-Shopify-Storefront-Access-Token':
+      process.env.GATSBY_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
   },
   fetch,
 });
 
-const link = ApolloLink.from([
-  errorLink,
-  httpLink,
-]);
+const link = ApolloLink.from([errorLink, httpLink]);
 
 const client = new ApolloClient({
   link,
@@ -68,7 +72,7 @@ const client = new ApolloClient({
       fetchPolicy: 'no-cache',
       // errorPolicy: 'all',
     },
-  }
+  },
 });
 
 module.exports = client;
