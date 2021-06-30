@@ -2,7 +2,6 @@ const gql = require('graphql-tag');
 
 const address = require('./address');
 
-
 const CUSTOMER_FRAGMENT = gql`
   fragment customer on Customer {
     id
@@ -11,15 +10,17 @@ const CUSTOMER_FRAGMENT = gql`
     acceptsMarketing
     email
     tags
-    defaultAddress { ...address }
-    addresses (first: 100) {
+    defaultAddress {
+      ...address
+    }
+    addresses(first: 100) {
       edges {
         node {
           ...address
         }
       }
     }
-    orders (first: 100) {
+    orders(first: 100) {
       edges {
         node {
           id
@@ -29,31 +30,46 @@ const CUSTOMER_FRAGMENT = gql`
           currencyCode
           date: processedAt
           status: financialStatus
-          totalTax: totalTaxV2 { amount }
-          totalPrice: totalPriceV2 { amount }
-          subtotalPrice: subtotalPriceV2 { amount }
-          shippingPrice: totalShippingPriceV2 { amount }
-          shippingAddress { ...address }
+          totalTax: totalTaxV2 {
+            amount
+          }
+          totalPrice: totalPriceV2 {
+            amount
+          }
+          subtotalPrice: subtotalPriceV2 {
+            amount
+          }
+          shippingPrice: totalShippingPriceV2 {
+            amount
+          }
+          shippingAddress {
+            ...address
+          }
           fulfillments: successfulFulfillments(first: 100) {
             company: trackingCompany
-            tracking: trackingInfo (first: 100) { url }
+            tracking: trackingInfo(first: 100) {
+              url
+            }
           }
-          discounts: discountApplications (first: 100) {
+          discounts: discountApplications(first: 100) {
             edges {
               node {
-                allocationMethod
                 targetSelection
                 targetType
               }
             }
           }
-          lineItems (first: 100) {
+          lineItems(first: 100) {
             edges {
               node {
                 title
                 quantity
-                fallbackCompareAtPrice: originalTotalPrice { amount }
-                fallbackPrice: discountedTotalPrice { amount }
+                fallbackCompareAtPrice: originalTotalPrice {
+                  amount
+                }
+                fallbackPrice: discountedTotalPrice {
+                  amount
+                }
                 variant {
                   id
                   title
@@ -84,9 +100,11 @@ const CUSTOMER_FRAGMENT = gql`
 `;
 
 const CREATE_CUSTOMER_MUTATION = gql`
-  mutation customerCreate ($input: CustomerCreateInput!) {
-    customerCreate (input: $input) {
-      customer { id }
+  mutation customerCreate($input: CustomerCreateInput!) {
+    customerCreate(input: $input) {
+      customer {
+        id
+      }
       errors: customerUserErrors {
         code
         field
@@ -97,8 +115,8 @@ const CREATE_CUSTOMER_MUTATION = gql`
 `;
 
 const GET_CUSTOMER_QUERY = gql`
-  query customerQuery ($customerAccessToken: String!) {
-    customer (customerAccessToken: $customerAccessToken) {
+  query customerQuery($customerAccessToken: String!) {
+    customer(customerAccessToken: $customerAccessToken) {
       ...customer
     }
   }

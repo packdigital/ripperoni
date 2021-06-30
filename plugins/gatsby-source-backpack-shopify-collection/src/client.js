@@ -3,8 +3,8 @@ const { createHttpLink } = require('apollo-link-http');
 const { InMemoryCache } = require('apollo-cache-inmemory');
 const fetch = require('isomorphic-fetch');
 
-
-const shopifyClient = ({ shopName, accessToken, version = '2020-04' }) => {
+const shopifyClient = ({ shopName, accessToken }) => {
+  const version = process.env.SHOPIFY_API_VERSION || '2020-04';
   const uri = `https://${shopName}.myshopify.com/api/${version}/graphql.json`;
 
   const headers = {
@@ -20,6 +20,6 @@ const shopifyClient = ({ shopName, accessToken, version = '2020-04' }) => {
 
 module.exports = {
   clients: {
-    shopify: shopifyClient
-  }
+    shopify: shopifyClient,
+  },
 };
