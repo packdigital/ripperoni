@@ -6,15 +6,15 @@ import gql from 'graphql-tag';
 import client from '../api/backpack';
 
 export const useInventory = (id) => {
-  const [inventory, setInventory] = useState({});
+  const [inventory, setInventory] = useState({ loading: true });
 
   useSubscription(GET_INVENTORY, {
     variables: {
-      id: parseInt(id.split('__').pop())
+      id: parseInt(id.split('__').pop()),
     },
     client,
-    onSubscriptionData: ({subscriptionData}) => {
-      setInventory(subscriptionData.data.productVariant);
+    onSubscriptionData: ({ subscriptionData }) => {
+      setInventory({ loading: false, ...subscriptionData.data.productVariant });
     },
   });
 
@@ -22,7 +22,7 @@ export const useInventory = (id) => {
 };
 
 const GET_INVENTORY = gql`
-  subscription Inventory ($id: bigint!) {
+  subscription Inventory($id: bigint!) {
     productVariant(id: $id) {
       id
       productId
